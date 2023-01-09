@@ -39,8 +39,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
-            - secretRef:
-                name: {{ .Values.existingSecret | default (include "frank-framework.fullname" .) }}
             - configMapRef:
                 name: {{ include "frank-framework.fullname" . }}-env
           volumeMounts:
