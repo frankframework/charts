@@ -48,26 +48,36 @@ spec:
               mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
               subPath: context.xml
               readOnly: true
+            {{- if .Values.frank.credentials }}
+            - name: {{ template "frank-framework.fullname" . }}-credentials
+              mountPath: /opt/frank/secrets/
+              readOnly: true
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /iaf/api/server/health
+              path: /iaf/
               port: http
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe:
-            httpGet:
-              path: /iaf/api/server/health
-              port: http
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          # readinessProbe:
+          #   httpGet:
+          #     path: /iaf/api/server/health
+          #     port: http
+          #   {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: {{ template "frank-framework.fullname" . }}-config
           configMap:
             name: {{ template "frank-framework.fullname" . }}-config
+        {{- if .Values.frank.credentials }}
+        - name: {{ template "frank-framework.fullname" . }}-credentials
+          secret: 
+            secretName: {{ .Values.frank.credentials.secret }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

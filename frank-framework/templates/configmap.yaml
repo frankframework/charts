@@ -6,10 +6,16 @@ metadata:
   labels:
     {{- include "frank-framework.labels" . | nindent 4 }}
 data:
+  # Enable Narayana transaction manager
+  application.server.type.custom: NARAYANA
   instance.name: {{ .Values.frank.instance.name }}
   dtap.stage: {{ .Values.frank.dtap.stage }}
   dtap.side: {{ .Values.frank.dtap.side }}
   configurations.names: "" {{ .Values.frank.configurations.names }}
+  {{- if .Values.frank.credentials }}
+  credentialFactory.class: nl.nn.credentialprovider.PropertyFileCredentialFactory
+  credentialFactory.map.properties: /opt/frank/secrets/{{.Values.frank.credentials.key}}
+  {{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
