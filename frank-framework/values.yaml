@@ -124,20 +124,3 @@ connections:
       database: null
       user: ${database/username}
       password: ${database/password}
-  #     # (not implemented yet)
-  #     existingSecret: null
-  #   - name: jdbc/secondary
-  #     type: mariadb
-  #     host: test
-  #     port: null
-  #     user: null
-  #     password: null
-  #     existingSecret: null
-  # jms: 
-  #   - name: jms/active
-  #     # Possible types: activemq and artemis
-  #     type: activemq
-  #     host: test
-  #   - name: jms/artemis
-  #     type: artemis
-  #     host: test

@@ -15,7 +15,6 @@ spec:
     metadata:
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -60,11 +59,6 @@ spec:
               path: /iaf/
               port: http
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-          # readinessProbe:
-          #   httpGet:
-          #     path: /iaf/api/server/health
-          #     port: http
-          #   {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
