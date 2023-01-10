@@ -101,6 +101,7 @@ data:
               URL="jdbc:postgresql://{{ .host }}:{{ .port | default 5432}}/{{ .database | default $.Values.frank.instance.name }}"
               user="{{ .user }}"
               password="{{ .password }}"
+              sslMode="{{ ternary "REQUIRE" "DISABLE" (.ssl | default false)}}"
             />
           {{- end }}
           {{- if eq .type "db2" }}

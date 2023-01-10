@@ -39,14 +39,14 @@ Now set the values: frank.credentials.secret (secret name) and frank.credentials
 ## ToDo's
 
 - [ ] Write instructions
-	- [*] Required parameters
-	- [*] Database
+	- [x] Required parameters
+	- [x] Database
 	- [ ] Configurations
 - [ ] Implement login capabilities
 	- [ ] ldap;
 	- [ ] tomcat-users.
 - [ ] Make it possible to use secrets (use credentials.properties as secret for now) for:
-	- [*] databases;
+	- [x] databases;
 	- [ ] ldap;
 	- [ ] tomcat-users.
 - [ ] Implement postgresql subchart
