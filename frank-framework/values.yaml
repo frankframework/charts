@@ -118,7 +118,7 @@ connections:
       # Default name is "jdbc/{{ .Values.frank.instance.name }}"
     - name: null
       # Possible types: oracle, mssql, mysql, mariadb, postgresql, db2 and mongodb
-      type: mariadb
+      type: postgresql
       host: mariadb.frank2kube.svc.cluster.local
       port: null
       database: null

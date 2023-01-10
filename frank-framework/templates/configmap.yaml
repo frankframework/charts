@@ -27,6 +27,7 @@ data:
   context.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>
     <Context>
+      <JarScanner scanClassPath="false" scanAllFiles="false" scanAllDirectories="false"/>
       {{- with .Values.connections }}
         {{- range .jdbc }}
           {{- $name := .host | required (printf ".host is required for database of type %s" .type) -}}
