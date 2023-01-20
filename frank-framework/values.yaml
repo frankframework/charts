@@ -43,7 +43,7 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
@@ -105,14 +105,20 @@ frank:
     secret: credentials
     # Key of secret and place to mount.
     key: credentials.properties
+  # (required) the name of the Frank
   instance:
     name: Frank2Kube
+  # Set the dtap stage and side 
   dtap:  
+    # (required) Options: LOC, DEV, TST, ACC, PRD
     stage: LOC
     side: cluster
+  # Configurations to load.
   configurations:
     names: ""
-
+  # Key value properties that will end up in the environment variables
+  properties: {}
+  
 connections: 
   jdbc:
       # Default name is "jdbc/{{ .Values.frank.instance.name }}"
