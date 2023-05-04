@@ -1,0 +1,17 @@
+{{- define "ff-common.service.tpl" -}}
+apiVersion: v1
+kind: Service
+{{ template "ff-common.metadata" . }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "ff-common.selectorLabels" . | nindent 4 }}
+{{- end -}}
+{{- define "ff-common.service" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.service.tpl") -}}
+{{- end -}}

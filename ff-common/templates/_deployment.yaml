@@ -1,0 +1,24 @@
+{{- define "ff-common.deployment.tpl" -}}
+apiVersion: apps/v1
+kind: Deployment
+{{ template "ff-common.metadata" . }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+{{ include "ff-common.selectorLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "ff-common.name" . }}
+        release: {{ .Release.Name | quote }}
+    spec:
+      containers:
+      -
+{{ include "ff-common.container.tpl" . | indent 8 }}
+{{- end -}}
+{{- define "ff-common.deployment" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}
+{{- end -}}

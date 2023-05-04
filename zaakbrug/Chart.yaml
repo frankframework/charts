@@ -1,0 +1,8 @@
+apiVersion: v2
+name: zaakbrug
+version: 1.0.0
+
+dependencies:
+  - name: ff-common
+    version: 1.0.0
+    repository: file://../ff-common

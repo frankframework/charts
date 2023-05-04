@@ -1,0 +1,9 @@
+{{- define "ff-common.configmap.tpl" -}}
+apiVersion: v1
+kind: ConfigMap
+{{ template "ff-common.metadata" . }}
+data: {}
+{{- end -}}
+{{- define "ff-common.configmap" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.configmap.tpl") -}}
+{{- end -}}

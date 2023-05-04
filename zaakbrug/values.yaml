@@ -1,0 +1,42 @@
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+
+image:
+  repository: 'nexus.frankframework.org/frank-framework'
+  tag: '7.8'
+  pullPolicy: ''
+
+securityContext:
+  readOnlyRootFilesystem: false
+
+service:
+  type: ClusterIP
+  port: 80
+
+
+
+timeZone: Europe/Amsterdam
+
+frank:
+  memory: 4G
+  dtap:
+    stage: TST
+    side: ''
+  credentials: {}
+  configurations:
+    names: 'dsd,sd,sd,sd,sd'
+  instance:
+    name: "z"
+  security:
+    http:
+      authentication: true
+      ad: {}
+
+
+
+
+
+
+

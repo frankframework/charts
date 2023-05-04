@@ -1,0 +1,61 @@
+{{- define "ff-common.container.tpl" -}}
+name: {{ .Chart.Name }}
+securityContext:
+{{- toYaml .Values.securityContext | nindent 12 }}
+image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+imagePullPolicy: {{ .Values.image.pullPolicy }}
+envFrom:
+  - configMapRef:
+      name: {{ include "ff-common.fullname" . }}-env
+  - configMapRef:
+      name: {{ template "ff-common.fullname" . }}-specifics
+volumeMounts:
+    {{- if .Values.securityContext.readOnlyRootFilesystem }}
+  - mountPath: /usr/local/tomcat/logs
+    name: tmpfs
+  - mountPath: /usr/local/tomcat/conf/Catalina
+    name: tmpfs
+  - mountPath: /usr/local/tomcat/work/Catalina/localhost
+    name: tmpfs
+  - mountPath: /usr/local/tomcat/temp
+    name: tmpfs
+    {{- end }}
+  - name: {{ template "ff-common.fullname" . }}-config
+    mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
+    subPath: context.xml
+    readOnly: true
+  - name: {{ template "ff-common.fullname" . }}-tomcat-users
+    mountPath: /usr/local/tomcat/conf/tomcat-users.xml
+    subPath: tomcat-users.xml
+    readOnly: true
+    {{- if .Values.frank.security.http.ad.roles }}
+  - name: {{ template "ff-common.fullname" . }}-roles
+    mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/ldap-role-mapping.properties
+    subPath: ldap-role-mapping.properties
+    readOnly: true
+    {{- end }}
+    {{- if .Values.frank.credentials.secret }}
+  - name: {{ template "ff-common.fullname" . }}-credentials
+    mountPath: /opt/frank/secrets/
+    readOnly: true
+    {{- end }}
+ports:
+  - name: http
+    containerPort: 8080
+    protocol: TCP
+  - name: https
+    containerPort: 8443
+    protocol: TCP
+livenessProbe:
+  httpGet:
+    path: /iaf/
+    port: http
+    {{- toYaml .Values.livenessProbe | nindent 12 }}
+resources:
+{{- toYaml .Values.resources | nindent 12 }}
+{{- end -}}
+{{- define "ff-common.container" -}}
+{{- /* clear new line so indentation works correctly */ -}}
+{{- println "" -}}
+{{- include "ff-common.util.merge" (append . "ff-common.container.tpl") | indent 8 -}}
+{{- end -}}

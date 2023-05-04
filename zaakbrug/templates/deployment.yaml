@@ -1,0 +1,8 @@
+{{- template "ff-common.deployment" (list . "demo.deployment") -}}
+{{- define "demo.deployment" -}}
+apiVersion: apps/v1
+spec:
+  selector:
+    matchLabels:
+      haha: loool
+{{- end -}}

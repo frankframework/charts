@@ -1,0 +1,3 @@
+{{- template "ff-common.service.tpl" . }}
+---
+{{/*{{- template "ff-common.configmap.env.tpl"}}*/}}
