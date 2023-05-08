@@ -11,11 +11,14 @@ image:
 securityContext:
   readOnlyRootFilesystem: false
 
+ingress:
+  enabled: true
+
 service:
   type: ClusterIP
   port: 80
 
-
+livenessProbe: {}
 
 timeZone: Europe/Amsterdam
 

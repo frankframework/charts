@@ -20,7 +20,8 @@ service:
   type: ClusterIP
   port: 80
 
-
+ingress:
+  enabled: false
 
 timeZone: Europe/Amsterdam
 
@@ -28,6 +29,7 @@ frank:
   memory: 4G
   dtap:
     stage: LOC
+    side: ''
   credentials: {}
   instance:
     name: "z"

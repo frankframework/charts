@@ -1,3 +1,6 @@
+{{/*
+Create a simple ConfigMap
+*/}}
 {{- define "ff-common.configmap.tpl" -}}
 apiVersion: v1
 kind: ConfigMap

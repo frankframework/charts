@@ -12,12 +12,18 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "ff-common.name" . }}
-        release: {{ .Release.Name | quote }}
+{{ include "ff-common.selectorLabels" . | indent 8 }}
     spec:
       containers:
-      -
-{{ include "ff-common.container.tpl" . | indent 8 }}
+        -
+{{ include "ff-common.container.tpl" . | indent 10 }}
+      volumes:
+        - name: {{ include "ff-common.fullname" . }}-tomcat-users
+          configMap:
+            name: {{ include "ff-common.fullname" . }}-tomcat-users
+        - name: {{ include "ff-common.fullname" . }}-config
+          configMap:
+            name: {{ include "ff-common.fullname" . }}-config
 {{- end -}}
 {{- define "ff-common.deployment" -}}
 {{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}

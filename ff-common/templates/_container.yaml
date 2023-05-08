@@ -1,3 +1,6 @@
+{{/*
+Predefined container for running a Frank!
+*/}}
 {{- define "ff-common.container.tpl" -}}
 name: {{ .Chart.Name }}
 securityContext:
@@ -7,8 +10,6 @@ imagePullPolicy: {{ .Values.image.pullPolicy }}
 envFrom:
   - configMapRef:
       name: {{ include "ff-common.fullname" . }}-env
-  - configMapRef:
-      name: {{ template "ff-common.fullname" . }}-specifics
 volumeMounts:
     {{- if .Values.securityContext.readOnlyRootFilesystem }}
   - mountPath: /usr/local/tomcat/logs
@@ -46,16 +47,16 @@ ports:
   - name: https
     containerPort: 8443
     protocol: TCP
-livenessProbe:
-  httpGet:
-    path: /iaf/
-    port: http
-    {{- toYaml .Values.livenessProbe | nindent 12 }}
+{{/*livenessProbe:*/}}
+{{/*  httpGet:*/}}
+{{/*    path: /iaf/*/}}
+{{/*    port: http*/}}
+{{/*    {{- toYaml .Values.livenessProbe | nindent 12 }}*/}}
 resources:
 {{- toYaml .Values.resources | nindent 12 }}
 {{- end -}}
 {{- define "ff-common.container" -}}
-{{- /* clear new line so indentation works correctly */ -}}
+{{- /* Clear new line so indentation works correctly */ -}}
 {{- println "" -}}
 {{- include "ff-common.util.merge" (append . "ff-common.container.tpl") | indent 8 -}}
 {{- end -}}

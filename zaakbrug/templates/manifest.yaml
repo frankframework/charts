@@ -1,3 +1,11 @@
-{{- template "ff-common.service.tpl" . }}
+{{- template "ff-common.deployment.tpl" . }}
 ---
-{{/*{{- template "ff-common.configmap.env.tpl"}}*/}}
+{{- template "ff-common.configmap.env.tpl" . }}
+---
+{{- template "ff-common.configmap.config.tpl" . }}
+---
+{{- template "ff-common.configmap.tomcat-users.tpl" . }}
+---
+{{- template "ff-common.ingress.tpl" . }}
+---
+{{- template "ff-common.service.tpl" . }}
