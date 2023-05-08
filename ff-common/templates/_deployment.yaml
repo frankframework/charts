@@ -13,17 +13,30 @@ spec:
     metadata:
       labels:
 {{ include "ff-common.selectorLabels" . | indent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ff-common.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         -
 {{ include "ff-common.container.tpl" . | indent 10 }}
       volumes:
-        - name: {{ include "ff-common.fullname" . }}-tomcat-users
+        - name: {{ template "ff-common.fullname" . }}-tomcat-users
           configMap:
-            name: {{ include "ff-common.fullname" . }}-tomcat-users
-        - name: {{ include "ff-common.fullname" . }}-config
+            name: {{ template "ff-common.fullname" . }}-tomcat-users
+        - name: {{ template "ff-common.fullname" . }}-config
           configMap:
-            name: {{ include "ff-common.fullname" . }}-config
+            name: {{ template "ff-common.fullname" . }}-context
+        - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
+          configMap:
+            name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
 {{- end -}}
 {{- define "ff-common.deployment" -}}
 {{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}

@@ -18,8 +18,9 @@ data:
         <role rolename="IbisDataAdmin"/>
         <role rolename="IbisAdmin"/>
         <role rolename="IbisWebService"/>
-      {{- range .Values.frank.security.http.tomcatUsers }}
-        <user username="{{ .username }}" password="{{ .password }}" roles="{{ .roles | default "IbisTester" }}"/>
+        <role rolename="IbisObserver"/>
+      {{- range .Values.frank.security.http.localUsers }}
+        <user username="{{ .username }}" password="{{ .password }}" roles="{{ join "," .roles | default "IbisTester" }}"/>
       {{- end }}
     </tomcat-users>
 {{- end -}}

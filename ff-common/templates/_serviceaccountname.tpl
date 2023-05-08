@@ -1,9 +1,9 @@
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "zaakbrug.serviceAccountName" -}}
+{{- define "ff-common.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "zaakbrug.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "ff-common.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

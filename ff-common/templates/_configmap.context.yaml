@@ -1,12 +1,12 @@
 {{/*
 ConfigMap for generating a context.xml including all connections
 */}}
-{{- define "ff-common.configmap.config.tpl" -}}
+{{- define "ff-common.configmap.context.tpl" -}}
 apiVersion: v1
 kind: ConfigMap
 {{ template "ff-common.metadata" . }}
 metadata:
-  name: {{ include "ff-common.fullname" . }}-config
+  name: {{ include "ff-common.fullname" . }}-context
 data:
   context.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>
@@ -135,6 +135,6 @@ data:
       {{- end }}
     </Context>
 {{- end -}}
-{{- define "ff-common.configmap.config" -}}
-{{- template "ff-common.util.merge" (append . "ff-common.configmap.config.tpl") -}}
+{{- define "ff-common.configmap.context" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.configmap.context.tpl") -}}
 {{- end -}}

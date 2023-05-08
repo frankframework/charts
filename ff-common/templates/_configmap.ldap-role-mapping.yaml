@@ -1,0 +1,20 @@
+{{/*
+ConfigMap for generating a ldap-role-mapping.properties
+*/}}
+{{- define "ff-common.configmap.ldap-role-mapping.tpl" -}}
+apiVersion: v1
+kind: ConfigMap
+{{ template "ff-common.metadata" . }}
+metadata:
+  name: {{ include "ff-common.fullname" . }}-ldap-role-mapping
+data:
+  ldap-role-mapping.properties: |
+    IbisTester={{ .Values.frank.security.http.activeDirectory.roleMapping.tester | default "IbisTester" }}
+    IbisAdmin={{ .Values.frank.security.http.activeDirectory.roleMapping.admin | default "IbisAdmin" }}
+    IbisDataAdmin={{ .Values.frank.security.http.activeDirectory.roleMapping.dataAdmin | default "IbisDataAdmin" }}
+    IbisWebService={{ .Values.frank.security.http.activeDirectory.roleMapping.webService | default "IbisWebService" }}
+    IbisObserver={{ .Values.frank.security.http.activeDirectory.roleMapping.observer | default "IbisObserver" }}
+{{- end -}}
+{{- define "ff-common.configmap.ldap-role-mapping" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.configmap.ldap-role-mapping.tpl") -}}
+{{- end -}}

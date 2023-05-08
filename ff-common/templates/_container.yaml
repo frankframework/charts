@@ -4,12 +4,12 @@ Predefined container for running a Frank!
 {{- define "ff-common.container.tpl" -}}
 name: {{ .Chart.Name }}
 securityContext:
-{{- toYaml .Values.securityContext | nindent 12 }}
+  {{- toYaml .Values.securityContext | nindent 2 }}
 image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
 imagePullPolicy: {{ .Values.image.pullPolicy }}
 envFrom:
   - configMapRef:
-      name: {{ include "ff-common.fullname" . }}-env
+      name: {{ template "ff-common.fullname" . }}-env
 volumeMounts:
     {{- if .Values.securityContext.readOnlyRootFilesystem }}
   - mountPath: /usr/local/tomcat/logs
@@ -21,7 +21,7 @@ volumeMounts:
   - mountPath: /usr/local/tomcat/temp
     name: tmpfs
     {{- end }}
-  - name: {{ template "ff-common.fullname" . }}-config
+  - name: {{ template "ff-common.fullname" . }}-context
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
     subPath: context.xml
     readOnly: true
@@ -29,8 +29,8 @@ volumeMounts:
     mountPath: /usr/local/tomcat/conf/tomcat-users.xml
     subPath: tomcat-users.xml
     readOnly: true
-    {{- if .Values.frank.security.http.ad.roles }}
-  - name: {{ template "ff-common.fullname" . }}-roles
+    {{- if .Values.frank.security.http.activeDirectory.roleMapping }}
+  - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
     mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/ldap-role-mapping.properties
     subPath: ldap-role-mapping.properties
     readOnly: true
@@ -47,13 +47,13 @@ ports:
   - name: https
     containerPort: 8443
     protocol: TCP
-{{/*livenessProbe:*/}}
-{{/*  httpGet:*/}}
-{{/*    path: /iaf/*/}}
-{{/*    port: http*/}}
-{{/*    {{- toYaml .Values.livenessProbe | nindent 12 }}*/}}
+livenessProbe:
+  {{- toYaml .Values.livenessProbe | nindent 2 }}
+  httpGet:
+    path: /iaf/
+    port: http
 resources:
-{{- toYaml .Values.resources | nindent 12 }}
+{{- toYaml .Values.resources | nindent 2 }}
 {{- end -}}
 {{- define "ff-common.container" -}}
 {{- /* Clear new line so indentation works correctly */ -}}
