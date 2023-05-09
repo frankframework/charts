@@ -25,11 +25,13 @@ volumeMounts:
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
     subPath: context.xml
     readOnly: true
+    {{ if .Values.frank.security.http.localUsers }}
   - name: {{ template "ff-common.fullname" . }}-tomcat-users
     mountPath: /usr/local/tomcat/conf/tomcat-users.xml
     subPath: tomcat-users.xml
     readOnly: true
-    {{- if .Values.frank.security.http.activeDirectory.roleMapping }}
+    {{- end }}
+    {{- if .Values.frank.security.http.activeDirectory.enabled }}
   - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
     mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/ldap-role-mapping.properties
     subPath: ldap-role-mapping.properties

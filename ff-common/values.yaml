@@ -40,29 +40,67 @@ image:
 ## @section Frank! Configuration parameters
 ##
 
-## @skip frank
+## @skip frank [object]
 ##
 frank:
+  ## @param frank.memory Sets the initial and maximum size of the heap that will be used by the Frank!Framework
+  ## ref: https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI
+  ##
   memory: 4G
+  ## @skip frank.dtap [object]
+  ## @param frank.dtap.stage Set the DTAP stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
+  ## @param frank.dtap.side [string] Set the DTAP side of where the instance is running
+  ##
   dtap:
-    stage: TST # Options: LOC, DEV, TST, ACC, PRD
+    stage: TST
     side: ''
-  credentials: { }
+  ## @skip frank.credentials [object,nullable]
+  ##
+#  credentials: { }
+  ## @skip frank.instance [string]
+  ## @param frank.instance.name Set the name of the Frank! instance
+  ##
   instance:
     name: ''
+  ## @skip frank.configurations [object]
+  ## @param frank.configurations.names [array] Set the configurations to load
+  ## e.g.
+  ## configurations.names:
+  ##   - main
   configurations:
     names: [ ]
-  #      - main
+  ## @skip frank.security [object]
+  ## @skip frank.security.http [object]
+  ##
   security:
     http:
-      # TODO
-      authentication: '' # Options: '', localUsers, activeDirectory
+      ## @param frank.security.http.authentication Set http authentication for the Frank!
+      authentication: true
+      ## @param frank.security.http.localUsers [object] Set localUsers who can log in on the Frank!
+      ## @param frank.security.http.localUsers.username [string] Set the username of the user
+      ## @param frank.security.http.localUsers.password [string] Set the password of the user
+      ## @param frank.security.http.localUsers.roles [array] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
+      ## e.g.
+      ## localUsers:
+      ##   - username: Tester
+      ##     password: ChangeMe!
+      ##     roles:
+      ##        - IbisTester
+      ##
       localUsers: { }
-      #        - username: Tester
-      #          password: ChangeMe!
-      #          roles:
-      #            - IbisTester
+      ## @skip frank.security.http.activeDirectory [object]
+      ## @param frank.security.http.activeDirectory.enabled Enable Active Directory for authentication
+      ## @param frank.security.http.activeDirectory.url Set url for Active Directory
+      ## @param frank.security.http.activeDirectory.baseDn Set baseDn for Active Directory users
+      ## @skip frank.security.http.activeDirectory.roleMapping [object]
+      ## @param frank.security.http.activeDirectory.roleMapping.tester Map the rol for Tester
+      ## @param frank.security.http.activeDirectory.roleMapping.dataAdmin Map the rol for DataAdmin
+      ## @param frank.security.http.activeDirectory.roleMapping.admin Map the rol for Admin
+      ## @param frank.security.http.activeDirectory.roleMapping.webService Map the rol for WebService
+      ## @param frank.security.http.activeDirectory.roleMapping.observer Map the rol for Observer
+      ##
       activeDirectory:
+        enabled: false
         url: ''
         baseDn: ''
         roleMapping:
@@ -71,6 +109,7 @@ frank:
           admin: ''
           webService: ''
           observer: ''
+  ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   environmentVariables: { }
 
 ## @section Frank!Framework Connection parameters
@@ -79,6 +118,8 @@ frank:
 ## @skip connections
 ##
 connections:
+  ## @param connections.jdbc [nullable, object]
+  ##
   jdbc:
   #    - name: ''
   #      type: ''
@@ -88,6 +129,8 @@ connections:
   #      username: ''
   #      password: ''
   #      ssl: ''
+  ## @param connections.jms [nullable, object]
+  ##
   jms:
 #    - name: ''
 #      type: ''
@@ -124,7 +167,6 @@ livenessProbe:
 ## @param resources.limits [string] The resources limits for the Frank!Framework containers
 ## @param resources.requests.memory [string] The requested memory for the Frank!Framework containers
 ## @param resources.requests.cpu [string] The requested cpu for the Frank!Framework containers
-##
 ## e.g.:
 ## resources
 ##   limits:
@@ -189,7 +231,6 @@ ingress:
   ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
   ## Use this parameter to set the required annotations for cert-manager, see
   ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
-  ##
   ## e.g:
   ## annotations:
   ##   kubernetes.io/ingress.class: nginx
@@ -243,7 +284,7 @@ podAnnotations: { }
 podLabels: { }
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext [object]
+## @param podSecurityContext [object] Set Frank!Framework pod's Security Context
 ## @param podSecurityContext.fsGroup [string] Set Frank!Framework pod's Security Context fsGroup
 ## @param podSecurityContext.seccompProfile.type [string] Set Frank!Framework container's Security Context seccomp profile
 ##
@@ -251,11 +292,11 @@ podSecurityContext: { }
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param securityContext [object] Set Frank!Framework container's Security Context
+## @param securityContext.capabilities.drop [string] Set Frank!Framework container's Security Context runAsNonRoot
+## @param securityContext.readOnlyRootFilesystem [string] Set Frank!Framework container's filesystem to read-only
+## @param securityContext.allowPrivilegeEscalation [string] Set Frank!Framework container's privilege escalation
 ## @param securityContext.runAsUser [string] Set Frank!Framework container's Security Context runAsUser
 ## @param securityContext.runAsNonRoot [string] Set Frank!Framework container's Security Context runAsNonRoot
-## @param securityContext.allowPrivilegeEscalation [string] Set Frank!Framework container's privilege escalation
-## @param securityContext.capabilities.drop [string] Set Frank!Framework container's Security Context runAsNonRoot
-##
 ## e.g.
 ## securityContext: {}
 ##  capabilities:

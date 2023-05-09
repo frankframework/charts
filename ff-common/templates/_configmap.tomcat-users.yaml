@@ -2,6 +2,7 @@
 ConfigMap for generating a tomcat-users.xml including all users and roles
 */}}
 {{- define "ff-common.configmap.tomcat-users.tpl" -}}
+{{- if .Values.frank.security.http.localUsers }}
 apiVersion: v1
 kind: ConfigMap
 {{ template "ff-common.metadata" . }}
@@ -23,6 +24,9 @@ data:
         <user username="{{ .username }}" password="{{ .password }}" roles="{{ join "," .roles | default "IbisTester" }}"/>
       {{- end }}
     </tomcat-users>
+{{- else }}
+---
+{{- end }}
 {{- end -}}
 {{- define "ff-common.configmap.tomcat-users" -}}
 {{- template "ff-common.util.merge" (append . "ff-common.configmap.tomcat-users.tpl") -}}

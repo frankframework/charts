@@ -19,9 +19,6 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ## Parameters
 
-### Common
-
-
 ### Common parameters
 
 | Name               | Description                                                                                  | Value |
@@ -41,9 +38,34 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ### Frank! Configuration parameters
 
+| Name                                                         | Description                                                                                                      | Value   |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                           | `4G`    |
+| `frank.dtap.stage`                                           | Set the DTAP stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                   | `TST`   |
+| `frank.dtap.side`                                            | Set the DTAP side of where the instance is running                                                               | `""`    |
+| `frank.instance.name`                                        | Set the name of the Frank! instance                                                                              | `""`    |
+| `frank.configurations.names`                                 | Set the configurations to load                                                                                   | `[]`    |
+| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `true`  |
+| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `{}`    |
+| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`    |
+| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`    |
+| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `[]`    |
+| `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false` |
+| `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`    |
+| `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the rol for Tester                                                                                           | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the rol for DataAdmin                                                                                        | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the rol for Admin                                                                                            | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                       | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                         | `""`    |
+| `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`    |
 
 ### Frank!Framework Connection parameters
 
+| Name               | Description | Value |
+| ------------------ | ----------- | ----- |
+| `connections.jdbc` |             | `{}`  |
+| `connections.jms`  |             | `{}`  |
 
 ### Frank!Framework deployment parameters
 
@@ -90,14 +112,15 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `serviceAccount.name`                      | The name of the ServiceAccount to use.                           | `""`   |
 | `podAnnotations`                           | Annotations for Frank!Framework pods                             | `{}`   |
 | `podLabels`                                | Extra labels for Frank!Framework pods                            | `{}`   |
-| `podSecurityContext`                       |                                                                  | `{}`   |
+| `podSecurityContext`                       | Set Frank!Framework pod's Security Context                       | `{}`   |
 | `podSecurityContext.fsGroup`               | Set Frank!Framework pod's Security Context fsGroup               | `""`   |
 | `podSecurityContext.seccompProfile.type`   | Set Frank!Framework container's Security Context seccomp profile | `""`   |
 | `securityContext`                          | Set Frank!Framework container's Security Context                 | `{}`   |
+| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot    | `""`   |
+| `securityContext.readOnlyRootFilesystem`   | Set Frank!Framework container's filesystem to read-only          | `""`   |
+| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation             | `""`   |
 | `securityContext.runAsUser`                | Set Frank!Framework container's Security Context runAsUser       | `""`   |
 | `securityContext.runAsNonRoot`             | Set Frank!Framework container's Security Context runAsNonRoot    | `""`   |
-| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation             | `""`   |
-| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot    | `""`   |
 
 
 
