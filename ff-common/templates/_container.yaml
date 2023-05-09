@@ -5,7 +5,7 @@ Predefined container for running a Frank!
 name: {{ .Chart.Name }}
 securityContext:
   {{- toYaml .Values.securityContext | nindent 2 }}
-image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
 imagePullPolicy: {{ .Values.image.pullPolicy }}
 envFrom:
   - configMapRef:
@@ -47,11 +47,13 @@ ports:
   - name: https
     containerPort: 8443
     protocol: TCP
+{{- if .Values.livenessProbe.enabled }}
 livenessProbe:
   {{- toYaml .Values.livenessProbe | nindent 2 }}
   httpGet:
     path: /iaf/
     port: http
+{{- end }}
 resources:
 {{- toYaml .Values.resources | nindent 2 }}
 {{- end -}}
