@@ -20,7 +20,7 @@ fullnameOverride: ""
 image:
   registry: nexus.frankframework.org
   repository: frank-framework
-  tag: 7.8
+  tag: ""
   ## @param image.pullPolicy Frank!Framework image pull policy
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -150,7 +150,6 @@ replicaCount: 1
 
 ## Configure extra options for Frank!Framework containers' liveness, readiness and startup probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe on Frank!Framework containers
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
 ## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
@@ -158,7 +157,6 @@ replicaCount: 1
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  enabled: true
   initialDelaySeconds: 40
   periodSeconds: 10
   timeoutSeconds: 1

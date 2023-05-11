@@ -1,21 +1,6 @@
-# 🔌Frank!Framework Common Library Chart
+# 🔌Frank!Framework Template Chart
 
-This [Helm Library Chart](https://helm.sh/docs/topics/library_charts/) is designed to make it easy create your own [Frank!Framework](https://frankframework.org) Chart.
-A lot of the common configuration work has been done already, making it quicker to develop.
-It also has the added benefit that additions can easily be distributed across all FF! Charts.
-
-## Usage
-
-### Getting Started
-
-The best way to start is to copy the template chart. This contains a copy of the values.yaml and implements all needed manifests.
-It is recommended to implement as much manifests as possible, some can be disabled and enabled in the values.yaml instead.
-This opens up the possibility for the user to use the manifest if they desire to.
-
-### Extending the Chart
-
-One of the main reasons this is a library and not a sub-chart is because it enables extendability.
-Whereas the sub-chart can only be used "as is", the library can be modified in your own chart.
+This template Helm Chart can be copied as a start point for a new Frank!.
 
 ## Parameters
 

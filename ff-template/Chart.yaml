@@ -1,6 +1,8 @@
 apiVersion: v2
-name: zaakbrug
+name: ff-template
 version: 1.0.0
+icon: https://github.com/ibissource/charts/blob/master/ff-template/icon.svg
+appVersion: "7.8"
 
 dependencies:
   - name: ff-common

@@ -25,7 +25,7 @@ volumeMounts:
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
     subPath: context.xml
     readOnly: true
-    {{ if .Values.frank.security.http.localUsers }}
+    {{- if .Values.frank.security.http.localUsers }}
   - name: {{ template "ff-common.fullname" . }}-tomcat-users
     mountPath: /usr/local/tomcat/conf/tomcat-users.xml
     subPath: tomcat-users.xml
@@ -49,13 +49,11 @@ ports:
   - name: https
     containerPort: 8443
     protocol: TCP
-{{- if .Values.livenessProbe.enabled }}
 livenessProbe:
   {{- toYaml .Values.livenessProbe | nindent 2 }}
   httpGet:
     path: /iaf/
     port: http
-{{- end }}
 resources:
 {{- toYaml .Values.resources | nindent 2 }}
 {{- end -}}

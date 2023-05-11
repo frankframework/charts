@@ -8,7 +8,7 @@ This should be called as 'template "ff-common.metadata.hook" "post-install"'
 Any valid hook may be passed in. Separate multiple hooks with a ",".
 */}}
 {{- define "ff-common.hook" -}}
-"helm.sh/hook": {{printf "%s" . | quote}}
+"helm.sh/hook": {{ printf "%s" . | quote }}
 {{- end -}}
 
 {{- define "ff-common.annote" -}}

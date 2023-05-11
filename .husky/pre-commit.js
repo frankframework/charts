@@ -36,17 +36,17 @@ function runCommand(cmd, args, errorMessage) {
         execSync(`${cmd} ${args}`, {encoding: "utf-8", stdio: "pipe"});
     } catch (error) {
         console.error(`❌ ${errorMessage}`);
-        console.error(`❌ ${error.stderr}`);
+        console.error(error.stderr);
         console.error(error.stdout);
         process.exit(1);
     }
 }
 
-function lintChartFolder(folder) {
-    console.log(`🧐 Chart ${folder}: Running Helm Lint`);
+function updateChartDependencies(folder) {
+    console.log(`🔄 Chart ${folder}: Updating dependencies`);
     const cmd = "helm";
-    const args = `lint ${folder}`;
-    const errorMessage = `Error running Helm Lint for chart folder ${folder}`;
+    const args = `dependency update ${folder}`;
+    const errorMessage = `Error running Helm Dependency Update for chart folder ${folder}`;
     runCommand(cmd, args, errorMessage);
 }
 
@@ -58,14 +58,23 @@ function generateChartReadmeAndSchema(folder) {
     runCommand(cmd, args, errorMessage);
 }
 
+function lintChartFolder(folder) {
+    console.log(`🧐 Chart ${folder}: Running Helm Lint`);
+    const cmd = "helm";
+    const args = `lint ${folder}`;
+    const errorMessage = `Error running Helm Lint for chart folder ${folder}`;
+    runCommand(cmd, args, errorMessage);
+}
+
 function main() {
     console.log(`🔍 Check if changed folders are charts\n`);
     const changedFiles = getChangedFiles();
     const changedFolders = getChangedFolders(changedFiles);
     for (const folder of changedFolders) {
         if (isChartFolder(folder)) {
-            lintChartFolder(folder);
+            updateChartDependencies(folder);
             generateChartReadmeAndSchema(folder);
+            lintChartFolder(folder);
         } else {
             console.log(`🤷 Not a chart: ${folder}`);
         }

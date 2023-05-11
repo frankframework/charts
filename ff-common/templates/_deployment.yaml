@@ -8,11 +8,11 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-{{ include "ff-common.selectorLabels" . | indent 6 }}
+      {{- include "ff-common.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-{{ include "ff-common.selectorLabels" . | indent 8 }}
+        {{- include "ff-common.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -26,7 +26,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         -
-{{ include "ff-common.container.tpl" . | indent 10 }}
+          {{- include "ff-common.container.tpl" . | nindent 10 }}
       volumes:
         - name: {{ template "ff-common.fullname" . }}-tomcat-users
           configMap:
