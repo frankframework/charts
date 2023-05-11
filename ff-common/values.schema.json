@@ -56,12 +56,27 @@
                     "properties": {
                         "stage": {
                             "type": "string",
-                            "description": "Set the DTAP stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`",
+                            "description": "Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`",
                             "default": "TST"
                         },
                         "side": {
                             "type": "string",
-                            "description": "Set the DTAP side of where the instance is running",
+                            "description": "Set the `DTAP` side of where the instance is running",
+                            "default": ""
+                        }
+                    }
+                },
+                "credentials": {
+                    "type": "object",
+                    "properties": {
+                        "secret": {
+                            "type": "string",
+                            "description": "Set the secret name of the existing secret",
+                            "default": ""
+                        },
+                        "key": {
+                            "type": "string",
+                            "description": "Set the key inside the secret that contains the data (e.g. `credentials.properties`)",
                             "default": ""
                         }
                     }
@@ -97,6 +112,12 @@
                                     "type": "boolean",
                                     "description": "Set http authentication for the Frank!",
                                     "default": true
+                                },
+                                "localUsers": {
+                                    "type": "array",
+                                    "description": "Set localUsers who can log in on the Frank!",
+                                    "default": [],
+                                    "items": {}
                                 },
                                 "activeDirectory": {
                                     "type": "object",
@@ -179,43 +200,20 @@
                 }
             }
         },
-        "replicaCount": {
-            "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
-            "default": 1
-        },
-        "livenessProbe": {
+        "connections": {
             "type": "object",
             "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Enable livenessProbe on Frank!Framework containers",
-                    "default": true
+                "jdbc": {
+                    "type": "array",
+                    "description": "Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)",
+                    "default": [],
+                    "items": {}
                 },
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for livenessProbe",
-                    "default": 40
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for livenessProbe",
-                    "default": 10
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for livenessProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for livenessProbe",
-                    "default": 6
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for livenessProbe",
-                    "default": 1
+                "jms": {
+                    "type": "array",
+                    "description": "Set multiple massage services",
+                    "default": [],
+                    "items": {}
                 }
             }
         },
@@ -275,6 +273,46 @@
                 }
             }
         },
+        "replicaCount": {
+            "type": "number",
+            "description": "Number of Frank!Framework replicas to deploy",
+            "default": 1
+        },
+        "livenessProbe": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable livenessProbe on Frank!Framework containers",
+                    "default": true
+                },
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for livenessProbe",
+                    "default": 40
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for livenessProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for livenessProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for livenessProbe",
+                    "default": 6
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for livenessProbe",
+                    "default": 1
+                }
+            }
+        },
         "nodeSelector": {
             "type": "object",
             "description": "Node labels for pod assignment",
@@ -282,13 +320,13 @@
         },
         "tolerations": {
             "type": "array",
-            "description": "Tolerations for pod assignment",
+            "description": "Set tolerations for pod assignment",
             "default": [],
             "items": {}
         },
         "affinity": {
             "type": "object",
-            "description": "Affinity for pod assignment",
+            "description": "Set affinity for pod assignment",
             "default": {}
         },
         "timeZone": {

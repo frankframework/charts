@@ -114,7 +114,6 @@ data:
           {{- end }}
         {{- end }}
         {{- range .jms }}
-          {{- $name := .host | required (printf ".host is required for MQ of type %s" .type) -}}
           {{- if eq .type "activemq" }}
         <Resource
                 name="{{ .name | default (printf "jms/%s" $.Values.frank.instance.name) | lower }}"

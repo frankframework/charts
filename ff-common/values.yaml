@@ -3,10 +3,10 @@
 
 ## @param nameOverride String to partially override common.names.fullname template (will maintain the release name)
 ##
-nameOverride: ''
+nameOverride: ""
 ## @param fullnameOverride String to fully override common.names.fullname template
 ##
-fullnameOverride: ''
+fullnameOverride: ""
 
 ## @section Frank!Framework image parameters
 ##
@@ -35,7 +35,7 @@ image:
   ## pullSecrets:
   ##   - myRegistryKeySecretName
   ##
-  pullSecrets: [ ]
+  pullSecrets: []
 
 ## @section Frank! Configuration parameters
 ##
@@ -48,27 +48,30 @@ frank:
   ##
   memory: 4G
   ## @skip frank.dtap [object]
-  ## @param frank.dtap.stage Set the DTAP stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
-  ## @param frank.dtap.side [string] Set the DTAP side of where the instance is running
+  ## @param frank.dtap.stage Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
+  ## @param frank.dtap.side Set the `DTAP` side of where the instance is running
   ##
   dtap:
     stage: TST
-    side: ''
-  ## @skip frank.credentials [object,nullable]
-  ##
-#  credentials: { }
+    side: ""
+  ## @skip frank.credentials [object]
+  ## @param frank.credentials.secret Set the secret name of the existing secret
+  ## @param frank.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
+  credentials:
+    secret: ""
+    key: ""
   ## @skip frank.instance [string]
   ## @param frank.instance.name Set the name of the Frank! instance
-  ##
+  ## TODO make required in schema
   instance:
-    name: ''
+    name: ""
   ## @skip frank.configurations [object]
   ## @param frank.configurations.names [array] Set the configurations to load
   ## e.g.
   ## configurations.names:
   ##   - main
   configurations:
-    names: [ ]
+    names: []
   ## @skip frank.security [object]
   ## @skip frank.security.http [object]
   ##
@@ -76,7 +79,7 @@ frank:
     http:
       ## @param frank.security.http.authentication Set http authentication for the Frank!
       authentication: true
-      ## @param frank.security.http.localUsers [object] Set localUsers who can log in on the Frank!
+      ## @param frank.security.http.localUsers [array] Set localUsers who can log in on the Frank!
       ## @param frank.security.http.localUsers.username [string] Set the username of the user
       ## @param frank.security.http.localUsers.password [string] Set the password of the user
       ## @param frank.security.http.localUsers.roles [array] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
@@ -87,7 +90,7 @@ frank:
       ##     roles:
       ##        - IbisTester
       ##
-      localUsers: { }
+      localUsers: []
       ## @skip frank.security.http.activeDirectory [object]
       ## @param frank.security.http.activeDirectory.enabled Enable Active Directory for authentication
       ## @param frank.security.http.activeDirectory.url Set url for Active Directory
@@ -101,16 +104,16 @@ frank:
       ##
       activeDirectory:
         enabled: false
-        url: ''
-        baseDn: ''
+        url: ""
+        baseDn: ""
         roleMapping:
-          tester: ''
-          dataAdmin: ''
-          admin: ''
-          webService: ''
-          observer: ''
+          tester: ""
+          dataAdmin: ""
+          admin: ""
+          webService: ""
+          observer: ""
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
-  environmentVariables: { }
+  environmentVariables: {}
 
 ## @section Frank!Framework Connection parameters
 ##
@@ -118,24 +121,24 @@ frank:
 ## @skip connections
 ##
 connections:
-  ## @param connections.jdbc [nullable, object]
+  ## @param connections.jdbc [array] Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)
+  ## @param connections.jdbc.name [nullable,string] Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)
+  ## @param connections.jdbc.type [string] DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`
+  ## @param connections.jdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.jdbc.post [nullable,string] Port for the database (leave empty for default)
+  ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Values.instance.name`)
+  ## @param connections.jdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
+  ## @param connections.jdbc.username [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
+  ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
   ##
-  jdbc:
-  #    - name: ''
-  #      type: ''
-  #      host: ''
-  #      port: ''
-  #      database: ''
-  #      username: ''
-  #      password: ''
-  #      ssl: ''
-  ## @param connections.jms [nullable, object]
+  jdbc: []
+  ## @param connections.jms [array] Set multiple massage services
+  ## @param connections.jms.name [nullable,string] Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
+  ## @param connections.jms.type [string] MQ type. Options: `artemis`, `activemq`
+  ## @param connections.jms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.jms.post [nullable,string] Port for the MQ (leave empty for default)
   ##
-  jms:
-#    - name: ''
-#      type: ''
-#      host: ''
-#      port: ''
+  jms: []
 
 ## @section Frank!Framework deployment parameters
 ##
@@ -176,7 +179,7 @@ livenessProbe:
 ##     cpu: 2000m
 ##     memory: 4200M
 ##
-resources: { }
+resources: {}
 
 ## @skip autoscaling
 ##
@@ -189,16 +192,16 @@ autoscaling:
 ## @param nodeSelector Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
-nodeSelector: { }
-## @param tolerations Tolerations for pod assignment
+nodeSelector: {}
+## @param tolerations Set tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: [ ]
-## @param affinity Affinity for pod assignment
+tolerations: []
+## @param affinity Set affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
 ##
-affinity: { }
+affinity: {}
 ## @param timeZone used for database connection and log timestamps
 ##
 timeZone: Etc/UTC
@@ -236,7 +239,7 @@ ingress:
   ##   kubernetes.io/ingress.class: nginx
   ##   kubernetes.io/tls-acme: 'true'
   ##
-  annotations: { }
+  annotations: {}
   ## @param ingress.hosts [array] Set hosts for ingress
   ## @param ingress.hosts.host [string] Set hostname
   ## @param ingress.hosts.paths [array] Set multiple paths
@@ -255,7 +258,7 @@ ingress:
   ##     hosts:
   ##       - chart-example.local
   ##
-  tls: [ ]
+  tls: []
 
 ## @section Other Parameters
 ##
@@ -269,26 +272,26 @@ serviceAccount:
   create: true
   ## @param serviceAccount.annotations Additional custom annotations for the ServiceAccount
   ##
-  annotations: { }
+  annotations: {}
   ## @param serviceAccount.name The name of the ServiceAccount to use.
   ## If not set and create is true, a name is generated using the ff-common.fullname template
   ##
-  name: ''
+  name: ""
 ## @param podAnnotations Annotations for Frank!Framework pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
-podAnnotations: { }
+podAnnotations: {}
 ## @param podLabels Extra labels for Frank!Framework pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
-podLabels: { }
+podLabels: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext [object] Set Frank!Framework pod's Security Context
 ## @param podSecurityContext.fsGroup [string] Set Frank!Framework pod's Security Context fsGroup
-## @param podSecurityContext.seccompProfile.type [string] Set Frank!Framework container's Security Context seccomp profile
+## @param podSecurityContext.seccompProfile.type [string] Set Frank!Framework pod's Security Context seccomp profile
 ##
-podSecurityContext: { }
+podSecurityContext: {}
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param securityContext [object] Set Frank!Framework container's Security Context
@@ -306,4 +309,4 @@ podSecurityContext: { }
 ##  runAsNonRoot: true
 ##  runAsUser: 1000
 ##
-securityContext: { }
+securityContext: {}

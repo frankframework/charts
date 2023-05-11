@@ -1,20 +1,20 @@
 # 🔌Frank!Framework Common Library Chart
 
 This [Helm Library Chart](https://helm.sh/docs/topics/library_charts/) is designed to make it easy create your own [Frank!Framework](https://frankframework.org) Chart.
-A lot of the common configuration work has been done already, making it quicker to develop. 
-It also has the added benefit that additions can easily be distributed across all FF! Charts. 
+A lot of the common configuration work has been done already, making it quicker to develop.
+It also has the added benefit that additions can easily be distributed across all FF! Charts.
 
 ## Usage
 
 ### Getting Started
 
 The best way to start is to copy the template chart. This contains a copy of the values.yaml and implements all needed manifests.
-It is recommended to implement as much manifests as possible, some can be disabled and enabled in the values.yaml instead. 
+It is recommended to implement as much manifests as possible, some can be disabled and enabled in the values.yaml instead.
 This opens up the possibility for the user to use the manifest if they desire to.
 
 ### Extending the Chart
 
-One of the main reasons this is a library and not a sub-chart is because it enables extendability. 
+One of the main reasons this is a library and not a sub-chart is because it enables extendability.
 Whereas the sub-chart can only be used "as is", the library can be modified in your own chart.
 
 ## Parameters
@@ -41,12 +41,14 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | Name                                                         | Description                                                                                                      | Value   |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------- |
 | `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                           | `4G`    |
-| `frank.dtap.stage`                                           | Set the DTAP stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                   | `TST`   |
-| `frank.dtap.side`                                            | Set the DTAP side of where the instance is running                                                               | `""`    |
+| `frank.dtap.stage`                                           | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                 | `TST`   |
+| `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`    |
+| `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`    |
+| `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                             | `""`    |
 | `frank.instance.name`                                        | Set the name of the Frank! instance                                                                              | `""`    |
 | `frank.configurations.names`                                 | Set the configurations to load                                                                                   | `[]`    |
 | `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `true`  |
-| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `{}`    |
+| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `[]`    |
 | `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`    |
 | `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`    |
 | `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `[]`    |
@@ -62,10 +64,22 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ### Frank!Framework Connection parameters
 
-| Name               | Description | Value |
-| ------------------ | ----------- | ----- |
-| `connections.jdbc` |             | `{}`  |
-| `connections.jms`  |             | `{}`  |
+| Name                        | Description                                                                                                                                          | Value |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set) | `[]`  |
+| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    | `""`  |
+| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            | `""`  |
+| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  | `""`  |
+| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      | `""`  |
+| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     | `""`  |
+| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`  |
+| `connections.jdbc.username` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`  |
+| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`  |
+| `connections.jms`           | Set multiple massage services                                                                                                                        | `[]`  |
+| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`  |
+| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`  |
+| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`  |
+| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            | `""`  |
 
 ### Frank!Framework deployment parameters
 
@@ -83,8 +97,8 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `resources.requests.memory`         | The requested memory for the Frank!Framework containers | `""`      |
 | `resources.requests.cpu`            | The requested cpu for the Frank!Framework containers    | `""`      |
 | `nodeSelector`                      | Node labels for pod assignment                          | `{}`      |
-| `tolerations`                       | Tolerations for pod assignment                          | `[]`      |
-| `affinity`                          | Affinity for pod assignment                             | `{}`      |
+| `tolerations`                       | Set tolerations for pod assignment                      | `[]`      |
+| `affinity`                          | Set affinity for pod assignment                         | `{}`      |
 | `timeZone`                          | used for database connection and log timestamps         | `Etc/UTC` |
 
 ### Traffic Exposure Parameters
@@ -105,23 +119,19 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ### Other Parameters
 
-| Name                                       | Description                                                      | Value  |
-| ------------------------------------------ | ---------------------------------------------------------------- | ------ |
-| `serviceAccount.create`                    | Enable creation of ServiceAccount for Frank!Framework pod        | `true` |
-| `serviceAccount.annotations`               | Additional custom annotations for the ServiceAccount             | `{}`   |
-| `serviceAccount.name`                      | The name of the ServiceAccount to use.                           | `""`   |
-| `podAnnotations`                           | Annotations for Frank!Framework pods                             | `{}`   |
-| `podLabels`                                | Extra labels for Frank!Framework pods                            | `{}`   |
-| `podSecurityContext`                       | Set Frank!Framework pod's Security Context                       | `{}`   |
-| `podSecurityContext.fsGroup`               | Set Frank!Framework pod's Security Context fsGroup               | `""`   |
-| `podSecurityContext.seccompProfile.type`   | Set Frank!Framework container's Security Context seccomp profile | `""`   |
-| `securityContext`                          | Set Frank!Framework container's Security Context                 | `{}`   |
-| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot    | `""`   |
-| `securityContext.readOnlyRootFilesystem`   | Set Frank!Framework container's filesystem to read-only          | `""`   |
-| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation             | `""`   |
-| `securityContext.runAsUser`                | Set Frank!Framework container's Security Context runAsUser       | `""`   |
-| `securityContext.runAsNonRoot`             | Set Frank!Framework container's Security Context runAsNonRoot    | `""`   |
-
-
-
-
+| Name                                       | Description                                                   | Value  |
+| ------------------------------------------ | ------------------------------------------------------------- | ------ |
+| `serviceAccount.create`                    | Enable creation of ServiceAccount for Frank!Framework pod     | `true` |
+| `serviceAccount.annotations`               | Additional custom annotations for the ServiceAccount          | `{}`   |
+| `serviceAccount.name`                      | The name of the ServiceAccount to use.                        | `""`   |
+| `podAnnotations`                           | Annotations for Frank!Framework pods                          | `{}`   |
+| `podLabels`                                | Extra labels for Frank!Framework pods                         | `{}`   |
+| `podSecurityContext`                       | Set Frank!Framework pod's Security Context                    | `{}`   |
+| `podSecurityContext.fsGroup`               | Set Frank!Framework pod's Security Context fsGroup            | `""`   |
+| `podSecurityContext.seccompProfile.type`   | Set Frank!Framework pod's Security Context seccomp profile    | `""`   |
+| `securityContext`                          | Set Frank!Framework container's Security Context              | `{}`   |
+| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
+| `securityContext.readOnlyRootFilesystem`   | Set Frank!Framework container's filesystem to read-only       | `""`   |
+| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation          | `""`   |
+| `securityContext.runAsUser`                | Set Frank!Framework container's Security Context runAsUser    | `""`   |
+| `securityContext.runAsNonRoot`             | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
