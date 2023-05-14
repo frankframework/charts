@@ -86,7 +86,7 @@
                     "properties": {
                         "name": {
                             "type": "string",
-                            "description": "Set the name of the Frank! instance",
+                            "description": "Set the name of the Frank! instance (default is the `fullname`)",
                             "default": ""
                         }
                     }
@@ -111,7 +111,7 @@
                                 "authentication": {
                                     "type": "boolean",
                                     "description": "Set http authentication for the Frank!",
-                                    "default": true
+                                    "default": false
                                 },
                                 "localUsers": {
                                     "type": "array",
@@ -194,6 +194,11 @@
                     "default": 100
                 },
                 "targetCPUUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                },
+                "targetMemoryUtilizationPercentage": {
                     "type": "number",
                     "description": "",
                     "default": 80

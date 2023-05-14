@@ -45,9 +45,9 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`    |
 | `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`    |
 | `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                             | `""`    |
-| `frank.instance.name`                                        | Set the name of the Frank! instance                                                                              | `""`    |
+| `frank.instance.name`                                        | Set the name of the Frank! instance (default is the `fullname`)                                                  | `""`    |
 | `frank.configurations.names`                                 | Set the configurations to load                                                                                   | `[]`    |
-| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `true`  |
+| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `false` |
 | `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `[]`    |
 | `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`    |
 | `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`    |
