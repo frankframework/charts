@@ -1,6 +1,8 @@
-# 🔌Frank!Framework Template Chart
+# 🔌Frank!Framework Chart
 
-This template Helm Chart can be copied as a start point for a new Frank!.
+This Helm Chart can be used for running the Frank!Framework on Kubernetes.
+
+The image should be replaced to include a configuration.
 
 ## Parameters
 

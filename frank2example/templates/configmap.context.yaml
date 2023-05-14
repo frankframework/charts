@@ -1,7 +1,8 @@
 {{/*
-ConfigMap for generating a context.xml including all connections
+Copy of ff-common.configmap.context with h2 added
 */}}
-{{- define "ff-common.configmap.context.tpl" -}}
+{{- template "ff-common.configmap.context" (list . "frank2example.configmap.context" ) -}}
+{{- define "frank2example.configmap.context" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -15,7 +16,15 @@ data:
         <JarScanner scanClassPath="false" scanAllFiles="false" scanAllDirectories="false"/>
       {{- with .Values.connections }}
         {{- range .jdbc }}
-          {{- if eq .type "oracle" }}
+        {{- if eq .type "h2" }}
+        <Resource
+            name="{{ .name | default (printf "jdbc/%s" (include "ff-common.instance.name" $)) | lower }}"
+            factory="org.apache.naming.factory.BeanFactory"
+            type="org.h2.jdbcx.JdbcDataSource"
+            URL="jdbc:h2:{{ .host | default "mem" }}:{{ .database | default (include "ff-common.instance.name" $) }};NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;"
+        />
+        {{- end }}
+        {{- if eq .type "oracle" }}
         <Resource
             name="{{ .name | default (printf "jdbc/%s" (include "ff-common.instance.name" $)) | lower }}"
             factory="org.apache.naming.factory.BeanFactory"
@@ -134,7 +143,4 @@ data:
         {{- end }}
       {{- end }}
     </Context>
-{{- end -}}
-{{- define "ff-common.configmap.context" -}}
-{{- template "ff-common.util.merge" (append . "ff-common.configmap.context.tpl") -}}
 {{- end -}}

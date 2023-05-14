@@ -28,6 +28,15 @@ spec:
         -
           {{- include "ff-common.container.tpl" . | nindent 10 }}
       volumes:
+        {{- if .Values.securityContext.readOnlyRootFilesystem }}
+        - name: tmpfs
+          emptyDir: { }
+        {{- end }}
+        {{- if .Values.frank.credentials.secret }}
+        - name: {{ template "ff-common.fullname" . }}-credentials
+          secret:
+            secretName: {{ .Values.frank.credentials.secret }}
+        {{- end }}
         - name: {{ template "ff-common.fullname" . }}-tomcat-users
           configMap:
             name: {{ template "ff-common.fullname" . }}-tomcat-users
