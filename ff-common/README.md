@@ -118,19 +118,14 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ### Other Parameters
 
-| Name                                       | Description                                                   | Value  |
-| ------------------------------------------ | ------------------------------------------------------------- | ------ |
-| `serviceAccount.create`                    | Enable creation of ServiceAccount for Frank!Framework pod     | `true` |
-| `serviceAccount.annotations`               | Additional custom annotations for the ServiceAccount          | `{}`   |
-| `serviceAccount.name`                      | The name of the ServiceAccount to use.                        | `""`   |
-| `podAnnotations`                           | Annotations for Frank!Framework pods                          | `{}`   |
-| `podLabels`                                | Extra labels for Frank!Framework pods                         | `{}`   |
-| `podSecurityContext`                       | Set Frank!Framework pod's Security Context                    | `{}`   |
-| `podSecurityContext.fsGroup`               | Set Frank!Framework pod's Security Context fsGroup            | `""`   |
-| `podSecurityContext.seccompProfile.type`   | Set Frank!Framework pod's Security Context seccomp profile    | `""`   |
-| `securityContext`                          | Set Frank!Framework container's Security Context              | `{}`   |
-| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
-| `securityContext.readOnlyRootFilesystem`   | Set Frank!Framework container's filesystem to read-only       | `""`   |
-| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation          | `""`   |
-| `securityContext.runAsUser`                | Set Frank!Framework container's Security Context runAsUser    | `""`   |
-| `securityContext.runAsNonRoot`             | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
+| Name                                     | Description                                                | Value  |
+| ---------------------------------------- | ---------------------------------------------------------- | ------ |
+| `serviceAccount.create`                  | Enable creation of ServiceAccount for Frank!Framework pod  | `true` |
+| `serviceAccount.annotations`             | Additional custom annotations for the ServiceAccount       | `{}`   |
+| `serviceAccount.name`                    | The name of the ServiceAccount to use.                     | `""`   |
+| `podAnnotations`                         | Annotations for Frank!Framework pods                       | `{}`   |
+| `podLabels`                              | Extra labels for Frank!Framework pods                      | `{}`   |
+| `podSecurityContext`                     | Set Frank!Framework pod's Security Context                 | `{}`   |
+| `podSecurityContext.fsGroup`             | Set Frank!Framework pod's Security Context fsGroup         | `""`   |
+| `podSecurityContext.seccompProfile.type` | Set Frank!Framework pod's Security Context seccomp profile | `""`   |
+| `securityContext`                        | Set Frank!Framework container's Security Context           | `{}`   |

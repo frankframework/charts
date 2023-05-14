@@ -289,6 +289,16 @@
                 }
             }
         },
+        "securityContext": {
+            "type": "object",
+            "properties": {
+                "readOnlyRootFilesystem": {
+                    "type": "boolean",
+                    "description": "",
+                    "default": true
+                }
+            }
+        },
         "replicaCount": {
             "type": "number",
             "description": "Number of Frank!Framework replicas to deploy",
@@ -389,16 +399,6 @@
             "type": "object",
             "description": "Extra labels for Frank!Framework pods",
             "default": {}
-        },
-        "securityContext": {
-            "type": "object",
-            "properties": {
-                "readOnlyRootFilesystem": {
-                    "type": "string",
-                    "description": "Set Frank!Framework container's filesystem to read-only",
-                    "default": true
-                }
-            }
         }
     }
 }

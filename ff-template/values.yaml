@@ -292,11 +292,6 @@ podSecurityContext: {}
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param securityContext [object] Set Frank!Framework container's Security Context
-## @param securityContext.capabilities.drop [string] Set Frank!Framework container's Security Context runAsNonRoot
-## @param securityContext.readOnlyRootFilesystem [string] Set Frank!Framework container's filesystem to read-only
-## @param securityContext.allowPrivilegeEscalation [string] Set Frank!Framework container's privilege escalation
-## @param securityContext.runAsUser [string] Set Frank!Framework container's Security Context runAsUser
-## @param securityContext.runAsNonRoot [string] Set Frank!Framework container's Security Context runAsNonRoot
 ## e.g.
 ## securityContext: {}
 ##  capabilities:
