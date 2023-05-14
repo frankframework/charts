@@ -285,8 +285,6 @@ podLabels: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext [object] Set Frank!Framework pod's Security Context
-## @param podSecurityContext.fsGroup [string] Set Frank!Framework pod's Security Context fsGroup
-## @param podSecurityContext.seccompProfile.type [string] Set Frank!Framework pod's Security Context seccomp profile
 ##
 podSecurityContext: {}
 ## Configure Container Security Context (only main container)
