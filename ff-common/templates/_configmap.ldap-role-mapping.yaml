@@ -5,9 +5,10 @@ ConfigMap for generating a ldap-role-mapping.properties
 {{- if .Values.frank.security.http.activeDirectory.enabled -}}
 apiVersion: v1
 kind: ConfigMap
-{{ template "ff-common.metadata" . }}
 metadata:
   name: {{ include "ff-common.fullname" . }}-ldap-role-mapping
+  labels:
+    {{- include "ff-common.labels" . | nindent 4 }}
 data:
   ldap-role-mapping.properties: |-
     IbisTester={{ .Values.frank.security.http.activeDirectory.roleMapping.tester | default "IbisTester" }}

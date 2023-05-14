@@ -5,9 +5,10 @@ ConfigMap for generating a tomcat-users.xml including all users and roles
 {{- if .Values.frank.security.http.localUsers -}}
 apiVersion: v1
 kind: ConfigMap
-{{ template "ff-common.metadata" . }}
 metadata:
   name: {{ include "ff-common.fullname" . }}-tomcat-users
+  labels:
+    {{- include "ff-common.labels" . | nindent 4 }}
 data:
   tomcat-users.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>

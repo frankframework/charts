@@ -61,8 +61,7 @@ frank:
     secret: ""
     key: ""
   ## @skip frank.instance [string]
-  ## @param frank.instance.name Set the name of the Frank! instance
-  ## TODO make required in schema
+  ## @param frank.instance.name Set the name of the Frank! instance (default is the `fullname`)
   instance:
     name: ""
   ## @skip frank.configurations [object]
@@ -78,7 +77,7 @@ frank:
   security:
     http:
       ## @param frank.security.http.authentication Set http authentication for the Frank!
-      authentication: true
+      authentication: false
       ## @param frank.security.http.localUsers [array] Set localUsers who can log in on the Frank!
       ## @param frank.security.http.localUsers.username [string] Set the username of the user
       ## @param frank.security.http.localUsers.password [string] Set the password of the user
@@ -186,7 +185,7 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
 ## @param nodeSelector Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##

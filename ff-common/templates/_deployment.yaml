@@ -31,7 +31,7 @@ spec:
         - name: {{ template "ff-common.fullname" . }}-tomcat-users
           configMap:
             name: {{ template "ff-common.fullname" . }}-tomcat-users
-        - name: {{ template "ff-common.fullname" . }}-config
+        - name: {{ template "ff-common.fullname" . }}-context
           configMap:
             name: {{ template "ff-common.fullname" . }}-context
         - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
