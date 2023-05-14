@@ -1,12 +1,12 @@
 apiVersion: v2
-appVersion: "latest"
+appVersion: "latest-tomcat"
 description: A Helm chart for testing the Frank!Framework on Kubernetes
 name: ff-test
 icon: https://github.com/ibissource/charts/blob/master/ff-test/icon.svg
 type: application
-version: 0.1.0
+version: 0.2.0
 
 dependencies:
   - name: ff-common
-    version: 1.0.0
+    version: 0.1.0
     repository: file://../ff-common
