@@ -61,25 +61,25 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                       | `""`    |
 | `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                         | `""`    |
 | `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`    |
+| `frank.environmentVariables.application.server.type.custom`  | Options: ``, `NARAYANA`, `BTM`. Leave empty if you don't want to use a transaction manager                       | `""`    |
+| `frank.environmentVariables.jdbc.dbms.default`               | The default jdbc that will be used. This should match with one of the jdbc's in the context.xml                  | `""`    |
+| `frank.environmentVariables.jms.provider.default`            | The default jms that will be used. This should match with one of the jms' in the context.xml                     | `""`    |
 
 ### Frank!Framework Connection parameters
 
 | Name                        | Description                                                                                                                                                    | Value |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)           | `[]`  |
-| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                              | `""`  |
-| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                                      | `""`  |
+| `connections.jdbc`          | Set one database connections. The connection should match one in the context.xml                                                                               | `{}`  |
 | `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location | `""`  |
-| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                                | `""`  |
+| `connections.jdbc.port`     | Port for the database (leave empty for default)                                                                                                                | `""`  |
 | `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                               | `""`  |
 | `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                              | `""`  |
-| `connections.jdbc.username` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`  |
+| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`  |
 | `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                                   | `""`  |
-| `connections.jms`           | Set multiple massage services                                                                                                                                  | `[]`  |
-| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                               | `""`  |
-| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                                        | `""`  |
+| `connections.jms`           | Set one massage services. The connection should match one in the context.xml                                                                                   | `[]`  |
 | `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                                  | `""`  |
-| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                                      | `""`  |
+| `connections.jms.port`      | Port for the MQ (leave empty for default)                                                                                                                      | `""`  |
+| `connections.jms.url`       | URL for Tibco                                                                                                                                                  | `""`  |
 
 ### Frank!Framework deployment parameters
 
@@ -118,14 +118,12 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ### Other Parameters
 
-| Name                                     | Description                                                | Value  |
-| ---------------------------------------- | ---------------------------------------------------------- | ------ |
-| `serviceAccount.create`                  | Enable creation of ServiceAccount for Frank!Framework pod  | `true` |
-| `serviceAccount.annotations`             | Additional custom annotations for the ServiceAccount       | `{}`   |
-| `serviceAccount.name`                    | The name of the ServiceAccount to use.                     | `""`   |
-| `podAnnotations`                         | Annotations for Frank!Framework pods                       | `{}`   |
-| `podLabels`                              | Extra labels for Frank!Framework pods                      | `{}`   |
-| `podSecurityContext`                     | Set Frank!Framework pod's Security Context                 | `{}`   |
-| `podSecurityContext.fsGroup`             | Set Frank!Framework pod's Security Context fsGroup         | `""`   |
-| `podSecurityContext.seccompProfile.type` | Set Frank!Framework pod's Security Context seccomp profile | `""`   |
-| `securityContext`                        | Set Frank!Framework container's Security Context           | `{}`   |
+| Name                         | Description                                               | Value  |
+| ---------------------------- | --------------------------------------------------------- | ------ |
+| `serviceAccount.create`      | Enable creation of ServiceAccount for Frank!Framework pod | `true` |
+| `serviceAccount.annotations` | Additional custom annotations for the ServiceAccount      | `{}`   |
+| `serviceAccount.name`        | The name of the ServiceAccount to use.                    | `""`   |
+| `podAnnotations`             | Annotations for Frank!Framework pods                      | `{}`   |
+| `podLabels`                  | Extra labels for Frank!Framework pods                     | `{}`   |
+| `podSecurityContext`         | Set Frank!Framework pod's Security Context                | `{}`   |
+| `securityContext`            | Set Frank!Framework container's Security Context          | `{}`   |

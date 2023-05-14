@@ -1,94 +1,123 @@
-# FF!Test (ibis4test) Chart
+# 🔌Frank2Example Chart
 
+This Helm Chart contains the Frank!Framework with some example configurations.
 
-This is a test Chart to test the Frank!Framework on Kubernetes. 
+The Frank! is preconfigured with H2, but can be used with any other supported database.
 
-## Instructions
+## Parameters
 
-### Values.yaml
+### Common parameters
 
-The `values.yaml` needs to be changed to fit your needs. 
+| Name               | Description                                                                                  | Value |
+| ------------------ | -------------------------------------------------------------------------------------------- | ----- |
+| `nameOverride`     | String to partially override common.names.fullname template (will maintain the release name) | `""`  |
+| `fullnameOverride` | String to fully override common.names.fullname template                                      | `""`  |
 
-Some settings that can be changed are: 
+### Frank!Framework image parameters
 
-	- `frank.properties.application.server.type.custom`: Do you want to use a transaction manager (and test jms)
-	- `frank.configurations.names`: Which configurations do you want to use
-	- `frank.properties.jdbc.dbms.default`: Type of database used
-	- `frank.properties.jdbc.hostname`: Hostname of database
-	- `frank.properties.jms.default.provider`: Type of MQ
-	- `frank.properties.jms.destination.suffix`
-	- `frank.properties.jms.hostname`: Hostname 
+| Name                | Description                                                | Value                      |
+| ------------------- | ---------------------------------------------------------- | -------------------------- |
+| `image.registry`    | Frank!Framework image registry                             | `nexus.frankframework.org` |
+| `image.repository`  | Frank!Framework image repository                           | `frank-framework`          |
+| `image.tag`         | Frank!Framework image tag (immutable tags are recommended) | `""`                       |
+| `image.pullPolicy`  | Frank!Framework image pull policy                          | `IfNotPresent`             |
+| `image.pullSecrets` | Frank!Framework image pull secrets                         | `[]`                       |
 
-Becouse the ff-test image is specialized to run on the WeAreFrank! CI some values are preset. These values include the ports for the databases (we will eventually change this back), the name of the database and the database credentials. Also the context path to reach the Frank! is "iaf-test".
+### Frank! Configuration parameters
 
-The default credentails are: 
+| Name                                                         | Description                                                                                                      | Value   |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                           | `4G`    |
+| `frank.dtap.stage`                                           | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                 | `TST`   |
+| `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`    |
+| `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`    |
+| `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                             | `""`    |
+| `frank.instance.name`                                        | Set the name of the Frank! instance                                                                              | `""`    |
+| `frank.configurations.names`                                 | Set the configurations to load                                                                                   | `[]`    |
+| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `true`  |
+| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `[]`    |
+| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`    |
+| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`    |
+| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `[]`    |
+| `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false` |
+| `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`    |
+| `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the rol for Tester                                                                                           | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the rol for DataAdmin                                                                                        | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the rol for Admin                                                                                            | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                       | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                         | `""`    |
+| `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`    |
 
-```
-username: testiaf_user
-password: testiaf_user00
-```
+### Frank!Framework Connection parameters
 
-The name of the database is `testiaf`.
+| Name                        | Description                                                                                                                                          | Value |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set) | `[]`  |
+| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    | `""`  |
+| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            | `""`  |
+| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  | `""`  |
+| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      | `""`  |
+| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     | `""`  |
+| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`  |
+| `connections.jdbc.username` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`  |
+| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`  |
+| `connections.jms`           | Set multiple massage services                                                                                                                        | `[]`  |
+| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`  |
+| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`  |
+| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`  |
+| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            | `""`  |
 
-To make it possible to run all databases ans MQ's at the same time, some ports have changed. Make sure your service is running on the same port, or use another one.
+### Frank!Framework deployment parameters
 
-These port are different from default:
+| Name                                | Description                                             | Value     |
+| ----------------------------------- | ------------------------------------------------------- | --------- |
+| `replicaCount`                      | Number of Frank!Framework replicas to deploy            | `1`       |
+| `livenessProbe.initialDelaySeconds` | Initial delay seconds for livenessProbe                 | `40`      |
+| `livenessProbe.periodSeconds`       | Period seconds for livenessProbe                        | `10`      |
+| `livenessProbe.timeoutSeconds`      | Timeout seconds for livenessProbe                       | `1`       |
+| `livenessProbe.failureThreshold`    | Failure threshold for livenessProbe                     | `6`       |
+| `livenessProbe.successThreshold`    | Success threshold for livenessProbe                     | `1`       |
+| `resources`                         | Set the resources for the Frank!Framework containers    | `{}`      |
+| `resources.limits`                  | The resources limits for the Frank!Framework containers | `""`      |
+| `resources.requests.memory`         | The requested memory for the Frank!Framework containers | `""`      |
+| `resources.requests.cpu`            | The requested cpu for the Frank!Framework containers    | `""`      |
+| `nodeSelector`                      | Node labels for pod assignment                          | `{}`      |
+| `tolerations`                       | Set tolerations for pod assignment                      | `[]`      |
+| `affinity`                          | Set affinity for pod assignment                         | `{}`      |
+| `timeZone`                          | used for database connection and log timestamps         | `Etc/UTC` |
 
-	- MySql: 3307
-	- Artemis: 61615
+### Traffic Exposure Parameters
 
-More information about the connections can be found in the [context.xml](https://github.com/ibissource/iaf/blob/master/test/src/main/webapp/META-INF/context.xml)
+| Name                           | Description                                                                                                                      | Value       |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `service.type`                 | Frank!Framework service type                                                                                                     | `ClusterIP` |
+| `service.port`                 | Frank!Framework service port                                                                                                     | `80`        |
+| `ingress.enabled`              | Enable ingress record generation for Frank!                                                                                      | `false`     |
+| `ingress.className`            | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`        |
+| `ingress.annotations`          | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |
+| `ingress.hosts`                | Set hosts for ingress                                                                                                            | `[]`        |
+| `ingress.hosts.host`           | Set hostname                                                                                                                     | `""`        |
+| `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `[]`        |
+| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `""`        |
+| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `""`        |
+| `ingress.tls`                  | Define tls secrets for hosts (implementation not done yet)                                                                       | `[]`        |
 
-### Helm
+### Other Parameters
 
-Clone this repo and use the Helm CLI. 
-
-#### Steps
-
-1. Clone this repo
-
-	`git clone https://github.com/ibissource/charts.git`
-
-2. Navigate to the folder 
-
-	`cd charts`
-
-3. Configure the `values.yaml` 
-
-4. Create a namespace
-
-	`kubectl create namespace ff-test`
-
-5. Use the Helm CLI to install the Helm Chart
-
-	`helm install ff-test ff-test -n ff-test`
-
-6. Follow the instruction in the console to forward and visit the newly deployed Frank!. The context path of the frank is "iaf-test".
-
-### CI/CD
-
-Alternatively, a CI/CD tool like Argo CD or Flux can be used.
-
-## Troubleshooting
-
-### Larva tests won't start
-
-For some reason using a proxy, the larva tests won't start. If this is the case, use an ingress instead.
-
-## Links and helpful resources
-
-These links can teach you more about the Frank!Framework and how to use it on Kubernetes.
-
-### Frank!Framework Chart
-
-For the complete installation instructions and `values.yml`, visit the original [Frank!Framework Chart](https://github.com/ibissource/charts/tree/master/frank-framework)
-
-### Frank2Example Chart
-
-There is also an easy-to-install demo chart wich can be found here: [Frank2Example](https://github.com/ibissource/charts/tree/master/frank-framework)
-
-### ZaakBrug Chart
-
-The ZaakBrug is an app for Dutch municipalities that translates from zds to zgw. This project has its own Chart which is a great example of an Frank! wrapped in a Chart.
-
-The Chart is visible at the [ZaakBrug GitHub](https://github.com/ibissource/zaakbrug)
+| Name                                       | Description                                                   | Value  |
+| ------------------------------------------ | ------------------------------------------------------------- | ------ |
+| `serviceAccount.create`                    | Enable creation of ServiceAccount for Frank!Framework pod     | `true` |
+| `serviceAccount.annotations`               | Additional custom annotations for the ServiceAccount          | `{}`   |
+| `serviceAccount.name`                      | The name of the ServiceAccount to use.                        | `""`   |
+| `podAnnotations`                           | Annotations for Frank!Framework pods                          | `{}`   |
+| `podLabels`                                | Extra labels for Frank!Framework pods                         | `{}`   |
+| `podSecurityContext`                       | Set Frank!Framework pod's Security Context                    | `{}`   |
+| `podSecurityContext.fsGroup`               | Set Frank!Framework pod's Security Context fsGroup            | `""`   |
+| `podSecurityContext.seccompProfile.type`   | Set Frank!Framework pod's Security Context seccomp profile    | `""`   |
+| `securityContext`                          | Set Frank!Framework container's Security Context              | `{}`   |
+| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
+| `securityContext.readOnlyRootFilesystem`   | Set Frank!Framework container's filesystem to read-only       | `""`   |
+| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation          | `""`   |
+| `securityContext.runAsUser`                | Set Frank!Framework container's Security Context runAsUser    | `""`   |
+| `securityContext.runAsNonRoot`             | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |

@@ -5,10 +5,6 @@ Copy of ff-common.configmap.context with h2 added
 {{- define "frank2example.configmap.context" -}}
 apiVersion: v1
 kind: ConfigMap
-metadata:
-  name: {{ include "ff-common.fullname" . }}-context
-  labels:
-    {{- include "ff-common.labels" . | nindent 4 }}
 data:
   context.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>
