@@ -53,7 +53,7 @@ function updateChartDependencies(folder) {
 function generateChartReadmeAndSchema(folder) {
     console.log(`📝 Chart ${folder}: Generating readme and schema`);
     const cmd = README_GENERATOR_CMD;
-    const args = `-v "${folder}/${CHART_VALUES_FILENAME}" -r "ff-common/${CHART_README_FILENAME}" -s "${folder}/${CHART_VALUES_SCHEMA_FILENAME}"`;
+    const args = `-v "${folder}/${CHART_VALUES_FILENAME}" -r "${folder}/${CHART_README_FILENAME}" -s "${folder}/${CHART_VALUES_SCHEMA_FILENAME}"`;
     const errorMessage = `Error running Readme Generator for chart folder ${folder}`;
     runCommand(cmd, args, errorMessage);
 }
