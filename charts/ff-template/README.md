@@ -51,9 +51,9 @@ To uninstall the chart:
 | `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`    |
 | `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`    |
 | `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                             | `""`    |
-| `frank.instance.name`                                        | Set the name of the Frank! instance                                                                              | `""`    |
+| `frank.instance.name`                                        | Set the name of the Frank! instance (default is the `fullname`)                                                  | `""`    |
 | `frank.configurations.names`                                 | Set the configurations to load                                                                                   | `[]`    |
-| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `true`  |
+| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `false` |
 | `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `[]`    |
 | `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`    |
 | `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`    |
@@ -124,19 +124,12 @@ To uninstall the chart:
 
 ### Other Parameters
 
-| Name                                       | Description                                                   | Value  |
-| ------------------------------------------ | ------------------------------------------------------------- | ------ |
-| `serviceAccount.create`                    | Enable creation of ServiceAccount for Frank!Framework pod     | `true` |
-| `serviceAccount.annotations`               | Additional custom annotations for the ServiceAccount          | `{}`   |
-| `serviceAccount.name`                      | The name of the ServiceAccount to use.                        | `""`   |
-| `podAnnotations`                           | Annotations for Frank!Framework pods                          | `{}`   |
-| `podLabels`                                | Extra labels for Frank!Framework pods                         | `{}`   |
-| `podSecurityContext`                       | Set Frank!Framework pod's Security Context                    | `{}`   |
-| `podSecurityContext.fsGroup`               | Set Frank!Framework pod's Security Context fsGroup            | `""`   |
-| `podSecurityContext.seccompProfile.type`   | Set Frank!Framework pod's Security Context seccomp profile    | `""`   |
-| `securityContext`                          | Set Frank!Framework container's Security Context              | `{}`   |
-| `securityContext.capabilities.drop`        | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
-| `securityContext.readOnlyRootFilesystem`   | Set Frank!Framework container's filesystem to read-only       | `""`   |
-| `securityContext.allowPrivilegeEscalation` | Set Frank!Framework container's privilege escalation          | `""`   |
-| `securityContext.runAsUser`                | Set Frank!Framework container's Security Context runAsUser    | `""`   |
-| `securityContext.runAsNonRoot`             | Set Frank!Framework container's Security Context runAsNonRoot | `""`   |
+| Name                         | Description                                               | Value  |
+| ---------------------------- | --------------------------------------------------------- | ------ |
+| `serviceAccount.create`      | Enable creation of ServiceAccount for Frank!Framework pod | `true` |
+| `serviceAccount.annotations` | Additional custom annotations for the ServiceAccount      | `{}`   |
+| `serviceAccount.name`        | The name of the ServiceAccount to use.                    | `""`   |
+| `podAnnotations`             | Annotations for Frank!Framework pods                      | `{}`   |
+| `podLabels`                  | Extra labels for Frank!Framework pods                     | `{}`   |
+| `podSecurityContext`         | Set Frank!Framework pod's Security Context                | `{}`   |
+| `securityContext`            | Set Frank!Framework container's Security Context          | `{}`   |
