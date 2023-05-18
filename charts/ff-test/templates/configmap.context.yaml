@@ -3,6 +3,10 @@ This is a copy of https://github.com/ibissource/iaf/blob/master/test/src/main/we
 */}}
 apiVersion: v1
 kind: ConfigMap
+metadata:
+  name: {{ include "ff-common.fullname" . }}-context
+  labels:
+      {{- include "ff-common.labels" . | nindent 4 }}
 data:
   context.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>
