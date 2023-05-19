@@ -87,6 +87,8 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | Name                                | Description                                             | Value     |
 | ----------------------------------- | ------------------------------------------------------- | --------- |
 | `replicaCount`                      | Number of Frank!Framework replicas to deploy            | `1`       |
+| `livenessProbe.httpGet.path`        | Path to check if the Frank! is live                     | `/iaf/`   |
+| `livenessProbe.httpGet.port`        | Port to chack if the Frank! is live                     | `http`    |
 | `livenessProbe.initialDelaySeconds` | Initial delay seconds for livenessProbe                 | `40`      |
 | `livenessProbe.periodSeconds`       | Period seconds for livenessProbe                        | `10`      |
 | `livenessProbe.timeoutSeconds`      | Timeout seconds for livenessProbe                       | `1`       |

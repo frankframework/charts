@@ -185,36 +185,6 @@
                 }
             }
         },
-        "autoscaling": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "",
-                    "default": false
-                },
-                "minReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 1
-                },
-                "maxReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 100
-                },
-                "targetCPUUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                },
-                "targetMemoryUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                }
-            }
-        },
         "connections": {
             "type": "object",
             "properties": {
@@ -280,6 +250,41 @@
                 }
             }
         },
+        "autoscaling": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "",
+                    "default": false
+                },
+                "minReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 1
+                },
+                "maxReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 100
+                },
+                "targetCPUUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                },
+                "targetMemoryUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                }
+            }
+        },
+        "replicaCount": {
+            "type": "number",
+            "description": "Number of Frank!Framework replicas to deploy",
+            "default": 1
+        },
         "ingress": {
             "type": "object",
             "properties": {
@@ -336,14 +341,24 @@
                 }
             }
         },
-        "replicaCount": {
-            "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
-            "default": 1
-        },
         "livenessProbe": {
             "type": "object",
             "properties": {
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path to check if the Frank! is live (like `/iaf/` of `/iaf/api/server/health`)",
+                            "default": "/iaf-test/"
+                        },
+                        "port": {
+                            "type": "string",
+                            "description": "Port to chack if the Frank! is live",
+                            "default": "http"
+                        }
+                    }
+                },
                 "initialDelaySeconds": {
                     "type": "number",
                     "description": "Initial delay seconds for livenessProbe",

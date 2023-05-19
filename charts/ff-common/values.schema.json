@@ -296,6 +296,21 @@
         "livenessProbe": {
             "type": "object",
             "properties": {
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path to check if the Frank! is live",
+                            "default": "/iaf/"
+                        },
+                        "port": {
+                            "type": "string",
+                            "description": "Port to chack if the Frank! is live",
+                            "default": "http"
+                        }
+                    }
+                },
                 "initialDelaySeconds": {
                     "type": "number",
                     "description": "Initial delay seconds for livenessProbe",
