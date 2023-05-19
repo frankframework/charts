@@ -117,8 +117,8 @@ frank:
     transactionManager: NARAYANA
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   ## @param frank.environmentVariables.application.server.type.custom [string] Options: ``, `NARAYANA`, `BTM`. Leave empty if you don't want to use a transaction manager
-  ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml
-  ## @param frank.environmentVariables.jms.provider.default [string] The default jms that will be used. This should match with one of the jms' in the context.xml
+  ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`
+  ## @param frank.environmentVariables.jms.provider.default [string] The default jms that will be used. This should match with one of the jms' in the context.xml e.g. `artemis`
   ## More properties can be set. ref: https://github.com/ibissource/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
   ##
   environmentVariables:
