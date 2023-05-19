@@ -65,7 +65,7 @@ frank:
   instance:
     name: ""
   ## @skip frank.configurations [object]
-  ## @param frank.configurations.names [array] Set the configurations to load
+  ## @param frank.configurations.names [array] Set the configurations to load. Leave empty to use the default
   ## e.g.
   ## configurations.names:
   ##   - main
@@ -111,6 +111,10 @@ frank:
           admin: ""
           webService: ""
           observer: ""
+  ## @skip frank.server [object]
+  server:
+    ## @param frank.server.transactionManager Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`
+    transactionManager: NARAYANA
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   ## @param frank.environmentVariables.application.server.type.custom [string] Options: ``, `NARAYANA`, `BTM`. Leave empty if you don't want to use a transaction manager
   ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml
@@ -118,7 +122,6 @@ frank:
   ## More properties can be set. ref: https://github.com/ibissource/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
   ##
   environmentVariables:
-    application.server.type.custom: ''
     jdbc.dbms.default: ''
     jms.provider.default: ''
 

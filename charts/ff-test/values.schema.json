@@ -96,7 +96,7 @@
                     "properties": {
                         "names": {
                             "type": "array",
-                            "description": "Set the configurations to load",
+                            "description": "Set the configurations to load. Leave empty to use the default",
                             "default": [],
                             "items": {}
                         }
@@ -172,6 +172,46 @@
                             }
                         }
                     }
+                },
+                "server": {
+                    "type": "object",
+                    "properties": {
+                        "transactionManager": {
+                            "type": "string",
+                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`",
+                            "default": "NARAYANA"
+                        }
+                    }
+                }
+            }
+        },
+        "autoscaling": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "",
+                    "default": false
+                },
+                "minReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 1
+                },
+                "maxReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 100
+                },
+                "targetCPUUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                },
+                "targetMemoryUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
                 }
             }
         },
@@ -240,41 +280,6 @@
                 }
             }
         },
-        "autoscaling": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "",
-                    "default": false
-                },
-                "minReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 1
-                },
-                "maxReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 100
-                },
-                "targetCPUUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                },
-                "targetMemoryUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                }
-            }
-        },
-        "replicaCount": {
-            "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
-            "default": 1
-        },
         "ingress": {
             "type": "object",
             "properties": {
@@ -330,6 +335,11 @@
                     "items": {}
                 }
             }
+        },
+        "replicaCount": {
+            "type": "number",
+            "description": "Number of Frank!Framework replicas to deploy",
+            "default": 1
         },
         "livenessProbe": {
             "type": "object",
