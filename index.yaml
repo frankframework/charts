@@ -42,6 +42,21 @@ entries:
   ff-test:
   - apiVersion: v2
     appVersion: latest-tomcat
+    created: "2023-05-19T09:07:37.618508495Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: 0.1.1
+    description: A Helm chart for testing the Frank!Framework on Kubernetes
+    digest: e88a058b99b54b195cdd7308cf9f9e225f8763b23062c49737d1ace740b3d4c2
+    icon: https://raw.githubusercontent.com/ibissource/charts/ff-common/charts/ff-test/icon.svg
+    name: ff-test
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/ff-test-0.2.4/ff-test-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: latest-tomcat
     created: "2023-05-19T09:03:09.222348846Z"
     dependencies:
     - name: ff-common
@@ -132,4 +147,4 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/frank2example-0.2.0/frank2example-0.2.0.tgz
     version: 0.2.0
-generated: "2023-05-19T09:03:09.222364846Z"
+generated: "2023-05-19T09:07:37.618562398Z"
