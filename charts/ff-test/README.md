@@ -39,7 +39,7 @@ To uninstall the chart:
 | Name                | Description                                                | Value                      |
 | ------------------- | ---------------------------------------------------------- | -------------------------- |
 | `image.registry`    | Frank!Framework image registry                             | `nexus.frankframework.org` |
-| `image.repository`  | Frank!Framework image repository                           | `frank2example`            |
+| `image.repository`  | Frank!Framework image repository                           | `ff-test`                  |
 | `image.tag`         | Frank!Framework image tag (immutable tags are recommended) | `""`                       |
 | `image.pullPolicy`  | Frank!Framework image pull policy                          | `IfNotPresent`             |
 | `image.pullSecrets` | Frank!Framework image pull secrets                         | `[]`                       |

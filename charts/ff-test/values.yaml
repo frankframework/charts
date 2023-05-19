@@ -19,7 +19,7 @@ fullnameOverride: ""
 ##
 image:
   registry: nexus.frankframework.org
-  repository: frank2example
+  repository: ff-test
   tag: ""
   ## @param image.pullPolicy Frank!Framework image pull policy
   ## Specify a imagePullPolicy

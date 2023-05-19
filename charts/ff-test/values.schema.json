@@ -23,7 +23,7 @@
                 "repository": {
                     "type": "string",
                     "description": "Frank!Framework image repository",
-                    "default": "frank2example"
+                    "default": "ff-test"
                 },
                 "tag": {
                     "type": "string",
