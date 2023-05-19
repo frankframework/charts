@@ -166,8 +166,6 @@ replicaCount: 1
 
 ## Configure extra options for Frank!Framework containers' liveness, readiness and startup probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param livenessProbe.httpGet.path Path to check if the Frank! is live (like `/iaf/` of `/iaf/api/server/health`)
-## @param livenessProbe.httpGet.port Port to chack if the Frank! is live
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
 ## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
@@ -175,9 +173,6 @@ replicaCount: 1
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  httpGet:
-    path: /iaf-test/
-    port: http
   initialDelaySeconds: 40
   periodSeconds: 10
   timeoutSeconds: 1

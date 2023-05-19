@@ -92,24 +92,22 @@ To uninstall the chart:
 
 ### Frank!Framework deployment parameters
 
-| Name                                | Description                                                                    | Value        |
-| ----------------------------------- | ------------------------------------------------------------------------------ | ------------ |
-| `replicaCount`                      | Number of Frank!Framework replicas to deploy                                   | `1`          |
-| `livenessProbe.httpGet.path`        | Path to check if the Frank! is live (like `/iaf/` of `/iaf/api/server/health`) | `/iaf-test/` |
-| `livenessProbe.httpGet.port`        | Port to chack if the Frank! is live                                            | `http`       |
-| `livenessProbe.initialDelaySeconds` | Initial delay seconds for livenessProbe                                        | `40`         |
-| `livenessProbe.periodSeconds`       | Period seconds for livenessProbe                                               | `10`         |
-| `livenessProbe.timeoutSeconds`      | Timeout seconds for livenessProbe                                              | `1`          |
-| `livenessProbe.failureThreshold`    | Failure threshold for livenessProbe                                            | `6`          |
-| `livenessProbe.successThreshold`    | Success threshold for livenessProbe                                            | `1`          |
-| `resources`                         | Set the resources for the Frank!Framework containers                           | `{}`         |
-| `resources.limits`                  | The resources limits for the Frank!Framework containers                        | `""`         |
-| `resources.requests.memory`         | The requested memory for the Frank!Framework containers                        | `""`         |
-| `resources.requests.cpu`            | The requested cpu for the Frank!Framework containers                           | `""`         |
-| `nodeSelector`                      | Node labels for pod assignment                                                 | `{}`         |
-| `tolerations`                       | Set tolerations for pod assignment                                             | `[]`         |
-| `affinity`                          | Set affinity for pod assignment                                                | `{}`         |
-| `timeZone`                          | used for database connection and log timestamps                                | `Etc/UTC`    |
+| Name                                | Description                                             | Value     |
+| ----------------------------------- | ------------------------------------------------------- | --------- |
+| `replicaCount`                      | Number of Frank!Framework replicas to deploy            | `1`       |
+| `livenessProbe.initialDelaySeconds` | Initial delay seconds for livenessProbe                 | `40`      |
+| `livenessProbe.periodSeconds`       | Period seconds for livenessProbe                        | `10`      |
+| `livenessProbe.timeoutSeconds`      | Timeout seconds for livenessProbe                       | `1`       |
+| `livenessProbe.failureThreshold`    | Failure threshold for livenessProbe                     | `6`       |
+| `livenessProbe.successThreshold`    | Success threshold for livenessProbe                     | `1`       |
+| `resources`                         | Set the resources for the Frank!Framework containers    | `{}`      |
+| `resources.limits`                  | The resources limits for the Frank!Framework containers | `""`      |
+| `resources.requests.memory`         | The requested memory for the Frank!Framework containers | `""`      |
+| `resources.requests.cpu`            | The requested cpu for the Frank!Framework containers    | `""`      |
+| `nodeSelector`                      | Node labels for pod assignment                          | `{}`      |
+| `tolerations`                       | Set tolerations for pod assignment                      | `[]`      |
+| `affinity`                          | Set affinity for pod assignment                         | `{}`      |
+| `timeZone`                          | used for database connection and log timestamps         | `Etc/UTC` |
 
 ### Traffic Exposure Parameters
 

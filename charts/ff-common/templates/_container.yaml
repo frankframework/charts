@@ -51,6 +51,9 @@ ports:
     protocol: TCP
 livenessProbe:
   {{- toYaml .Values.livenessProbe | nindent 2 }}
+  httpGet:
+    path: /iaf/
+    port: http
 resources:
 {{- toYaml .Values.resources | nindent 2 }}
 {{- end -}}
