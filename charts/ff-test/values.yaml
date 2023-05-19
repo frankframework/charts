@@ -53,7 +53,7 @@ frank:
   ##
   dtap:
     stage: TST
-    side: ""
+    side: cluster
   ## @skip frank.credentials [object]
   ## @param frank.credentials.secret Set the secret name of the existing secret
   ## @param frank.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
