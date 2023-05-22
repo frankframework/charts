@@ -49,7 +49,7 @@ To uninstall the chart:
 | Name                                                         | Description                                                                                                        | Value      |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ---------- |
 | `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                             | `4G`       |
-| `frank.dtap.stage`                                           | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                   | `TST`      |
+| `frank.dtap.stage`                                           | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                   | `LOC`      |
 | `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                               | `cluster`  |
 | `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                         | `""`       |
 | `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                               | `""`       |

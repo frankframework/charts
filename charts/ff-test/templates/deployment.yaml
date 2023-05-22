@@ -18,24 +18,24 @@ volumeMounts:
     name: tmpfs
   - mountPath: /usr/local/tomcat/temp
     name: tmpfs
-    {{- end }}
-    {{- if .Values.frank.security.http.localUsers }}
+  {{- end }}
+  {{- if .Values.frank.security.http.localUsers }}
   - name: {{ template "ff-common.fullname" . }}-tomcat-users
     mountPath: /usr/local/tomcat/conf/tomcat-users.xml
     subPath: tomcat-users.xml
     readOnly: true
-    {{- end }}
-    {{- if .Values.frank.security.http.activeDirectory.enabled }}
+  {{- end }}
+  {{- if .Values.frank.security.http.activeDirectory.enabled }}
   - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
     mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/ldap-role-mapping.properties
     subPath: ldap-role-mapping.properties
     readOnly: true
-    {{- end }}
-    {{- if .Values.frank.credentials.secret }}
+  {{- end }}
+  {{- if .Values.frank.credentials.secret }}
   - name: {{ template "ff-common.fullname" . }}-credentials
     mountPath: /opt/frank/secrets/
     readOnly: true
-    {{- end }}
+  {{- end }}
   - name: {{ template "ff-common.fullname" . }}-context
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/iaf-test.xml
     subPath: context.xml

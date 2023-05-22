@@ -37,15 +37,19 @@ spec:
           secret:
             secretName: {{ .Values.frank.credentials.secret }}
         {{- end }}
+        {{- if .Values.frank.security.http.localUsers }}
         - name: {{ template "ff-common.fullname" . }}-tomcat-users
           configMap:
             name: {{ template "ff-common.fullname" . }}-tomcat-users
+        {{- end }}
         - name: {{ template "ff-common.fullname" . }}-context
           configMap:
             name: {{ template "ff-common.fullname" . }}-context
+        {{- if .Values.frank.security.http.activeDirectory.enabled }}
         - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
           configMap:
             name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
+        {{- end }}
 {{- end -}}
 {{- define "ff-common.deployment" -}}
 {{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}

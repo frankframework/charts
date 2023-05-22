@@ -57,7 +57,7 @@
                         "stage": {
                             "type": "string",
                             "description": "Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`",
-                            "default": "TST"
+                            "default": "LOC"
                         },
                         "side": {
                             "type": "string",
@@ -377,7 +377,7 @@
                 "readOnlyRootFilesystem": {
                     "type": "boolean",
                     "description": "",
-                    "default": true
+                    "default": false
                 }
             }
         },
