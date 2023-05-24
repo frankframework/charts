@@ -22,14 +22,14 @@ data:
       <!-- IbisProp table has a column named VALUE. VALUE is a keyword in h2 db. -->
         {{- with .Values.connections.jdbc }}
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-h2"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-h2"
         factory="org.apache.naming.factory.BeanFactory"
         type="org.h2.jdbcx.JdbcDataSource"
         URL="jdbc:h2:mem:{{ .database | default (include "ff-common.instance.name" $) }};NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;"
       />
 
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-oracle-orcldb"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-oracle-orcldb"
         factory="org.apache.naming.factory.BeanFactory"
         type="oracle.jdbc.xa.client.OracleXADataSource"
         URL="jdbc:oracle:thin:@{{ .host }}:{{ default 1521 .port }}:{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -38,7 +38,7 @@ data:
       />
 
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-oracle-xe"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-oracle-xe"
         type="javax.sql.DataSource"
         driverClassName="oracle.jdbc.driver.OracleDriver"
         url="jdbc:oracle:thin:@{{ .host }}:{{default 1521 .port }}:{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -49,7 +49,7 @@ data:
       />
 
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-oracle"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-oracle"
         factory="org.apache.naming.factory.BeanFactory"
         type="oracle.jdbc.xa.client.OracleXADataSource"
         URL="jdbc:oracle:thin:@{{ .host }}:{{default 1521 .port }}:{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -58,7 +58,7 @@ data:
       />
 
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-mssql"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-mssql"
         auth="Container"
         factory="org.apache.naming.factory.BeanFactory"
         type="com.microsoft.sqlserver.jdbc.SQLServerXADataSource"
@@ -81,7 +81,7 @@ data:
 
       <!-- serverTimezone is set for docker instances -->
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-mysql"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-mysql"
         factory="org.apache.naming.factory.BeanFactory"
         type="com.mysql.cj.jdbc.MysqlXADataSource"
         URL="jdbc:mysql://{{ .host }}:{{ default 3306 .port }}/{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -98,7 +98,7 @@ data:
 
       <!-- Use MySQL driver for MariaDB for proper XA support. --> <!-- serverTimezone is set for docker instances -->
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-mariadb"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-mariadb"
         factory="org.apache.naming.factory.BeanFactory"
         type="com.mysql.cj.jdbc.MysqlXADataSource"
         URL="jdbc:mysql://{{ .host }}:{{ default 3306 .port }}/{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -112,7 +112,7 @@ data:
       />
       <!--
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-mariadb"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-mariadb"
         factory="org.apache.naming.factory.BeanFactory"
         type="org.mariadb.jdbc.MariaDbDataSource"
         user="{{ .username }}"
@@ -124,7 +124,7 @@ data:
 
 
       <Resource
-        name="jdbc/{{ include "ff-common.instance.name" $ }}-postgres-xa"
+        name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-postgres-xa"
         factory="org.apache.naming.factory.BeanFactory"
         type="org.postgresql.xa.PGXADataSource"
         URL="jdbc:postgresql://{{ .host }}:{{ default 5432 .port }}/{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -133,7 +133,7 @@ data:
       />
 
       <!-- Postgres XA does not work without BTM/Narayana, gives ClassCastException casting the XA datasource to Java datasource, so add non-XA for those cases -->
-      <Resource name="jdbc/{{ include "ff-common.instance.name" $ }}-postgres" auth="Container"
+      <Resource name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-postgres" auth="Container"
         type="javax.sql.DataSource"
         driverClassName="org.postgresql.Driver"
         url="jdbc:postgresql://{{ .host }}:{{ default 5432 .port }}/{{ .database | default (include "ff-common.instance.name" $) }}"
@@ -143,7 +143,7 @@ data:
         maxWaitMillis="5000"
       />
 
-      <Resource name="jdbc/{{ include "ff-common.instance.name" $ }}-db2-xa" auth="Container"
+      <Resource name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-db2-xa" auth="Container"
         factory="org.apache.naming.factory.BeanFactory"
         type="com.ibm.db2.jcc.DB2XADataSource"
         serverName="{{ .host }}"
@@ -155,7 +155,7 @@ data:
       />
 
       <!-- DB2 XA does not work without BTM/Narayana, gives ClassCastException casting the XA datasource to Java datasource, so add non-XA for those cases -->
-      <Resource name="jdbc/{{ include "ff-common.instance.name" $ }}-db2" auth="Container"
+      <Resource name="jdbc/{{ (include "ff-common.instance.name" $) | lower }}-db2" auth="Container"
         type="javax.sql.DataSource"
         driverClassName="com.ibm.db2.jcc.DB2Driver"
         url="jdbc:db2://{{ .host }}:{{ default 50000 .port }}/{{ .database | default (include "ff-common.instance.name" $) }}"
