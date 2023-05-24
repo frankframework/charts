@@ -114,7 +114,7 @@ To uninstall the chart:
 | Name                           | Description                                                                                                                      | Value       |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | `service.type`                 | Frank!Framework service type                                                                                                     | `ClusterIP` |
-| `service.port`                 | Frank!Framework service port                                                                                                     | `80`        |
+| `service.port`                 | Frank!Framework service port                                                                                                     | `8080`      |
 | `ingress.enabled`              | Enable ingress record generation for Frank!                                                                                      | `false`     |
 | `ingress.className`            | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`        |
 | `ingress.annotations`          | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |
