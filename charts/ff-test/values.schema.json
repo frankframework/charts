@@ -413,7 +413,7 @@
                 "port": {
                     "type": "number",
                     "description": "Frank!Framework service port",
-                    "default": 8080
+                    "default": 80
                 }
             }
         },
