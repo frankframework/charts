@@ -230,7 +230,7 @@ service:
   ##
   type: ClusterIP
   ## @param service.port Frank!Framework service port
-  port: 80
+  port: 8080
 ## Configure the ingress resource that allows you to access the Frank!Framework installation
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
