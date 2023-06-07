@@ -3,6 +3,17 @@ entries:
   ff-common:
   - apiVersion: v2
     appVersion: "7.8"
+    created: "2023-06-07T15:19:59.53703839Z"
+    description: ff-common chart building components and helpers for the Frank!Framework
+    digest: 425ea92d3f32437b224f4b2cb97b06afabe8a6c267d78ccbc3bdca1822a8d520
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/ibissource/ff-common/icon.svg
+    name: ff-common
+    urls:
+    - https://github.com/ibissource/charts/releases/download/ff-common-0.1.7/ff-common-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: "7.8"
     created: "2023-05-24T21:07:38.291178809Z"
     description: ff-common chart building components and helpers for the Frank!Framework
     digest: ea0849d833aa27ebde62f3c2ac73cc10fc5775a2ba68fe4461919eb6e8a7aa66
@@ -356,4 +367,4 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/frank2example-0.2.0/frank2example-0.2.0.tgz
     version: 0.2.0
-generated: "2023-05-24T21:46:47.255855655Z"
+generated: "2023-06-07T15:20:00.00361369Z"
