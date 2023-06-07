@@ -1,21 +1,28 @@
-# 🔌Frank!Framework Common Library Chart
+# 🔌Frank!Framework Template Chart
 
-This [Helm Library Chart](https://helm.sh/docs/topics/library_charts/) is designed to make it easy create your own [Frank!Framework](https://frankframework.org) Chart.
-A lot of the common configuration work has been done already, making it quicker to develop.
-It also has the added benefit that additions can easily be distributed across all FF! Charts.
+This template Helm Chart can be copied as a start point for a new Frank!.
+This chart won't be pubilshed becouse it is not i nthe ibissourec folder.
 
 ## Usage
 
-### Getting Started
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
 
-The best way to start is to copy the template chart. This contains a copy of the values.yaml and implements all needed manifests.
-It is recommended to implement as much manifests as possible, some can be disabled and enabled in the values.yaml instead.
-This opens up the possibility for the user to use the manifest if they desire to.
+Once Helm has been set up correctly, add the repo as follows:
 
-### Extending the Chart
+helm repo add ibissource https://ibissource.github.io/charts
 
-One of the main reasons this is a library and not a sub-chart is because it enables extendability.
-Whereas the sub-chart can only be used "as is", the library can be modified in your own chart.
+If you had already added this repo earlier, run `helm repo update` to retrieve
+the latest versions of the packages.  You can then run `helm search repo
+ibissource` to see the charts.
+
+To install the ff-template chart:
+
+    helm install my-ff-template ibissource/ff-template
+
+To uninstall the chart:
+
+    helm delete my-ff-template
 
 ## Parameters
 

@@ -1,0 +1,6 @@
+dependencies:
+- name: ff-common
+  repository: file://../ibissource/ff-common
+  version: 0.1.7
+digest: sha256:326a7661c488995927ad7e3cf8d48ee286bfee059057bf8e08b4f9af8faabe0a
+generated: "2023-06-07T16:47:00.74316858+02:00"

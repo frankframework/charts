@@ -23,7 +23,7 @@
                 "repository": {
                     "type": "string",
                     "description": "Frank!Framework image repository",
-                    "default": "frank2example"
+                    "default": "frank-framework"
                 },
                 "tag": {
                     "type": "string",
@@ -62,7 +62,7 @@
                         "side": {
                             "type": "string",
                             "description": "Set the `DTAP` side of where the instance is running",
-                            "default": ""
+                            "default": "cluster"
                         }
                     }
                 },
@@ -96,7 +96,7 @@
                     "properties": {
                         "names": {
                             "type": "array",
-                            "description": "Set the configurations to load",
+                            "description": "Set the configurations to load. Leave empty to use the default",
                             "default": [],
                             "items": {}
                         }
@@ -172,34 +172,16 @@
                             }
                         }
                     }
-                }
-            }
-        },
-        "connections": {
-            "type": "object",
-            "properties": {
-                "jdbc": {
-                    "type": "array",
-                    "description": "",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "description": ""
-                            },
-                            "type": {
-                                "type": "string",
-                                "description": ""
-                            }
+                },
+                "server": {
+                    "type": "object",
+                    "properties": {
+                        "transactionManager": {
+                            "type": "string",
+                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`",
+                            "default": "NARAYANA"
                         }
                     }
-                },
-                "jms": {
-                    "type": "array",
-                    "description": "Set multiple massage services",
-                    "default": [],
-                    "items": {}
                 }
             }
         },
@@ -230,6 +212,23 @@
                     "type": "number",
                     "description": "",
                     "default": 80
+                }
+            }
+        },
+        "connections": {
+            "type": "object",
+            "properties": {
+                "jdbc": {
+                    "type": "array",
+                    "description": "Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)",
+                    "default": [],
+                    "items": {}
+                },
+                "jms": {
+                    "type": "array",
+                    "description": "Set multiple massage services",
+                    "default": [],
+                    "items": {}
                 }
             }
         },
@@ -286,16 +285,6 @@
                     "description": "Define tls secrets for hosts (implementation not done yet)",
                     "default": [],
                     "items": {}
-                }
-            }
-        },
-        "securityContext": {
-            "type": "object",
-            "properties": {
-                "readOnlyRootFilesystem": {
-                    "type": "boolean",
-                    "description": "",
-                    "default": true
                 }
             }
         },

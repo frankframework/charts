@@ -62,7 +62,7 @@
                         "side": {
                             "type": "string",
                             "description": "Set the `DTAP` side of where the instance is running",
-                            "default": ""
+                            "default": "cluster"
                         }
                     }
                 },
@@ -96,7 +96,7 @@
                     "properties": {
                         "names": {
                             "type": "array",
-                            "description": "Set the configurations to load",
+                            "description": "Set the configurations to load. Leave empty to use the default",
                             "default": [],
                             "items": {}
                         }
@@ -170,6 +170,16 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                },
+                "server": {
+                    "type": "object",
+                    "properties": {
+                        "transactionManager": {
+                            "type": "string",
+                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`",
+                            "default": "NARAYANA"
                         }
                     }
                 }

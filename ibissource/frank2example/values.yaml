@@ -53,7 +53,7 @@ frank:
   ##
   dtap:
     stage: TST
-    side: ""
+    side: cluster
   ## @skip frank.credentials [object]
   ## @param frank.credentials.secret Set the secret name of the existing secret
   ## @param frank.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
@@ -65,7 +65,7 @@ frank:
   instance:
     name: ""
   ## @skip frank.configurations [object]
-  ## @param frank.configurations.names [array] Set the configurations to load
+  ## @param frank.configurations.names [array] Set the configurations to load. Leave empty to use the default
   ## e.g.
   ## configurations.names:
   ##   - main
@@ -111,6 +111,10 @@ frank:
           admin: ""
           webService: ""
           observer: ""
+  ## @skip frank.server [object]
+  server:
+    ## @param frank.server.transactionManager Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`
+    transactionManager: NARAYANA
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   environmentVariables: {}
 
