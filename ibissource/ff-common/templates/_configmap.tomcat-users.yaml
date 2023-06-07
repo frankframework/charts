@@ -1,0 +1,32 @@
+{{/*
+ConfigMap for generating a tomcat-users.xml including all users and roles
+*/}}
+{{- define "ff-common.configmap.tomcat-users.tpl" -}}
+{{- if .Values.frank.security.http.localUsers -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ff-common.fullname" . }}-tomcat-users
+  labels:
+    {{- include "ff-common.labels" . | nindent 4 }}
+data:
+  tomcat-users.xml: |-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <tomcat-users xmlns="http://tomcat.apache.org/xml"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+                  version="1.0">
+        <role rolename="IbisTester"/>
+        <role rolename="IbisDataAdmin"/>
+        <role rolename="IbisAdmin"/>
+        <role rolename="IbisWebService"/>
+        <role rolename="IbisObserver"/>
+      {{- range .Values.frank.security.http.localUsers }}
+        <user username="{{ .username }}" password="{{ .password }}" roles="{{ join "," .roles | default "IbisTester" }}"/>
+      {{- end }}
+    </tomcat-users>
+{{- end -}}
+{{- end -}}
+{{- define "ff-common.configmap.tomcat-users" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.configmap.tomcat-users.tpl") -}}
+{{- end -}}

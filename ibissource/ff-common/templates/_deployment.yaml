@@ -1,0 +1,56 @@
+{{- define "ff-common.deployment.tpl" -}}
+apiVersion: apps/v1
+kind: Deployment
+{{ template "ff-common.metadata" . }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ff-common.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ff-common.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ff-common.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        -
+          {{- include "ff-common.container.tpl" . | nindent 10 }}
+      volumes:
+        {{- if .Values.securityContext.readOnlyRootFilesystem }}
+        - name: tmpfs
+          emptyDir: { }
+        {{- end }}
+        {{- if .Values.frank.credentials.secret }}
+        - name: {{ template "ff-common.fullname" . }}-credentials
+          secret:
+            secretName: {{ .Values.frank.credentials.secret }}
+        {{- end }}
+        {{- if .Values.frank.security.http.localUsers }}
+        - name: {{ template "ff-common.fullname" . }}-tomcat-users
+          configMap:
+            name: {{ template "ff-common.fullname" . }}-tomcat-users
+        {{- end }}
+        - name: {{ template "ff-common.fullname" . }}-context
+          configMap:
+            name: {{ template "ff-common.fullname" . }}-context
+        {{- if .Values.frank.security.http.activeDirectory.enabled }}
+        - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
+          configMap:
+            name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
+        {{- end }}
+{{- end -}}
+{{- define "ff-common.deployment" -}}
+{{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}
+{{- end -}}

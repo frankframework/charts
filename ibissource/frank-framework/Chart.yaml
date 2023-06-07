@@ -1,0 +1,12 @@
+apiVersion: v2
+appVersion: "7.8"
+description: A Helm chart for running the Frank!Framework on Kubernetes
+name: frank-framework
+icon: https://raw.githubusercontent.com/ibissource/charts/master/ibissource/frank-framework/icon.svg
+type: application
+version: 0.2.0
+
+dependencies:
+  - name: ff-common
+    version: 0.1.x
+    repository: file://../ff-common

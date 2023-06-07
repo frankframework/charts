@@ -1,0 +1,64 @@
+{{/*
+Predefined container for running a Frank!
+*/}}
+{{- define "ff-common.container.tpl" -}}
+name: {{ .Chart.Name }}
+securityContext:
+  {{- toYaml .Values.securityContext | nindent 2 }}
+image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+imagePullPolicy: {{ .Values.image.pullPolicy }}
+envFrom:
+  - configMapRef:
+      name: {{ template "ff-common.fullname" . }}-env
+volumeMounts:
+    {{- if .Values.securityContext.readOnlyRootFilesystem }}
+  - mountPath: /usr/local/tomcat/logs
+    name: tmpfs
+  - mountPath: /usr/local/tomcat/conf/Catalina
+    name: tmpfs
+  - mountPath: /usr/local/tomcat/work/Catalina/localhost
+    name: tmpfs
+  - mountPath: /usr/local/tomcat/temp
+    name: tmpfs
+    {{- end }}
+  - name: {{ template "ff-common.fullname" . }}-context
+    mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
+    subPath: context.xml
+    readOnly: true
+    {{- if .Values.frank.security.http.localUsers }}
+  - name: {{ template "ff-common.fullname" . }}-tomcat-users
+    mountPath: /usr/local/tomcat/conf/tomcat-users.xml
+    subPath: tomcat-users.xml
+    readOnly: true
+    {{- end }}
+    {{- if .Values.frank.security.http.activeDirectory.enabled }}
+  - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
+    mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/ldap-role-mapping.properties
+    subPath: ldap-role-mapping.properties
+    readOnly: true
+    {{- end }}
+    {{- if .Values.frank.credentials.secret }}
+  - name: {{ template "ff-common.fullname" . }}-credentials
+    mountPath: /opt/frank/secrets/
+    readOnly: true
+    {{- end }}
+ports:
+  - name: http
+    containerPort: 8080
+    protocol: TCP
+  - name: https
+    containerPort: 8443
+    protocol: TCP
+livenessProbe:
+  {{- toYaml .Values.livenessProbe | nindent 2 }}
+  httpGet:
+    path: /iaf/
+    port: 8080
+resources:
+{{- toYaml .Values.resources | nindent 2 }}
+{{- end -}}
+{{- define "ff-common.container" -}}
+{{- /* Clear new line so indentation works correctly */ -}}
+{{- println "" -}}
+{{- include "ff-common.util.merge" (append . "ff-common.container.tpl") | indent 8 -}}
+{{- end -}}
