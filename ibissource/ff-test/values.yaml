@@ -122,7 +122,7 @@ frank:
   ## More properties can be set. ref: https://github.com/ibissource/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
   ##
   environmentVariables:
-    jdbc.dbms.default: ''
+    jdbc.dbms.default: 'h2'
     jms.provider.default: ''
 
 ## @section Frank!Framework Connection parameters
