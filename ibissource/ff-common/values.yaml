@@ -113,7 +113,7 @@ frank:
           observer: ""
   ## @skip frank.server [object]
   server:
-    ## @param frank.server.transactionManager Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`
+    ## @param frank.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
     transactionManager: NARAYANA
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   environmentVariables: {}

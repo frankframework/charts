@@ -178,40 +178,10 @@
                     "properties": {
                         "transactionManager": {
                             "type": "string",
-                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`",
-                            "default": "NARAYANA"
+                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``",
+                            "default": ""
                         }
                     }
-                }
-            }
-        },
-        "autoscaling": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "",
-                    "default": false
-                },
-                "minReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 1
-                },
-                "maxReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 100
-                },
-                "targetCPUUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                },
-                "targetMemoryUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
                 }
             }
         },
@@ -277,6 +247,36 @@
                             "nullable": true
                         }
                     }
+                }
+            }
+        },
+        "autoscaling": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "",
+                    "default": false
+                },
+                "minReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 1
+                },
+                "maxReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 100
+                },
+                "targetCPUUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                },
+                "targetMemoryUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
                 }
             }
         },
