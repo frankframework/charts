@@ -131,7 +131,7 @@ connections:
   ## @param connections.jdbc.post [nullable,string] Port for the database (leave empty for default)
   ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Values.instance.name`)
   ## @param connections.jdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
-  ## @param connections.jdbc.username [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
+  ## @param connections.jdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
   ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
   ##
   jdbc: []

@@ -178,7 +178,7 @@
                     "properties": {
                         "transactionManager": {
                             "type": "string",
-                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`",
+                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``",
                             "default": "NARAYANA"
                         }
                     }

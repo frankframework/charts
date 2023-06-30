@@ -61,9 +61,6 @@ frank:
     secret: ""
     key: ""
   ## @skip frank.instance [string]
-  ## @param frank.instance.name Set the name of the Frank! instance (default is the `fullname`)
-  instance:
-    name: ""
   ## @skip frank.configurations [object]
   ## @param frank.configurations.names [array] Set the configurations to load. Leave empty to use the default
   ## e.g.
@@ -133,7 +130,7 @@ connections:
   ## @param connections.jdbc [object] Set one database connections. The connection should match one in the context.xml
   ## @param connections.jdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location
   ## @param connections.jdbc.port [nullable,string] Port for the database (leave empty for default)
-  ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Values.instance.name`)
+  ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Release.name`)
   ## @param connections.jdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
   ## @param connections.jdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
   ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`

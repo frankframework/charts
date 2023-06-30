@@ -53,7 +53,6 @@ To uninstall the chart:
 | `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                                                                             | `cluster` |
 | `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                                                                       | `""`      |
 | `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                                                                             | `""`      |
-| `frank.instance.name`                                        | Set the name of the Frank! instance (default is the `fullname`)                                                                                                  | `""`      |
 | `frank.configurations.names`                                 | Set the configurations to load. Leave empty to use the default                                                                                                   | `[]`      |
 | `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                                                                           | `false`   |
 | `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                                                                      | `[]`      |
@@ -80,7 +79,7 @@ To uninstall the chart:
 | `connections.jdbc`          | Set one database connections. The connection should match one in the context.xml                                                                               | `{}`  |
 | `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location | `""`  |
 | `connections.jdbc.port`     | Port for the database (leave empty for default)                                                                                                                | `""`  |
-| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                               | `""`  |
+| `connections.jdbc.database` | Name of the database to use (default is `.Release.name`)                                                                                                       | `""`  |
 | `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                              | `""`  |
 | `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`  |
 | `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                                   | `""`  |

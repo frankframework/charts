@@ -113,7 +113,7 @@ frank:
           observer: ""
   ## @skip frank.server [object]
   server:
-    ## @param frank.server.transactionManager Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`
+    ## @param frank.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
     transactionManager: NARAYANA
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   environmentVariables: {}
@@ -131,7 +131,7 @@ connections:
   ## @param connections.jdbc.post [nullable,string] Port for the database (leave empty for default)
   ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Values.instance.name`)
   ## @param connections.jdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
-  ## @param connections.jdbc.username [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
+  ## @param connections.jdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
   ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
   ##
   jdbc:

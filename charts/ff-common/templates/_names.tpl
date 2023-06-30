@@ -35,5 +35,9 @@ Create the instance name for the Frank!.
 Will be set to the fullname unless value is set.
 */}}
 {{- define "ff-common.instance.name" -}}
-{{ default (include "ff-common.fullname" . ) .Values.frank.instance.name }}
+{{- if (hasKey .Values.frank "instance") -}}
+{{ default .Release.Name .Values.frank.instance.name }}
+{{- else -}}
+{{ .Release.Name }}
+{{- end -}}
 {{- end -}}

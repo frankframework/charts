@@ -81,16 +81,6 @@
                         }
                     }
                 },
-                "instance": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string",
-                            "description": "Set the name of the Frank! instance (default is the `fullname`)",
-                            "default": ""
-                        }
-                    }
-                },
                 "configurations": {
                     "type": "object",
                     "properties": {
@@ -204,7 +194,7 @@
                         },
                         "database": {
                             "type": "string",
-                            "description": "Name of the database to use (default is `.Values.instance.name`)",
+                            "description": "Name of the database to use (default is `.Release.name`)",
                             "default": "",
                             "nullable": true
                         },
