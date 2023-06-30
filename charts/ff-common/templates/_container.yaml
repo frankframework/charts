@@ -54,8 +54,10 @@ livenessProbe:
   httpGet:
     path: /iaf/
     port: 8080
+{{- with .Values.resources }}
 resources:
-{{- toYaml .Values.resources | nindent 2 }}
+  {{- toYaml . | nindent 2 }}
+{{- end -}}
 {{- end -}}
 {{- define "ff-common.container" -}}
 {{- /* Clear new line so indentation works correctly */ -}}

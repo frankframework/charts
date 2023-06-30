@@ -132,6 +132,21 @@ data:
         />
           {{- end }}
         {{- end }}
+        {{- range .jmsTibco }}
+        <Resource
+                name="{{ .name | default (printf "jms/%s" (include "ff-common.instance.name" $)) | lower }}"
+                factory="nl.nn.adapterframework.jndi.TomcatJndiProxy"
+
+                delegate_name="SLXHP_Queue_ConnectionFactory"
+                delegate_jndiProperties="TibcoJndi.properties"
+                {{- $last := sub (len .hosts) 1 }}
+                delegate_providerURL="{{ range $index, $host := .hosts }}tibjmsnaming://{{ $host.hostname }}:{{ $host.port }}{{ if ne $index $last }},{{ end }}{{ end }}"
+
+                userName="{{ .username }}"
+                userPassword="{{ .password }}"
+                SSLEnableVerifyHost="{{ .ssl }}"
+        />
+        {{- end }}
       {{- end }}
     </Context>
 {{- end -}}

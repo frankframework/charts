@@ -138,10 +138,27 @@ connections:
   ## @param connections.jms [array] Set multiple massage services
   ## @param connections.jms.name [nullable,string] Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
   ## @param connections.jms.type [string] MQ type. Options: `artemis`, `activemq`
-  ## @param connections.jms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @param connections.jms.post [nullable,string] Port for the MQ (leave empty for default)
+  ## @param connections.jms.hosts.hostname [hostname] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.jms.hosts.port [nullable,string] Port for the MQ (leave empty for default)
   ##
-  jms: []
+  jms:
+    - type: artemis
+      host: test
+      port: 123
+  ## @param connections.jmsTibco [array] Set multiple massage services
+  ## @param connections.jmsTibco.name [nullable,string] Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
+  ## @param connections.jmsTibco.hosts [array] Multiple Hosts are allowed
+  ## @param connections.jmsTibco.hosts.hostname [hostname] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.jmsTibco.hosts.port [nullable,string] Port for the MQ (leave empty for default)
+  ##
+  jmsTibco:
+    - delegateName: SLXHP_Queue_ConnectionFactory
+      jndiProperties: tobcoJndi.properties
+      hosts:
+        - hostname: TESTURL1
+          port: 123
+        - hostname: TESTURL2
+          port: 456
 
 ## @section Frank!Framework deployment parameters
 ##
@@ -165,6 +182,7 @@ livenessProbe:
   timeoutSeconds: 1
   failureThreshold: 6
   successThreshold: 1
+
 ## Frank!Framework container's resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources [object] Set the resources for the Frank!Framework containers
@@ -190,19 +208,23 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
+
 ## @param nodeSelector Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
+
 ## @param tolerations Set tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
+
 ## @param affinity Set affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
 ##
 affinity: {}
+
 ## @param timeZone used for database connection and log timestamps
 ##
 timeZone: Etc/UTC
@@ -278,19 +300,23 @@ serviceAccount:
   ## If not set and create is true, a name is generated using the ff-common.fullname template
   ##
   name: ""
+
 ## @param podAnnotations Annotations for Frank!Framework pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
+
 ## @param podLabels Extra labels for Frank!Framework pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
+
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext [object] Set Frank!Framework pod's Security Context
 ##
 podSecurityContext: {}
+
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param securityContext [object] Set Frank!Framework container's Security Context
