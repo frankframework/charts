@@ -21,10 +21,12 @@ volumeMounts:
   - mountPath: /usr/local/tomcat/temp
     name: tmpfs
     {{- end }}
+    {{- if .Values.connections.create }}
   - name: {{ template "ff-common.fullname" . }}-context
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml
     subPath: context.xml
     readOnly: true
+    {{- end }}
     {{- if .Values.frank.security.http.localUsers }}
   - name: {{ template "ff-common.fullname" . }}-tomcat-users
     mountPath: /usr/local/tomcat/conf/tomcat-users.xml

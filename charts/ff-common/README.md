@@ -65,22 +65,23 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 ### Frank!Framework Connection parameters
 
-| Name                        | Description                                                                                                                                          | Value |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set) | `[]`  |
-| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    | `""`  |
-| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            | `""`  |
-| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  | `""`  |
-| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      | `""`  |
-| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     | `""`  |
-| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`  |
-| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`  |
-| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`  |
-| `connections.jms`           | Set multiple massage services                                                                                                                        | `[]`  |
-| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`  |
-| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`  |
-| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`  |
-| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            | `""`  |
+| Name                        | Description                                                                                                                                          | Value  |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| `connections.create`        | Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.                                              | `true` |
+| `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set) | `[]`   |
+| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    | `""`   |
+| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            | `""`   |
+| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  | `""`   |
+| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      | `""`   |
+| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     | `""`   |
+| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`   |
+| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`   |
+| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`   |
+| `connections.jms`           | Set multiple massage services                                                                                                                        | `[]`   |
+| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`   |
+| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`   |
+| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`   |
+| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            | `""`   |
 
 ### Frank!Framework deployment parameters
 

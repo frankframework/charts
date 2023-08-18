@@ -218,6 +218,11 @@
         "connections": {
             "type": "object",
             "properties": {
+                "create": {
+                    "type": "boolean",
+                    "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
+                    "default": true
+                },
                 "jdbc": {
                     "type": "array",
                     "description": "Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)",

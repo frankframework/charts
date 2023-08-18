@@ -36,10 +36,12 @@ volumeMounts:
     mountPath: /opt/frank/secrets/
     readOnly: true
   {{- end }}
+    {{- if .Values.connections.create }}
   - name: {{ template "ff-common.fullname" . }}-context
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/iaf-test.xml
     subPath: context.xml
     readOnly: true
+    {{- end }}
 livenessProbe:
   httpGet:
     path: /iaf-test/iaf/

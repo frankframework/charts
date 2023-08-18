@@ -74,19 +74,20 @@ To uninstall the chart:
 
 ### Frank!Framework Connection parameters
 
-| Name                        | Description                                                                                                                                                    | Value |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `connections.jdbc`          | Set one database connections. The connection should match one in the context.xml                                                                               | `{}`  |
-| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location | `""`  |
-| `connections.jdbc.port`     | Port for the database (leave empty for default)                                                                                                                | `""`  |
-| `connections.jdbc.database` | Name of the database to use (default is `.Release.name`)                                                                                                       | `""`  |
-| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                              | `""`  |
-| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`  |
-| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                                   | `""`  |
-| `connections.jms`           | Set one massage services. The connection should match one in the context.xml                                                                                   | `[]`  |
-| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                                  | `""`  |
-| `connections.jms.port`      | Port for the MQ (leave empty for default)                                                                                                                      | `""`  |
-| `connections.jms.url`       | URL for Tibco                                                                                                                                                  | `""`  |
+| Name                        | Description                                                                                                                                                    | Value   |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `connections.create`        | Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.                                                        | `false` |
+| `connections.jdbc`          | Set one database connections. The connection should match one in the context.xml                                                                               | `{}`    |
+| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location | `""`    |
+| `connections.jdbc.port`     | Port for the database (leave empty for default)                                                                                                                | `""`    |
+| `connections.jdbc.database` | Name of the database to use (default is `.Release.name`)                                                                                                       | `""`    |
+| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                              | `""`    |
+| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`    |
+| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                                   | `""`    |
+| `connections.jms`           | Set one massage services. The connection should match one in the context.xml                                                                                   | `[]`    |
+| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                                  | `""`    |
+| `connections.jms.port`      | Port for the MQ (leave empty for default)                                                                                                                      | `""`    |
+| `connections.jms.url`       | URL for Tibco                                                                                                                                                  | `""`    |
 
 ### Frank!Framework deployment parameters
 

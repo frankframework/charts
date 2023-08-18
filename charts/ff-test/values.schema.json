@@ -178,6 +178,11 @@
         "connections": {
             "type": "object",
             "properties": {
+                "create": {
+                    "type": "boolean",
+                    "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
+                    "default": false
+                },
                 "jdbc": {
                     "type": "object",
                     "properties": {

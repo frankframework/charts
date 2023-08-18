@@ -205,6 +205,11 @@
                         }
                     }
                 },
+                "create": {
+                    "type": "boolean",
+                    "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
+                    "default": true
+                },
                 "jms": {
                     "type": "array",
                     "description": "Set multiple massage services",

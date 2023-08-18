@@ -57,6 +57,7 @@ frank:
   ## @skip frank.credentials [object]
   ## @param frank.credentials.secret Set the secret name of the existing secret
   ## @param frank.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
+  ##
   credentials:
     secret: ""
     key: ""
@@ -66,6 +67,7 @@ frank:
   ## e.g.
   ## configurations.names:
   ##   - main
+  ##
   configurations:
     names: []
   ## @skip frank.security [object]
@@ -74,6 +76,7 @@ frank:
   security:
     http:
       ## @param frank.security.http.authentication Set http authentication for the Frank!
+      ##
       authentication: false
       ## @param frank.security.http.localUsers [array] Set localUsers who can log in on the Frank!
       ## @param frank.security.http.localUsers.username [string] Set the username of the user
@@ -109,8 +112,10 @@ frank:
           webService: ""
           observer: ""
   ## @skip frank.server [object]
+  ##
   server:
     ## @param frank.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
+    ##
     transactionManager: ''
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`
@@ -124,9 +129,12 @@ frank:
 ## @section Frank!Framework Connection parameters
 ##
 
-## @skip connections
+## @skip connections [object]
 ##
 connections:
+  ## @param connections.create Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.
+  ##
+  create: false
   ## @param connections.jdbc [object] Set one database connections. The connection should match one in the context.xml
   ## @param connections.jdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location
   ## @param connections.jdbc.port [nullable,string] Port for the database (leave empty for default)
@@ -199,19 +207,23 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
+
 ## @param nodeSelector Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
+
 ## @param tolerations Set tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
+
 ## @param affinity Set affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ## NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
 ##
 affinity: {}
+
 ## @param timeZone used for database connection and log timestamps
 ##
 timeZone: Etc/UTC
@@ -227,6 +239,7 @@ service:
   type: ClusterIP
   ## @param service.port Frank!Framework service port
   port: 80
+
 ## Configure the ingress resource that allows you to access the Frank!Framework installation
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
@@ -287,19 +300,23 @@ serviceAccount:
   ## If not set and create is true, a name is generated using the ff-common.fullname template
   ##
   name: ""
+
 ## @param podAnnotations Annotations for Frank!Framework pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
+
 ## @param podLabels Extra labels for Frank!Framework pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
+
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext [object] Set Frank!Framework pod's Security Context
 ##
 podSecurityContext: {}
+
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param securityContext [object] Set Frank!Framework container's Security Context

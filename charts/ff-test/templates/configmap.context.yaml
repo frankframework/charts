@@ -1,3 +1,4 @@
+{{- if .Values.connections.create -}}
 {{/*
 This is a copy of https://github.com/ibissource/iaf/blob/master/test/src/main/webapp/META-INF/context.xml
 */}}
@@ -246,3 +247,4 @@ data:
       />
         {{- end }}
     </Context>
+{{- end }}

@@ -60,9 +60,11 @@ spec:
           configMap:
             name: {{ template "ff-common.fullname" . }}-tomcat-users
         {{- end }}
+        {{- if .Values.connections.create }}
         - name: {{ template "ff-common.fullname" . }}-context
           configMap:
             name: {{ template "ff-common.fullname" . }}-context
+        {{- end }}
         {{- if .Values.frank.security.http.activeDirectory.enabled }}
         - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
           configMap:
