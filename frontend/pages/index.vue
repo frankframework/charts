@@ -1,7 +1,7 @@
 <template>
   <main>
       <h1 class="text-4xl font-extrabold mt-10 mb-5">Charts</h1>
-      <NuxtLink v-for="chart in data.entries" :to="`/charts/${chart[0].name}`">
+      <NuxtLink v-for="chart in data.entries" :to="`/${chart[0].name}`">
           <UCard class="mb-3 hover:bg-slate-50">
               <div class="flex items-top">
                   <img :src="chart[0].icon" v-if="chart[0].icon" class="w-28 mr-5 max-h-28" />

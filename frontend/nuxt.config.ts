@@ -22,7 +22,9 @@ export default defineNuxtConfig({
       },
     },
     ignores: [
-      '/templates/'
+      '/templates/',
+      '\\.svg$',
+      '\\.lock$'
     ],
     highlight: {
       theme: 'github-light'

@@ -1,6 +1,6 @@
 <template>
     <main class="pt-10">
-      <NuxtLink to="/charts"><UIcon name="i-heroicons-arrow-left" /> Back</NuxtLink>
+      <NuxtLink to="/"><UIcon name="i-heroicons-arrow-left" /> Back</NuxtLink>
         <div class="flex mt-10">
             <div class="flex-auto">
                 <div class="flex items-top">
@@ -41,17 +41,26 @@
                     <h1 class="font-bold mt-3">Chart</h1>
                     <NuxtLink :to="charts.entries[currentChart[0].name][0].urls[0]">Download</NuxtLink>
                 </div>
-
             </div>
         </div>
     </main>
 </template>
 
 <script setup>
-const { path } = useRoute()
+const { fullPath } = useRoute()
+
+console.log(fullPath)
+
+const path = 'charts' + fullPath
+
+console.log(path)
+
 const { data: currentChart } = await useAsyncData(path, () => {
     return queryContent(path).find()
 })
+
+console.log(currentChart)
+
 const { data: charts } = await useAsyncData('charts', () => queryContent('charts').findOne())
 const formatDate = (date) => new Date(date).toLocaleDateString('en-GB');
 </script>

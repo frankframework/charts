@@ -54,7 +54,7 @@ export default defineComponent({
       class="absolute opacity-0 right-3 top-3 group-hover:opacity-100 transition-opacity z-[1]"
       size="xs"
       tabindex="-1"
-      @click="copy"
+      @click="copy" M
     />
 
     <span v-if="filename" class="text-gray-400 dark:text-gray-500 absolute right-3 bottom-3 text-sm group-hover:opacity-0 transition-opacity">{{ filename }}</span>
@@ -67,6 +67,10 @@ export default defineComponent({
 pre code .line {
   display: block;
   min-height: 1rem;
+}
+
+pre code {
+  color: var(--lt-color-black);
 }
 
 pre code .line.highlight {
