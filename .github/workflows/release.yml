@@ -41,3 +41,5 @@ jobs:
         with:
           branch: gh-pages
           folder: frontend/dist
+          clean-exclude: |-
+            index.yaml
