@@ -38,7 +38,6 @@ jobs:
         working-directory: frontend
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.4.3
-        working-directory: frontend
         with:
           branch: gh-pages
-          folder: dist
+          folder: frontend/dist
