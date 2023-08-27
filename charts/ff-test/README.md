@@ -14,17 +14,22 @@ Once Helm has been set up correctly, add the repo as follows:
 ```shell
 helm repo add ibissource https://ibissource.github.io/charts
 ```
+
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
 ibissource` to see the charts.
 
 To install the ff-test chart:
 
-    helm install my-ff-test ibissource/ff-test
+```shell
+helm install my-ff-test ibissource/ff-test
+```
 
 To uninstall the chart:
 
-    helm delete my-ff-test
+```shell
+helm delete my-ff-test
+```
 
 ## Parameters
 

@@ -11,7 +11,9 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, add the repo as follows:
 
-    helm repo add ibissource https://ibissource.github.io/charts
+```shell
+helm repo add ibissource https://ibissource.github.io/charts
+```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
@@ -19,11 +21,15 @@ ibissource` to see the charts.
 
 To install the frank-framework chart:
 
-    helm install my-frank-framework ibissource/frank-framework
+```shell
+helm install my-frank-framework ibissource/frank-framework
+```
 
 To uninstall the chart:
 
-    helm delete my-frank-framework
+```shell
+helm delete my-frank-framework
+```
 
 ## Parameters
 
