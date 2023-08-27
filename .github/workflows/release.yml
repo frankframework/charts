@@ -32,6 +32,8 @@ jobs:
     defaults:
       run:
         working-directory: frontend
+    env:
+      NUXT_APP_BASE_URL: /charts/
     steps:
       - name: Checkout
         uses: actions/checkout@v1

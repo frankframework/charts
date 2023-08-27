@@ -1,6 +1,6 @@
 <template>
     <main class="pt-10">
-      <NuxtLink to="/"><UIcon name="i-heroicons-arrow-left" /> Back</NuxtLink>
+      <NuxtLink to="/"><UIcon name="i-heroicons-arrow-left" /> All Charts</NuxtLink>
         <div class="flex mt-10">
             <div class="flex-auto">
                 <div class="flex items-top">
@@ -48,19 +48,10 @@
 
 <script setup>
 const { fullPath } = useRoute()
-
-console.log(fullPath)
-
 const path = 'charts' + fullPath
-
-console.log(path)
-
 const { data: currentChart } = await useAsyncData(path, () => {
     return queryContent(path).find()
 })
-
-console.log(currentChart)
-
 const { data: charts } = await useAsyncData('charts', () => queryContent('charts').findOne())
 const formatDate = (date) => new Date(date).toLocaleDateString('en-GB');
 </script>
