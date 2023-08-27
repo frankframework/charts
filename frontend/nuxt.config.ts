@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     },
     ignores: [
       '/templates/',
+      '/docs/',
       '\\.svg$',
       '\\.lock$'
     ],

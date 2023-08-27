@@ -7,39 +7,54 @@ on:
 
 jobs:
   release:
+    name: Release charts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-  build:
+  docs:
+    if: ${{ always() }}
+    needs: release
+    name: Build documentation
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Installing project dependencies
         run: yarn install
-        working-directory: frontend
       - name: Build site
         run: yarn generate
-        working-directory: frontend
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: gh-pages
-          folder: frontend/dist
-          clean-exclude: |-
-            index.yaml
+          folder: frontend/.output/public
+          target-folder: docs
+  copy:
+    needs: docs
+    if: ${{ always() }}
+    name: Copy index.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+      - name: Copy index.yaml
+        run: cp index.yaml docs/index.yaml
+      - uses: stefanzweifel/git-auto-commit-action@v4
