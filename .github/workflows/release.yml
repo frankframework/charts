@@ -47,6 +47,8 @@ jobs:
           branch: gh-pages
           folder: frontend/.output/public
           target-folder: docs
+          clean-exclude: |-
+            .nojekyll
   copy:
     needs: docs
     name: Copy index.yaml
