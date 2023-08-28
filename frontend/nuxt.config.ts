@@ -4,21 +4,6 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxthq/ui',
   ],
-  app: {
-    buildAssetsDir: "/nuxt/"
-  },
-  experimental: {
-    payloadExtraction: false
-  },
-  vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          chunkFileNames: 'nuxt/[hash].mjs'
-        }
-      }
-    }
-  },
   content: {
     sources: {
       charts: {
