@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxthq/ui',
   ],
+  app: {
+    buildAssetsDir: "/nuxt/"
+  },
   content: {
     sources: {
       charts: {
@@ -29,7 +32,7 @@ export default defineNuxtConfig({
     ],
     highlight: {
       theme: 'github-light'
-    }
+    },
   },
   colorMode: {
     preference: 'light'
