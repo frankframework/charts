@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   app: {
     buildAssetsDir: "/nuxt/"
   },
+  experimental: {
+    payloadExtraction: false
+  },
   content: {
     sources: {
       charts: {
