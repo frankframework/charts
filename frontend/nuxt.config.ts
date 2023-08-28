@@ -10,6 +10,15 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: false
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'nuxt/[hash].mjs'
+        }
+      }
+    }
+  },
   content: {
     sources: {
       charts: {

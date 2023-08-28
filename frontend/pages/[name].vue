@@ -47,8 +47,8 @@
 </template>
 
 <script setup>
-const { fullPath } = useRoute()
-const path = 'charts' + fullPath
+const route = useRoute()
+const path = 'charts/' + route.params.name
 const { data: currentChart } = await useAsyncData(path, () => {
     return queryContent(path).find()
 })
