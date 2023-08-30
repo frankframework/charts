@@ -1,6 +1,7 @@
 # 🔌Frank!Framework Template Chart
 
 This template Helm Chart can be copied as a start point for a new Frank!.
+
 This chart won't be pubilshed becouse it is not i nthe ibissourec folder.
 
 ## Usage
@@ -10,7 +11,7 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, add the repo as follows:
 
-    ```shell
+```shell
 helm repo add ibissource https://ibissource.github.io/charts
 ```
 
@@ -20,11 +21,15 @@ ibissource` to see the charts.
 
 To install the ff-template chart:
 
-    helm install my-ff-template ibissource/ff-template
+```shell
+helm install my-ff-template ibissource/ff-template
+```
 
 To uninstall the chart:
 
-    helm delete my-ff-template
+```shell
+helm delete my-ff-template
+```
 
 ## Parameters
 

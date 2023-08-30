@@ -1,7 +1,7 @@
 apiVersion: v2
 description: ff-common chart building components and helpers for the Frank!Framework
 name: ff-common
-version: 0.1.12
+version: 0.1.13
 appVersion: "7.8"
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/ff-common/icon.svg
