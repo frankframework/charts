@@ -52,31 +52,31 @@ helm delete my-ff-test
 
 ### Frank! Configuration parameters
 
-| Name                                                         | Description                                                                                                                                                      | Value     |
-| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                                                                           | `4G`      |
-| `frank.dtap.stage`                                           | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                                                                 | `LOC`     |
-| `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                                                                             | `cluster` |
-| `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                                                                       | `""`      |
-| `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                                                                             | `""`      |
-| `frank.configurations.names`                                 | Set the configurations to load. Leave empty to use the default                                                                                                   | `[]`      |
-| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                                                                           | `false`   |
-| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                                                                      | `[]`      |
-| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                                                                     | `""`      |
-| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                                                                     | `""`      |
-| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`                                                 | `[]`      |
-| `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                                                       | `false`   |
-| `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                                                                     | `""`      |
-| `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                                                            | `""`      |
-| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the rol for Tester                                                                                                                                           | `""`      |
-| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the rol for DataAdmin                                                                                                                                        | `""`      |
-| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the rol for Admin                                                                                                                                            | `""`      |
-| `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                                                                       | `""`      |
-| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                                                                         | `""`      |
-| `frank.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                                                                           | `""`      |
-| `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                                                                   | `{}`      |
-| `frank.environmentVariables.jdbc.dbms.default`               | The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`                                               | `""`      |
-| `frank.environmentVariables.jms.provider.default`            | The default jms that will be used. This should match with one of the jms's in the context.xml e.g. `artemis`. `frank.server.transactionManager` needs to be set. | `""`      |
+| Name                                                         | Description                                                                                                                                                      | Value   |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                                                                           | `4G`    |
+| `frank.dtap.stage`                                           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                                                      | `LOC`   |
+| `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                                                                             | `""`    |
+| `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                                                                       | `""`    |
+| `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                                                                             | `""`    |
+| `frank.configurations.names`                                 | Set the configurations to load. Leave empty to use the default                                                                                                   | `[]`    |
+| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                                                                           | `false` |
+| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                                                                      | `[]`    |
+| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                                                                     | `""`    |
+| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                                                                     | `""`    |
+| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`                                                 | `[]`    |
+| `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                                                       | `false` |
+| `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                                                                     | `""`    |
+| `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                                                            | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the rol for Tester                                                                                                                                           | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the rol for DataAdmin                                                                                                                                        | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the rol for Admin                                                                                                                                            | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                                                                       | `""`    |
+| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                                                                         | `""`    |
+| `frank.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                                                                           | `""`    |
+| `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                                                                   | `{}`    |
+| `frank.environmentVariables.jdbc.dbms.default`               | The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`                                               | `""`    |
+| `frank.environmentVariables.jms.provider.default`            | The default jms that will be used. This should match with one of the jms's in the context.xml e.g. `artemis`. `frank.server.transactionManager` needs to be set. | `""`    |
 
 ### Frank!Framework Connection parameters
 
@@ -141,3 +141,20 @@ helm delete my-ff-test
 | `podLabels`                  | Extra labels for Frank!Framework pods                     | `{}`   |
 | `podSecurityContext`         | Set Frank!Framework pod's Security Context                | `{}`   |
 | `securityContext`            | Set Frank!Framework container's Security Context          | `{}`   |
+
+## Configuration and installation details
+
+### DTAP Stage
+
+The Frank!Framework will start with different settings enabled, depending on what DTAP stage is configured. 
+
+For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
+
+## Notable changes
+
+### 0.2.25
+
+The `.Values.frank.dtap.side` is now empty by default.
+
+* `.Values.frank.dtap.stage` is now required and should be set to the right stage. Read more in the [Installation details](#dtap-stage)
+* `.Values.frank.dtap.side` will default to the release namespace deployed in.
