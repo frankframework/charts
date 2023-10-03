@@ -1,6 +1,6 @@
 dependencies:
 - name: ff-common
   repository: file://../charts/ff-common
-  version: 0.1.14
-digest: sha256:c7b649c0f9dc6caa583aa65787663a91cad9f5cbac3b41ea50670bba282dcb92
-generated: "2023-09-26T05:43:40.182143162+02:00"
+  version: 0.1.15
+digest: sha256:2556e636a35d108ffb0587f62ad241e43db2739910e93198009bc066f4c8f830
+generated: "2023-10-03T02:29:53.917635819+02:00"

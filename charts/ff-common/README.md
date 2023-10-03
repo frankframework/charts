@@ -40,7 +40,9 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 
 | Name                                                         | Description                                                                                                      | Value   |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------- |
-| `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                           | `4G`    |
+| `frank.memory.percentage`                                    | Set if the values for the memory are in percentages                                                              | `false` |
+| `frank.memory.minimum`                                       | Sets the initial size of the heap that will be used by the Frank!Framework                                       | `4G`    |
+| `frank.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the Frank!Framework                                       | `4G`    |
 | `frank.dtap.stage`                                           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                      | `""`    |
 | `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`    |
 | `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`    |
@@ -139,6 +141,10 @@ The Frank!Framework will start with different settings enabled, depending on wha
 For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
 
 ## Notable changes
+
+### 0.1.15
+
+The `.Values.frank.memory` notation has been changed. It is now possible to define a minimum and a maximum, and to set percentages.
 
 ### 0.1.14
 

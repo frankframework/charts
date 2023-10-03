@@ -4,9 +4,9 @@ description: A Helm chart for testing the Frank!Framework on Kubernetes
 name: ff-test
 icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/ff-test/icon.svg
 type: application
-version: 0.2.25
+version: 0.2.26
 
 dependencies:
   - name: ff-common
-    version: ~0.1.14
+    version: ~0.1.15
     repository: file://../ff-common

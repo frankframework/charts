@@ -54,7 +54,9 @@ helm delete my-ff-template
 
 | Name                                                         | Description                                                                                                      | Value   |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ------- |
-| `frank.memory`                                               | Sets the initial and maximum size of the heap that will be used by the Frank!Framework                           | `4G`    |
+| `frank.memory.percentage`                                    | Set if the values for the memory are in percentages                                                              | `false` |
+| `frank.memory.minimum`                                       | Sets the initial size of the heap that will be used by the Frank!Framework                                       | `4G`    |
+| `frank.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the Frank!Framework                                       | `4G`    |
 | `frank.dtap.stage`                                           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                      | `""`    |
 | `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`    |
 | `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`    |
@@ -154,7 +156,11 @@ For more information about DTAP stages read: https://frank-manual.readthedocs.io
 
 ## Notable changes
 
-### 0.1.14
+### 0.1.5
+
+The `.Values.frank.memory` notation has been changed. It is now possible to define a minimum and a maximum, and to set percentages.
+
+### 0.1.4
 
 The `.Values.frank.dtap.stage` and `.Values.frank.dtap.side` are now empty by default.
 
