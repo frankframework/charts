@@ -59,7 +59,7 @@ frank:
   ## @param frank.dtap.side Set the `DTAP` side of where the instance is running
   ##
   dtap:
-    stage: TST
+    stage: LOC
     side: ""
   ## @skip frank.credentials [object]
   ## @param frank.credentials.secret Set the secret name of the existing secret

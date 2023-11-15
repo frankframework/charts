@@ -4,9 +4,9 @@ description: A Helm chart for running the Frank!Framework on Kubernetes
 name: frank-framework
 icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
 type: application
-version: 0.2.8
+version: 0.2.9
 
 dependencies:
   - name: ff-common
-    version: ~0.1.15
+    version: ~0.1.16
     repository: file://../ff-common

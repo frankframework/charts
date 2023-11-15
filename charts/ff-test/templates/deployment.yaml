@@ -2,6 +2,10 @@
 {{- define "ff-test.deployment" -}}
 spec:
   template:
+    metadata:
+      annotations:
+        checksum/configmap.context: {{ include (print $.Template.BasePath "/configmap.context.yaml") . | sha256sum }}
+        checksum/configmap.env: {{ include (print $.Template.BasePath "/configmap.env.yaml") . | sha256sum }}
     spec:
       containers:
         -
@@ -36,12 +40,12 @@ volumeMounts:
     mountPath: /opt/frank/secrets/
     readOnly: true
   {{- end }}
-    {{- if .Values.connections.create }}
+  {{- if .Values.connections.create }}
   - name: {{ template "ff-common.fullname" . }}-context
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/iaf-test.xml
     subPath: context.xml
     readOnly: true
-    {{- end }}
+  {{- end }}
 livenessProbe:
   httpGet:
     path: /iaf-test/iaf/

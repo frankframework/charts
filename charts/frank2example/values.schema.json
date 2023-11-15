@@ -72,7 +72,7 @@
                         "stage": {
                             "type": "string",
                             "description": "(Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`",
-                            "default": "TST"
+                            "default": "LOC"
                         },
                         "side": {
                             "type": "string",

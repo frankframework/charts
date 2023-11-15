@@ -1,34 +1,28 @@
-{{- if .Values.connections.create -}}
 {{/*
 This is a copy of https://github.com/ibissource/iaf/blob/master/test/src/main/webapp/META-INF/context.xml
 */}}
+{{- template "ff-common.configmap.context" (list . "ff-test.configmap.context" ) -}}
+{{- define "ff-test.configmap.context" -}}
 apiVersion: v1
 kind: ConfigMap
-metadata:
-  name: {{ include "ff-common.fullname" . }}-context
-  labels:
-      {{- include "ff-common.labels" . | nindent 4 }}
 data:
   context.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>
     <Context>
       <JarScanner scanClassPath="false" scanAllFiles="false" scanAllDirectories="false"/>
-
       <!--
       Support for XA using BTM requires JDBC datasources to be configured via
       factory="org.apache.naming.factory.BeanFactory" and a proper XADataSource classname.
       Configuration via driverClassName only works for the standard transaction manager.
       -->
-
       <!-- IbisProp table has a column named VALUE. VALUE is a keyword in h2 db. -->
-        {{- with .Values.connections.jdbc }}
+        {{- with .Values.connections.preDefinedJdbc }}
       <Resource
         name="jdbc/ibis4test-h2"
         factory="org.apache.naming.factory.BeanFactory"
         type="org.h2.jdbcx.JdbcDataSource"
         URL="jdbc:h2:mem:{{ .database | default (include "ff-common.instance.name" $) }};NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;"
       />
-
       <Resource
         name="jdbc/ibis4test-oracle-orcldb"
         factory="org.apache.naming.factory.BeanFactory"
@@ -37,7 +31,6 @@ data:
         user="{{ .username }}"
         password="{{ .password }}"
       />
-
       <Resource
         name="jdbc/ibis4test-oracle-xe"
         type="javax.sql.DataSource"
@@ -48,7 +41,6 @@ data:
         maxTotal="10"
         maxWaitMillis="5000"
       />
-
       <Resource
         name="jdbc/ibis4test-oracle"
         factory="org.apache.naming.factory.BeanFactory"
@@ -57,7 +49,6 @@ data:
         user="{{ .username }}"
         password="{{ .password }}"
       />
-
       <Resource
         name="jdbc/ibis4test-mssql"
         auth="Container"
@@ -79,7 +70,6 @@ data:
         applicationName="iaf-test on TomCat"
         applicationIntent="readwrite"
       />
-
       <!-- serverTimezone is set for docker instances -->
       <Resource
         name="jdbc/ibis4test-mysql"
@@ -94,9 +84,7 @@ data:
         pinGlobalTxToPhysicalConnection="true"
         socketTimeout="5000"
       />
-
       <!-- pinGlobalTxToPhysicalConnection appears to be required to avoid locking problems under XA -->
-
       <!-- Use MySQL driver for MariaDB for proper XA support. --> <!-- serverTimezone is set for docker instances -->
       <Resource
         name="jdbc/ibis4test-mariadb"
@@ -122,8 +110,6 @@ data:
       />
       -->
       <!-- pinGlobalTxToPhysicalConnection does not work the same for mariadb as it does for mysql, therefor still locking problems under XA for mariadb -->
-
-
       <Resource
         name="jdbc/ibis4test-postgres-xa"
         factory="org.apache.naming.factory.BeanFactory"
@@ -132,7 +118,6 @@ data:
         user="{{ .username }}"
         password="{{ .password }}"
       />
-
       <!-- Postgres XA does not work without BTM/Narayana, gives ClassCastException casting the XA datasource to Java datasource, so add non-XA for those cases -->
       <Resource name="jdbc/ibis4test-postgres" auth="Container"
         type="javax.sql.DataSource"
@@ -143,7 +128,6 @@ data:
         maxTotal="10"
         maxWaitMillis="5000"
       />
-
       <Resource name="jdbc/ibis4test-db2-xa" auth="Container"
         factory="org.apache.naming.factory.BeanFactory"
         type="com.ibm.db2.jcc.DB2XADataSource"
@@ -154,7 +138,6 @@ data:
         user="{{ .username }}"
         password="{{ .password }}"
       />
-
       <!-- DB2 XA does not work without BTM/Narayana, gives ClassCastException casting the XA datasource to Java datasource, so add non-XA for those cases -->
       <Resource name="jdbc/ibis4test-db2" auth="Container"
         type="javax.sql.DataSource"
@@ -163,7 +146,6 @@ data:
         username="{{ .username }}"
         password="{{ .password }}"
       />
-
       <Resource
         name="mongodb/ibis4test"
         type="com.mongodb.MongoClient"
@@ -172,19 +154,15 @@ data:
         auth="Container"
         singleton="true"
       />
-
         {{- end }}
-        {{- with .Values.connections.jms }}
-
+        {{- with .Values.connections.preDefinedJms }}
       <!-- Tibco crendentials can be set here via 'userName' and 'userPassword' attributes, or in the jmsRealm via authAlias (not via username and password) -->
       <Resource
         name="jms/qcf_tibco_esb_ff"
         factory="nl.nn.adapterframework.jndi.TomcatJndiProxy"
-
         delegate_name="SLXHP_Queue_ConnectionFactory"
         delegate_jndiProperties="TibcoJndi.properties"
         delegate_providerURL="{{ .url }}"
-
         userName="{{ .username }}"
         userPassword="{{ .password }}"
         SSLEnableVerifyHost="{{ .ssl }}"
@@ -192,59 +170,48 @@ data:
       <Resource
         name="jms/qcf_tibco_esb_rr"
         factory="nl.nn.adapterframework.jndi.TomcatJndiProxy"
-
         delegate_name="SLNHN_Queue_ConnectionFactory"
         delegate_jndiProperties="TibcoJndi.properties"
         delegate_providerURL="{{ .url }}"
-
         userName="{{ .username }}"
         userPassword="{{ .password }}"
         SSLEnableVerifyHost="{{ .ssl }}"
       />
-
     <!--    delegate_providerURL="tibjmsnaming://DEVESBLARGEDC1:37243,tibjmsnaming://DEVESBLARGEDC2:37243"-->
       <Resource
         name="jms/GetMessageRequest"
         factory="nl.nn.adapterframework.jndi.TomcatJndiProxy"
-
         delegate_name="ESB.Infrastructure.TS.Test.TestIAF.1.GetMessage.1.Request"
         delegate_jndiProperties="TibcoJndi.properties"
         delegate_providerURL="{{ .url }}"
       />
-
       <Resource
         name="jms/UpdateMessageAction"
         factory="nl.nn.adapterframework.jndi.TomcatJndiProxy"
-
         delegate_name="ESB.Infrastructure.TS.Test.TestIAF.1.UpdateMessage.1.Action"
         delegate_jndiProperties="TibcoJndi.properties"
         delegate_providerURL="{{ .url }}"
       />
-
       <Resource name="jms/qcf-activemq"
         factory="org.apache.naming.factory.BeanFactory"
         type="org.apache.activemq.ActiveMQXAConnectionFactory"
         brokerURL="tcp://{{ .host }}:{{ default 61616 .port }}?jms.xaAckMode=1"
       />
-
       <!-- Activemq-artemis resource configuration -->
       <Resource name="jms/qcf-artemis"
         factory="org.apache.naming.factory.BeanFactory"
         type="org.apache.activemq.artemis.jms.client.ActiveMQXAConnectionFactory"
         brokerURL="tcp://{{ .host }}:{{ default 61616 .port }}"
       />
-
       <!-- AWS SQS resource configuration -->
       <!-- The queues configured in the queues attribute will be created if they do not exist -->
       <Resource name="jms/qcf-aws_sqs"
         factory="nl.nn.adapterframework.jms.AmazonSqsFactory"
         type="javax.jms.ConnectionFactory"
-
         region="eu-west-1"
         authAlias="aws"
-
         queues="i4testiaf_ff,i4testiaf_in,i4testiaf_out"
       />
         {{- end }}
     </Context>
-{{- end }}
+{{- end -}}

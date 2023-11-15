@@ -16,10 +16,14 @@ spec:
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/configmap.context: {{ include ("ff-common.configmap.context.tpl") . | sha256sum }}
+        checksum/configmap.env: {{ include ("ff-common.configmap.env.tpl") . | sha256sum }}
+        checksum/configmap.ldap-role-mapping: {{ include ("ff-common.configmap.ldap-role-mapping.tpl") . | sha256sum }}
+        checksum/configmap.tomcat-users: {{ include ("ff-common.configmap.tomcat-users.tpl") . | sha256sum }}
+        {{ with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{ end }}
     spec:
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:

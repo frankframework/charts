@@ -142,27 +142,27 @@ connections:
   ## @param connections.create Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.
   ##
   create: false
-  ## @param connections.jdbc [object] Set one database connections. The connection should match one in the context.xml
-  ## @param connections.jdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location
-  ## @param connections.jdbc.port [nullable,string] Port for the database (leave empty for default)
-  ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Release.name`)
-  ## @param connections.jdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
-  ## @param connections.jdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
-  ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
+  ## @param connections.preDefinedJdbc [object] Set one database connections. The connection should match one in the context.xml
+  ## @param connections.preDefinedJdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location
+  ## @param connections.preDefinedJdbc.port [nullable,string] Port for the database (leave empty for default)
+  ## @param connections.preDefinedJdbc.database [nullable,string] Name of the database to use (default is `.Release.name`)
+  ## @param connections.preDefinedJdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
+  ## @param connections.preDefinedJdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
+  ## @param connections.preDefinedJdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
   ##
-  jdbc:
+  preDefinedJdbc:
     host: ""
     port: ""
     database: ""
     username: ""
     password: ""
     ssl: ""
-  ## @param connections.jms [array] Set one massage services. The connection should match one in the context.xml
-  ## @param connections.jms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @param connections.jms.port [nullable,string] Port for the MQ (leave empty for default)
-  ## @param connections.jms.url [nullable,string] URL for Tibco
+  ## @param connections.preDefinedJms [array] Set one massage services. The connection should match one in the context.xml
+  ## @param connections.preDefinedJms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.preDefinedJms.port [nullable,string] Port for the MQ (leave empty for default)
+  ## @param connections.preDefinedJms.url [nullable,string] URL for Tibco
   ##
-  jms:
+  preDefinedJms:
     host: ""
     port: ""
     url: ""

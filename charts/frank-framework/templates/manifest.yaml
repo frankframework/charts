@@ -8,7 +8,7 @@
 ---
 {{ template "ff-common.deployment.tpl" . }}
 ---
-{{ template "ff-common.hpa.tpl"}}
+{{ template "ff-common.hpa.tpl" . }}
 ---
 {{ template "ff-common.serviceAccount.tpl" . }}
 ---

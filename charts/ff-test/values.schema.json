@@ -198,7 +198,7 @@
                     "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
                     "default": false
                 },
-                "jdbc": {
+                "preDefinedJdbc": {
                     "type": "object",
                     "properties": {
                         "host": {
@@ -236,7 +236,7 @@
                         }
                     }
                 },
-                "jms": {
+                "preDefinedJms": {
                     "type": "object",
                     "properties": {
                         "host": {
