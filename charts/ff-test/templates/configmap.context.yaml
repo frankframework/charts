@@ -1,5 +1,5 @@
 {{/*
-This is a copy of https://github.com/ibissource/iaf/blob/master/test/src/main/webapp/META-INF/context.xml
+This is a copy of https://github.com/frankframework/iaf/blob/master/test/src/main/webapp/META-INF/context.xml
 */}}
 {{- template "ff-common.configmap.context" (list . "ff-test.configmap.context" ) -}}
 {{- define "ff-test.configmap.context" -}}

@@ -23,7 +23,7 @@
                 "repository": {
                     "type": "string",
                     "description": "Frank!Framework image repository",
-                    "default": "frank-framework"
+                    "default": "frankframework"
                 },
                 "tag": {
                     "type": "string",

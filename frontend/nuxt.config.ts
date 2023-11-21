@@ -9,14 +9,14 @@ export default defineNuxtConfig({
       charts: {
         driver: 'github',
         prefix: '/charts',
-        repo: 'ibissource/charts',
+        repo: 'frankframework/charts',
         branch: 'master',
         dir: 'charts'
       },
       index: {
         driver: 'github',
         prefix: '/charts',
-        repo: 'ibissource/charts',
+        repo: 'frankframework/charts',
         branch: 'gh-pages',
         dir: ''
       },

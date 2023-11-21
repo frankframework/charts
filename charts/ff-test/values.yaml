@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 
 ## Frank!Framework image
-## ref: https://https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrank-framework%2Ftags/
+## ref: https://https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrankframework%2Ftags/
 ## @param image.registry Frank!Framework image registry
 ## @param image.repository Frank!Framework image repository
 ## @param image.tag Frank!Framework image tag (immutable tags are recommended)
@@ -127,7 +127,7 @@ frank:
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`
   ## @param frank.environmentVariables.jms.provider.default [string] The default jms that will be used. This should match with one of the jms's in the context.xml e.g. `artemis`. `frank.server.transactionManager` needs to be set.
-  ## More properties can be set. ref: https://github.com/ibissource/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
+  ## More properties can be set. ref: https://github.com/frankframework/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
   ##
   environmentVariables:
     jdbc.dbms.default: 'h2'

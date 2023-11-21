@@ -4,9 +4,9 @@ Popular applications, build on top of the [Frank!Framework](https://frankframewo
 
 ## Available charts:
 
-* [frank-framework](/charts/frank-framework/README.md)
-* [frank2example](/charts/frank-framework/README.md)
-* [ff-test](/charts/frank-framework/README.md)
+* [frankframework](/charts/frankframework/README.md)
+* [frank2example](/charts/frankframework/README.md)
+* [ff-test](/charts/frankframework/README.md)
 
 ## Usage
 
@@ -16,17 +16,17 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```shell
-helm repo add ibissource https://ibissource.github.io/charts
+helm repo add frankframework https://frankframework.github.io/charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
-ibissource` to see the charts.
+frankframework` to see the charts.
 
 To install a chart:
 
 ```shell
-helm install <unique-name> ibissource/<chart>
+helm install <unique-name> frankframework/<chart>
 ```
 
 To uninstall the chart:
@@ -39,4 +39,4 @@ helm delete <unique-name>
 
 The Franks! are based on the "ff-common" library chart. This is done to ensure each chart can be kept up to date easily. 
 
-If you want to create a Frank! chart yourself, please refer to the [ff-common documentation](/charts/frank-framework/README.md). There is also a [Frank! template](/ff-template/README.md) that can be copied as a starting point.
+If you want to create a Frank! chart yourself, please refer to the [ff-common documentation](/charts/frankframework/README.md). There is also a [Frank! template](/ff-template/README.md) that can be copied as a starting point.

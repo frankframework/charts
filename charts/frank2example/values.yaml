@@ -12,7 +12,7 @@ fullnameOverride: ""
 ##
 
 ## Frank!Framework image
-## ref: https://https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrank-framework%2Ftags/
+## ref: https://https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrankframework%2Ftags/
 ## @param image.registry Frank!Framework image registry
 ## @param image.repository Frank!Framework image repository
 ## @param image.tag Frank!Framework image tag (immutable tags are recommended)

@@ -12,17 +12,17 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```shell
-helm repo add ibissource https://ibissource.github.io/charts
+helm repo add frankframework https://frankframework.github.io/charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
-ibissource` to see the charts.
+frankframework` to see the charts.
 
 To install the ff-template chart:
 
 ```shell
-helm install my-ff-template ibissource/ff-template
+helm install my-ff-template frankframework/ff-template
 ```
 
 To uninstall the chart:
@@ -45,7 +45,7 @@ helm delete my-ff-template
 | Name                | Description                                                | Value                      |
 | ------------------- | ---------------------------------------------------------- | -------------------------- |
 | `image.registry`    | Frank!Framework image registry                             | `nexus.frankframework.org` |
-| `image.repository`  | Frank!Framework image repository                           | `frank-framework`          |
+| `image.repository`  | Frank!Framework image repository                           | `frankframework`           |
 | `image.tag`         | Frank!Framework image tag (immutable tags are recommended) | `""`                       |
 | `image.pullPolicy`  | Frank!Framework image pull policy                          | `IfNotPresent`             |
 | `image.pullSecrets` | Frank!Framework image pull secrets                         | `[]`                       |

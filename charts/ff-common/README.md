@@ -31,7 +31,7 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | Name                | Description                                                | Value                      |
 | ------------------- | ---------------------------------------------------------- | -------------------------- |
 | `image.registry`    | Frank!Framework image registry                             | `nexus.frankframework.org` |
-| `image.repository`  | Frank!Framework image repository                           | `frank-framework`          |
+| `image.repository`  | Frank!Framework image repository                           | `frankframework`           |
 | `image.tag`         | Frank!Framework image tag (immutable tags are recommended) | `""`                       |
 | `image.pullPolicy`  | Frank!Framework image pull policy                          | `IfNotPresent`             |
 | `image.pullSecrets` | Frank!Framework image pull secrets                         | `[]`                       |
