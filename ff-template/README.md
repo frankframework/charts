@@ -2,7 +2,7 @@
 
 This template Helm Chart can be copied as a start point for a new Frank!.
 
-This chart won't be pubilshed becouse it is not i nthe ibissourec folder.
+This chart won't be published because it is not in the `charts` folder.
 
 ## Usage
 
