@@ -31,6 +31,8 @@
                 }}</span>
               <span v-if="chart[0].deprecated"
                     class="bg-red-100 text-red-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">deprecated</span>
+              <span v-if="chart[0].type === 'library'"
+                    class="bg-blue-100 text-blue-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">library</span>
             </div>
             <div>
               <span v-for="keyword in chart[0].keywords"

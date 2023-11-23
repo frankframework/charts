@@ -1,10 +1,8 @@
 apiVersion: v2
-description: ff-common chart building components and helpers for the Frank!Framework
 name: ff-common
+description: ff-common chart building components and helpers for the Frank!Framework
 version: 0.1.17
 appVersion: "7.8"
+type: library
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-common/icon.svg
-
-keywords:
-  - library

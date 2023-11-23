@@ -1,11 +1,12 @@
 apiVersion: v2
-appVersion: "7.8"
-description: A Helm chart for running the Frank!Framework on Kubernetes
-name: frank-framework
-icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-framework/icon.svg
-type: application
-version: 0.2.9
 deprecated: true
+name: frank-framework
+description: A Helm chart for running the Frank!Framework on Kubernetes
+version: 0.2.9
+appVersion: "7.8"
+type: application
+home: https://frankframework.org
+icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-framework/icon.svg
 
 dependencies:
   - name: ff-common
