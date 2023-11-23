@@ -26,17 +26,26 @@
             <p>{{ chart[0].description }}</p>
             <div class="mb-0.5">
               <span
-                  class="bg-[#fdc300] font-bold text-black text-xs mr-0.5 px-2.5 py-0.5 rounded-full">{{
-                  chart[0].version
-                }}</span>
-              <span v-if="chart[0].deprecated"
-                    class="bg-red-100 text-red-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">deprecated</span>
-              <span v-if="chart[0].type === 'library'"
-                    class="bg-blue-100 text-blue-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">library</span>
+                  class="bg-[#fdc300] font-bold text-black text-xs mr-1 px-2.5 py-0.5 rounded-full">
+                {{ chart[0].version }}
+              </span>
+              <span
+                  v-if="chart[0].deprecated"
+                  class="bg-red-100 text-red-800 text-xs mr-1 font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+                deprecated
+              </span>
+              <span
+                  v-if="chart[0].type === 'library'"
+                  class="bg-blue-100 text-blue-800 text-xs mr-1 font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                library
+              </span>
             </div>
             <div>
-              <span v-for="keyword in chart[0].keywords"
-                    class="bg-yellow-100 text-yellow-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">{{ keyword }}</span>
+              <span
+                  v-for="keyword in chart[0].keywords"
+                  class="bg-yellow-100 text-yellow-800 text-xs mr-1 font-medium px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
+                {{ keyword }}
+              </span>
             </div>
           </div>
         </div>
