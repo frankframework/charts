@@ -345,6 +345,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/frank-framework-0.2.9/frank-framework-0.2.9.tgz
     version: 0.2.9
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-10-03T11:42:04.124976871Z"
