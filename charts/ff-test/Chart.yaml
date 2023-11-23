@@ -6,6 +6,9 @@ icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-t
 type: application
 version: 0.2.28
 
+keywords:
+  - e2e
+
 dependencies:
   - name: ff-common
     version: ~0.1.17

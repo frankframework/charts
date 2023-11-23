@@ -4,9 +4,9 @@ description: A Helm chart for running a Frank! on Kubernetes
 name: ff-template
 icon: https://raw.githubusercontent.com/frankframework/charts/master/ff-template/icon.svg
 type: application
-version: 0.1.6
+version: 0.1.7
 
 dependencies:
   - name: ff-common
-    version: ~0.1.15
+    version: ~0.1.17
     repository: file://../charts/ff-common

@@ -4,7 +4,10 @@ description: A Helm chart for running Frank2Example on Kubernetes
 name: frank2example
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
 type: application
-version: 0.2.10
+version: 0.2.11
+
+keywords:
+  - demo
 
 dependencies:
   - name: ff-common

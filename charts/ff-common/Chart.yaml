@@ -5,3 +5,6 @@ version: 0.1.17
 appVersion: "7.8"
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-common/icon.svg
+
+keywords:
+  - library
