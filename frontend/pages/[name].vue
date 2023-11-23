@@ -5,7 +5,8 @@
         <UIcon name="i-heroicons-arrow-left"/>
         All Charts
       </NuxtLink>
-      <NuxtLink class="flex items-center gap-1" :to="'https://github.com/frankframework/charts/tree/master/charts/' + currentChart[0].name">
+      <NuxtLink class="flex items-center gap-1"
+                :to="'https://github.com/frankframework/charts/tree/master/charts/' + currentChart[0].name">
         <svg class="gh-icon" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 32.58 31.77">
           <path
               d="M16.29,0a16.29,16.29,0,0,0-5.15,31.75c.82.15,1.11-.36,1.11-.79s0-1.41,0-2.77C7.7,29.18,6.74,26,6.74,26a4.36,4.36,0,0,0-1.81-2.39c-1.47-1,.12-1,.12-1a3.43,3.43,0,0,1,2.49,1.68,3.48,3.48,0,0,0,4.74,1.36,3.46,3.46,0,0,1,1-2.18c-3.62-.41-7.42-1.81-7.42-8a6.3,6.3,0,0,1,1.67-4.37,5.94,5.94,0,0,1,.16-4.31s1.37-.44,4.48,1.67a15.41,15.41,0,0,1,8.16,0c3.11-2.11,4.47-1.67,4.47-1.67A5.91,5.91,0,0,1,25,11.07a6.3,6.3,0,0,1,1.67,4.37c0,6.26-3.81,7.63-7.44,8a3.85,3.85,0,0,1,1.11,3c0,2.18,0,3.94,0,4.47s.29.94,1.12.78A16.29,16.29,0,0,0,16.29,0Z"></path>
@@ -46,7 +47,9 @@
             </div>
             <div>
               <span v-for="keyword in currentChart[0].keywords"
-                    class="bg-yellow-100 text-yellow-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">{{ keyword }}</span>
+                    class="bg-yellow-100 text-yellow-800 text-xs mr-0.5 font-medium px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">{{
+                  keyword
+                }}</span>
             </div>
           </div>
         </div>
@@ -55,12 +58,21 @@
       </div>
       <div class="flex-none ml-5 border-l-1 border-gray-100">
         <div class="sticky top-10">
-          <h1 class="font-bold">Chart Versions</h1>
-          <div v-for="chart in charts.entries[currentChart[0].name]">
-            {{ chart.version }} - {{ formatDate(chart.created) }}
+          <div v-if="currentChart[0].appVersion" class="mb-3">
+            <h1 class="font-bold">Application Version</h1>
+            {{ currentChart[0].appVersion }}
           </div>
-          <h1 class="font-bold mt-3">Chart</h1>
-          <NuxtLink :to="charts.entries[currentChart[0].name][0].urls[0]">Download</NuxtLink>
+          <div class="mb-3">
+            <h1 class="font-bold">Chart Versions</h1>
+            <div v-for="chart in charts.entries[currentChart[0].name].slice(0, 10)">
+              {{ chart.version }} - {{ formatDate(chart.created) }}
+            </div>
+            <NuxtLink :to="'https://github.com/frankframework/charts/releases?q=' + currentChart[0].name">&plus; Show all releases</NuxtLink>
+          </div>
+          <div>
+            <h1 class="font-bold">Chart</h1>
+            <NuxtLink :to="charts.entries[currentChart[0].name][0].urls[0]">Download</NuxtLink>
+          </div>
         </div>
       </div>
     </div>
