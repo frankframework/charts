@@ -48,6 +48,6 @@ volumeMounts:
   {{- end }}
 livenessProbe:
   httpGet:
-    path: /iaf-test/iaf/
+    path: /iaf-test/iaf/gui
     port: 8080
 {{- end -}}
