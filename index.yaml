@@ -3,6 +3,18 @@ entries:
   ff-common:
   - apiVersion: v2
     appVersion: "7.8"
+    created: "2023-12-15T12:39:00.913053Z"
+    description: ff-common chart building components and helpers for the Frank!Framework
+    digest: f9d4722008b79aefac7ceed8f9ed93c2690d472484194ab2c532788b34d83189
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-common/icon.svg
+    name: ff-common
+    type: library
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-common-0.1.18/ff-common-0.1.18.tgz
+    version: 0.1.18
+  - apiVersion: v2
+    appVersion: "7.8"
     created: "2023-11-23T21:07:42.125576615Z"
     description: ff-common chart building components and helpers for the Frank!Framework
     digest: 28207fb6eb13b4be749dd68dd24c8a05452733364521bd85d5a47cf920742862
@@ -135,6 +147,24 @@ entries:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.5/ff-common-0.1.5.tgz
     version: 0.1.5
   ff-test:
+  - apiVersion: v2
+    appVersion: latest-tomcat
+    created: "2023-12-15T12:39:01.094209218Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.18
+    description: A Helm chart for testing the Frank!Framework on Kubernetes
+    digest: e1fce7245394130bca6b35cb94a960ea176c2260ce13dcbf2d887e0eb0b7237e
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-test/icon.svg
+    keywords:
+    - e2e
+    name: ff-test
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-test-0.2.30/ff-test-0.2.30.tgz
+    version: 0.2.30
   - apiVersion: v2
     appVersion: latest-tomcat
     created: "2023-12-13T14:37:47.789660237Z"
@@ -507,6 +537,24 @@ entries:
   frank2example:
   - apiVersion: v2
     appVersion: latest
+    created: "2023-12-15T12:39:01.235406039Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.18
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 030ccbf1fea7ba7077023d7d12f9c3607da9f96acdfe6ef4b7a15cbefae3efb0
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.12/frank2example-0.2.12.tgz
+    version: 0.2.12
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-11-23T21:07:42.745340715Z"
     dependencies:
     - name: ff-common
@@ -691,6 +739,22 @@ entries:
   frankframework:
   - apiVersion: v2
     appVersion: "7.8"
+    created: "2023-12-15T12:39:01.375120755Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.18
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: bc0dbfed5e9a8cf6061fdc42092daf085b29646109521fe3b25f377f3067f3e1
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.2.12/frankframework-0.2.12.tgz
+    version: 0.2.12
+  - apiVersion: v2
+    appVersion: "7.8"
     created: "2023-11-23T21:07:42.978544463Z"
     dependencies:
     - name: ff-common
@@ -720,4 +784,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2023-12-13T14:37:47.789842447Z"
+generated: "2023-12-15T12:39:01.375436865Z"
