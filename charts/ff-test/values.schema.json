@@ -178,6 +178,36 @@
                         }
                     }
                 },
+                "environmentVariables": {
+                    "type": "object",
+                    "properties": {
+                        "management": {
+                            "type": "object",
+                            "properties": {
+                                "metrics": {
+                                    "type": "object",
+                                    "properties": {
+                                        "export": {
+                                            "type": "object",
+                                            "properties": {
+                                                "prometheus": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "enabled": {
+                                                            "type": "string",
+                                                            "description": "",
+                                                            "default": "true"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "server": {
                     "type": "object",
                     "properties": {
@@ -187,6 +217,11 @@
                             "default": ""
                         }
                     }
+                },
+                "javaOpts": {
+                    "type": "string",
+                    "description": "Append custom options to the `JAVA_OPTS` environment variable for the Frank!",
+                    "default": ""
                 }
             }
         },
@@ -260,6 +295,11 @@
                 }
             }
         },
+        "replicaCount": {
+            "type": "number",
+            "description": "Number of Frank!Framework replicas to deploy",
+            "default": 1
+        },
         "autoscaling": {
             "type": "object",
             "properties": {
@@ -287,6 +327,66 @@
                     "type": "number",
                     "description": "",
                     "default": 80
+                }
+            }
+        },
+        "startupProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for startupProbe",
+                    "default": 40
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for startupProbe",
+                    "default": 20
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for startupProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for startupProbe",
+                    "default": 6
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for startupProbe",
+                    "default": 1
+                }
+            }
+        },
+        "livenessProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for livenessProbe",
+                    "default": 10
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for livenessProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for livenessProbe",
+                    "default": 10
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for livenessProbe",
+                    "default": 3
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for livenessProbe",
+                    "default": 1
                 }
             }
         },
@@ -346,37 +446,32 @@
                 }
             }
         },
-        "replicaCount": {
-            "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
-            "default": 1
-        },
-        "livenessProbe": {
+        "readinessProbe": {
             "type": "object",
             "properties": {
                 "initialDelaySeconds": {
                     "type": "number",
-                    "description": "Initial delay seconds for livenessProbe",
-                    "default": 40
+                    "description": "Initial delay seconds for readinessProbe",
+                    "default": 60
                 },
                 "periodSeconds": {
                     "type": "number",
-                    "description": "Period seconds for livenessProbe",
-                    "default": 10
+                    "description": "Period seconds for readinessProbe",
+                    "default": 5
                 },
                 "timeoutSeconds": {
                     "type": "number",
-                    "description": "Timeout seconds for livenessProbe",
-                    "default": 1
+                    "description": "Timeout seconds for readinessProbe",
+                    "default": 3
                 },
                 "failureThreshold": {
                     "type": "number",
-                    "description": "Failure threshold for livenessProbe",
-                    "default": 6
+                    "description": "Failure threshold for readinessProbe",
+                    "default": 3
                 },
                 "successThreshold": {
                     "type": "number",
-                    "description": "Success threshold for livenessProbe",
+                    "description": "Success threshold for readinessProbe",
                     "default": 1
                 }
             }
@@ -390,6 +485,11 @@
                     "default": false
                 }
             }
+        },
+        "terminationGracePeriodSeconds": {
+            "type": "number",
+            "description": "Number of seconds after which pods are forcefully killed",
+            "default": 60
         },
         "nodeSelector": {
             "type": "object",
@@ -456,6 +556,56 @@
             "type": "object",
             "description": "Extra labels for Frank!Framework pods",
             "default": {}
+        },
+        "persistence": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable persistence using Persistent Volume Claims",
+                    "default": false
+                },
+                "storageClass": {
+                    "type": "string",
+                    "description": "Persistent Volume storage class",
+                    "default": ""
+                },
+                "accessModes": {
+                    "type": "array",
+                    "description": "Persistent Volume access modes",
+                    "default": [
+                        "ReadWriteOnce"
+                    ],
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Persistent Volume size",
+                    "default": "5Gi"
+                },
+                "dataSource": {
+                    "type": "object",
+                    "description": "Custom PVC data source",
+                    "default": {}
+                },
+                "existingClaim": {
+                    "type": "string",
+                    "description": "The name of an existing PVC to use for persistence",
+                    "default": ""
+                },
+                "selector": {
+                    "type": "object",
+                    "description": "Selector to match an existing Persistent Volume for the Frank!Framework's data PVC",
+                    "default": {}
+                },
+                "annotations": {
+                    "type": "object",
+                    "description": "Persistent Volume Claim annotations",
+                    "default": {}
+                }
+            }
         }
     }
 }

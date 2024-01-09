@@ -40,14 +40,25 @@ volumeMounts:
     mountPath: /opt/frank/secrets/
     readOnly: true
   {{- end }}
+  {{- if .Values.persistence.enabled }}
+  - name: {{ template "ff-common.fullname" . }}-data
+    subPath: heap-dumps
+    mountPath: /heap-dumps
+  {{- end }}
+  # Custom context file
   {{- if .Values.connections.create }}
   - name: {{ template "ff-common.fullname" . }}-context
     mountPath: /usr/local/tomcat/conf/Catalina/localhost/iaf-test.xml
     subPath: context.xml
     readOnly: true
   {{- end }}
+startupProbe:
+  httpGet:
+    path: /iaf-test/iaf/gui
 livenessProbe:
   httpGet:
     path: /iaf-test/iaf/gui
-    port: 8080
+readinessProbe:
+  httpGet:
+    path: /iaf-test/iaf/api/server/health
 {{- end -}}

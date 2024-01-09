@@ -33,7 +33,7 @@ image:
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## e.g:
   ## pullSecrets:
-  ##   - myRegistryKeySecretName
+  ##   - name: myRegistryKeySecretName
   ##
   pullSecrets: []
 
@@ -132,6 +132,10 @@ frank:
   environmentVariables:
     jdbc.dbms.default: 'h2'
     jms.provider.default: ''
+    management.metrics.export.prometheus.enabled: "true"
+  ## @param frank.javaOpts [string] Append custom options to the `JAVA_OPTS` environment variable for the Frank!
+  ##
+  javaOpts: ""
 
 ## @section Frank!Framework Connection parameters
 ##
@@ -168,6 +172,11 @@ connections:
     url: ""
 
 ## @section Frank!Framework deployment parameters
+## @descriptionStart
+## The startup probe will enable blue-green deployment, which are great for uptime during upgrades and such.
+## It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
+## The readiness probe will check if all adapters are running using the server health endpoint
+## @descriptionEnd
 ##
 
 ## @param replicaCount Number of Frank!Framework replicas to deploy
@@ -175,7 +184,22 @@ connections:
 ##
 replicaCount: 1
 
-## Configure extra options for Frank!Framework containers' liveness, readiness and startup probes
+## Configure extra options for Frank!Framework containers' startup probe
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## @param startupProbe.periodSeconds Period seconds for startupProbe
+## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## @param startupProbe.failureThreshold Failure threshold for startupProbe
+## @param startupProbe.successThreshold Success threshold for startupProbe
+##
+startupProbe:
+  initialDelaySeconds: 40
+  periodSeconds: 20
+  timeoutSeconds: 1
+  failureThreshold: 6
+  successThreshold: 1
+
+## Configure extra options for Frank!Framework containers' liveness probe
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 ## @param livenessProbe.periodSeconds Period seconds for livenessProbe
@@ -184,11 +208,27 @@ replicaCount: 1
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  initialDelaySeconds: 40
+  initialDelaySeconds: 10
   periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 6
+  timeoutSeconds: 10
+  failureThreshold: 3
   successThreshold: 1
+
+## Configure extra options for Frank!Framework containers' readiness probe
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.successThreshold Success threshold for readinessProbe
+##
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+  successThreshold: 1
+
 ## Frank!Framework container's resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources [object] Set the resources for the Frank!Framework containers
@@ -214,6 +254,10 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
+
+## @param terminationGracePeriodSeconds Number of seconds after which pods are forcefully killed
+## @extra terminationGracePeriodSeconds Note: Lower values may cause running adapters to fail
+terminationGracePeriodSeconds: 60
 
 ## @param nodeSelector Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
@@ -338,3 +382,47 @@ podSecurityContext: {}
 ##
 securityContext:
   readOnlyRootFilesystem: false
+
+## @section Persistence
+## @descriptionStart
+## Persistence is used for keeping heap dumps. They can be found at `/heap-dumps` with persistence enabled.
+## Otherwise, they can be found at `/usr/local/tomcat/logs`
+## @descriptionEnd
+##
+persistence:
+  ## @param persistence.enabled Enable persistence using Persistent Volume Claims
+  ##
+  enabled: false
+  ## @param persistence.storageClass Persistent Volume storage class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
+  ##
+  storageClass: ""
+  ## @param persistence.accessModes [array] Persistent Volume access modes
+  ##
+  accessModes:
+    - ReadWriteOnce
+  ## @param persistence.size Persistent Volume size
+  ##
+  size: 5Gi
+  ## @param persistence.dataSource Custom PVC data source
+  ##
+  dataSource: {}
+  ## @param persistence.existingClaim The name of an existing PVC to use for persistence
+  ##
+  existingClaim: ""
+  ## @param persistence.selector Selector to match an existing Persistent Volume for the Frank!Framework's data PVC
+  ## If set, the PVC can't have a PV dynamically provisioned for it
+  ## E.g.
+  ## selector:
+  ##   matchLabels:
+  ##     app: my-app
+  ##
+  selector: {}
+  ## @param persistence.annotations Persistent Volume Claim annotations
+  ## You might need to add an annotation for selected node:
+  ## E.g: volume.kubernetes.io/selected-node: nodeName
+  ## Ref: https://kubernetes.io/docs/reference/labels-annotations-taints/#volume-kubernetes-io-selected-node
+  ##
+  annotations: {}

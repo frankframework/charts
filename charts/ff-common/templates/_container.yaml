@@ -7,6 +7,7 @@ securityContext:
   {{- toYaml .Values.securityContext | nindent 2 }}
 image: "{{ .Values.image.registry }}{{ if .Values.image.registry }}/{{ end }}{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
 imagePullPolicy: {{ .Values.image.pullPolicy }}
+terminationMessagePolicy: FallbackToLogsOnError
 envFrom:
   - configMapRef:
       name: {{ template "ff-common.fullname" . }}-env
@@ -44,6 +45,11 @@ volumeMounts:
     mountPath: /opt/frank/secrets/
     readOnly: true
     {{- end }}
+  {{- if .Values.persistence.enabled }}
+  - name: {{ template "ff-common.fullname" . }}-data
+    subPath: heap-dumps
+    mountPath: /heap-dumps
+  {{- end }}
 ports:
   - name: http
     containerPort: 8080
@@ -51,10 +57,20 @@ ports:
   - name: https
     containerPort: 8443
     protocol: TCP
+startupProbe:
+  {{- toYaml .Values.startupProbe | nindent 2 }}
+  httpGet:
+    path: /iaf/gui
+    port: 8080
 livenessProbe:
   {{- toYaml .Values.livenessProbe | nindent 2 }}
   httpGet:
-    path: /iaf/
+    path: /iaf/gui
+    port: 8080
+readinessProbe:
+  {{- toYaml .Values.readinessProbe | nindent 2 }}
+  httpGet:
+    path: /iaf/api/server/health
     port: 8080
 {{- with .Values.resources }}
 resources:

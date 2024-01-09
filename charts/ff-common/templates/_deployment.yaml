@@ -30,6 +30,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "ff-common.serviceAccountName" . }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -73,6 +74,11 @@ spec:
         - name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
           configMap:
             name: {{ template "ff-common.fullname" . }}-ldap-role-mapping
+        {{- end }}
+        {{- if .Values.persistence.enabled }}
+        - name: {{ template "ff-common.fullname" . }}-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-%s" ( include "ff-common.fullname" . ) "data") }}
         {{- end }}
 {{- end -}}
 {{- define "ff-common.deployment" -}}
