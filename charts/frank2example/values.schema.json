@@ -273,6 +273,36 @@
             "description": "Number of Frank!Framework replicas to deploy",
             "default": 1
         },
+        "startupProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for startupProbe",
+                    "default": 40
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for startupProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for startupProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for startupProbe",
+                    "default": 12
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for startupProbe",
+                    "default": 1
+                }
+            }
+        },
         "ingress": {
             "type": "object",
             "properties": {
@@ -329,43 +359,13 @@
                 }
             }
         },
-        "startupProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for startupProbe",
-                    "default": 40
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for startupProbe",
-                    "default": 20
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for startupProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for startupProbe",
-                    "default": 6
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for startupProbe",
-                    "default": 1
-                }
-            }
-        },
         "livenessProbe": {
             "type": "object",
             "properties": {
                 "initialDelaySeconds": {
                     "type": "number",
                     "description": "Initial delay seconds for livenessProbe",
-                    "default": 10
+                    "default": 0
                 },
                 "periodSeconds": {
                     "type": "number",
@@ -375,12 +375,12 @@
                 "timeoutSeconds": {
                     "type": "number",
                     "description": "Timeout seconds for livenessProbe",
-                    "default": 10
+                    "default": 1
                 },
                 "failureThreshold": {
                     "type": "number",
                     "description": "Failure threshold for livenessProbe",
-                    "default": 3
+                    "default": 12
                 },
                 "successThreshold": {
                     "type": "number",
@@ -405,7 +405,7 @@
                 "initialDelaySeconds": {
                     "type": "number",
                     "description": "Initial delay seconds for readinessProbe",
-                    "default": 60
+                    "default": 0
                 },
                 "periodSeconds": {
                     "type": "number",
@@ -415,7 +415,7 @@
                 "timeoutSeconds": {
                     "type": "number",
                     "description": "Timeout seconds for readinessProbe",
-                    "default": 3
+                    "default": 1
                 },
                 "failureThreshold": {
                     "type": "number",

@@ -52,13 +52,19 @@ volumeMounts:
     subPath: context.xml
     readOnly: true
   {{- end }}
+{{- if .Values.probesEnabled.startupProbe }}
 startupProbe:
   httpGet:
-    path: /iaf-test/iaf/gui
+    path: /iaf-test/iaf/api/server/health
+{{- end }}
+{{- if .Values.probesEnabled.startupProbe }}
 livenessProbe:
   httpGet:
-    path: /iaf-test/iaf/gui
+    path: /iaf-test/iaf/api/server/health
+{{- end }}
+{{- if .Values.probesEnabled.startupProbe }}
 readinessProbe:
   httpGet:
     path: /iaf-test/iaf/api/server/health
+{{- end -}}
 {{- end -}}

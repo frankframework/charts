@@ -57,21 +57,27 @@ ports:
   - name: https
     containerPort: 8443
     protocol: TCP
+{{- if .Values.probesEnabled.startupProbe }}
 startupProbe:
   {{- toYaml .Values.startupProbe | nindent 2 }}
   httpGet:
-    path: /iaf/gui
+    path: /iaf/api/server/health
     port: 8080
+{{- end }}
+{{- if .Values.probesEnabled.livenessProbe }}
 livenessProbe:
   {{- toYaml .Values.livenessProbe | nindent 2 }}
   httpGet:
-    path: /iaf/gui
+    path: /iaf/api/server/health
     port: 8080
+{{- end }}
+{{- if .Values.probesEnabled.readinessProbe }}
 readinessProbe:
   {{- toYaml .Values.readinessProbe | nindent 2 }}
   httpGet:
     path: /iaf/api/server/health
     port: 8080
+{{- end }}
 {{- with .Values.resources }}
 resources:
   {{- toYaml . | nindent 2 }}

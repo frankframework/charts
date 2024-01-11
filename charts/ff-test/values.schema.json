@@ -300,6 +300,36 @@
             "description": "Number of Frank!Framework replicas to deploy",
             "default": 1
         },
+        "startupProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for startupProbe",
+                    "default": 40
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for startupProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for startupProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for startupProbe",
+                    "default": 12
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for startupProbe",
+                    "default": 1
+                }
+            }
+        },
         "autoscaling": {
             "type": "object",
             "properties": {
@@ -330,43 +360,13 @@
                 }
             }
         },
-        "startupProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for startupProbe",
-                    "default": 40
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for startupProbe",
-                    "default": 20
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for startupProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for startupProbe",
-                    "default": 6
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for startupProbe",
-                    "default": 1
-                }
-            }
-        },
         "livenessProbe": {
             "type": "object",
             "properties": {
                 "initialDelaySeconds": {
                     "type": "number",
                     "description": "Initial delay seconds for livenessProbe",
-                    "default": 10
+                    "default": 0
                 },
                 "periodSeconds": {
                     "type": "number",
@@ -376,16 +376,46 @@
                 "timeoutSeconds": {
                     "type": "number",
                     "description": "Timeout seconds for livenessProbe",
-                    "default": 10
+                    "default": 1
                 },
                 "failureThreshold": {
                     "type": "number",
                     "description": "Failure threshold for livenessProbe",
-                    "default": 3
+                    "default": 12
                 },
                 "successThreshold": {
                     "type": "number",
                     "description": "Success threshold for livenessProbe",
+                    "default": 1
+                }
+            }
+        },
+        "readinessProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for readinessProbe",
+                    "default": 0
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for readinessProbe",
+                    "default": 5
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for readinessProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for readinessProbe",
+                    "default": 3
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for readinessProbe",
                     "default": 1
                 }
             }
@@ -443,36 +473,6 @@
                     "description": "Define tls secrets for hosts (implementation not done yet)",
                     "default": [],
                     "items": {}
-                }
-            }
-        },
-        "readinessProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for readinessProbe",
-                    "default": 60
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for readinessProbe",
-                    "default": 5
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for readinessProbe",
-                    "default": 3
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for readinessProbe",
-                    "default": 3
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for readinessProbe",
-                    "default": 1
                 }
             }
         },
