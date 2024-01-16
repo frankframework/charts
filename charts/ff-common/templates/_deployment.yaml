@@ -81,7 +81,7 @@ spec:
             claimName: {{ .Values.persistence.existingClaim | default (printf "%s-%s" ( include "ff-common.fullname" . ) "data") }}
         {{- end }}
         {{- range $i, $e := .Values.frank.security.certificateStores }}
-        - name: {{ template "ff-common.fullname" $ }}-keystore-{{ $i }}
+        - name: {{ template "ff-common.fullname" $ }}-certificate-store-{{ $i }}
           secret:
             secretName: {{ $e.secretName }}
             items:
