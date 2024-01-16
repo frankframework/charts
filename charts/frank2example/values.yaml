@@ -85,6 +85,12 @@ frank:
   ## @skip frank.security.http [object]
   ##
   security:
+    ## @param frank.security.certificateStores [array] Define certificate (key/trust) stores to mount in the resources folder of the Frank!
+    ## @param frank.security.certificateStores.secretName [string] Name of the secret where the certificate store is located in
+    ## @param frank.security.certificateStores.key [string] The key in the secret where the certificate store is located in
+    ## @param frank.security.certificateStores.resourceUrl [string, nullable] The path to the certificate store in the Resource folder, the key will be used as default value
+    ##
+    certificateStores: []
     http:
       ## @param frank.security.http.authentication Set http authentication for the Frank!
       ##

@@ -80,6 +80,15 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (printf "%s-%s" ( include "ff-common.fullname" . ) "data") }}
         {{- end }}
+        {{- range $i, $e := .Values.frank.security.certificateStores }}
+        - name: {{ template "ff-common.fullname" $ }}-keystore-{{ $i }}
+          secret:
+            secretName: {{ $e.secretName }}
+            items:
+              - key: {{ $e.key }}
+                path: {{ $e.key }}
+            defaultMode: 0664
+        {{- end }}
 {{- end -}}
 {{- define "ff-common.deployment" -}}
 {{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}
