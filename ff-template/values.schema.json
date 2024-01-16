@@ -120,6 +120,12 @@
                 "security": {
                     "type": "object",
                     "properties": {
+                        "certificateStores": {
+                            "type": "array",
+                            "description": "Define certificate (key/trust) stores to mount in the resources folder of the Frank!",
+                            "default": [],
+                            "items": {}
+                        },
                         "http": {
                             "type": "object",
                             "properties": {

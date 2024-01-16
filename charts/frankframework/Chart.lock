@@ -1,6 +1,6 @@
 dependencies:
 - name: ff-common
   repository: file://../ff-common
-  version: 0.1.20
-digest: sha256:fc097feaedf7e955a01ee513ae74f4b8fbb0f5e907c002b80742f8986979b693
-generated: "2024-01-11T10:46:08.168697775+01:00"
+  version: 0.1.21
+digest: sha256:df921dbfd342023893202e41b7a0510e3b797a063ded7d2999bcaac051e6d7f4
+generated: "2024-01-16T14:46:38.459065926+01:00"

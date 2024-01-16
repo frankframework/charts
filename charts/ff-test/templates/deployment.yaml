@@ -53,6 +53,12 @@ volumeMounts:
     readOnly: true
   {{- end }}
 {{- if .Values.probesEnabled.startupProbe }}
+{{- range $i, $e := .Values.frank.security.certificateStores }}
+  - name: {{ template "ff-common.fullname" $ }}-certificate-store-{{ $i }}
+    mountPath: /opt/frank/resources/{{ $e.resourceUrl | default $e.key }}
+    subPath: {{ $e.key }}
+    readOnly: true
+{{- end }}
 startupProbe:
   httpGet:
     path: /iaf-test/iaf/api/server/health
