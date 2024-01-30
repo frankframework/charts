@@ -227,7 +227,7 @@
                 },
                 "jms": {
                     "type": "array",
-                    "description": "Set multiple massage services",
+                    "description": "Set multiple message services",
                     "default": [],
                     "items": {}
                 }

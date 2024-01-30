@@ -152,7 +152,7 @@ connections:
   ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
   ##
   jdbc: []
-  ## @param connections.jms [array] Set multiple massage services
+  ## @param connections.jms [array] Set multiple message services
   ## @param connections.jms.name [nullable,string] Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
   ## @param connections.jms.type [string] MQ type. Options: `artemis`, `activemq`
   ## @param connections.jms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)

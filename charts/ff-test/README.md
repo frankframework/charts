@@ -97,7 +97,7 @@ helm delete my-ff-test
 | `connections.preDefinedJdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                              | `""`    |
 | `connections.preDefinedJdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`    |
 | `connections.preDefinedJdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                                   | `""`    |
-| `connections.preDefinedJms`           | Set one massage services. The connection should match one in the context.xml                                                                                   | `[]`    |
+| `connections.preDefinedJms`           | Set one message services. The connection should match one in the context.xml                                                                                   | `[]`    |
 | `connections.preDefinedJms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                                  | `""`    |
 | `connections.preDefinedJms.port`      | Port for the MQ (leave empty for default)                                                                                                                      | `""`    |
 | `connections.preDefinedJms.url`       | URL for Tibco                                                                                                                                                  | `""`    |

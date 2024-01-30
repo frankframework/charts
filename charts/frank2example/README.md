@@ -98,7 +98,7 @@ helm delete my-frank2example
 | `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                              | `""`   |
 | `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                              | `""`   |
 | `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                                   | `""`   |
-| `connections.jms`           | Set multiple massage services                                                                                                                                  | `[]`   |
+| `connections.jms`           | Set multiple message services                                                                                                                                  | `[]`   |
 | `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                               | `""`   |
 | `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                                        | `""`   |
 | `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                                  | `""`   |
