@@ -108,11 +108,11 @@ frank:
       ## @param frank.security.http.activeDirectory.url Set url for Active Directory
       ## @param frank.security.http.activeDirectory.baseDn Set baseDn for Active Directory users
       ## @skip frank.security.http.activeDirectory.roleMapping [object]
-      ## @param frank.security.http.activeDirectory.roleMapping.tester Map the rol for Tester
-      ## @param frank.security.http.activeDirectory.roleMapping.dataAdmin Map the rol for DataAdmin
-      ## @param frank.security.http.activeDirectory.roleMapping.admin Map the rol for Admin
-      ## @param frank.security.http.activeDirectory.roleMapping.webService Map the rol for WebService
-      ## @param frank.security.http.activeDirectory.roleMapping.observer Map the rol for Observer
+      ## @param frank.security.http.activeDirectory.roleMapping.tester Map the role for Tester
+      ## @param frank.security.http.activeDirectory.roleMapping.dataAdmin Map the role for DataAdmin
+      ## @param frank.security.http.activeDirectory.roleMapping.admin Map the role for Admin
+      ## @param frank.security.http.activeDirectory.roleMapping.webService Map the role for WebService
+      ## @param frank.security.http.activeDirectory.roleMapping.observer Map the role for Observer
       ##
       activeDirectory:
         enabled: false

@@ -157,27 +157,27 @@
                                             "properties": {
                                                 "tester": {
                                                     "type": "string",
-                                                    "description": "Map the rol for Tester",
+                                                    "description": "Map the role for Tester",
                                                     "default": ""
                                                 },
                                                 "dataAdmin": {
                                                     "type": "string",
-                                                    "description": "Map the rol for DataAdmin",
+                                                    "description": "Map the role for DataAdmin",
                                                     "default": ""
                                                 },
                                                 "admin": {
                                                     "type": "string",
-                                                    "description": "Map the rol for Admin",
+                                                    "description": "Map the role for Admin",
                                                     "default": ""
                                                 },
                                                 "webService": {
                                                     "type": "string",
-                                                    "description": "Map the rol for WebService",
+                                                    "description": "Map the role for WebService",
                                                     "default": ""
                                                 },
                                                 "observer": {
                                                     "type": "string",
-                                                    "description": "Map the rol for Observer",
+                                                    "description": "Map the role for Observer",
                                                     "default": ""
                                                 }
                                             }

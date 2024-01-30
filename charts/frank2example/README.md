@@ -75,11 +75,11 @@ helm delete my-frank2example
 | `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false`     |
 | `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`        |
 | `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the rol for Tester                                                                                           | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the rol for DataAdmin                                                                                        | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the rol for Admin                                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                       | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                         | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                           | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                        | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                            | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                       | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                         | `""`        |
 | `frank.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                           | `""`        |
 | `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`        |
 | `frank.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                     | `""`        |
