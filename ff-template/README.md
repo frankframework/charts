@@ -75,11 +75,11 @@ helm delete my-ff-template
 | `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false`     |
 | `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`        |
 | `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the rol for Tester                                                                                           | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the rol for DataAdmin                                                                                        | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the rol for Admin                                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.webService` | Map the rol for WebService                                                                                       | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the rol for Observer                                                                                         | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                           | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                        | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                            | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                       | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                         | `""`        |
 | `frank.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                           | `""`        |
 | `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`        |
 | `frank.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                     | `""`        |
@@ -98,7 +98,7 @@ helm delete my-ff-template
 | `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`   |
 | `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`   |
 | `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`   |
-| `connections.jms`           | Set multiple massage services                                                                                                                        | `[]`   |
+| `connections.jms`           | Set multiple message services                                                                                                                        | `[]`   |
 | `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`   |
 | `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`   |
 | `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`   |
