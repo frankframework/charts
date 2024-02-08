@@ -15,3 +15,5 @@
 {{ template "ff-common.service.tpl" . }}
 ---
 {{ template "ff-common.ingress.tpl" . }}
+---
+{{ template "ff-common.configmap.k8s-specifics.tpl" . }}

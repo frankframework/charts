@@ -11,3 +11,5 @@
 {{ template "ff-common.ingress.tpl" . }}
 ---
 {{ template "ff-common.persistentvolumeclaim.tpl" . }}
+---
+{{ template "ff-common.configmap.k8s-specifics.tpl" . }}

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: frankframework
 description: A Helm chart for running the Frank!Framework on Kubernetes
-version: 0.2.16
+version: 0.2.17
 appVersion: "7.8"
 type: application
 home: https://frankframework.org
@@ -9,5 +9,5 @@ icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/fran
 
 dependencies:
   - name: ff-common
-    version: ~0.1.22
+    version: ~0.1.23
     repository: file://../ff-common

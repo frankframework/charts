@@ -130,15 +130,19 @@ frank:
     ## @param frank.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
     ##
     transactionManager: ''
+  ## @param frank.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
+  ## properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
+  ## implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
+  ##
+  properties:
+    jdbc.dbms.default: 'h2'
+    jms.provider.default: ''
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`
   ## @param frank.environmentVariables.jms.provider.default [string] The default jms that will be used. This should match with one of the jms's in the context.xml e.g. `artemis`. `frank.server.transactionManager` needs to be set.
   ## More properties can be set. ref: https://github.com/frankframework/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
   ##
-  environmentVariables:
-    jdbc.dbms.default: 'h2'
-    jms.provider.default: ''
-    management.metrics.export.prometheus.enabled: "true"
+  environmentVariables: {}
   ## @param frank.javaOpts [string] Append custom options to the `JAVA_OPTS` environment variable for the Frank!
   ##
   javaOpts: ""

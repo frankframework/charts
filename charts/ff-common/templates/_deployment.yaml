@@ -21,6 +21,7 @@ spec:
         checksum/configmap.env: {{ include ("ff-common.configmap.env.tpl") . | sha256sum }}
         checksum/configmap.ldap-role-mapping: {{ include ("ff-common.configmap.ldap-role-mapping.tpl") . | sha256sum }}
         checksum/configmap.tomcat-users: {{ include ("ff-common.configmap.tomcat-users.tpl") . | sha256sum }}
+        checksum/configmap.k8s-specifics: {{ include ("ff-common.configmap.k8s-specifics.tpl") . | sha256sum }}
         {{ with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{ end }}
@@ -89,6 +90,9 @@ spec:
                 path: {{ $e.key }}
             defaultMode: 0664
         {{- end }}
+        - name: {{ template "ff-common.fullname" . }}-k8s-specifics
+          configMap:
+            name: {{ template "ff-common.fullname" . }}-k8s-specifics
 {{- end -}}
 {{- define "ff-common.deployment" -}}
 {{- template "ff-common.util.merge" (append . "ff-common.deployment.tpl") -}}

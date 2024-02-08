@@ -56,6 +56,10 @@ volumeMounts:
     subPath: {{ $e.key }}
     readOnly: true
   {{- end }}
+  - name: {{ template "ff-common.fullname" . }}-k8s-specifics
+    mountPath: /opt/frank/resources/K8sSpecifics.yaml
+    subPath: K8sSpecifics.yaml
+    readOnly: true
 ports:
   - name: http
     containerPort: 8080

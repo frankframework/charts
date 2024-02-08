@@ -134,6 +134,11 @@ frank:
     ## @param frank.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
     ##
     transactionManager: NARAYANA
+  ## @param frank.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
+  ## properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
+  ## implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
+  ##
+  properties: {}
   ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
   ##
   environmentVariables: {}

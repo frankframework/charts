@@ -184,29 +184,34 @@
                         }
                     }
                 },
-                "environmentVariables": {
+                "properties": {
                     "type": "object",
                     "properties": {
-                        "management": {
+                        "jdbc": {
                             "type": "object",
                             "properties": {
-                                "metrics": {
+                                "dbms": {
                                     "type": "object",
                                     "properties": {
-                                        "export": {
-                                            "type": "object",
-                                            "properties": {
-                                                "prometheus": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "enabled": {
-                                                            "type": "string",
-                                                            "description": "",
-                                                            "default": "true"
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                        "default": {
+                                            "type": "string",
+                                            "description": "",
+                                            "default": "h2"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "jms": {
+                            "type": "object",
+                            "properties": {
+                                "provider": {
+                                    "type": "object",
+                                    "properties": {
+                                        "default": {
+                                            "type": "string",
+                                            "description": "",
+                                            "default": ""
                                         }
                                     }
                                 }
@@ -301,11 +306,6 @@
                 }
             }
         },
-        "replicaCount": {
-            "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
-            "default": 1
-        },
         "autoscaling": {
             "type": "object",
             "properties": {
@@ -335,6 +335,11 @@
                     "default": 80
                 }
             }
+        },
+        "replicaCount": {
+            "type": "number",
+            "description": "Number of Frank!Framework replicas to deploy",
+            "default": 1
         },
         "startupProbe": {
             "type": "object",
