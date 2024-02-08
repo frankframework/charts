@@ -526,6 +526,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.15
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 8de51ddbbd070fb46d92bf1269a2d3f47f527124836aadb017c71b40d942267c
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -541,6 +542,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.14
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 585f827e3ed6801fb8c6412ae955eb60f51432c4fc64abc259406ab312ff6d99
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -556,6 +558,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.13
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 53fd90a893987a7f46e3b363e861d4ef8e58840cb09aa078df31469226eb6e3b
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -571,6 +574,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.12
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 665c220b1757ac9217382fad94ef5f81293939547b0aac221fd5b3363ea45f3d
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -586,6 +590,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.12
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: b6278992e324f036e26750037b3db9578b46b2d7748aafe2770676a845cdd76e
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -601,6 +606,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.11
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 3292a64ee899d6d02737db7c76a46a5421ed4b68e8f90f877ee658ee25cc3d5c
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -616,6 +622,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: ~0.1.10
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 0da6d29761711b06460242089c3c40575344ba607c9abab3fc871439b31191bb
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -631,6 +638,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: 0.1.x
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: b57ccef168bedd6889d96788d07c08d9a4e3eb735ef27c47d529f04c0839a53c
     icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank-framework/icon.svg
@@ -646,6 +654,7 @@ entries:
     - name: ff-common
       repository: file://../ff-common
       version: 0.1.0
+    deprecated: true
     description: A Helm chart for running the Frank!Framework on Kubernetes
     digest: 704cd6e207a7419a53a59b9fafc038e16c2d09376a384ab2224ff82470beffb9
     icon: https://raw.githubusercontent.com/ibissource/charts/ff-common/charts/frank-framework/icon.svg
