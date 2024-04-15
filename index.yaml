@@ -531,6 +531,298 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-test-0.2.15/ff-test-0.2.15.tgz
     version: 0.2.15
+  frank2example:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-02-13T09:20:22.017853685Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.23
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 8bbe4a3dddde27b8553908c019cefba8697d3b8ceca77be4f000364ef47ca31e
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.17/frank2example-0.2.17.tgz
+    version: 0.2.17
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-01-16T15:11:16.149223866Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.22
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: b43e74889b33f95b90ab6d3783742d6d5976a7467ccb4033aa1d7cbb6564fd2c
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.16/frank2example-0.2.16.tgz
+    version: 0.2.16
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-01-16T14:53:55.554870688Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.21
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: b829f84e0b84b5c7a09cbdbbdad38095578a264763f4c274b44cf9590e965324
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.15/frank2example-0.2.15.tgz
+    version: 0.2.15
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-01-11T09:54:12.389334223Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.20
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 4790cd073060886560f5c6025e297ffeab7604cc4372af87317e5f7e555fad3b
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.14/frank2example-0.2.14.tgz
+    version: 0.2.14
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-01-09T16:57:40.096638996Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.19
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 5b7ec56930577cd624780bf0c44ac04ff5004e00df8c7756f3c532dd36707739
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.13/frank2example-0.2.13.tgz
+    version: 0.2.13
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-12-15T12:39:01.235406039Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.18
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 030ccbf1fea7ba7077023d7d12f9c3607da9f96acdfe6ef4b7a15cbefae3efb0
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.12/frank2example-0.2.12.tgz
+    version: 0.2.12
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-11-23T21:07:42.745340715Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.17
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: add1193c6e830f778ae26f08185dea18ae339fda4a3697cf0ad8775c040ccf65
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.11/frank2example-0.2.11.tgz
+    version: 0.2.11
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-11-21T10:04:50.163371978Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.17
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 4d9b6d03e0db278259507ab81f635db4da95212b7c425f30a22875eeb2146b4c
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.2.10/frank2example-0.2.10.tgz
+    version: 0.2.10
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-11-15T15:35:29.908119066Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.16
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 67445d43fa89fd202a88df7ea20d626a5ae40f5e1a8df1f1516abae8c4404a30
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.9/frank2example-0.2.9.tgz
+    version: 0.2.9
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-10-03T11:42:04.282382229Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.15
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 77f85cdb8aca9530f631dc922167207ab832b74923e29953016b628d70f9a4c0
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.8/frank2example-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-09-27T09:41:17.314527949Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.14
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 27c67c3d977b43cc258e933266e77e6cc0a66de7f8e0ff06290728d52b6dae48
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.7/frank2example-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-08-30T14:54:17.756207235Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.13
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 81995170b430d742d9bee71c8bd8d8d5128c8d81c7ae2b72ef181a0ecd69bef7
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.6/frank2example-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-08-23T11:57:00.599396796Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.12
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 4ed19cf7c4295fe96a8e63e9c4469744f17baf949d2d8ca955b90d1ded1517c6
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.5/frank2example-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-08-18T14:51:38.676584226Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.12
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 018867cd218d50eed6180b66c9846f325ee3f213a285bdfdea9c9d2bcf07eda5
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.4/frank2example-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-06-30T15:58:22.752586857Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.11
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 1e57a0fc7fcc315f3ee1ab39b0cde16f9975c51fb241a00e38e78bf2a950296f
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.3/frank2example-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-06-30T09:53:41.350094081Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: ~0.1.10
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 8773e5b0f86df2d6f84a2a1f0a7a5bd621e3878ce73379ef400834d09e374d5b
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.2/frank2example-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-06-19T13:27:04.940711917Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: 0.1.x
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 8d8146d4e3cfcca41e2a6f0e046ba47490c86d514868861a60a435977e4ec080
+    icon: https://raw.githubusercontent.com/ibissource/charts/master/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.1/frank2example-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-05-16T12:52:22.686391093Z"
+    dependencies:
+    - name: ff-common
+      repository: file://../ff-common
+      version: 0.1.0
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 945fdd9e7899f57b01457a03bbfc6a4dd4fa74baca5d6e9689965f3014a2e83c
+    icon: https://raw.githubusercontent.com/ibissource/charts/ff-common/charts/frank2example/icon.svg
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/ibissource/charts/releases/download/frank2example-0.2.0/frank2example-0.2.0.tgz
+    version: 0.2.0
   frankframework:
   - apiVersion: v2
     appVersion: "7.8"
