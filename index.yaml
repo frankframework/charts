@@ -13,6 +13,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.23/ff-common-0.1.23.tgz
     version: 0.1.23
+    deprecated: true
   - apiVersion: v2
     appVersion: "8.0"
     created: "2024-01-16T15:11:15.716236604Z"
@@ -25,6 +26,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.22/ff-common-0.1.22.tgz
     version: 0.1.22
+    deprecated: true
   - apiVersion: v2
     appVersion: "8.0"
     created: "2024-01-16T14:53:55.279688074Z"
@@ -37,6 +39,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.21/ff-common-0.1.21.tgz
     version: 0.1.21
+    deprecated: true
   - apiVersion: v2
     appVersion: "8.0"
     created: "2024-01-11T09:54:12.125107478Z"
@@ -49,6 +52,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.20/ff-common-0.1.20.tgz
     version: 0.1.20
+    deprecated: true
   - apiVersion: v2
     appVersion: "8.0"
     created: "2024-01-09T16:57:39.599832802Z"
@@ -61,6 +65,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.19/ff-common-0.1.19.tgz
     version: 0.1.19
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-12-15T12:39:00.913053Z"
@@ -73,6 +78,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.18/ff-common-0.1.18.tgz
     version: 0.1.18
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-11-23T21:07:42.125576615Z"
@@ -85,6 +91,7 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/ff-common-0.1.17/ff-common-0.1.17.tgz
     version: 0.1.17
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-11-15T15:35:29.447458028Z"
@@ -96,6 +103,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.16/ff-common-0.1.16.tgz
     version: 0.1.16
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-10-03T11:42:03.789499617Z"
@@ -107,6 +115,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.15/ff-common-0.1.15.tgz
     version: 0.1.15
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-09-27T09:41:16.757342889Z"
@@ -118,6 +127,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.14/ff-common-0.1.14.tgz
     version: 0.1.14
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-08-30T14:54:17.209960216Z"
@@ -129,6 +139,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.13/ff-common-0.1.13.tgz
     version: 0.1.13
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-08-18T14:51:37.937227885Z"
@@ -140,6 +151,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.12/ff-common-0.1.12.tgz
     version: 0.1.12
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-06-30T15:58:22.069298049Z"
@@ -151,6 +163,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.11/ff-common-0.1.11.tgz
     version: 0.1.11
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-06-30T09:53:40.911153688Z"
@@ -162,6 +175,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.10/ff-common-0.1.10.tgz
     version: 0.1.10
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-06-19T13:27:04.416959151Z"
@@ -173,6 +187,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.9/ff-common-0.1.9.tgz
     version: 0.1.9
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-06-09T13:41:57.680588194Z"
@@ -184,6 +199,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.8/ff-common-0.1.8.tgz
     version: 0.1.8
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-06-07T15:19:59.53703839Z"
@@ -195,6 +211,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.7/ff-common-0.1.7.tgz
     version: 0.1.7
+    deprecated: true
   - apiVersion: v2
     appVersion: "7.8"
     created: "2023-05-24T21:07:38.291178809Z"
@@ -206,6 +223,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-common-0.1.5/ff-common-0.1.5.tgz
     version: 0.1.5
+    deprecated: true
   ff-test:
   - apiVersion: v2
     appVersion: latest-tomcat
