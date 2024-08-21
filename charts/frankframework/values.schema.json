@@ -4,12 +4,12 @@
     "properties": {
         "nameOverride": {
             "type": "string",
-            "description": "String to partially override common.names.fullname template (will maintain the release name)",
+            "description": "String to partially override fullname template (will maintain the release name)",
             "default": ""
         },
         "fullnameOverride": {
             "type": "string",
-            "description": "String to fully override common.names.fullname template",
+            "description": "String to fully override fullname template",
             "default": ""
         },
         "image": {
@@ -43,7 +43,7 @@
                 }
             }
         },
-        "frank": {
+        "application": {
             "type": "object",
             "properties": {
                 "memory": {
@@ -211,55 +211,13 @@
                 }
             }
         },
-        "connections": {
-            "type": "object",
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
-                    "default": true
-                },
-                "jdbc": {
-                    "type": "array",
-                    "description": "Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)",
-                    "default": [],
-                    "items": {}
-                },
-                "jms": {
-                    "type": "array",
-                    "description": "Set multiple message services",
-                    "default": [],
-                    "items": {}
-                }
-            }
-        },
-        "autoscaling": {
+        "console": {
             "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "description": "",
+                    "description": "Enable the Frank!Framework console",
                     "default": false
-                },
-                "minReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 1
-                },
-                "maxReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 100
-                },
-                "targetCPUUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                },
-                "targetMemoryUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
                 }
             }
         },
@@ -295,6 +253,141 @@
                     "type": "number",
                     "description": "Success threshold for startupProbe",
                     "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for startupProbe",
+                            "default": "/iaf/api/server/health"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for startupProbe",
+                            "default": 8080
+                        }
+                    }
+                }
+            }
+        },
+        "livenessProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for livenessProbe",
+                    "default": 0
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for livenessProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for livenessProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for livenessProbe",
+                    "default": 12
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for livenessProbe",
+                    "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for livenessProbe",
+                            "default": "/iaf/api/server/health"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for livenessProbe",
+                            "default": 8080
+                        }
+                    }
+                }
+            }
+        },
+        "autoscaling": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "",
+                    "default": false
+                },
+                "minReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 1
+                },
+                "maxReplicas": {
+                    "type": "number",
+                    "description": "",
+                    "default": 100
+                },
+                "targetCPUUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                },
+                "targetMemoryUtilizationPercentage": {
+                    "type": "number",
+                    "description": "",
+                    "default": 80
+                }
+            }
+        },
+        "readinessProbe": {
+            "type": "object",
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for readinessProbe",
+                    "default": 0
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for readinessProbe",
+                    "default": 5
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for readinessProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for readinessProbe",
+                    "default": 3
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for readinessProbe",
+                    "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for readinessProbe",
+                            "default": "/iaf/api/server/health"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for readinessProbe",
+                            "default": 8080
+                        }
+                    }
                 }
             }
         },
@@ -351,66 +444,6 @@
                     "description": "Define tls secrets for hosts (implementation not done yet)",
                     "default": [],
                     "items": {}
-                }
-            }
-        },
-        "livenessProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for livenessProbe",
-                    "default": 0
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for livenessProbe",
-                    "default": 10
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for livenessProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for livenessProbe",
-                    "default": 12
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for livenessProbe",
-                    "default": 1
-                }
-            }
-        },
-        "readinessProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for readinessProbe",
-                    "default": 0
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for readinessProbe",
-                    "default": 5
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for readinessProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for readinessProbe",
-                    "default": 3
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for readinessProbe",
-                    "default": 1
                 }
             }
         },

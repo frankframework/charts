@@ -4,12 +4,12 @@
     "properties": {
         "nameOverride": {
             "type": "string",
-            "description": "String to partially override common.names.fullname template (will maintain the release name)",
+            "description": "String to partially override fullname template (will maintain the release name)",
             "default": ""
         },
         "fullnameOverride": {
             "type": "string",
-            "description": "String to fully override common.names.fullname template",
+            "description": "String to fully override fullname template",
             "default": ""
         },
         "image": {
@@ -23,7 +23,7 @@
                 "repository": {
                     "type": "string",
                     "description": "Frank!Framework image repository",
-                    "default": "frankframework"
+                    "default": "frank-console"
                 },
                 "tag": {
                     "type": "string",
@@ -43,7 +43,7 @@
                 }
             }
         },
-        "frank": {
+        "application": {
             "type": "object",
             "properties": {
                 "memory": {
@@ -57,75 +57,18 @@
                         "minimum": {
                             "type": "string",
                             "description": "Sets the initial size of the heap that will be used by the Frank!Framework",
-                            "default": "4G"
+                            "default": "1G"
                         },
                         "maximum": {
                             "type": "string",
                             "description": "Sets the maximum size of the heap that will be used by the Frank!Framework",
-                            "default": "4G"
-                        }
-                    }
-                },
-                "dtap": {
-                    "type": "object",
-                    "properties": {
-                        "stage": {
-                            "type": "string",
-                            "description": "(Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`",
-                            "default": ""
-                        },
-                        "side": {
-                            "type": "string",
-                            "description": "Set the `DTAP` side of where the instance is running",
-                            "default": ""
-                        }
-                    }
-                },
-                "credentials": {
-                    "type": "object",
-                    "properties": {
-                        "secret": {
-                            "type": "string",
-                            "description": "Set the secret name of the existing secret",
-                            "default": ""
-                        },
-                        "key": {
-                            "type": "string",
-                            "description": "Set the key inside the secret that contains the data (e.g. `credentials.properties`)",
-                            "default": ""
-                        }
-                    }
-                },
-                "instance": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string",
-                            "description": "Set the name of the Frank! instance (default is the `fullname`)",
-                            "default": ""
-                        }
-                    }
-                },
-                "configurations": {
-                    "type": "object",
-                    "properties": {
-                        "names": {
-                            "type": "array",
-                            "description": "Set the configurations to load. Leave empty to use the default",
-                            "default": [],
-                            "items": {}
+                            "default": "1G"
                         }
                     }
                 },
                 "security": {
                     "type": "object",
                     "properties": {
-                        "certificateStores": {
-                            "type": "array",
-                            "description": "Define certificate (key/trust) stores to mount in the resources folder of the Frank!",
-                            "default": [],
-                            "items": {}
-                        },
                         "http": {
                             "type": "object",
                             "properties": {
@@ -194,16 +137,6 @@
                         }
                     }
                 },
-                "server": {
-                    "type": "object",
-                    "properties": {
-                        "transactionManager": {
-                            "type": "string",
-                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``",
-                            "default": "NARAYANA"
-                        }
-                    }
-                },
                 "javaOpts": {
                     "type": "string",
                     "description": "Append custom options to the `JAVA_OPTS` environment variable for the Frank!",
@@ -211,27 +144,15 @@
                 }
             }
         },
-        "connections": {
+        "replicaCount": {
+            "type": "number",
+            "description": "Number of Frank!Framework replicas to deploy",
+            "default": 1
+        },
+        "startupProbe": {
             "type": "object",
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
-                    "default": true
-                },
-                "jdbc": {
-                    "type": "array",
-                    "description": "Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)",
-                    "default": [],
-                    "items": {}
-                },
-                "jms": {
-                    "type": "array",
-                    "description": "Set multiple message services",
-                    "default": [],
-                    "items": {}
-                }
-            }
+            "description": "Configure the startup probe",
+            "default": {}
         },
         "autoscaling": {
             "type": "object",
@@ -263,40 +184,25 @@
                 }
             }
         },
-        "replicaCount": {
-            "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
-            "default": 1
-        },
-        "startupProbe": {
+        "livenessProbe": {
             "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for startupProbe",
-                    "default": 40
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for startupProbe",
-                    "default": 10
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for startupProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for startupProbe",
-                    "default": 12
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for startupProbe",
-                    "default": 1
-                }
-            }
+            "description": "Configure the liveness probe",
+            "default": {}
+        },
+        "readinessProbe": {
+            "type": "object",
+            "description": "Configure the readiness probe",
+            "default": {}
+        },
+        "terminationGracePeriodSeconds": {
+            "type": "number",
+            "description": "Number of seconds after which pods are forcefully killed",
+            "default": 60
+        },
+        "nodeSelector": {
+            "type": "object",
+            "description": "Node labels for pod assignment",
+            "default": {}
         },
         "ingress": {
             "type": "object",
@@ -353,76 +259,6 @@
                     "items": {}
                 }
             }
-        },
-        "livenessProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for livenessProbe",
-                    "default": 0
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for livenessProbe",
-                    "default": 10
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for livenessProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for livenessProbe",
-                    "default": 12
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for livenessProbe",
-                    "default": 1
-                }
-            }
-        },
-        "readinessProbe": {
-            "type": "object",
-            "properties": {
-                "initialDelaySeconds": {
-                    "type": "number",
-                    "description": "Initial delay seconds for readinessProbe",
-                    "default": 0
-                },
-                "periodSeconds": {
-                    "type": "number",
-                    "description": "Period seconds for readinessProbe",
-                    "default": 5
-                },
-                "timeoutSeconds": {
-                    "type": "number",
-                    "description": "Timeout seconds for readinessProbe",
-                    "default": 1
-                },
-                "failureThreshold": {
-                    "type": "number",
-                    "description": "Failure threshold for readinessProbe",
-                    "default": 3
-                },
-                "successThreshold": {
-                    "type": "number",
-                    "description": "Success threshold for readinessProbe",
-                    "default": 1
-                }
-            }
-        },
-        "terminationGracePeriodSeconds": {
-            "type": "number",
-            "description": "Number of seconds after which pods are forcefully killed",
-            "default": 60
-        },
-        "nodeSelector": {
-            "type": "object",
-            "description": "Node labels for pod assignment",
-            "default": {}
         },
         "tolerations": {
             "type": "array",
@@ -484,56 +320,6 @@
             "type": "object",
             "description": "Extra labels for Frank!Framework pods",
             "default": {}
-        },
-        "persistence": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Enable persistence using Persistent Volume Claims",
-                    "default": false
-                },
-                "storageClass": {
-                    "type": "string",
-                    "description": "Persistent Volume storage class",
-                    "default": ""
-                },
-                "accessModes": {
-                    "type": "array",
-                    "description": "Persistent Volume access modes",
-                    "default": [
-                        "ReadWriteOnce"
-                    ],
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "size": {
-                    "type": "string",
-                    "description": "Persistent Volume size",
-                    "default": "5Gi"
-                },
-                "dataSource": {
-                    "type": "object",
-                    "description": "Custom PVC data source",
-                    "default": {}
-                },
-                "existingClaim": {
-                    "type": "string",
-                    "description": "The name of an existing PVC to use for persistence",
-                    "default": ""
-                },
-                "selector": {
-                    "type": "object",
-                    "description": "Selector to match an existing Persistent Volume for the Frank!Framework's data PVC",
-                    "default": {}
-                },
-                "annotations": {
-                    "type": "object",
-                    "description": "Persistent Volume Claim annotations",
-                    "default": {}
-                }
-            }
         }
     }
 }

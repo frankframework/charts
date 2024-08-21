@@ -35,12 +35,18 @@ helm delete my-frankframework
 
 ### Common parameters
 
-| Name               | Description                                                                                  | Value |
-| ------------------ | -------------------------------------------------------------------------------------------- | ----- |
-| `nameOverride`     | String to partially override common.names.fullname template (will maintain the release name) | `""`  |
-| `fullnameOverride` | String to fully override common.names.fullname template                                      | `""`  |
+| Name               | Description                                                                     | Value |
+| ------------------ | ------------------------------------------------------------------------------- | ----- |
+| `nameOverride`     | String to partially override fullname template (will maintain the release name) | `""`  |
+| `fullnameOverride` | String to fully override fullname template                                      | `""`  |
 
 ### Frank!Framework image parameters
+
+The image is pulled from nexus.frankframework.org by default. The images located there will be kept for as long as possible.
+Here are the images available:
+https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrankframework%2Ftags/
+If you want to use a specific nightly, you can use the images on docker.io:
+https://hub.docker.com/r/frankframework/frankframework/tags
 
 | Name                | Description                                                | Value                      |
 | ------------------- | ---------------------------------------------------------- | -------------------------- |
@@ -50,60 +56,57 @@ helm delete my-frankframework
 | `image.pullPolicy`  | Frank!Framework image pull policy                          | `IfNotPresent`             |
 | `image.pullSecrets` | Frank!Framework image pull secrets                         | `[]`                       |
 
-### Frank! Configuration parameters
+### Frank!Framework application parameters
 
-| Name                                                         | Description                                                                                                      | Value       |
-| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ----------- |
-| `frank.memory.percentage`                                    | Set if the values for the memory are in percentages                                                              | `false`     |
-| `frank.memory.minimum`                                       | Sets the initial size of the heap that will be used by the Frank!Framework                                       | `4G`        |
-| `frank.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the Frank!Framework                                       | `4G`        |
-| `frank.dtap.stage`                                           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                      | `""`        |
-| `frank.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                             | `""`        |
-| `frank.credentials.secret`                                   | Set the secret name of the existing secret                                                                       | `""`        |
-| `frank.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                             | `""`        |
-| `frank.instance.name`                                        | Set the name of the Frank! instance (default is the `fullname`)                                                  | `""`        |
-| `frank.configurations.names`                                 | Set the configurations to load. Leave empty to use the default                                                   | `[]`        |
-| `frank.security.certificateStores`                           | Define certificate (key/trust) stores to mount in the resources folder of the Frank!                             | `[]`        |
-| `frank.security.certificateStores.secretName`                | Name of the secret where the certificate store is located in                                                     | `""`        |
-| `frank.security.certificateStores.key`                       | The key in the secret where the certificate store is located in                                                  | `""`        |
-| `frank.security.certificateStores.resourceUrl`               | The path to the certificate store in the Resource folder, the key will be used as default value                  | `undefined` |
-| `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `false`     |
-| `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `[]`        |
-| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`        |
-| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`        |
-| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `[]`        |
-| `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false`     |
-| `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`        |
-| `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                           | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                        | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                       | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                         | `""`        |
-| `frank.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                           | `""`        |
-| `frank.properties`                                           | Set Yaml properties for configuring the Frank!Framework or configurations                                        | `{}`        |
-| `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`        |
-| `frank.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                     | `""`        |
+| Name                                                               | Description                                                                                                               | Value       |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `application.memory.percentage`                                    | Set if the values for the memory are in percentages                                                                       | `false`     |
+| `application.memory.minimum`                                       | Sets the initial size of the heap that will be used by the Frank!Framework                                                | `4G`        |
+| `application.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the Frank!Framework                                                | `4G`        |
+| `application.dtap.stage`                                           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                               | `""`        |
+| `application.dtap.side`                                            | Set the `DTAP` side of where the instance is running                                                                      | `""`        |
+| `application.credentials.secret`                                   | Set the secret name of the existing secret                                                                                | `""`        |
+| `application.credentials.key`                                      | Set the key inside the secret that contains the data (e.g. `credentials.properties`)                                      | `""`        |
+| `application.instance.name`                                        | Set the name of the Frank! instance (default is the `fullname`)                                                           | `""`        |
+| `application.configurations.names`                                 | Set the configurations to load. Leave empty to use the default                                                            | `[]`        |
+| `application.resources`                                            | Set Yaml properties for configuring the connections for theFrank!Framework                                                | `{}`        |
+| `application.resources`                                            | Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml   |             |
+| `application.resources`                                            | Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.    |             |
+| `application.security.certificateStores`                           | Define certificate (key/trust) stores to mount in the resources folder of the Frank!                                      | `[]`        |
+| `application.security.certificateStores.secretName`                | Name of the secret where the certificate store is located in                                                              | `""`        |
+| `application.security.certificateStores.key`                       | The key in the secret where the certificate store is located in                                                           | `""`        |
+| `application.security.certificateStores.resourceUrl`               | The path to the certificate store in the Resource folder, the key will be used as default value                           | `undefined` |
+| `application.security.http.authentication`                         | Set http authentication for the Frank!                                                                                    | `false`     |
+| `application.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                               | `[]`        |
+| `application.security.http.localUsers`                             | Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml |             |
+| `application.security.http.localUsers.username`                    | Set the username of the user                                                                                              | `""`        |
+| `application.security.http.localUsers.password`                    | Set the password of the user                                                                                              | `""`        |
+| `application.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`          | `[]`        |
+| `application.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                | `false`     |
+| `application.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                              | `""`        |
+| `application.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                     | `""`        |
+| `application.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                                   | `""`        |
+| `application.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                                | `""`        |
+| `application.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                                    | `""`        |
+| `application.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                               | `""`        |
+| `application.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                                 | `""`        |
+| `application.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                                    | `""`        |
+| `application.properties`                                           | Set Yaml properties for configuring the Frank!Framework or configurations                                                 | `{}`        |
+| `application.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                            | `{}`        |
+| `application.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                              | `""`        |
 
-### Frank!Framework Connection parameters
+### Frank!Framework console parameters
 
-| Name                        | Description                                                                                                                                          | Value  |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| `connections.create`        | Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.                                              | `true` |
-| `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set) | `[]`   |
-| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    | `""`   |
-| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            | `""`   |
-| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  | `""`   |
-| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      | `""`   |
-| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     | `""`   |
-| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`   |
-| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`   |
-| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`   |
-| `connections.jms`           | Set multiple message services                                                                                                                        | `[]`   |
-| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`   |
-| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`   |
-| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`   |
-| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            | `""`   |
+The console is a web application that allows you to manage the Frank!Framework.
+Each Frank!Framework instance contains a console, which can be accessed by going to the instance's URL and appending `/iaf/gui`.
+Enabling this additional console will allow you to manage multiple instances of Frank!Framework from a single console.
+It is disabled by default, but can be enabled by setting `console.enabled` to `true`.
+Configuring the console is done by setting the `console.application` parameters. Which can be found in the frank-console chart.
+ref: https://frankframework.github.io/charts/frank-console
+
+| Name              | Description                        | Value   |
+| ----------------- | ---------------------------------- | ------- |
+| `console.enabled` | Enable the Frank!Framework console | `false` |
 
 ### Frank!Framework deployment parameters
 
@@ -111,38 +114,40 @@ The startup probe will enable blue-green deployment, which are great for uptime 
 It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
 The readiness probe will check if all adapters are running using the server health endpoint
 
-| Name                                 | Description                                                                                                        | Value     |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | --------- |
-| `replicaCount`                       | Number of Frank!Framework replicas to deploy                                                                       | `1`       |
-| `startupProbe.initialDelaySeconds`   | Initial delay seconds for startupProbe                                                                             | `40`      |
-| `startupProbe.periodSeconds`         | Period seconds for startupProbe                                                                                    | `10`      |
-| `startupProbe.timeoutSeconds`        | Timeout seconds for startupProbe                                                                                   | `1`       |
-| `startupProbe.failureThreshold`      | Failure threshold for startupProbe                                                                                 | `12`      |
-| `startupProbe.successThreshold`      | Success threshold for startupProbe                                                                                 | `1`       |
-| `livenessProbe.initialDelaySeconds`  | Initial delay seconds for livenessProbe                                                                            | `0`       |
-| `livenessProbe.periodSeconds`        | Period seconds for livenessProbe                                                                                   | `10`      |
-| `livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe                                                                                  | `1`       |
-| `livenessProbe.failureThreshold`     | Failure threshold for livenessProbe                                                                                | `12`      |
-| `livenessProbe.successThreshold`     | Success threshold for livenessProbe                                                                                | `1`       |
-| `readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                                                                           | `0`       |
-| `readinessProbe.periodSeconds`       | Period seconds for readinessProbe                                                                                  | `5`       |
-| `readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                                                                                 | `1`       |
-| `readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                                                                               | `3`       |
-| `readinessProbe.successThreshold`    | Success threshold for readinessProbe                                                                               | `1`       |
-| `probesEnabled`                      | Toggle probes. This should only be used if a Frank! needs to be kept while in a bad state (for debugging purposes) | `{}`      |
-| `probesEnabled.startupProbe`         | Toggle startupProbe                                                                                                | `{}`      |
-| `probesEnabled.livenessProbe`        | Toggle livenessProbe                                                                                               | `{}`      |
-| `probesEnabled.readinessProbe`       | Toggle readinessProbe                                                                                              | `{}`      |
-| `resources`                          | Set the resources for the Frank!Framework containers                                                               | `{}`      |
-| `resources.limits`                   | The resources limits for the Frank!Framework containers                                                            | `""`      |
-| `resources.requests.memory`          | The requested memory for the Frank!Framework containers                                                            | `""`      |
-| `resources.requests.cpu`             | The requested cpu for the Frank!Framework containers                                                               | `""`      |
-| `terminationGracePeriodSeconds`      | Number of seconds after which pods are forcefully killed                                                           | `60`      |
-| `terminationGracePeriodSeconds`      | Note: Lower values may cause running adapters to fail                                                              |           |
-| `nodeSelector`                       | Node labels for pod assignment                                                                                     | `{}`      |
-| `tolerations`                        | Set tolerations for pod assignment                                                                                 | `[]`      |
-| `affinity`                           | Set affinity for pod assignment                                                                                    | `{}`      |
-| `timeZone`                           | used for database connection and log timestamps                                                                    | `Etc/UTC` |
+| Name                                 | Description                                              | Value                    |
+| ------------------------------------ | -------------------------------------------------------- | ------------------------ |
+| `replicaCount`                       | Number of Frank!Framework replicas to deploy             | `1`                      |
+| `startupProbe.initialDelaySeconds`   | Initial delay seconds for startupProbe                   | `40`                     |
+| `startupProbe.periodSeconds`         | Period seconds for startupProbe                          | `10`                     |
+| `startupProbe.timeoutSeconds`        | Timeout seconds for startupProbe                         | `1`                      |
+| `startupProbe.failureThreshold`      | Failure threshold for startupProbe                       | `12`                     |
+| `startupProbe.successThreshold`      | Success threshold for startupProbe                       | `1`                      |
+| `startupProbe.httpGet.path`          | Path for startupProbe                                    | `/iaf/api/server/health` |
+| `startupProbe.httpGet.port`          | Port for startupProbe                                    | `8080`                   |
+| `livenessProbe.initialDelaySeconds`  | Initial delay seconds for livenessProbe                  | `0`                      |
+| `livenessProbe.periodSeconds`        | Period seconds for livenessProbe                         | `10`                     |
+| `livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe                        | `1`                      |
+| `livenessProbe.failureThreshold`     | Failure threshold for livenessProbe                      | `12`                     |
+| `livenessProbe.successThreshold`     | Success threshold for livenessProbe                      | `1`                      |
+| `livenessProbe.httpGet.path`         | Path for livenessProbe                                   | `/iaf/api/server/health` |
+| `livenessProbe.httpGet.port`         | Port for livenessProbe                                   | `8080`                   |
+| `readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                 | `0`                      |
+| `readinessProbe.periodSeconds`       | Period seconds for readinessProbe                        | `5`                      |
+| `readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                       | `1`                      |
+| `readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                     | `3`                      |
+| `readinessProbe.successThreshold`    | Success threshold for readinessProbe                     | `1`                      |
+| `readinessProbe.httpGet.path`        | Path for readinessProbe                                  | `/iaf/api/server/health` |
+| `readinessProbe.httpGet.port`        | Port for readinessProbe                                  | `8080`                   |
+| `resources`                          | Set the resources for the Frank!Framework containers     | `{}`                     |
+| `resources.limits`                   | The resources limits for the Frank!Framework containers  | `""`                     |
+| `resources.requests.memory`          | The requested memory for the Frank!Framework containers  | `""`                     |
+| `resources.requests.cpu`             | The requested cpu for the Frank!Framework containers     | `""`                     |
+| `terminationGracePeriodSeconds`      | Number of seconds after which pods are forcefully killed | `60`                     |
+| `terminationGracePeriodSeconds`      | Note: Lower values may cause running adapters to fail    |                          |
+| `nodeSelector`                       | Node labels for pod assignment                           | `{}`                     |
+| `tolerations`                        | Set tolerations for pod assignment                       | `[]`                     |
+| `affinity`                           | Set affinity for pod assignment                          | `{}`                     |
+| `timeZone`                           | used for database connection and log timestamps          | `Etc/UTC`                |
 
 ### Traffic Exposure Parameters
 
