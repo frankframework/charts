@@ -1,0 +1,14 @@
+{{/*
+ConfigMap for generating a resources.yml containing the connections
+*/}}
+{{- with .Values.application.resources -}}
+apiVersion: v1
+kind: ConfigMap # TODO: Change to Secret
+metadata:
+  name: {{ include "frankframework.fullname" $ }}-resources
+  labels:
+    {{- include "frankframework.labels" $ | nindent 4 }}
+data:
+  resources.yml: |-
+    {{- toYaml . | nindent 4 -}}
+{{- end -}}

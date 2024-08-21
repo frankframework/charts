@@ -1,13 +1,21 @@
 apiVersion: v2
 name: frankframework
 description: A Helm chart for running the Frank!Framework on Kubernetes
-version: 0.2.17
-appVersion: "7.8"
+version: 0.3.0
+appVersion: "8.3.0-SNAPSHOT"
 type: application
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
 
+keywords:
+  - frankframework
+  - integration
+  - testing
+  - automation
+
 dependencies:
-  - name: ff-common
-    version: ~0.1.23
-    repository: file://../ff-common
+  - name: frank-console
+    version: 0.1.0
+    alias: console
+    condition: console.enabled
+    repository: file://../frank-console

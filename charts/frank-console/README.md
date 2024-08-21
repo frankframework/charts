@@ -198,20 +198,6 @@ For more information about DTAP stages read: https://frank-manual.readthedocs.io
 
 ## Notable changes
 
-### 0.3.0
-
-The common chart and its templates have been removed. Making this the main chart for other Frank!Framework-based charts.
-
-`.Values.frank` has been changed to `.Values.application`.
-
-The `.Values.connections.jdbc` and `.Values.connections.jms` have been changed to `.Values.application.resources` and have a different structure. 
-It generates a `resources.yml` for the Frank!Framework. This is to allow for more flexibility.
-
-A new chart has been added, called `frank-console`. This is a web application that allows you to manage multiple instances of Frank!Framework from a single console. 
-It is disabled by default, but can be enabled by setting `.Values.console.enabled` to `true`.
-
-All probes have been added to the values, making it possible to configure then separately. This could be useful if you want to make use of the new health endpoints.
-
 ### 0.2.10
 
 The name of the chart has been renamed (frankframework) to match the project, organisation and Docker image. 

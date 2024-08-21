@@ -25,7 +25,7 @@ fullnameOverride: ""
 ##
 image:
   registry: nexus.frankframework.org
-  repository: frankframework
+  repository: frank-console
   tag: ""
   ## @param image.pullPolicy Frank!Framework image pull policy
   ## Specify a imagePullPolicy
@@ -56,47 +56,9 @@ application:
   ##
   memory:
     percentage: false
-    minimum: 4G
-    maximum: 4G
-  ## @param application.dtap.stage (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
-  ## @param application.dtap.side Set the `DTAP` side of where the instance is running
-  ##
-  dtap:
-    stage: ""
-    side: ""
-  ## @skip application.credentials [object]
-  ## @param application.credentials.secret Set the secret name of the existing secret
-  ## @param application.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
-  ##
-  credentials:
-    secret: ""
-    key: ""
-  ## @skip application.instance [string]
-  ## @param application.instance.name Set the name of the Frank! instance (default is the `fullname`)
-  ##
-  instance:
-    name: ""
-  ## @param application.configurations.names [array] Set the configurations to load. Leave empty to use the default
-  ## e.g.
-  ## configurations.names:
-  ##   - main
-  ##
-  configurations:
-    names: []
-  ## @param application.resources [object] Set Yaml properties for configuring the connections for theFrank!Framework
-  ## @extra application.resources Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml
-  ## @extra application.resources Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.
-  ## Example ref: https://github.com/frankframework/frankframework/blob/master/core/src/test/resources/resources.yml
-  ## Implementation ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/java/org/frankframework/jdbc/datasource/FrankResources.java
-  ##
-  resources: []
+    minimum: 1G
+    maximum: 1G
   security:
-    ## @param application.security.certificateStores [array] Define certificate (key/trust) stores to mount in the resources folder of the Frank!
-    ## @param application.security.certificateStores.secretName [string] Name of the secret where the certificate store is located in
-    ## @param application.security.certificateStores.key [string] The key in the secret where the certificate store is located in
-    ## @param application.security.certificateStores.resourceUrl [string, nullable] The path to the certificate store in the Resource folder, the key will be used as default value
-    ##
-    certificateStores: []
     http:
       ## @param application.security.http.authentication Set http authentication for the Frank!
       ##
@@ -113,12 +75,10 @@ application:
       ##     roles:
       ##        - IbisTester
       ##
-      localUsers: []
-      ## @skip application.security.http.activeDirectory [object]
+      localUsers: [ ]
       ## @param application.security.http.activeDirectory.enabled Enable Active Directory for authentication
       ## @param application.security.http.activeDirectory.url Set url for Active Directory
       ## @param application.security.http.activeDirectory.baseDn Set baseDn for Active Directory users
-      ## @skip application.security.http.activeDirectory.roleMapping [object]
       ## @param application.security.http.activeDirectory.roleMapping.tester Map the role for Tester
       ## @param application.security.http.activeDirectory.roleMapping.dataAdmin Map the role for DataAdmin
       ## @param application.security.http.activeDirectory.roleMapping.admin Map the role for Admin
@@ -135,37 +95,9 @@ application:
           admin: ""
           webService: ""
           observer: ""
-  server:
-    ## @param application.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
-    ##
-    transactionManager: NARAYANA
-  ## @param application.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
-  ## properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
-  ## implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
-  ##
-  properties: {}
-  ## @param application.environmentVariables [object] Set extra environment variables for the Frank!
-  ##
-  environmentVariables: {}
   ## @param application.javaOpts [string] Append custom options to the `JAVA_OPTS` environment variable for the Frank!
   ##
   javaOpts: ""
-
-## @section Frank!Framework console parameters
-## @descriptionStart
-## The console is a web application that allows you to manage the Frank!Framework.
-## Each Frank!Framework instance contains a console, which can be accessed by going to the instance's URL and appending `/iaf/gui`.
-## Enabling this additional console will allow you to manage multiple instances of Frank!Framework from a single console.
-## It is disabled by default, but can be enabled by setting `console.enabled` to `true`.
-## Configuring the console is done by setting the `console.application` parameters. Which can be found in the frank-console chart.
-## ref: https://frankframework.github.io/charts/frank-console
-## @descriptionEnd
-##
-
-## @param console.enabled Enable the Frank!Framework console
-##
-console:
-  enabled: false
 
 ## @section Frank!Framework deployment parameters
 ## @descriptionStart
@@ -182,63 +114,21 @@ replicaCount: 1
 
 ## Configure extra options for Frank!Framework containers' startup probe
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.successThreshold Success threshold for startupProbe
-## @param startupProbe.httpGet.path Path for startupProbe
-## @param startupProbe.httpGet.port Port for startupProbe
+## @param startupProbe Configure the startup probe
 ##
-startupProbe:
-  initialDelaySeconds: 40
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 12
-  successThreshold: 1
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+startupProbe: {}
 
 ## Configure extra options for Frank!Framework containers' liveness probe
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.successThreshold Success threshold for livenessProbe
-## @param livenessProbe.httpGet.path Path for livenessProbe
-## @param livenessProbe.httpGet.port Port for livenessProbe
+## @param livenessProbe Configure the liveness probe
 ##
-livenessProbe:
-  initialDelaySeconds: 0
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 12
-  successThreshold: 1
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+livenessProbe: {}
 
 ## Configure extra options for Frank!Framework containers' readiness probe
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.successThreshold Success threshold for readinessProbe
-## @param readinessProbe.httpGet.path Path for readinessProbe
-## @param readinessProbe.httpGet.port Port for readinessProbe
+## @param readinessProbe Configure the readiness probe
 ##
-readinessProbe:
-  initialDelaySeconds: 0
-  periodSeconds: 5
-  timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+readinessProbe: {}
 
 ## Frank!Framework container's resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
@@ -392,47 +282,3 @@ podSecurityContext: {}
 ##  runAsUser: 1000
 ##
 securityContext: {}
-
-## @section Persistence
-## @descriptionStart
-## Persistence is used for keeping heap dumps. They can be found at `/heap-dumps` with persistence enabled.
-## Otherwise, they can be found at `/usr/local/tomcat/logs`
-## @descriptionEnd
-##
-persistence:
-  ## @param persistence.enabled Enable persistence using Persistent Volume Claims
-  ##
-  enabled: false
-  ## @param persistence.storageClass Persistent Volume storage class
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
-  ##
-  storageClass: ""
-  ## @param persistence.accessModes [array] Persistent Volume access modes
-  ##
-  accessModes:
-    - ReadWriteOnce
-  ## @param persistence.size Persistent Volume size
-  ##
-  size: 5Gi
-  ## @param persistence.dataSource Custom PVC data source
-  ##
-  dataSource: {}
-  ## @param persistence.existingClaim The name of an existing PVC to use for persistence
-  ##
-  existingClaim: ""
-  ## @param persistence.selector Selector to match an existing Persistent Volume for the Frank!Framework's data PVC
-  ## If set, the PVC can't have a PV dynamically provisioned for it
-  ## E.g.
-  ## selector:
-  ##   matchLabels:
-  ##     app: my-app
-  ##
-  selector: {}
-  ## @param persistence.annotations Persistent Volume Claim annotations
-  ## You might need to add an annotation for selected node:
-  ## E.g: volume.kubernetes.io/selected-node: nodeName
-  ## Ref: https://kubernetes.io/docs/reference/labels-annotations-taints/#volume-kubernetes-io-selected-node
-  ##
-  annotations: {}
