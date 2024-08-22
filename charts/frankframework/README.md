@@ -73,15 +73,15 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 | `application.resources`                                            | Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml   |             |
 | `application.resources`                                            | Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.    |             |
 | `application.security.certificateStores`                           | Define certificate (key/trust) stores to mount in the resources folder of the Frank!                                      | `[]`        |
-| `application.security.certificateStores.secretName`                | Name of the secret where the certificate store is located in                                                              | `""`        |
-| `application.security.certificateStores.key`                       | The key in the secret where the certificate store is located in                                                           | `""`        |
+| `application.security.certificateStores.secretName`                | Name of the secret where the certificate store is located in                                                              | `undefined` |
+| `application.security.certificateStores.key`                       | The key in the secret where the certificate store is located in                                                           | `undefined` |
 | `application.security.certificateStores.resourceUrl`               | The path to the certificate store in the Resource folder, the key will be used as default value                           | `undefined` |
 | `application.security.http.authentication`                         | Set http authentication for the Frank!                                                                                    | `false`     |
 | `application.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                               | `[]`        |
 | `application.security.http.localUsers`                             | Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml |             |
-| `application.security.http.localUsers.username`                    | Set the username of the user                                                                                              | `""`        |
-| `application.security.http.localUsers.password`                    | Set the password of the user                                                                                              | `""`        |
-| `application.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`          | `[]`        |
+| `application.security.http.localUsers.username`                    | Set the username of the user                                                                                              | `undefined` |
+| `application.security.http.localUsers.password`                    | Set the password of the user                                                                                              | `undefined` |
+| `application.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`          | `undefined` |
 | `application.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                | `false`     |
 | `application.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                              | `""`        |
 | `application.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                     | `""`        |
@@ -158,11 +158,11 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.enabled`              | Enable ingress record generation for Frank!                                                                                      | `false`     |
 | `ingress.className`            | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`        |
 | `ingress.annotations`          | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |
-| `ingress.hosts`                | Set hosts for ingress                                                                                                            | `[]`        |
-| `ingress.hosts.host`           | Set hostname                                                                                                                     | `""`        |
-| `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `[]`        |
-| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `""`        |
-| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `""`        |
+| `ingress.hosts`                | Set hosts for ingress                                                                                                            | `{}`        |
+| `ingress.hosts.host`           | Set hostname                                                                                                                     | `undefined` |
+| `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `undefined` |
+| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `undefined` |
+| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `undefined` |
 | `ingress.tls`                  | Define tls secrets for hosts (implementation not done yet)                                                                       | `[]`        |
 
 ### Other Parameters

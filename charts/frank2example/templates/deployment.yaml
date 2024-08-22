@@ -1,8 +1,0 @@
-{{- template "ff-common.deployment" (list . "frank2example.deployment") -}}
-{{- define "frank2example.deployment" -}}
-spec:
-  template:
-    metadata:
-      annotations:
-        checksum/configmap.context: {{ include (print $.Template.BasePath "/configmap.context.yaml") . | sha256sum }}
-{{- end -}}

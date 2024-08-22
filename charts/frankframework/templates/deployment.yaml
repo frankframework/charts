@@ -16,11 +16,11 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
-        checksum/configmap.resources: {{ include (print $.Template.BasePath "/configmap.resources.yaml") . | sha256sum }}
         checksum/configmap.env: {{ include (print $.Template.BasePath "/configmap.env.yaml") . | sha256sum }}
-        checksum/configmap.ldap-role-mapping: {{ include (print $.Template.BasePath "/configmap.ldap-role-mapping.yaml") . | sha256sum }}
-        checksum/configmap.local-users: {{ include (print $.Template.BasePath "/configmap.local-users.yaml") . | sha256sum }}
         checksum/configmap.k8s-specifics: {{ include (print $.Template.BasePath "/configmap.k8s-specifics.yaml") . | sha256sum }}
+        checksum/configmap.ldap-role-mapping: {{ include (print $.Template.BasePath "/configmap.ldap-role-mapping.yaml") . | sha256sum }}
+        checksum/secret.local-users: {{ include (print $.Template.BasePath "/secret.local-users.yaml") . | sha256sum }}
+        checksum/secret.resources: {{ include (print $.Template.BasePath "/secret.resources.yaml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -62,13 +62,13 @@ spec:
         {{- end }}
         {{- if .Values.application.security.http.localUsers }}
         - name: {{ template "frankframework.fullname" . }}-local-users
-          configMap:
-            name: {{ template "frankframework.fullname" . }}-local-users
+          secret:
+            secretName: {{ template "frankframework.fullname" . }}-local-users
         {{- end }}
         {{- if .Values.application.resources }}
         - name: {{ template "frankframework.fullname" . }}-resources
-          configMap:
-            name: {{ template "frankframework.fullname" . }}-resources
+          secret:
+            secretName: {{ template "frankframework.fullname" . }}-resources
         {{- end }}
         {{- if .Values.application.security.http.activeDirectory.enabled }}
         - name: {{ template "frankframework.fullname" . }}-ldap-role-mapping
