@@ -549,43 +549,7 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-test-0.2.15/ff-test-0.2.15.tgz
     version: 0.2.15
-  frank-console:
-  - apiVersion: v2
-    appVersion: 8.3.0-SNAPSHOT
-    created: "2024-08-23T09:38:13.526192701Z"
-    description: The Frank!Framework console is a web application that allows you
-      to manage multiple instances of Frank!Framework from a single console.
-    digest: 72458cd887f59940a22958cc5a64510013f611b802e9a978ade529c540ae142d
-    home: https://frankframework.org
-    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-console/icon.svg
-    keywords:
-    - frankframework
-    - testing
-    - console
-    - dashboard
-    name: frank-console
-    type: application
-    urls:
-    - https://github.com/frankframework/charts/releases/download/frank-console-0.1.0/frank-console-0.1.0.tgz
-    version: 0.1.0
   frank2example:
-  - apiVersion: v2
-    created: "2024-08-23T08:50:11.801395141Z"
-    dependencies:
-    - name: frankframework
-      repository: file://../frankframework
-      version: 0.3.0
-    description: A Helm chart for running Frank2Example on Kubernetes
-    digest: 7232cad86d295a98b8dd0b880e866ff8f52eca83ef1a31a9252529251abdc7c8
-    home: https://frankframework.org
-    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
-    keywords:
-    - demo
-    name: frank2example
-    type: application
-    urls:
-    - https://github.com/frankframework/charts/releases/download/frank2example-0.3.0/frank2example-0.3.0.tgz
-    version: 0.3.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-02-13T09:20:22.017853685Z"
@@ -878,29 +842,6 @@ entries:
     - https://github.com/ibissource/charts/releases/download/frank2example-0.2.0/frank2example-0.2.0.tgz
     version: 0.2.0
   frankframework:
-  - apiVersion: v2
-    appVersion: 8.3.0-SNAPSHOT
-    created: "2024-08-23T08:50:11.930453459Z"
-    dependencies:
-    - alias: console
-      condition: console.enabled
-      name: frank-console
-      repository: file://../frank-console
-      version: 0.1.0
-    description: A Helm chart for running the Frank!Framework on Kubernetes
-    digest: fb83218cc32abded831adf2952e5a14bc71a79821d828892ef577550bb873bb8
-    home: https://frankframework.org
-    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
-    keywords:
-    - frankframework
-    - integration
-    - testing
-    - automation
-    name: frankframework
-    type: application
-    urls:
-    - https://github.com/frankframework/charts/releases/download/frankframework-0.3.0/frankframework-0.3.0.tgz
-    version: 0.3.0
   - apiVersion: v2
     appVersion: "7.8"
     created: "2024-02-13T09:20:22.142393527Z"
