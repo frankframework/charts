@@ -12,4 +12,4 @@ keywords:
 dependencies:
   - name: frankframework
     version: 0.3.0
-    repository: file://../frankframework
+    repository: file://../2_frankframework

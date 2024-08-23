@@ -18,4 +18,4 @@ dependencies:
     version: 0.1.0
     alias: console
     condition: console.enabled
-    repository: file://../frank-console
+    repository: file://../1_frank-console
