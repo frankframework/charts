@@ -4,12 +4,12 @@
     "properties": {
         "nameOverride": {
             "type": "string",
-            "description": "String to partially override common.names.fullname template (will maintain the release name)",
+            "description": "String to partially override fullname template (will maintain the release name)",
             "default": ""
         },
         "fullnameOverride": {
             "type": "string",
-            "description": "String to fully override common.names.fullname template",
+            "description": "String to fully override fullname template",
             "default": ""
         },
         "image": {
@@ -43,7 +43,7 @@
                 }
             }
         },
-        "frank": {
+        "application": {
             "type": "object",
             "properties": {
                 "memory": {
@@ -112,10 +112,17 @@
                         "names": {
                             "type": "array",
                             "description": "Set the configurations to load. Leave empty to use the default",
-                            "default": [],
-                            "items": {}
+                            "default": "[]",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
+                },
+                "resources": {
+                    "type": "object",
+                    "description": "Set Yaml properties for configuring the connections for theFrank!Framework",
+                    "default": {}
                 },
                 "security": {
                     "type": "object",
@@ -123,8 +130,10 @@
                         "certificateStores": {
                             "type": "array",
                             "description": "Define certificate (key/trust) stores to mount in the resources folder of the Frank!",
-                            "default": [],
-                            "items": {}
+                            "default": "[]",
+                            "items": {
+                                "type": "string"
+                            }
                         },
                         "http": {
                             "type": "object",
@@ -137,8 +146,10 @@
                                 "localUsers": {
                                     "type": "array",
                                     "description": "Set localUsers who can log in on the Frank!",
-                                    "default": [],
-                                    "items": {}
+                                    "default": "[]",
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 },
                                 "activeDirectory": {
                                     "type": "object",
@@ -200,66 +211,24 @@
                         "transactionManager": {
                             "type": "string",
                             "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``",
-                            "default": "NARAYANA"
+                            "default": "\"\""
                         }
                     }
                 },
                 "javaOpts": {
                     "type": "string",
                     "description": "Append custom options to the `JAVA_OPTS` environment variable for the Frank!",
-                    "default": ""
+                    "default": "\"\""
                 }
             }
         },
-        "connections": {
-            "type": "object",
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "description": "Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.",
-                    "default": true
-                },
-                "jdbc": {
-                    "type": "array",
-                    "description": "Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)",
-                    "default": [],
-                    "items": {}
-                },
-                "jms": {
-                    "type": "array",
-                    "description": "Set multiple message services",
-                    "default": [],
-                    "items": {}
-                }
-            }
-        },
-        "autoscaling": {
+        "console": {
             "type": "object",
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "description": "",
+                    "description": "Enable the Frank!Framework console",
                     "default": false
-                },
-                "minReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 1
-                },
-                "maxReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 100
-                },
-                "targetCPUUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                },
-                "targetMemoryUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
                 }
             }
         },
@@ -295,62 +264,21 @@
                     "type": "number",
                     "description": "Success threshold for startupProbe",
                     "default": 1
-                }
-            }
-        },
-        "ingress": {
-            "type": "object",
-            "properties": {
-                "hosts": {
-                    "type": "array",
-                    "description": "",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "host": {
-                                "type": "string",
-                                "description": ""
-                            },
-                            "paths": {
-                                "type": "array",
-                                "description": "",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string",
-                                            "description": ""
-                                        },
-                                        "pathType": {
-                                            "type": "string",
-                                            "description": ""
-                                        }
-                                    }
-                                }
-                            }
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for startupProbe",
+                            "default": "/iaf/api/server/health"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for startupProbe",
+                            "default": 8080
                         }
                     }
-                },
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Enable ingress record generation for Frank!",
-                    "default": false
-                },
-                "className": {
-                    "type": "string",
-                    "description": "IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)",
-                    "default": ""
-                },
-                "annotations": {
-                    "type": "object",
-                    "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
-                    "default": {}
-                },
-                "tls": {
-                    "type": "array",
-                    "description": "Define tls secrets for hosts (implementation not done yet)",
-                    "default": [],
-                    "items": {}
                 }
             }
         },
@@ -381,6 +309,21 @@
                     "type": "number",
                     "description": "Success threshold for livenessProbe",
                     "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for livenessProbe",
+                            "default": "/iaf/api/server/health"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for livenessProbe",
+                            "default": 8080
+                        }
+                    }
                 }
             }
         },
@@ -411,6 +354,46 @@
                     "type": "number",
                     "description": "Success threshold for readinessProbe",
                     "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for readinessProbe",
+                            "default": "/iaf/api/server/health"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for readinessProbe",
+                            "default": 8080
+                        }
+                    }
+                }
+            }
+        },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "string",
+                    "description": "The resources limits for the Frank!Framework containers",
+                    "default": "\"\""
+                },
+                "requests": {
+                    "type": "object",
+                    "properties": {
+                        "memory": {
+                            "type": "string",
+                            "description": "The requested memory for the Frank!Framework containers",
+                            "default": "\"\""
+                        },
+                        "cpu": {
+                            "type": "string",
+                            "description": "The requested cpu for the Frank!Framework containers",
+                            "default": "\"\""
+                        }
+                    }
                 }
             }
         },
@@ -452,6 +435,34 @@
                     "type": "number",
                     "description": "Frank!Framework service port",
                     "default": 80
+                }
+            }
+        },
+        "ingress": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable ingress record generation for Frank!",
+                    "default": false
+                },
+                "className": {
+                    "type": "string",
+                    "description": "IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)",
+                    "default": ""
+                },
+                "annotations": {
+                    "type": "object",
+                    "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
+                    "default": {}
+                },
+                "tls": {
+                    "type": "array",
+                    "description": "Define tls secrets for hosts (implementation not done yet)",
+                    "default": "[]",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -501,9 +512,7 @@
                 "accessModes": {
                     "type": "array",
                     "description": "Persistent Volume access modes",
-                    "default": [
-                        "ReadWriteOnce"
-                    ],
+                    "default": "[]",
                     "items": {
                         "type": "string"
                     }

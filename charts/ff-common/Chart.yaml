@@ -6,3 +6,4 @@ appVersion: "8.0"
 type: library
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-common/icon.svg
+deprecated: true

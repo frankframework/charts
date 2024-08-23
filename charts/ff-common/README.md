@@ -61,11 +61,11 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false`     |
 | `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`        |
 | `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                           | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                        | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                            | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                       | `""`        |
-| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                         | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                          | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                       | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                           | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                      | `""`        |
+| `frank.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                        | `""`        |
 | `frank.server.transactionManager`                            | Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``                                           | `""`        |
 | `frank.properties`                                           | Set Yaml properties for configuring the Frank!Framework or configurations                                        | `{}`        |
 | `frank.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                   | `{}`        |

@@ -1,0 +1,25 @@
+{{/*
+ConfigMap for generating a ldap-role-mapping.properties
+*/}}
+{{- define "frank-console.configmap.ldap-role-mapping.tpl" -}}
+{{- if .Values.frank.security.http.activeDirectory.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "frank-console.fullname" . }}-ldap-role-mapping
+  labels:
+    {{- include "frank-console.labels" . | nindent 4 }}
+data:
+  ldap-role-mapping.properties: |-
+    {{- with .Values.application.security.http.activeDirectory.roleMapping }}
+    IbisTester={{ .tester | default "IbisTester" }}
+    IbisAdmin={{ .admin | default "IbisAdmin" }}
+    IbisDataAdmin={{ .dataAdmin | default "IbisDataAdmin" }}
+    IbisWebService={{ .webService | default "IbisWebService" }}
+    IbisObserver={{ .observer | default "IbisObserver" }}
+    {{- end }}
+{{- end -}}
+{{- end -}}
+{{- define "frank-console.configmap.ldap-role-mapping" -}}
+{{- template "frank-console.util.merge" (append . "frank-console.configmap.ldap-role-mapping.tpl") -}}
+{{- end -}}

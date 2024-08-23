@@ -1,0 +1,81 @@
+{{/*
+Predefined container for running a Frank!
+*/}}
+{{- define "frank-console.container" -}}
+name: {{ .Chart.Name }}
+securityContext:
+  {{- toYaml .Values.securityContext | nindent 2 }}
+image: "{{ .Values.image.registry }}{{ if .Values.image.registry }}/{{ end }}{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+imagePullPolicy: {{ .Values.image.pullPolicy }}
+terminationMessagePolicy: FallbackToLogsOnError
+workingDir: /app
+command:
+  - java
+{{/*  - -classpath*/}}
+{{/*  - ./*;/opt/frank/resources/*;/app/**/}}
+{{/*  - -Dloader.path=./*/}}
+  - -Dlogging.level.org.springframework=TRACE
+  - -jar
+  - frankframework-console-webapp.war
+envFrom:
+  - configMapRef:
+      name: {{ template "frank-console.fullname" . }}-env
+volumeMounts:
+  {{- if .Values.securityContext.readOnlyRootFilesystem }}
+  - mountPath: /heap-dumps
+    name: tmpfs
+  {{- end }}
+  {{- if .Values.application.security.http.localUsers }}
+  - name: {{ template "frank-console.fullname" . }}-local-users
+    mountPath: /app/config/application.properties
+    subPath: localUsers.yml
+    readOnly: true
+  {{- end }}
+  {{- if .Values.application.security.http.localUsers }}
+  - name: {{ template "frank-console.fullname" . }}-local-users
+    mountPath: /app/config/localUsers.yml
+    subPath: localUsers.yml
+    readOnly: true
+  {{- end }}
+  {{- if .Values.application.security.http.activeDirectory.enabled }}
+  - name: {{ template "frank-console.fullname" . }}-ldap-role-mapping
+    mountPath: /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/ldap-role-mapping.properties
+    subPath: ldap-role-mapping.properties
+    readOnly: true
+  {{- end }}
+  {{- range $i, $e := .Values.application.security.certificateStores }}
+  - name: {{ template "frank-console.fullname" $ }}-certificate-store-{{ $i }}
+    mountPath: /opt/frank/resources/{{ $e.resourceUrl | default $e.key }}
+    subPath: {{ $e.key }}
+    readOnly: true
+  {{- end }}
+ports:
+  - name: http
+    containerPort: 8080
+    protocol: TCP
+  - name: https
+    containerPort: 8443
+    protocol: TCP
+  - name: hazelcast
+    containerPort: 5701
+    protocol: TCP
+{{/*  - name: multicast*/}}
+{{/*    containerPort: 54327*/}}
+{{/*    protocol: TCP*/}}
+{{- with .Values.startupProbe }}
+startupProbe:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- with .Values.livenessProbe }}
+livenessProbe:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- with .Values.readinessProbe }}
+readinessProbe:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- with .Values.resources }}
+resources:
+  {{- toYaml . | nindent 2 }}
+{{- end -}}
+{{- end -}}

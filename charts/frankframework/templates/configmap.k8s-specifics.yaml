@@ -1,0 +1,14 @@
+{{/*
+ConfigMap for generating a ldap-role-mapping.properties
+*/}}
+{{- with .Values.application.properties -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "frankframework.fullname" . }}-k8s-specifics
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+data:
+  K8sSpecifics.yaml: |-
+    {{ toYaml . | nindent 4 }}
+{{- end -}}
