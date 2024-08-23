@@ -80,8 +80,10 @@
                                 "localUsers": {
                                     "type": "array",
                                     "description": "Set localUsers who can log in on the Frank!",
-                                    "default": [],
-                                    "items": {}
+                                    "default": "[]",
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 },
                                 "activeDirectory": {
                                     "type": "object",
@@ -140,7 +142,7 @@
                 "javaOpts": {
                     "type": "string",
                     "description": "Append custom options to the `JAVA_OPTS` environment variable for the Frank!",
-                    "default": ""
+                    "default": "\"\""
                 }
             }
         },
@@ -153,36 +155,6 @@
             "type": "object",
             "description": "Configure the startup probe",
             "default": {}
-        },
-        "autoscaling": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "",
-                    "default": false
-                },
-                "minReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 1
-                },
-                "maxReplicas": {
-                    "type": "number",
-                    "description": "",
-                    "default": 100
-                },
-                "targetCPUUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                },
-                "targetMemoryUtilizationPercentage": {
-                    "type": "number",
-                    "description": "",
-                    "default": 80
-                }
-            }
         },
         "livenessProbe": {
             "type": "object",
@@ -203,62 +175,6 @@
             "type": "object",
             "description": "Node labels for pod assignment",
             "default": {}
-        },
-        "ingress": {
-            "type": "object",
-            "properties": {
-                "hosts": {
-                    "type": "array",
-                    "description": "",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "host": {
-                                "type": "string",
-                                "description": ""
-                            },
-                            "paths": {
-                                "type": "array",
-                                "description": "",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string",
-                                            "description": ""
-                                        },
-                                        "pathType": {
-                                            "type": "string",
-                                            "description": ""
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Enable ingress record generation for Frank!",
-                    "default": false
-                },
-                "className": {
-                    "type": "string",
-                    "description": "IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)",
-                    "default": ""
-                },
-                "annotations": {
-                    "type": "object",
-                    "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
-                    "default": {}
-                },
-                "tls": {
-                    "type": "array",
-                    "description": "Define tls secrets for hosts (implementation not done yet)",
-                    "default": [],
-                    "items": {}
-                }
-            }
         },
         "tolerations": {
             "type": "array",
@@ -288,6 +204,34 @@
                     "type": "number",
                     "description": "Frank!Framework service port",
                     "default": 80
+                }
+            }
+        },
+        "ingress": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable ingress record generation for Frank!",
+                    "default": false
+                },
+                "className": {
+                    "type": "string",
+                    "description": "IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)",
+                    "default": ""
+                },
+                "annotations": {
+                    "type": "object",
+                    "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
+                    "default": {}
+                },
+                "tls": {
+                    "type": "array",
+                    "description": "Define tls secrets for hosts (implementation not done yet)",
+                    "default": "[]",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

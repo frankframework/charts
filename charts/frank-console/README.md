@@ -58,26 +58,26 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 
 ### Frank!Framework application parameters
 
-| Name                                                               | Description                                                                                                               | Value   |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `application.memory.percentage`                                    | Set if the values for the memory are in percentages                                                                       | `false` |
-| `application.memory.minimum`                                       | Sets the initial size of the heap that will be used by the Frank!Framework                                                | `1G`    |
-| `application.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the Frank!Framework                                                | `1G`    |
-| `application.security.http.authentication`                         | Set http authentication for the Frank!                                                                                    | `false` |
-| `application.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                               | `[]`    |
-| `application.security.http.localUsers`                             | Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml |         |
-| `application.security.http.localUsers.username`                    | Set the username of the user                                                                                              | `""`    |
-| `application.security.http.localUsers.password`                    | Set the password of the user                                                                                              | `""`    |
-| `application.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`          | `[]`    |
-| `application.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                | `false` |
-| `application.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                              | `""`    |
-| `application.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                     | `""`    |
-| `application.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                                   | `""`    |
-| `application.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                                | `""`    |
-| `application.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                                    | `""`    |
-| `application.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                               | `""`    |
-| `application.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                                 | `""`    |
-| `application.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                              | `""`    |
+| Name                                                               | Description                                                                                                               | Value       |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `application.memory.percentage`                                    | Set if the values for the memory are in percentages                                                                       | `false`     |
+| `application.memory.minimum`                                       | Sets the initial size of the heap that will be used by the Frank!Framework                                                | `1G`        |
+| `application.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the Frank!Framework                                                | `1G`        |
+| `application.security.http.authentication`                         | Set http authentication for the Frank!                                                                                    | `false`     |
+| `application.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                               | `[]`        |
+| `application.security.http.localUsers`                             | Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml |             |
+| `application.security.http.localUsers.username`                    | Set the username of the user                                                                                              | `undefined` |
+| `application.security.http.localUsers.password`                    | Set the password of the user                                                                                              | `undefined` |
+| `application.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`          | `undefined` |
+| `application.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                | `false`     |
+| `application.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                              | `""`        |
+| `application.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                     | `""`        |
+| `application.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                                   | `""`        |
+| `application.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                                | `""`        |
+| `application.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                                    | `""`        |
+| `application.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                               | `""`        |
+| `application.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                                 | `""`        |
+| `application.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                              | `""`        |
 
 ### Frank!Framework deployment parameters
 
@@ -85,22 +85,22 @@ The startup probe will enable blue-green deployment, which are great for uptime 
 It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
 The readiness probe will check if all adapters are running using the server health endpoint
 
-| Name                            | Description                                              | Value     |
-| ------------------------------- | -------------------------------------------------------- | --------- |
-| `replicaCount`                  | Number of Frank!Framework replicas to deploy             | `1`       |
-| `startupProbe`                  | Configure the startup probe                              | `{}`      |
-| `livenessProbe`                 | Configure the liveness probe                             | `{}`      |
-| `readinessProbe`                | Configure the readiness probe                            | `{}`      |
-| `resources`                     | Set the resources for the Frank!Framework containers     | `{}`      |
-| `resources.limits`              | The resources limits for the Frank!Framework containers  | `""`      |
-| `resources.requests.memory`     | The requested memory for the Frank!Framework containers  | `""`      |
-| `resources.requests.cpu`        | The requested cpu for the Frank!Framework containers     | `""`      |
-| `terminationGracePeriodSeconds` | Number of seconds after which pods are forcefully killed | `60`      |
-| `terminationGracePeriodSeconds` | Note: Lower values may cause running adapters to fail    |           |
-| `nodeSelector`                  | Node labels for pod assignment                           | `{}`      |
-| `tolerations`                   | Set tolerations for pod assignment                       | `[]`      |
-| `affinity`                      | Set affinity for pod assignment                          | `{}`      |
-| `timeZone`                      | used for database connection and log timestamps          | `Etc/UTC` |
+| Name                            | Description                                              | Value       |
+| ------------------------------- | -------------------------------------------------------- | ----------- |
+| `replicaCount`                  | Number of Frank!Framework replicas to deploy             | `1`         |
+| `startupProbe`                  | Configure the startup probe                              | `{}`        |
+| `livenessProbe`                 | Configure the liveness probe                             | `{}`        |
+| `readinessProbe`                | Configure the readiness probe                            | `{}`        |
+| `resources`                     | Set the resources for the Frank!Framework containers     | `{}`        |
+| `resources.limits`              | The resources limits for the Frank!Framework containers  | `undefined` |
+| `resources.requests.memory`     | The requested memory for the Frank!Framework containers  | `undefined` |
+| `resources.requests.cpu`        | The requested cpu for the Frank!Framework containers     | `undefined` |
+| `terminationGracePeriodSeconds` | Number of seconds after which pods are forcefully killed | `60`        |
+| `terminationGracePeriodSeconds` | Note: Lower values may cause running adapters to fail    |             |
+| `nodeSelector`                  | Node labels for pod assignment                           | `{}`        |
+| `tolerations`                   | Set tolerations for pod assignment                       | `[]`        |
+| `affinity`                      | Set affinity for pod assignment                          | `{}`        |
+| `timeZone`                      | used for database connection and log timestamps          | `Etc/UTC`   |
 
 ### Traffic Exposure Parameters
 
@@ -111,11 +111,11 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.enabled`              | Enable ingress record generation for Frank!                                                                                      | `false`     |
 | `ingress.className`            | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`        |
 | `ingress.annotations`          | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |
-| `ingress.hosts`                | Set hosts for ingress                                                                                                            | `[]`        |
-| `ingress.hosts.host`           | Set hostname                                                                                                                     | `""`        |
-| `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `[]`        |
-| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `""`        |
-| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `""`        |
+| `ingress.hosts`                | Set hosts for ingress                                                                                                            | `{}`        |
+| `ingress.hosts.host`           | Set hostname                                                                                                                     | `undefined` |
+| `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `undefined` |
+| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `undefined` |
+| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `undefined` |
 | `ingress.tls`                  | Define tls secrets for hosts (implementation not done yet)                                                                       | `[]`        |
 
 ### Other Parameters
@@ -137,20 +137,3 @@ The readiness probe will check if all adapters are running using the server heal
 The Frank!Framework will start with different settings enabled, depending on what DTAP stage is configured. 
 
 For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
-
-## Notable changes
-
-### 0.2.10
-
-The name of the chart has been renamed (frankframework) to match the project, organisation and Docker image. 
-
-### 0.2.8
-
-The `.Values.frank.memory` notation has been changed. It is now possible to define a minimum and a maximum, and to set percentages.
-
-### 0.2.7
-
-The `.Values.frank.dtap.stage` and `.Values.frank.dtap.side` are now empty by default.
-
-* `.Values.frank.dtap.stage` is now required and should be set to the right stage. Read more in the [Installation details](#dtap-stage)
-* `.Values.frank.dtap.side` will default to the release namespace deployed in.

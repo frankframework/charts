@@ -65,9 +65,9 @@ application:
       authentication: false
       ## @param application.security.http.localUsers [array] Set localUsers who can log in on the Frank!
       ## @extra application.security.http.localUsers Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml
-      ## @param application.security.http.localUsers.username [string] Set the username of the user
-      ## @param application.security.http.localUsers.password [string] Set the password of the user
-      ## @param application.security.http.localUsers.roles [array] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
+      ## @param application.security.http.localUsers.username [string, nullable] Set the username of the user
+      ## @param application.security.http.localUsers.password [string, nullable] Set the password of the user
+      ## @param application.security.http.localUsers.roles [array, nullable] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
       ## e.g.
       ## localUsers:
       ##   - username: Tester
@@ -133,9 +133,9 @@ readinessProbe: {}
 ## Frank!Framework container's resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources [object] Set the resources for the Frank!Framework containers
-## @param resources.limits [string] The resources limits for the Frank!Framework containers
-## @param resources.requests.memory [string] The requested memory for the Frank!Framework containers
-## @param resources.requests.cpu [string] The requested cpu for the Frank!Framework containers
+## @param resources.limits [string, nullable] The resources limits for the Frank!Framework containers
+## @param resources.requests.memory [string, nullable] The requested memory for the Frank!Framework containers
+## @param resources.requests.cpu [string, nullable] The requested cpu for the Frank!Framework containers
 ## e.g.:
 ## resources
 ##   limits:
@@ -215,11 +215,11 @@ ingress:
   ##   kubernetes.io/tls-acme: 'true'
   ##
   annotations: {}
-  ## @param ingress.hosts [array] Set hosts for ingress
-  ## @param ingress.hosts.host [string] Set hostname
-  ## @param ingress.hosts.paths [array] Set multiple paths
-  ## @param ingress.hosts.paths.path [string] Set path (context url)
-  ## @param ingress.hosts.paths.pathType [string] Set type of path
+  ## @param ingress.hosts [object] Set hosts for ingress
+  ## @param ingress.hosts.host [string, nullable] Set hostname
+  ## @param ingress.hosts.paths [array, nullable] Set multiple paths
+  ## @param ingress.hosts.paths.path [string, nullable] Set path (context url)
+  ## @param ingress.hosts.paths.pathType [string, nullable] Set type of path
   ##
   hosts:
     - host: chart-example.local
