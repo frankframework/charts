@@ -19,6 +19,9 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: fetch all dependencies
+        run: |
+          bash -c 'for dir in charts/*; do helm dependency build "$dir"; done'
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         continue-on-error: true
