@@ -549,25 +549,6 @@ entries:
     urls:
     - https://github.com/ibissource/charts/releases/download/ff-test-0.2.15/ff-test-0.2.15.tgz
     version: 0.2.15
-  frank-console:
-  - apiVersion: v2
-    appVersion: 8.3.0-SNAPSHOT
-    created: "2024-08-23T08:50:11.637780591Z"
-    description: The Frank!Framework console is a web application that allows you
-      to manage multiple instances of Frank!Framework from a single console.
-    digest: 58ebea7f33d1bb4ff54258e43787183cc66bd8cb44bdaed1f7b225f6537e8484
-    home: https://frankframework.org
-    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-console/icon.svg
-    keywords:
-    - frankframework
-    - testing
-    - console
-    - dashboard
-    name: frank-console
-    type: application
-    urls:
-    - https://github.com/frankframework/charts/releases/download/frank-console-0.1.0/frank-console-0.1.0.tgz
-    version: 0.1.0
   frank2example:
   - apiVersion: v2
     created: "2024-08-23T08:50:11.801395141Z"
