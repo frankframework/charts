@@ -17,27 +17,27 @@
             "properties": {
                 "registry": {
                     "type": "string",
-                    "description": "Frank!Framework image registry",
+                    "description": "frank-console image registry",
                     "default": "nexus.frankframework.org"
                 },
                 "repository": {
                     "type": "string",
-                    "description": "Frank!Framework image repository",
+                    "description": "frank-console image repository",
                     "default": "frank-console"
                 },
                 "tag": {
                     "type": "string",
-                    "description": "Frank!Framework image tag (immutable tags are recommended)",
+                    "description": "frank-console image tag (immutable tags are recommended)",
                     "default": ""
                 },
                 "pullPolicy": {
                     "type": "string",
-                    "description": "Frank!Framework image pull policy",
+                    "description": "frank-console image pull policy",
                     "default": "IfNotPresent"
                 },
                 "pullSecrets": {
                     "type": "array",
-                    "description": "Frank!Framework image pull secrets",
+                    "description": "frank-console image pull secrets",
                     "default": [],
                     "items": {}
                 }
@@ -56,12 +56,12 @@
                         },
                         "minimum": {
                             "type": "string",
-                            "description": "Sets the initial size of the heap that will be used by the Frank!Framework",
+                            "description": "Sets the initial size of the heap that will be used by the frank-console",
                             "default": "1G"
                         },
                         "maximum": {
                             "type": "string",
-                            "description": "Sets the maximum size of the heap that will be used by the Frank!Framework",
+                            "description": "Sets the maximum size of the heap that will be used by the frank-console",
                             "default": "1G"
                         }
                     }
@@ -148,7 +148,7 @@
         },
         "replicaCount": {
             "type": "number",
-            "description": "Number of Frank!Framework replicas to deploy",
+            "description": "Number of frank-console replicas to deploy",
             "default": 1
         },
         "startupProbe": {
@@ -197,12 +197,12 @@
             "properties": {
                 "type": {
                     "type": "string",
-                    "description": "Frank!Framework service type",
+                    "description": "frank-console service type",
                     "default": "ClusterIP"
                 },
                 "port": {
                     "type": "number",
-                    "description": "Frank!Framework service port",
+                    "description": "frank-console service port",
                     "default": 80
                 }
             }
@@ -240,7 +240,7 @@
             "properties": {
                 "create": {
                     "type": "boolean",
-                    "description": "Enable creation of ServiceAccount for Frank!Framework pod",
+                    "description": "Enable creation of ServiceAccount for frank-console pod",
                     "default": true
                 },
                 "annotations": {
@@ -257,12 +257,12 @@
         },
         "podAnnotations": {
             "type": "object",
-            "description": "Annotations for Frank!Framework pods",
+            "description": "Annotations for frank-console pods",
             "default": {}
         },
         "podLabels": {
             "type": "object",
-            "description": "Extra labels for Frank!Framework pods",
+            "description": "Extra labels for frank-console pods",
             "default": {}
         }
     }
