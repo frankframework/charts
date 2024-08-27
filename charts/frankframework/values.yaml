@@ -332,7 +332,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-  ## @param ingress.tls [array] Define tls secrets for hosts (implementation not done yet)
+  ## @param ingress.tls [object] Define tls secrets for hosts
   ## e.g.
   ## tls:
   ##   - secretName: chart-example-tls

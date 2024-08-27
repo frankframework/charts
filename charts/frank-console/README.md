@@ -114,7 +114,7 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `undefined` |
 | `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `undefined` |
 | `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `undefined` |
-| `ingress.tls`                  | Define tls secrets for hosts (implementation not done yet)                                                                       | `[]`        |
+| `ingress.tls`                  | Define tls secrets for hosts                                                                                                     | `[]`        |
 
 ### Other Parameters
 

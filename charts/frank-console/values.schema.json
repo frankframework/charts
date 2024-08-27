@@ -227,7 +227,7 @@
                 },
                 "tls": {
                     "type": "array",
-                    "description": "Define tls secrets for hosts (implementation not done yet)",
+                    "description": "Define tls secrets for hosts",
                     "default": "[]",
                     "items": {
                         "type": "string"

@@ -1,6 +1,6 @@
 dependencies:
 - name: frank-console
   repository: file://../frank-console
-  version: 0.1.0
-digest: sha256:732a37bd08f735c096eae8967003ad04e65079a3662ff5098128b0b06cd2eeea
-generated: "2024-08-23T14:15:17.6987707+02:00"
+  version: 0.1.1
+digest: sha256:082a4342c9e88659ecb46c52afb387a139606e19fee0f0dc386440facde9f1dd
+generated: "2024-08-27T10:52:19.6053592+02:00"

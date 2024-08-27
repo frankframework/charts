@@ -72,9 +72,9 @@ ports:
   - name: hazelcast
     containerPort: 5701
     protocol: TCP
-{{/*  - name: multicast*/}}
-{{/*    containerPort: 54327*/}}
-{{/*    protocol: TCP*/}}
+  - name: multicast
+    containerPort: 54327
+    protocol: TCP
 {{- with .Values.startupProbe }}
 startupProbe:
   {{- toYaml . | nindent 2 }}
