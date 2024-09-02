@@ -72,3 +72,6 @@ spec:
                 path: {{ $e.key }}
             defaultMode: 0664
         {{- end }}
+        - name: {{ template "frank-console.fullname" . }}-hazelcast-network
+          configMap:
+            name: {{ .Release.Name }}-hazelcast-network

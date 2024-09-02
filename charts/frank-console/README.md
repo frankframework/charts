@@ -75,6 +75,7 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 | `application.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                                    | `""`        |
 | `application.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                               | `""`        |
 | `application.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                                 | `""`        |
+| `application.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                            | `{}`        |
 | `application.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                              | `""`        |
 
 ### frank-console deployment parameters
@@ -114,7 +115,7 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `undefined` |
 | `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `undefined` |
 | `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `undefined` |
-| `ingress.tls`                  | Define tls secrets for hosts                                                                                                     | `[]`        |
+| `ingress.tls`                  | Define tls secrets for hosts                                                                                                     | `{}`        |
 
 ### Other Parameters
 

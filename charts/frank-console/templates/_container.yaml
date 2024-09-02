@@ -34,15 +34,19 @@ volumeMounts:
     subPath: {{ $e.key }}
     readOnly: true
   {{- end }}
+  - name: {{ template "frank-console.fullname" . }}-hazelcast-network
+    mountPath: /app/hazelcast-network.xml
+    subPath: hazelcast-network.xml
+    readOnly: true
 ports:
+  - name: hazelcast
+    containerPort: 5701
+    protocol: TCP
   - name: http
     containerPort: 8080
     protocol: TCP
   - name: https
     containerPort: 8443
-    protocol: TCP
-  - name: hazelcast
-    containerPort: 5701
     protocol: TCP
   - name: multicast
     containerPort: 54327

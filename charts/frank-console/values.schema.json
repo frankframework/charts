@@ -224,14 +224,6 @@
                     "type": "object",
                     "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
                     "default": {}
-                },
-                "tls": {
-                    "type": "array",
-                    "description": "Define tls secrets for hosts",
-                    "default": "[]",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },

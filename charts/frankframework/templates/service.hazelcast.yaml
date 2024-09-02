@@ -1,0 +1,17 @@
+{{/* Hazelcast service for the console (this one will be used by the console to connect to the cluster) */}}
+{{- if .Values.console.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-hazelcast
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    {{- include "frankframework.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: hazelcast
+      port: 5701
+{{- end -}}

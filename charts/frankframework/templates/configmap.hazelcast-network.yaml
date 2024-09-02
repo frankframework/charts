@@ -1,0 +1,26 @@
+{{/*
+ConfigMap for configuring the Hazelcast network
+*/}}
+{{- if .Values.console.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-hazelcast-network
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+data:
+  hazelcast-network.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <hazelcast xmlns="http://www.hazelcast.com/schema/config"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.hazelcast.com/schema/config http://www.hazelcast.com/schema/config/hazelcast-config-5.4.xsd">
+        <network>
+            <port auto-increment="false">5701</port>
+            <join>
+                <multicast enabled="false" />
+                <kubernetes enabled="true" service-dns="{{ .Release.Name }}-hazelcast.{{ .Release.Namespace }}.svc.cluster.local" />
+            </join>
+        </network>
+    </hazelcast>
+{{- end -}}

@@ -25,7 +25,7 @@ frankframework:
     registry: nexus.frankframework.org
     repository: frank2example
     tag: "latest"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     pullSecrets: []
 
   ## @param frankframework.application.dtap.stage Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
@@ -37,12 +37,16 @@ frankframework:
   ##
   application:
     dtap:
-      stage: LOC
+      stage: TST
     resources:
       jdbc:
         - name: frank2example
           type: org.h2.jdbcx.JdbcDataSource
           url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+    ## @param frankframework.application.properties [object] Set Yaml properties for configuring the connections for theFrank!Framework
+    ## @param frankframework.application.properties.jdbc.datasource.default [string] Set the default datasource
+    properties:
+      jdbc.datasource.default: jdbc/frank2example
 
   ## @param frankframework.replicaCount Number of Frank!Framework replicas to deploy
   ##

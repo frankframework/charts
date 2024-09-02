@@ -38,19 +38,21 @@ helm delete my-frank2example
 This chart is a wrapper for the Frank!Framework chart.
 See the documentation for the Frank!Framework chart for more information.
 
-| Name                                                    | Description                                                                                                             | Value                      |
-| ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `frankframework.image.registry`                         | frank2example image registry                                                                                            | `nexus.frankframework.org` |
-| `frankframework.image.repository`                       | frank2example image repository                                                                                          | `frank2example`            |
-| `frankframework.image.tag`                              | frank2example image tag (immutable tags are recommended)                                                                | `latest`                   |
-| `frankframework.image.pullPolicy`                       | frank2example image pull policy                                                                                         | `IfNotPresent`             |
-| `frankframework.image.pullSecrets`                      | frank2example image pull secrets                                                                                        | `[]`                       |
-| `frankframework.application.dtap.stage`                 | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                        | `LOC`                      |
-| `frankframework.application.resources`                  | Set Yaml properties for configuring the connections for theFrank!Framework                                              | `{}`                       |
-| `frankframework.application.resources`                  | Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml |                            |
-| `frankframework.application.resources`                  | Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.  |                            |
-| `frankframework.replicaCount`                           | Number of Frank!Framework replicas to deploy                                                                            | `1`                        |
-| `frankframework.securityContext.readOnlyRootFilesystem` | Set the security context for the Frank!Framework containers                                                             | `true`                     |
+| Name                                                            | Description                                                                                                             | Value                      |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `frankframework.image.registry`                                 | frank2example image registry                                                                                            | `nexus.frankframework.org` |
+| `frankframework.image.repository`                               | frank2example image repository                                                                                          | `frank2example`            |
+| `frankframework.image.tag`                                      | frank2example image tag (immutable tags are recommended)                                                                | `latest`                   |
+| `frankframework.image.pullPolicy`                               | frank2example image pull policy                                                                                         | `Always`                   |
+| `frankframework.image.pullSecrets`                              | frank2example image pull secrets                                                                                        | `[]`                       |
+| `frankframework.application.dtap.stage`                         | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                        | `TST`                      |
+| `frankframework.application.resources`                          | Set Yaml properties for configuring the connections for theFrank!Framework                                              | `{}`                       |
+| `frankframework.application.resources`                          | Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml |                            |
+| `frankframework.application.resources`                          | Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.  |                            |
+| `frankframework.application.properties`                         | Set Yaml properties for configuring the connections for theFrank!Framework                                              | `{}`                       |
+| `frankframework.application.properties.jdbc.datasource.default` | Set the default datasource                                                                                              | `""`                       |
+| `frankframework.replicaCount`                                   | Number of Frank!Framework replicas to deploy                                                                            | `1`                        |
+| `frankframework.securityContext.readOnlyRootFilesystem`         | Set the security context for the Frank!Framework containers                                                             | `true`                     |
 
 ## Configuration and installation details
 

@@ -95,6 +95,9 @@ application:
           admin: ""
           webService: ""
           observer: ""
+  ## @param application.environmentVariables [object] Set extra environment variables for the Frank!
+  ##
+  environmentVariables: { }
   ## @param application.javaOpts [string] Append custom options to the `JAVA_OPTS` environment variable for the Frank!
   ##
   javaOpts: ""
@@ -226,7 +229,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-  ## @param ingress.tls [array] Define tls secrets for hosts
+  ## @param ingress.tls [object] Define tls secrets for hosts
   ## e.g.
   ## tls:
   ##   - secretName: chart-example-tls

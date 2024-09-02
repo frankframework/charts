@@ -96,3 +96,8 @@ spec:
           configMap:
             name: {{ template "frankframework.fullname" . }}-k8s-specifics
         {{- end }}
+        {{- if .Values.console.enabled }}
+        - name: {{ template "frankframework.fullname" . }}-hazelcast-network
+          configMap:
+            name: {{ .Release.Name }}-hazelcast-network
+        {{- end }}

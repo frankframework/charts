@@ -62,15 +62,21 @@ volumeMounts:
     subPath: K8sSpecifics.yaml
     readOnly: true
   {{- end }}
+  {{- if .Values.console.enabled }}
+  - name: {{ template "frankframework.fullname" . }}-hazelcast-network
+    mountPath: /usr/local/tomcat/lib/hazelcast-network.xml
+    subPath: hazelcast-network.xml
+    readOnly: true
+  {{- end }}
 ports:
+  - name: hazelcast
+    containerPort: 5701
+    protocol: TCP
   - name: http
     containerPort: 8080
     protocol: TCP
   - name: https
     containerPort: 8443
-    protocol: TCP
-  - name: hazelcast
-    containerPort: 5701
     protocol: TCP
   - name: multicast
     containerPort: 54327
