@@ -435,6 +435,11 @@
                     "type": "number",
                     "description": "Frank!Framework service port",
                     "default": 80
+                },
+                "annotations": {
+                    "type": "object",
+                    "description": "Additional annotations for the Frank!Framework service",
+                    "default": {}
                 }
             }
         },

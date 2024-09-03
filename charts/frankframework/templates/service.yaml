@@ -1,6 +1,13 @@
 apiVersion: v1
 kind: Service
-{{ template "frankframework.metadata" . }}
+metadata:
+  name: {{ include "frankframework.fullname" . }}
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:

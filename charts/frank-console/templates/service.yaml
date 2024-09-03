@@ -1,6 +1,13 @@
 apiVersion: v1
 kind: Service
-{{ template "frank-console.metadata" . }}
+metadata:
+  name: {{ include "frank-console.fullname" . }}
+  labels:
+    {{- include "frank-console.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:

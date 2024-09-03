@@ -204,6 +204,11 @@
                     "type": "number",
                     "description": "frank-console service port",
                     "default": 80
+                },
+                "annotations": {
+                    "type": "object",
+                    "description": "Additional annotations for the frank-console service",
+                    "default": {}
                 }
             }
         },
