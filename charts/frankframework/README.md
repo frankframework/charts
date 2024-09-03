@@ -155,6 +155,7 @@ The readiness probe will check if all adapters are running using the server heal
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | `service.type`                 | Frank!Framework service type                                                                                                     | `ClusterIP` |
 | `service.port`                 | Frank!Framework service port                                                                                                     | `80`        |
+| `service.annotations`          | Additional annotations for the Frank!Framework service                                                                           | `{}`        |
 | `ingress.enabled`              | Enable ingress record generation for Frank!                                                                                      | `false`     |
 | `ingress.className`            | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`        |
 | `ingress.annotations`          | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |

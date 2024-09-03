@@ -5,9 +5,9 @@ metadata:
   name: {{ template "frankframework.fullname" . }}-data
   labels:
     {{- include "frankframework.labels" . | nindent 4 }}
-  {{- if .Values.persistence.annotations }}
+  {{- with .Values.persistence.annotations  }}
   annotations:
-    {{- toYaml .Values.persistence.annotations | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   accessModes:
