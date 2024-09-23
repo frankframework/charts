@@ -37,9 +37,16 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         -
           {{- include "frank-console.container" . | nindent 10 }}
+        {{- with .Values.sidecars }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -49,29 +56,35 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: {{ template "frank-console.fullname" . }}-hazelcast-network
+          configMap:
+            name: {{ .Release.Name }}-hazelcast-network
         {{- if .Values.securityContext.readOnlyRootFilesystem }}
         - name: tmpfs
           emptyDir: { }
         {{- end }}
-        {{- if .Values.application.security.http.localUsers }}
-        - name: {{ template "frank-console.fullname" . }}-local-users
+        {{- range .Values.generateConfigMap }}
+        - name: {{ .name }}
           configMap:
-            name: {{ template "frank-console.fullname" . }}-local-users
-        {{- end }}
-        {{- if .Values.application.security.http.activeDirectory.enabled }}
-        - name: {{ template "frank-console.fullname" . }}-ldap-role-mapping
-          configMap:
-            name: {{ template "frank-console.fullname" . }}-ldap-role-mapping
-        {{- end }}
-        {{- range $i, $e := .Values.application.security.certificateStores }}
-        - name: {{ template "frank-console.fullname" $ }}-certificate-store-{{ $i }}
-          secret:
-            secretName: {{ $e.secretName }}
+            name: {{ .name }}
+            optional: {{ .optional | default false }}
+            defaultMode: {{ .defaultMode | default 0644 }}
+            {{- with .items }}
             items:
-              - key: {{ $e.key }}
-                path: {{ $e.key }}
-            defaultMode: 0664
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
         {{- end }}
-        - name: {{ template "frank-console.fullname" . }}-hazelcast-network
-          configMap:
-            name: {{ .Release.Name }}-hazelcast-network
+        {{- range .Values.generateSecret }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .name }}
+            defaultMode: {{ .defaultMode | default 0644 }}
+            optional: {{ .optional | default false }}
+            {{- with .items }}
+            items:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+        {{- end }}
+        {{- if .Values.extraVolumes }}
+        {{- toYaml .Values.extraVolumes | nindent 8 }}
+        {{- end }}

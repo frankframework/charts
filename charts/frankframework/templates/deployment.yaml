@@ -18,9 +18,12 @@ spec:
       annotations:
         checksum/configmap.env: {{ include (print $.Template.BasePath "/configmap.env.yaml") . | sha256sum }}
         checksum/configmap.k8s-specifics: {{ include (print $.Template.BasePath "/configmap.k8s-specifics.yaml") . | sha256sum }}
-        checksum/configmap.ldap-role-mapping: {{ include (print $.Template.BasePath "/configmap.ldap-role-mapping.yaml") . | sha256sum }}
-        checksum/secret.local-users: {{ include (print $.Template.BasePath "/secret.local-users.yaml") . | sha256sum }}
-        checksum/secret.resources: {{ include (print $.Template.BasePath "/secret.resources.yaml") . | sha256sum }}
+        {{- if .Values.generateConfigMap }}
+        checksum/configmap.generate: {{ include (print $.Template.BasePath "/configmap.generate.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.generateSecret }}
+        checksum/secret.generate: {{ include (print $.Template.BasePath "/secret.generate.yaml") . | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -41,9 +44,16 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         -
           {{- include "frankframework.container" . | nindent 10 }}
+        {{- with .Values.sidecars }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -57,40 +67,6 @@ spec:
         - name: tmpfs
           emptyDir: { }
         {{- end }}
-        {{- if .Values.application.credentials.secret }}
-        - name: {{ template "frankframework.fullname" . }}-credentials
-          secret:
-            secretName: {{ .Values.application.credentials.secret }}
-        {{- end }}
-        {{- if .Values.application.security.http.localUsers }}
-        - name: {{ template "frankframework.fullname" . }}-local-users
-          secret:
-            secretName: {{ template "frankframework.fullname" . }}-local-users
-        {{- end }}
-        {{- if .Values.application.resources }}
-        - name: {{ template "frankframework.fullname" . }}-resources
-          secret:
-            secretName: {{ template "frankframework.fullname" . }}-resources
-        {{- end }}
-        {{- if .Values.application.security.http.activeDirectory.enabled }}
-        - name: {{ template "frankframework.fullname" . }}-ldap-role-mapping
-          configMap:
-            name: {{ template "frankframework.fullname" . }}-ldap-role-mapping
-        {{- end }}
-        {{- if .Values.persistence.enabled }}
-        - name: {{ template "frankframework.fullname" . }}-data
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-%s" ( include "frankframework.fullname" . ) "data") }}
-        {{- end }}
-        {{- range $i, $e := .Values.application.security.certificateStores }}
-        - name: {{ template "frankframework.fullname" $ }}-certificate-store-{{ $i }}
-          secret:
-            secretName: {{ $e.secretName }}
-            items:
-              - key: {{ $e.key }}
-                path: {{ $e.key }}
-            defaultMode: 0664
-        {{- end }}
         {{- if .Values.application.properties }}
         - name: {{ template "frankframework.fullname" . }}-k8s-specifics
           configMap:
@@ -100,4 +76,29 @@ spec:
         - name: {{ template "frankframework.fullname" . }}-hazelcast-network
           configMap:
             name: {{ .Release.Name }}-hazelcast-network
+        {{- end }}
+        {{- range .Values.generateConfigMap }}
+        - name: {{ .name }}
+          configMap:
+            name: {{ .name }}
+            optional: {{ .optional | default false }}
+            defaultMode: {{ .defaultMode | default 0644 }}
+            {{- with .items }}
+            items:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+        {{- end }}
+        {{- range .Values.generateSecret }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .name }}
+            defaultMode: {{ .defaultMode | default 0644 }}
+            optional: {{ .optional | default false }}
+            {{- with .items }}
+            items:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+        {{- end }}
+        {{- if .Values.extraVolumes }}
+        {{- toYaml .Values.extraVolumes | nindent 8 }}
         {{- end }}

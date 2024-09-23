@@ -204,6 +204,10 @@ For more information about DTAP stages read: https://frank-manual.readthedocs.io
 
 ## Notable changes
 
+### 0.4.0
+
+
+
 ### 0.3.0
 
 The common chart and its templates have been removed. Making this the main chart for other Frank!Framework-based charts.

@@ -12,32 +12,51 @@ envFrom:
   - configMapRef:
       name: {{ template "frank-console.fullname" . }}-env
 volumeMounts:
-  {{- if .Values.securityContext.readOnlyRootFilesystem }}
-  - mountPath: /heap-dumps
-    name: tmpfs
-  {{- end }}
-  {{- if .Values.application.security.http.localUsers }}
-  - name: {{ template "frank-console.fullname" . }}-local-users
-    mountPath: /app/localUsers.yml
-    subPath: localUsers.yml
-    readOnly: true
-  {{- end }}
-  {{- if .Values.application.security.http.activeDirectory.enabled }}
-  - name: {{ template "frank-console.fullname" . }}-ldap-role-mapping
-    mountPath: /app/ldap-role-mapping.properties
-    subPath: ldap-role-mapping.properties
-    readOnly: true
-  {{- end }}
-  {{- range $i, $e := .Values.application.security.certificateStores }}
-  - name: {{ template "frank-console.fullname" $ }}-certificate-store-{{ $i }}
-    mountPath: /app/{{ $e.resourceUrl | default $e.key }}
-    subPath: {{ $e.key }}
-    readOnly: true
-  {{- end }}
   - name: {{ template "frank-console.fullname" . }}-hazelcast-network
     mountPath: /app/hazelcast-network.xml
     subPath: hazelcast-network.xml
     readOnly: true
+  {{- if .Values.securityContext.readOnlyRootFilesystem }}
+  - mountPath: /heap-dumps
+    name: tmpfs
+  {{- end }}
+  {{- range $configMap := .Values.generateConfigMap }}
+  {{- if $configMap.items }}
+  {{- range $item := $configMap.items }}
+  - name: {{ $configMap.name }}
+    mountPath: {{ $configMap.mountPath | default "/app" }}/{{ $item.path }}
+    subPath: {{ $item.key }}
+    readOnly: {{ $configMap.readOnly | default true }}
+  {{- end }}
+  {{- else }}
+  - name: {{ $configMap.name }}
+    mountPath: {{ $configMap.mountPath | default "/app" }}
+    {{- with $configMap.subPath }}
+    subPath: {{ . }}
+    {{- end }}
+    readOnly: {{ $configMap.readOnly | default true }}
+  {{- end }}
+  {{- end }}
+  {{- range $secret := .Values.generateSecret }}
+  {{- if $secret.items }}
+  {{- range $item := .items }}
+  - name: {{ $secret.name }}
+    mountPath: {{ $secret.mountPath | default "/app" }}/{{ $item.path }}
+    subPath: {{ $item.key }}
+    readOnly: {{ $secret.readOnly | default true }}
+  {{- end }}
+  {{- else }}
+  - name: {{ $secret.name }}
+    mountPath: {{ $secret.mountPath | default "/app" }}
+    {{- with $secret.subPath }}
+    subPath: {{ . }}
+    {{- end }}
+    readOnly: {{ .readOnly | default true }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.extraVolumes }}
+  {{- toYaml .Values.extraVolumeMounts | nindent 2 }}
+  {{- end }}
 ports:
   - name: hazelcast
     containerPort: 5701

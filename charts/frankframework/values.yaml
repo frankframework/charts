@@ -47,29 +47,12 @@ image:
 ##
 
 application:
-  ## @param application.memory.percentage Set if the values for the memory are in percentages
-  ## @param application.memory.minimum Sets the initial size of the heap that will be used by the Frank!Framework
-  ## @param application.memory.maximum Sets the maximum size of the heap that will be used by the Frank!Framework
-  ## For Java 8 it is best suited to use the same amount of memory for both the minimum and maximum.
-  ## For Java 11 and above, it is possible to use percentages. E.g. minimum: 20.0, maximum: 80.0.
-  ## ref: https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI
-  ##
-  memory:
-    percentage: false
-    minimum: 4G
-    maximum: 4G
   ## @param application.dtap.stage (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
   ## @param application.dtap.side Set the `DTAP` side of where the instance is running
   ##
   dtap:
     stage: ""
     side: ""
-  ## @param application.credentials.secret Set the secret name of the existing secret
-  ## @param application.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
-  ##
-  credentials:
-    secret: ""
-    key: ""
   ## @param application.instance.name Set the name of the Frank! instance (default is the `fullname`)
   ##
   instance:
@@ -81,71 +64,152 @@ application:
   ##
   configurations:
     names: []
-  ## @param application.resources Set Yaml properties for configuring the connections for theFrank!Framework
-  ## @extra application.resources Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml
-  ## @extra application.resources Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.
-  ## Example ref: https://github.com/frankframework/frankframework/blob/master/core/src/test/resources/resources.yml
-  ## Implementation ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/java/org/frankframework/jdbc/datasource/FrankResources.java
-  ##
-  resources: {}
-  security:
-    ## @param application.security.certificateStores [array] Define certificate (key/trust) stores to mount in the resources folder of the Frank!
-    ## @param application.security.certificateStores.secretName [string, nullable] Name of the secret where the certificate store is located in
-    ## @param application.security.certificateStores.key [string, nullable] The key in the secret where the certificate store is located in
-    ## @param application.security.certificateStores.resourceUrl [string, nullable] The path to the certificate store in the Resource folder, the key will be used as default value
-    ##
-    certificateStores: []
-    http:
-      ## @param application.security.http.authentication Set http authentication for the Frank!
-      ##
-      authentication: false
-      ## @param application.security.http.localUsers [array] Set localUsers who can log in on the Frank!
-      ## @extra application.security.http.localUsers Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml
-      ## @param application.security.http.localUsers.username [string, nullable] Set the username of the user
-      ## @param application.security.http.localUsers.password [string, nullable] Set the password of the user
-      ## @param application.security.http.localUsers.roles [array, nullable] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
-      ## e.g.
-      ## localUsers:
-      ##   - username: Tester
-      ##     password: ChangeMe!
-      ##     roles:
-      ##        - IbisTester
-      ##
-      localUsers: []
-      ## @param application.security.http.activeDirectory.enabled Enable Active Directory for authentication
-      ## @param application.security.http.activeDirectory.url Set url for Active Directory
-      ## @param application.security.http.activeDirectory.baseDn Set baseDn for Active Directory users
-      ## @param application.security.http.activeDirectory.roleMapping.tester Map the role for Tester
-      ## @param application.security.http.activeDirectory.roleMapping.dataAdmin Map the role for DataAdmin
-      ## @param application.security.http.activeDirectory.roleMapping.admin Map the role for Admin
-      ## @param application.security.http.activeDirectory.roleMapping.webService Map the role for WebService
-      ## @param application.security.http.activeDirectory.roleMapping.observer Map the role for Observer
-      ##
-      activeDirectory:
-        enabled: false
-        url: ""
-        baseDn: ""
-        roleMapping:
-          tester: ""
-          dataAdmin: ""
-          admin: ""
-          webService: ""
-          observer: ""
-  server:
-    ## @param application.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
-    ##
-    transactionManager: NARAYANA
   ## @param application.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
-  ## properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
-  ## implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
+  ## @extra application.properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
+  ## @extra application.properties implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
   ##
   properties: {}
-  ## @param application.environmentVariables [object] Set extra environment variables for the Frank!
-  ##
-  environmentVariables: {}
-  ## @param application.javaOpts [string] Append custom options to the `JAVA_OPTS` environment variable for the Frank!
-  ##
-  javaOpts: ""
+
+## @section Environment variables
+## @descriptionStart
+## The environment variables are used to configure the Frank!Framework.
+##
+## To configure credentials you need to add a volume (see section Volumes) and set these environment variables.
+##
+## ```yaml
+## credentialFactory.class: "nl.nn.credentialprovider.PropertyFileCredentialFactory"
+## credentialFactory.map.properties: "path to credentials.properties"
+## ```
+##
+## For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
+##
+## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
+##
+## To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
+## @descriptionEnd
+
+## @param environmentVariables [object, nullable] Set environment variables for the Frank!Framework
+## @param environmentVariables.application.server.type.custom [string,nullable] Set the transaction manager, this is needed for transactionality support
+## @param environmentVariables.JAVA_OPTS [string,nullable] Set the JAVA_OPTS for the Frank!Framework
+## @param environmentVariables.application.security.http.authentication [string,nullable] Set the authentication for the Frank!Framework
+##
+environmentVariables:
+  # Enable Narayana transaction manager
+  application.server.type.custom: "NARAYANA"
+  JAVA_OPTS: "-XX:MaxRAMPercentage=80.0"
+  application.security.http.authentication: "false"
+
+## @section Generate ConfigMaps and Secrets
+## @descriptionStart
+## To deploy the Frank!Framework, it can be needed to add some files to the container.
+##
+## The Frank!Framework chart allows you to generate configmaps and secrets from values.
+##
+## This is useful if you want to add local users or resources to the Frank!Framework.
+##
+## The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
+##
+## ```yaml
+## generateSecret:
+##  - name: frankframework-resources
+##    mountPath: /opt/frank/resources/resources.yml
+##    subPath: resources.yml
+##    stringData:
+##      resources.yml: |-
+##        jdbc:
+##          - name: frank2example
+##            type: org.h2.jdbcx.JdbcDataSource
+##            url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+## @descriptionEnd
+##
+
+## @param generateConfigMap [array, nullable] Generate configmaps from values
+## @param generateConfigMap.name [string, nullable] Name of the configmap
+## @param generateConfigMap.optional [boolean, nullable] Mark the configmap as optional (default false)
+## @param generateConfigMap.defaultMode [int, nullable] Default mode of the configmap (default 0644)
+## @param generateConfigMap.items [array, nullable] Items of the configmap
+## @param generateConfigMap.mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/secrets)
+## @param generateConfigMap.readOnly [boolean, nullable] ReadOnly of the configmap (default true)
+## @param generateConfigMap.data [string, nullable] Data of the configmap
+## e.g: generateConfigMap:
+##  - name: DeploymentSpecifics
+##    mountPath: /opt/frank/resources/DeploymentSpecifics.properties
+##    subPath: DeploymentSpecifics.properties
+##    stringData:
+##      DeploymentSpecifics.properties: |-
+##        jdbc.migrator=true
+generateConfigMap: []
+
+## @param generateSecret [array, nullable] Generate secrets from values
+## @param generateSecret.name [string, nullable] Name of the secret
+## @param generateSecret.type [string, nullable] Type of the secret (default Opaque)
+## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
+## @param generateSecret.optional [boolean, nullable] Mark the secret as optional (default false)
+## @ param generateSecret.defaultMode [int, nullable] Default mode of the secret (default 0644)
+## @param generateSecret.items [array, nullable] Items of the secret
+## @param generateSecret.mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
+## @param generateSecret.readOnly [boolean, nullable] ReadOnly of the secret (default true)
+## @param generateSecret.data [string, nullable] Data of the secret
+## @param generateSecret.stringData [string, nullable] StringData of the secret
+## e.g: generateSecret:
+##  - name: frankframework-resources
+##    mountPath: /opt/frank/resources/resources.yml
+##    subPath: resources.yml
+##    stringData:
+##      resources.yml: |-
+##        jdbc:
+##          - name: frank2example
+##            type: org.h2.jdbcx.JdbcDataSource
+##            url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+##
+generateSecret: []
+
+## @section Volumes
+## @descriptionStart
+## The Frank!Framework chart allows you to create and mount volumes to the Frank!Framework.
+## This is useful if you want to add local users or resources to the Frank!Framework.
+## @descriptionEnd
+##
+
+## @param extraVolumes Optionally specify extra list of additional volumes for WordPress pods
+## ref: https://kubernetes.io/docs/concepts/storage/volumes/
+##
+extraVolumes: []
+
+## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for WordPress container(s)
+## ref: https://kubernetes.io/docs/concepts/storage/volumes/
+##
+extraVolumeMounts: []
+
+## @section Sidecars
+## @descriptionStart
+## The Frank!Framework chart allows you to add additional sidecar containers to the Frank!Framework pod.
+## This is useful if you want to add additional tools to the Frank!Framework.
+## @descriptionEnd
+##
+
+## @param sidecars Add additional sidecar containers to the Frank!Framework pod
+## e.g:
+## sidecars:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+sidecars: []
+
+## @param initContainers Add additional init containers to the Frank!Framework pod
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+## e.g:
+## initContainers:
+##  - name: your-image-name
+##    image: your-image
+##    imagePullPolicy: Always
+##    command: ['sh', '-c', 'download a driver jar and place it in /usr/local/tomcat/lib']
+##
+initContainers: []
 
 ## @section Frank!Framework console parameters
 ## @descriptionStart
@@ -238,10 +302,10 @@ readinessProbe:
 
 ## Frank!Framework container's resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources [object] Set the resources for the Frank!Framework containers
-## @param resources.limits [string] The resources limits for the Frank!Framework containers
-## @param resources.requests.memory [string] The requested memory for the Frank!Framework containers
-## @param resources.requests.cpu [string] The requested cpu for the Frank!Framework containers
+## @param resources [object] Set the resources for the frank-console containers
+## @param resources.limits [string, nullable] The resources limits for the frank-console containers
+## @param resources.requests.memory [string, nullable] The requested memory for the frank-console containers
+## @param resources.requests.cpu [string, nullable] The requested cpu for the frank-console containers
 ## e.g.:
 ## resources
 ##   limits:
@@ -391,47 +455,3 @@ podSecurityContext: {}
 ##  runAsUser: 1000
 ##
 securityContext: {}
-
-## @section Persistence
-## @descriptionStart
-## Persistence is used for keeping heap dumps. They can be found at `/heap-dumps` with persistence enabled.
-## Otherwise, they can be found at `/usr/local/tomcat/logs`
-## @descriptionEnd
-##
-persistence:
-  ## @param persistence.enabled Enable persistence using Persistent Volume Claims
-  ##
-  enabled: false
-  ## @param persistence.storageClass Persistent Volume storage class
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
-  ##
-  storageClass: ""
-  ## @param persistence.accessModes [array] Persistent Volume access modes
-  ##
-  accessModes:
-    - ReadWriteOnce
-  ## @param persistence.size Persistent Volume size
-  ##
-  size: 5Gi
-  ## @param persistence.dataSource Custom PVC data source
-  ##
-  dataSource: {}
-  ## @param persistence.existingClaim The name of an existing PVC to use for persistence
-  ##
-  existingClaim: ""
-  ## @param persistence.selector Selector to match an existing Persistent Volume for the Frank!Framework's data PVC
-  ## If set, the PVC can't have a PV dynamically provisioned for it
-  ## E.g.
-  ## selector:
-  ##   matchLabels:
-  ##     app: my-app
-  ##
-  selector: {}
-  ## @param persistence.annotations Persistent Volume Claim annotations
-  ## You might need to add an annotation for selected node:
-  ## E.g: volume.kubernetes.io/selected-node: nodeName
-  ## Ref: https://kubernetes.io/docs/reference/labels-annotations-taints/#volume-kubernetes-io-selected-node
-  ##
-  annotations: {}

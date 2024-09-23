@@ -54,29 +54,81 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 | `image.pullPolicy`  | frank-console image pull policy                          | `IfNotPresent`             |
 | `image.pullSecrets` | frank-console image pull secrets                         | `[]`                       |
 
-### frank-console application parameters
+### Environment variables
 
-| Name                                                               | Description                                                                                                               | Value       |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `application.memory.percentage`                                    | Set if the values for the memory are in percentages                                                                       | `false`     |
-| `application.memory.minimum`                                       | Sets the initial size of the heap that will be used by the frank-console                                                  | `1G`        |
-| `application.memory.maximum`                                       | Sets the maximum size of the heap that will be used by the frank-console                                                  | `1G`        |
-| `application.security.http.authentication`                         | Set http authentication for the Frank!                                                                                    | `false`     |
-| `application.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                               | `[]`        |
-| `application.security.http.localUsers`                             | Note: If kept empty no localUsers.yml will be generated, this can be used if the application already has a localUsers.yml |             |
-| `application.security.http.localUsers.username`                    | Set the username of the user                                                                                              | `undefined` |
-| `application.security.http.localUsers.password`                    | Set the password of the user                                                                                              | `undefined` |
-| `application.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`          | `undefined` |
-| `application.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                                | `false`     |
-| `application.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                              | `""`        |
-| `application.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                                     | `""`        |
-| `application.security.http.activeDirectory.roleMapping.tester`     | Map the role for Tester                                                                                                   | `""`        |
-| `application.security.http.activeDirectory.roleMapping.dataAdmin`  | Map the role for DataAdmin                                                                                                | `""`        |
-| `application.security.http.activeDirectory.roleMapping.admin`      | Map the role for Admin                                                                                                    | `""`        |
-| `application.security.http.activeDirectory.roleMapping.webService` | Map the role for WebService                                                                                               | `""`        |
-| `application.security.http.activeDirectory.roleMapping.observer`   | Map the role for Observer                                                                                                 | `""`        |
-| `application.environmentVariables`                                 | Set extra environment variables for the Frank!                                                                            | `{}`        |
-| `application.javaOpts`                                             | Append custom options to the `JAVA_OPTS` environment variable for the Frank!                                              | `""`        |
+The environment variables are used to configure the Frank!Framework.
+
+Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
+
+To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
+
+| Name                                                            | Description                                       | Value                       |
+| --------------------------------------------------------------- | ------------------------------------------------- | --------------------------- |
+| `environmentVariables`                                          | Set environment variables for the Frank!Framework | `undefined`                 |
+| `environmentVariables.JAVA_OPTS`                                | Set the JAVA_OPTS for the Frank!Framework         | `-XX:MaxRAMPercentage=80.0` |
+| `environmentVariables.application.security.http.authentication` | Set the authentication for the Frank!Framework    | `false`                     |
+
+### Generate ConfigMaps and Secrets
+
+To deploy the Frank!Framework Console, it can be needed to add some files to the container.
+
+The Frank!Framework Console chart allows you to generate configmaps and secrets from values.
+
+This is useful if you want to add local users to the Frank!Framework Console.
+
+The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
+
+```yaml
+generateSecret:
+- name: frankframework-resources
+mountPath: /opt/frank/resources/resources.yml
+subPath: resources.yml
+stringData:
+resources.yml: |-
+jdbc:
+- name: frank2example
+type: org.h2.jdbcx.JdbcDataSource
+url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+
+| Name                            | Description                                                           | Value       |
+| ------------------------------- | --------------------------------------------------------------------- | ----------- |
+| `generateConfigMap`             | Generate configmaps from values                                       | `[]`        |
+| `generateConfigMap.name`        | Name of the configmap                                                 | `undefined` |
+| `generateConfigMap.optional`    | Mark the configmap as optional (default false)                        | `undefined` |
+| `generateConfigMap.defaultMode` | Default mode of the configmap (default 0644)                          | `undefined` |
+| `generateConfigMap.items`       | Items of the configmap                                                | `undefined` |
+| `generateConfigMap.mountPath`   | Path where the configmap will be mounted (default /opt/frank/secrets) | `undefined` |
+| `generateConfigMap.readOnly`    | ReadOnly of the configmap (default true)                              | `undefined` |
+| `generateConfigMap.data`        | Data of the configmap                                                 | `undefined` |
+| `generateSecret`                | Generate secrets from values                                          | `[]`        |
+| `generateSecret.name`           | Name of the secret                                                    | `undefined` |
+| `generateSecret.type`           | Type of the secret (default Opaque)                                   | `undefined` |
+| `generateSecret.optional`       | Mark the secret as optional (default false)                           | `undefined` |
+| `generateSecret.items`          | Items of the secret                                                   | `undefined` |
+| `generateSecret.mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)    | `undefined` |
+| `generateSecret.readOnly`       | ReadOnly of the secret (default true)                                 | `undefined` |
+| `generateSecret.data`           | Data of the secret                                                    | `undefined` |
+| `generateSecret.stringData`     | StringData of the secret                                              | `undefined` |
+
+### Volumes
+
+The Frank!Framework chart allows you to create and mount volumes to the Frank!Framework.
+This is useful if you want to add local users or resources to the Frank!Framework.
+
+| Name                | Description                                                                         | Value |
+| ------------------- | ----------------------------------------------------------------------------------- | ----- |
+| `extraVolumes`      | Optionally specify extra list of additional volumes for WordPress pods              | `[]`  |
+| `extraVolumeMounts` | Optionally specify extra list of additional volumeMounts for WordPress container(s) | `[]`  |
+
+### Sidecars
+
+The Frank!Framework chart allows you to add additional sidecar containers to the Frank!Framework pod.
+This is useful if you want to add additional tools to the Frank!Framework.
+
+| Name             | Description                                                  | Value |
+| ---------------- | ------------------------------------------------------------ | ----- |
+| `sidecars`       | Add additional sidecar containers to the Frank!Framework pod | `[]`  |
+| `initContainers` | Add additional init containers to the Frank!Framework pod    | `[]`  |
 
 ### frank-console deployment parameters
 

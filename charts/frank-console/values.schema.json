@@ -43,108 +43,54 @@
                 }
             }
         },
-        "application": {
+        "environmentVariables": {
             "type": "object",
             "properties": {
-                "memory": {
-                    "type": "object",
-                    "properties": {
-                        "percentage": {
-                            "type": "boolean",
-                            "description": "Set if the values for the memory are in percentages",
-                            "default": false
-                        },
-                        "minimum": {
-                            "type": "string",
-                            "description": "Sets the initial size of the heap that will be used by the frank-console",
-                            "default": "1G"
-                        },
-                        "maximum": {
-                            "type": "string",
-                            "description": "Sets the maximum size of the heap that will be used by the frank-console",
-                            "default": "1G"
-                        }
-                    }
-                },
-                "security": {
-                    "type": "object",
-                    "properties": {
-                        "http": {
-                            "type": "object",
-                            "properties": {
-                                "authentication": {
-                                    "type": "boolean",
-                                    "description": "Set http authentication for the Frank!",
-                                    "default": false
-                                },
-                                "localUsers": {
-                                    "type": "array",
-                                    "description": "Set localUsers who can log in on the Frank!",
-                                    "default": "[]",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "activeDirectory": {
-                                    "type": "object",
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean",
-                                            "description": "Enable Active Directory for authentication",
-                                            "default": false
-                                        },
-                                        "url": {
-                                            "type": "string",
-                                            "description": "Set url for Active Directory",
-                                            "default": ""
-                                        },
-                                        "baseDn": {
-                                            "type": "string",
-                                            "description": "Set baseDn for Active Directory users",
-                                            "default": ""
-                                        },
-                                        "roleMapping": {
-                                            "type": "object",
-                                            "properties": {
-                                                "tester": {
-                                                    "type": "string",
-                                                    "description": "Map the role for Tester",
-                                                    "default": ""
-                                                },
-                                                "dataAdmin": {
-                                                    "type": "string",
-                                                    "description": "Map the role for DataAdmin",
-                                                    "default": ""
-                                                },
-                                                "admin": {
-                                                    "type": "string",
-                                                    "description": "Map the role for Admin",
-                                                    "default": ""
-                                                },
-                                                "webService": {
-                                                    "type": "string",
-                                                    "description": "Map the role for WebService",
-                                                    "default": ""
-                                                },
-                                                "observer": {
-                                                    "type": "string",
-                                                    "description": "Map the role for Observer",
-                                                    "default": ""
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "javaOpts": {
+                "JAVA_OPTS": {
                     "type": "string",
-                    "description": "Append custom options to the `JAVA_OPTS` environment variable for the Frank!",
-                    "default": "\"\""
+                    "description": "Set the JAVA_OPTS for the Frank!Framework",
+                    "default": "-XX:MaxRAMPercentage=80.0",
+                    "nullable": true
                 }
             }
+        },
+        "generateConfigMap": {
+            "type": "array",
+            "description": "Generate configmaps from values",
+            "default": [],
+            "nullable": true,
+            "items": {}
+        },
+        "generateSecret": {
+            "type": "array",
+            "description": "Generate secrets from values",
+            "default": [],
+            "nullable": true,
+            "items": {}
+        },
+        "extraVolumes": {
+            "type": "array",
+            "description": "Optionally specify extra list of additional volumes for WordPress pods",
+            "default": [],
+            "items": {}
+        },
+        "extraVolumeMounts": {
+            "type": "array",
+            "description": "Optionally specify extra list of additional volumeMounts for WordPress container(s)",
+            "default": [],
+            "items": {}
+        },
+        "sidecars": {
+            "type": "array",
+            "description": "Add additional sidecar containers to the Frank!Framework pod",
+            "default": [],
+            "items": {}
+        },
+        "initContainers": {
+            "type": "array",
+            "description": "Add additional init containers to the Frank!Framework pod",
+            "default": [],
+            "items": {}
         },
         "replicaCount": {
             "type": "number",

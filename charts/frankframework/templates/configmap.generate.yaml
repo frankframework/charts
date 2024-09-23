@@ -1,0 +1,12 @@
+{{- range .Values.generateConfigMap }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}
+  labels:
+    {{- include "frankframework.labels" $ | nindent 4 }}
+{{- if .data }}
+data:
+  {{- toYaml .data | nindent 2 }}
+{{- end }}
+{{- end -}}
