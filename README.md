@@ -2,6 +2,8 @@
 
 The [Frank!Framework](https://frankframework.org) can be used to create standardized and scalable integrations.
 
+![frank-framework-github-banner](banner.png)
+
 ## Available charts:
 
 * [frankframework](/charts/frankframework/README.md)
