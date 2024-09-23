@@ -46,26 +46,6 @@
         "application": {
             "type": "object",
             "properties": {
-                "memory": {
-                    "type": "object",
-                    "properties": {
-                        "percentage": {
-                            "type": "boolean",
-                            "description": "Set if the values for the memory are in percentages",
-                            "default": false
-                        },
-                        "minimum": {
-                            "type": "string",
-                            "description": "Sets the initial size of the heap that will be used by the Frank!Framework",
-                            "default": "4G"
-                        },
-                        "maximum": {
-                            "type": "string",
-                            "description": "Sets the maximum size of the heap that will be used by the Frank!Framework",
-                            "default": "4G"
-                        }
-                    }
-                },
                 "dtap": {
                     "type": "object",
                     "properties": {
@@ -76,22 +56,7 @@
                         },
                         "side": {
                             "type": "string",
-                            "description": "Set the `DTAP` side of where the instance is running",
-                            "default": ""
-                        }
-                    }
-                },
-                "credentials": {
-                    "type": "object",
-                    "properties": {
-                        "secret": {
-                            "type": "string",
-                            "description": "Set the secret name of the existing secret",
-                            "default": ""
-                        },
-                        "key": {
-                            "type": "string",
-                            "description": "Set the key inside the secret that contains the data (e.g. `credentials.properties`)",
+                            "description": "Set the `DTAP` side of where the instance is running, and for sideSpecific properties",
                             "default": ""
                         }
                     }
@@ -118,109 +83,43 @@
                             }
                         }
                     }
-                },
-                "resources": {
-                    "type": "object",
-                    "description": "Set Yaml properties for configuring the connections for theFrank!Framework",
-                    "default": {}
-                },
-                "security": {
-                    "type": "object",
-                    "properties": {
-                        "certificateStores": {
-                            "type": "array",
-                            "description": "Define certificate (key/trust) stores to mount in the resources folder of the Frank!",
-                            "default": "[]",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "http": {
-                            "type": "object",
-                            "properties": {
-                                "authentication": {
-                                    "type": "boolean",
-                                    "description": "Set http authentication for the Frank!",
-                                    "default": false
-                                },
-                                "localUsers": {
-                                    "type": "array",
-                                    "description": "Set localUsers who can log in on the Frank!",
-                                    "default": "[]",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "activeDirectory": {
-                                    "type": "object",
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean",
-                                            "description": "Enable Active Directory for authentication",
-                                            "default": false
-                                        },
-                                        "url": {
-                                            "type": "string",
-                                            "description": "Set url for Active Directory",
-                                            "default": ""
-                                        },
-                                        "baseDn": {
-                                            "type": "string",
-                                            "description": "Set baseDn for Active Directory users",
-                                            "default": ""
-                                        },
-                                        "roleMapping": {
-                                            "type": "object",
-                                            "properties": {
-                                                "tester": {
-                                                    "type": "string",
-                                                    "description": "Map the role for Tester",
-                                                    "default": ""
-                                                },
-                                                "dataAdmin": {
-                                                    "type": "string",
-                                                    "description": "Map the role for DataAdmin",
-                                                    "default": ""
-                                                },
-                                                "admin": {
-                                                    "type": "string",
-                                                    "description": "Map the role for Admin",
-                                                    "default": ""
-                                                },
-                                                "webService": {
-                                                    "type": "string",
-                                                    "description": "Map the role for WebService",
-                                                    "default": ""
-                                                },
-                                                "observer": {
-                                                    "type": "string",
-                                                    "description": "Map the role for Observer",
-                                                    "default": ""
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "server": {
-                    "type": "object",
-                    "properties": {
-                        "transactionManager": {
-                            "type": "string",
-                            "description": "Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``",
-                            "default": "\"\""
-                        }
-                    }
-                },
-                "javaOpts": {
-                    "type": "string",
-                    "description": "Append custom options to the `JAVA_OPTS` environment variable for the Frank!",
-                    "default": "\"\""
                 }
             }
+        },
+        "environmentVariables": {
+            "type": "object",
+            "properties": {
+                "JAVA_OPTS": {
+                    "type": "string",
+                    "description": "Set the JAVA_OPTS for the Frank!Framework",
+                    "default": "-XX:MaxRAMPercentage=80.0",
+                    "nullable": true
+                }
+            }
+        },
+        "extraVolumes": {
+            "type": "array",
+            "description": "Optionally specify extra list of additional volumes for WordPress pods",
+            "default": [],
+            "items": {}
+        },
+        "extraVolumeMounts": {
+            "type": "array",
+            "description": "Optionally specify extra list of additional volumeMounts for WordPress container(s)",
+            "default": [],
+            "items": {}
+        },
+        "sidecars": {
+            "type": "array",
+            "description": "Add additional sidecar containers to the Frank!Framework pod",
+            "default": [],
+            "items": {}
+        },
+        "initContainers": {
+            "type": "array",
+            "description": "Add additional init containers to the Frank!Framework pod",
+            "default": [],
+            "items": {}
         },
         "console": {
             "type": "object",
@@ -372,31 +271,6 @@
                 }
             }
         },
-        "resources": {
-            "type": "object",
-            "properties": {
-                "limits": {
-                    "type": "string",
-                    "description": "The resources limits for the Frank!Framework containers",
-                    "default": "\"\""
-                },
-                "requests": {
-                    "type": "object",
-                    "properties": {
-                        "memory": {
-                            "type": "string",
-                            "description": "The requested memory for the Frank!Framework containers",
-                            "default": "\"\""
-                        },
-                        "cpu": {
-                            "type": "string",
-                            "description": "The requested cpu for the Frank!Framework containers",
-                            "default": "\"\""
-                        }
-                    }
-                }
-            }
-        },
         "terminationGracePeriodSeconds": {
             "type": "number",
             "description": "Number of seconds after which pods are forcefully killed",
@@ -492,54 +366,6 @@
             "type": "object",
             "description": "Extra labels for Frank!Framework pods",
             "default": {}
-        },
-        "persistence": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Enable persistence using Persistent Volume Claims",
-                    "default": false
-                },
-                "storageClass": {
-                    "type": "string",
-                    "description": "Persistent Volume storage class",
-                    "default": ""
-                },
-                "accessModes": {
-                    "type": "array",
-                    "description": "Persistent Volume access modes",
-                    "default": "[]",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "size": {
-                    "type": "string",
-                    "description": "Persistent Volume size",
-                    "default": "5Gi"
-                },
-                "dataSource": {
-                    "type": "object",
-                    "description": "Custom PVC data source",
-                    "default": {}
-                },
-                "existingClaim": {
-                    "type": "string",
-                    "description": "The name of an existing PVC to use for persistence",
-                    "default": ""
-                },
-                "selector": {
-                    "type": "object",
-                    "description": "Selector to match an existing Persistent Volume for the Frank!Framework's data PVC",
-                    "default": {}
-                },
-                "annotations": {
-                    "type": "object",
-                    "description": "Persistent Volume Claim annotations",
-                    "default": {}
-                }
-            }
         }
     }
 }

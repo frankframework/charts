@@ -17,27 +17,27 @@
             "properties": {
                 "registry": {
                     "type": "string",
-                    "description": "frank-console image registry",
+                    "description": "Frank!Framework Console image registry",
                     "default": "nexus.frankframework.org"
                 },
                 "repository": {
                     "type": "string",
-                    "description": "frank-console image repository",
-                    "default": "frank-console"
+                    "description": "Frank!Framework Console image repository",
+                    "default": "Frank!Framework Console"
                 },
                 "tag": {
                     "type": "string",
-                    "description": "frank-console image tag (immutable tags are recommended)",
+                    "description": "Frank!Framework Console image tag (immutable tags are recommended)",
                     "default": ""
                 },
                 "pullPolicy": {
                     "type": "string",
-                    "description": "frank-console image pull policy",
+                    "description": "Frank!Framework Console image pull policy",
                     "default": "IfNotPresent"
                 },
                 "pullSecrets": {
                     "type": "array",
-                    "description": "frank-console image pull secrets",
+                    "description": "Frank!Framework Console image pull secrets",
                     "default": [],
                     "items": {}
                 }
@@ -53,20 +53,6 @@
                     "nullable": true
                 }
             }
-        },
-        "generateConfigMap": {
-            "type": "array",
-            "description": "Generate configmaps from values",
-            "default": [],
-            "nullable": true,
-            "items": {}
-        },
-        "generateSecret": {
-            "type": "array",
-            "description": "Generate secrets from values",
-            "default": [],
-            "nullable": true,
-            "items": {}
         },
         "extraVolumes": {
             "type": "array",
@@ -94,7 +80,7 @@
         },
         "replicaCount": {
             "type": "number",
-            "description": "Number of frank-console replicas to deploy",
+            "description": "Number of Frank!Framework Console replicas to deploy",
             "default": 1
         },
         "startupProbe": {
@@ -110,6 +96,11 @@
         "readinessProbe": {
             "type": "object",
             "description": "Configure the readiness probe",
+            "default": {}
+        },
+        "resources": {
+            "type": "object",
+            "description": "Set the resources for the Frank!Framework Console containers",
             "default": {}
         },
         "terminationGracePeriodSeconds": {
@@ -143,17 +134,17 @@
             "properties": {
                 "type": {
                     "type": "string",
-                    "description": "frank-console service type",
+                    "description": "Frank!Framework Console service type",
                     "default": "ClusterIP"
                 },
                 "port": {
                     "type": "number",
-                    "description": "frank-console service port",
+                    "description": "Frank!Framework Console service port",
                     "default": 80
                 },
                 "annotations": {
                     "type": "object",
-                    "description": "Additional annotations for the frank-console service",
+                    "description": "Additional annotations for the Frank!Framework Console service",
                     "default": {}
                 }
             }
@@ -183,7 +174,7 @@
             "properties": {
                 "create": {
                     "type": "boolean",
-                    "description": "Enable creation of ServiceAccount for frank-console pod",
+                    "description": "Enable creation of ServiceAccount for Frank!Framework Console pod",
                     "default": true
                 },
                 "annotations": {
@@ -200,12 +191,12 @@
         },
         "podAnnotations": {
             "type": "object",
-            "description": "Annotations for frank-console pods",
+            "description": "Annotations for Frank!Framework Console pods.",
             "default": {}
         },
         "podLabels": {
             "type": "object",
-            "description": "Extra labels for frank-console pods",
+            "description": "Extra labels for Frank!Framework Console pods.",
             "default": {}
         }
     }

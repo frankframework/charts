@@ -6,8 +6,7 @@ The Frank! is preconfigured with H2, but can be used with any other supported da
 
 ## Usage
 
-[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
-Helm's [documentation](https://helm.sh/docs) to get started.
+[Helm](https://helm.sh) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, add the repo as follows:
 
@@ -15,9 +14,8 @@ Once Helm has been set up correctly, add the repo as follows:
 helm repo add frankframework https://frankframework.github.io/charts
 ```
 
-If you had already added this repo earlier, run `helm repo update` to retrieve
-the latest versions of the packages.  You can then run `helm search repo
-frankframework` to see the charts.
+If you had already added this repo earlier, run `helm repo update` to retrieve the latest versions of the packages. 
+You can then run `helm search repo frankframework` to see the charts.
 
 To install the frank2example chart:
 
@@ -38,21 +36,15 @@ helm delete my-frank2example
 This chart is a wrapper for the Frank!Framework chart.
 See the documentation for the Frank!Framework chart for more information.
 
-| Name                                                            | Description                                                                                                             | Value                      |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| `frankframework.image.registry`                                 | frank2example image registry                                                                                            | `nexus.frankframework.org` |
-| `frankframework.image.repository`                               | frank2example image repository                                                                                          | `frank2example`            |
-| `frankframework.image.tag`                                      | frank2example image tag (immutable tags are recommended)                                                                | `latest`                   |
-| `frankframework.image.pullPolicy`                               | frank2example image pull policy                                                                                         | `Always`                   |
-| `frankframework.image.pullSecrets`                              | frank2example image pull secrets                                                                                        | `[]`                       |
-| `frankframework.application.dtap.stage`                         | Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                        | `TST`                      |
-| `frankframework.application.resources`                          | Set Yaml properties for configuring the connections for theFrank!Framework                                              | `{}`                       |
-| `frankframework.application.resources`                          | Note: If kept empty no resources.yml will be generated, this can be used if the application already has a resources.yml |                            |
-| `frankframework.application.resources`                          | Note: Not all options will be documented here, please refer to the Frank!Framework documentation for more information.  |                            |
-| `frankframework.application.properties`                         | Set Yaml properties for configuring the connections for theFrank!Framework                                              | `{}`                       |
-| `frankframework.application.properties.jdbc.datasource.default` | Set the default datasource                                                                                              | `""`                       |
-| `frankframework.replicaCount`                                   | Number of Frank!Framework replicas to deploy                                                                            | `1`                        |
-| `frankframework.securityContext.readOnlyRootFilesystem`         | Set the security context for the Frank!Framework containers                                                             | `true`                     |
+| Name                                                    | Description                                                 | Value                      |
+| ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------- |
+| `frankframework.image.registry`                         | frank2example image registry                                | `nexus.frankframework.org` |
+| `frankframework.image.repository`                       | frank2example image repository                              | `frank2example`            |
+| `frankframework.image.tag`                              | frank2example image tag (immutable tags are recommended)    | `latest`                   |
+| `frankframework.image.pullPolicy`                       | frank2example image pull policy                             | `Always`                   |
+| `frankframework.image.pullSecrets`                      | frank2example image pull secrets                            | `[]`                       |
+| `frankframework.replicaCount`                           | Number of Frank!Framework replicas to deploy                | `1`                        |
+| `frankframework.securityContext.readOnlyRootFilesystem` | Set the security context for the Frank!Framework containers | `true`                     |
 
 ## Configuration and installation details
 
@@ -63,6 +55,10 @@ The Frank!Framework will start with different settings enabled, depending on wha
 For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
 
 ## Notable changes
+
+### 0.4.0
+
+See the notable changes in the Frank!Framework chart.
 
 ### 0.3.0
 

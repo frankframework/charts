@@ -1,4 +1,10 @@
 ## @section Common parameters
+## @descriptionStart
+## Common parameters for the Frank!Framework Console chart.
+##
+## Can be used to override the default name for the chart.
+##
+## @descriptionEnd
 ##
 
 ## @param nameOverride String to partially override fullname template (will maintain the release name)
@@ -8,35 +14,38 @@ nameOverride: ""
 ##
 fullnameOverride: ""
 
-## @section frank-console image parameters
+## @section Frank!Framework Console image parameters
 ## @descriptionStart
 ## The image is pulled from nexus.frankframework.org by default. The images located there will be kept for as long as possible.
+##
 ## Here are the images available:
 ## https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrankframework%2Ftags/
+##
 ## If you want to use a specific nightly, you can use the images on docker.io:
 ## https://hub.docker.com/r/frankframework/frankframework/tags
 ## @descriptionEnd
 ##
 
-## frank-console image
-## @param image.registry frank-console image registry
-## @param image.repository frank-console image repository
-## @param image.tag frank-console image tag (immutable tags are recommended)
+## Frank!Framework Console image
+## @param image.registry Frank!Framework Console image registry
+## @param image.repository Frank!Framework Console image repository
+## @param image.tag Frank!Framework Console image tag (immutable tags are recommended)
 ##
 image:
   registry: nexus.frankframework.org
-  repository: frank-console
+  repository: Frank!Framework Console
   tag: ""
-  ## @param image.pullPolicy frank-console image pull policy
-  ## Specify a imagePullPolicy
-  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ## @param image.pullPolicy Frank!Framework Console image pull policy
+  ## @extra image.pullPolicy Specify a imagePullPolicy
+  ## @extra image.pullPolicy Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## @extra image.pullPolicy ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
   pullPolicy: IfNotPresent
-  ## @param image.pullSecrets frank-console image pull secrets
-  ## Optionally specify an array of imagePullSecrets.
-  ## Secrets must be manually created in the namespace.
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## @param image.pullSecrets Frank!Framework Console image pull secrets
+  ## @extra image.pullSecrets Optionally specify an array of imagePullSecrets.
+  ## @extra image.pullSecrets Secrets must be manually created in the namespace.
+  ## @extra image.pullSecrets ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## @extra image.pullSecrets Example is shown in the `values.yaml` file
   ## e.g:
   ## pullSecrets:
   ##   - name: myRegistryKeySecretName
@@ -47,13 +56,13 @@ image:
 ## @descriptionStart
 ## The environment variables are used to configure the Frank!Framework.
 ##
-## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
-##
 ## To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
+##
+## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
 ## @descriptionEnd
 
 
-## @param environmentVariables [object, nullable] Set environment variables for the Frank!Framework
+## @param environmentVariables [object] Set environment variables for the Frank!Framework
 ## @param environmentVariables.JAVA_OPTS [string,nullable] Set the JAVA_OPTS for the Frank!Framework
 ## @param environmentVariables.application.security.http.authentication [string,nullable] Set the authentication for the Frank!Framework
 ##
@@ -67,70 +76,63 @@ environmentVariables:
 ## To deploy the Frank!Framework Console, it can be needed to add some files to the container.
 ##
 ## The Frank!Framework Console chart allows you to generate configmaps and secrets from values.
-##
-## This is useful if you want to add local users to the Frank!Framework Console.
-##
-## The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
-##
-## ```yaml
-## generateSecret:
-##  - name: frankframework-resources
-##    mountPath: /opt/frank/resources/resources.yml
-##    subPath: resources.yml
-##    stringData:
-##      resources.yml: |-
-##        jdbc:
-##          - name: frank2example
-##            type: org.h2.jdbcx.JdbcDataSource
-##            url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+## This is useful if you want to add local users or other authentication to the Frank!Framework Console.
 ## @descriptionEnd
 ##
 
-## @param generateConfigMap [array, nullable] Generate configmaps from values
+## @param generateConfigMap [object] Generate configmaps from values
+## @extra generateConfigMap Example is shown in the `values.yaml` file
 ## @param generateConfigMap.name [string, nullable] Name of the configmap
 ## @param generateConfigMap.optional [boolean, nullable] Mark the configmap as optional (default false)
 ## @param generateConfigMap.defaultMode [int, nullable] Default mode of the configmap (default 0644)
 ## @param generateConfigMap.items [array, nullable] Items of the configmap
+## @param generateConfigMap.items.key [string, nullable] Key of the configmap
+## @param generateConfigMap.items.path [string, nullable] Path of the configmap
+## @param generateConfigMap.items.mode [int, nullable] Mode of the configmap
 ## @param generateConfigMap.mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/secrets)
 ## @param generateConfigMap.readOnly [boolean, nullable] ReadOnly of the configmap (default true)
-## @param generateConfigMap.data [string, nullable] Data of the configmap
+## @param generateConfigMap.data [object, nullable] Data of the configmap
 ## e.g: generateConfigMap:
-##  - name: DeploymentSpecifics
-##    mountPath: /opt/frank/resources/DeploymentSpecifics.properties
-##    subPath: DeploymentSpecifics.properties
+##  - name: local-users
+##    mountPath: /app/localUsers.yml
+##    subPath: localUsers.yml
 ##    stringData:
-##      DeploymentSpecifics.properties: |-
-##        jdbc.migrator=true
+##      localUsers.yml: |-
+##        - username: admin
+##          password: admin
+##
 generateConfigMap: []
 
-## @param generateSecret [array, nullable] Generate secrets from values
+## @param generateSecret [object] Generate secrets from values
+## @extra generateSecret Example is shown in the `values.yaml` file
 ## @param generateSecret.name [string, nullable] Name of the secret
 ## @param generateSecret.type [string, nullable] Type of the secret (default Opaque)
 ## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
 ## @param generateSecret.optional [boolean, nullable] Mark the secret as optional (default false)
 ## @ param generateSecret.defaultMode [int, nullable] Default mode of the secret (default 0644)
 ## @param generateSecret.items [array, nullable] Items of the secret
+## @param generateSecret.items.key [string, nullable] Key of the secret
+## @param generateSecret.items.path [string, nullable] Path of the secret
+## @param generateSecret.items.mode [int, nullable] Mode of the secret
 ## @param generateSecret.mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
 ## @param generateSecret.readOnly [boolean, nullable] ReadOnly of the secret (default true)
-## @param generateSecret.data [string, nullable] Data of the secret
-## @param generateSecret.stringData [string, nullable] StringData of the secret
+## @param generateSecret.data [object, nullable] Data of the secret
+## @param generateSecret.stringData [object, nullable] StringData of the secret
 ## e.g: generateSecret:
-##  - name: frankframework-resources
-##    mountPath: /opt/frank/resources/resources.yml
-##    subPath: resources.yml
+##  - name: local-users
+##    mountPath: /app/localUsers.yml
+##    subPath: localUsers.yml
 ##    stringData:
-##      resources.yml: |-
-##        jdbc:
-##          - name: frank2example
-##            type: org.h2.jdbcx.JdbcDataSource
-##            url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+##      localUsers.yml: |-
+##        - username: admin
+##          password: admin
 ##
 generateSecret: []
 
 ## @section Volumes
 ## @descriptionStart
 ## The Frank!Framework chart allows you to create and mount volumes to the Frank!Framework.
-## This is useful if you want to add local users or resources to the Frank!Framework.
+## This is useful if you want to add local users or authentication to the Frank!Framework.
 ## @descriptionEnd
 ##
 
@@ -152,6 +154,7 @@ extraVolumeMounts: []
 ##
 
 ## @param sidecars Add additional sidecar containers to the Frank!Framework pod
+## @extra sidecars Example is shown in the `values.yaml` file
 ## e.g:
 ## sidecars:
 ##   - name: your-image-name
@@ -164,7 +167,8 @@ extraVolumeMounts: []
 sidecars: []
 
 ## @param initContainers Add additional init containers to the Frank!Framework pod
-## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+## @extra initContainers ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+## @extra initContainers Example is shown in the `values.yaml` file
 ## e.g:
 ## initContainers:
 ##  - name: your-image-name
@@ -175,7 +179,7 @@ sidecars: []
 initContainers: []
 
 
-## @section frank-console deployment parameters
+## @section Frank!Framework Console deployment parameters
 ## @descriptionStart
 ## The startup probe will enable blue-green deployment, which are great for uptime during upgrades and such.
 ## It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
@@ -183,35 +187,29 @@ initContainers: []
 ## @descriptionEnd
 ##
 
-## @param replicaCount Number of frank-console replicas to deploy
-## NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1
+## @param replicaCount Number of Frank!Framework Console replicas to deploy
+## @extra replicaCount NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1
 ##
 replicaCount: 1
 
-## Configure extra options for frank-console containers' startup probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ## @param startupProbe Configure the startup probe
+## @extra startupProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ##
 startupProbe: {}
 
-## Configure extra options for frank-console containers' liveness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ## @param livenessProbe Configure the liveness probe
+## @extra livenessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ##
 livenessProbe: {}
 
-## Configure extra options for frank-console containers' readiness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ## @param readinessProbe Configure the readiness probe
+## @extra readinessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
 ##
 readinessProbe: {}
 
-## frank-console container's resource requests and limits
-## ref: https://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources [object] Set the resources for the frank-console containers
-## @param resources.limits [string, nullable] The resources limits for the frank-console containers
-## @param resources.requests.memory [string, nullable] The requested memory for the frank-console containers
-## @param resources.requests.cpu [string, nullable] The requested cpu for the frank-console containers
+## @param resources Set the resources for the Frank!Framework Console containers
+## @extra resources ref: https://kubernetes.io/docs/user-guide/compute-resources/
+## @extra resources Example is shown in the `values.yaml` file
 ## e.g.:
 ## resources
 ##   limits:
@@ -237,18 +235,18 @@ autoscaling:
 terminationGracePeriodSeconds: 60
 
 ## @param nodeSelector Node labels for pod assignment
-## ref: https://kubernetes.io/docs/user-guide/node-selection/
+## @extra nodeSelector ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
 
 ## @param tolerations Set tolerations for pod assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+## @extra tolerations ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
 
 ## @param affinity Set affinity for pod assignment
-## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-## NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
+## @extra affinity Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+## @extra affinity NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
 ##
 affinity: {}
 
@@ -259,35 +257,36 @@ timeZone: Etc/UTC
 ## @section Traffic Exposure Parameters
 ##
 
-## frank-console service parameters
+## Frank!Framework Console service parameters
 ##
 service:
-  ## @param service.type frank-console service type
+  ## @param service.type Frank!Framework Console service type
   ##
   type: ClusterIP
-  ## @param service.port frank-console service port
+  ## @param service.port Frank!Framework Console service port
   port: 80
-  ## @param service.annotations Additional annotations for the frank-console service
+  ## @param service.annotations Additional annotations for the Frank!Framework Console service
   ##
   annotations: {}
 
-## Configure the ingress resource that allows you to access the frank-console installation
-## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+## Configure the ingress resource that allows you to access the Frank!Framework Console installation.
+## @extra ingress ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
   ## @param ingress.enabled Enable ingress record generation for Frank!
   ##
   enabled: false
   ## @param ingress.className IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)
-  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
-  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+  ## @extra ingress.className This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+  ## @extra ingress.className ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
   className: ""
   ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
-  ## For a full list of possible ingress annotations, please see
-  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
-  ## Use this parameter to set the required annotations for cert-manager, see
-  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+  ## @extra ingress.annotations For a full list of possible ingress annotations, please see
+  ## @extra ingress.annotations ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ## @extra ingress.annotations Use this parameter to set the required annotations for cert-manager, see
+  ## @extra ingress.annotations ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+  ## @extra ingress.annotations Example is shown in the `values.yaml` file
   ## e.g:
   ## annotations:
   ##   kubernetes.io/ingress.class: nginx
@@ -306,6 +305,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   ## @param ingress.tls [object] Define tls secrets for hosts
+  ## @extra ingress.tls Example is shown in the `values.yaml` file
   ## e.g.
   ## tls:
   ##   - secretName: chart-example-tls
@@ -317,11 +317,11 @@ ingress:
 ## @section Other Parameters
 ##
 
-## frank-console Service Account
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+## Frank!Framework Console Service Account.
+## @extra serviceAccount ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 ##
 serviceAccount:
-  ## @param serviceAccount.create Enable creation of ServiceAccount for frank-console pod
+  ## @param serviceAccount.create Enable creation of ServiceAccount for Frank!Framework Console pod
   ##
   create: true
   ## @param serviceAccount.annotations Additional custom annotations for the ServiceAccount
@@ -332,25 +332,26 @@ serviceAccount:
   ##
   name: ""
 
-## @param podAnnotations Annotations for frank-console pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+## @param podAnnotations Annotations for Frank!Framework Console pods.
+## @extra podAnnotations ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 ##
 podAnnotations: {}
 
-## @param podLabels Extra labels for frank-console pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+## @param podLabels Extra labels for Frank!Framework Console pods.
+## @extra podLabels ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
 podLabels: {}
 
 ## Configure Pods Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext [object] Set frank-console pod's Security Context
+## @param podSecurityContext [object] Set Frank!Framework Console pod's Security Context.
+## @extra podSecurityContext ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ##
 podSecurityContext: {}
 
 ## Configure Container Security Context (only main container)
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param securityContext [object] Set frank-console container's Security Context
+## @param securityContext [object] Set Frank!Framework Console container's Security Context.
+## @extra securityContext ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## @extra securityContext Example is shown in the `values.yaml` file
 ## e.g.
 ## securityContext: {}
 ##  capabilities:

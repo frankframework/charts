@@ -29,29 +29,19 @@ frankframework:
     pullSecrets: []
 
   application:
-    ## @param frankframework.application.dtap.stage Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
+    ## @skip frankframework.application.dtap.stage
     ##
     dtap:
       stage: TST
 
-  ## @param frankframework.environmentVariables [object, nullable] Set environment variables for the Frank!Framework
-  ## @param frankframework.environmentVariables.application.server.type.custom [string,nullable] Set the transaction manager, this is needed for transactionality support
-  ## @param frankframework.environmentVariables.JAVA_OPTS [string,nullable] Set the JAVA_OPTS for the Frank!Framework
-  ## @param frankframework.environmentVariables.application.security.http.authentication [string,nullable] Set the authentication for the Frank!Framework
+  ## @skip frankframework.environmentVariables
   ##
   environmentVariables:
-    jdbc.datasource.default: jdbc/frank2example
+    jdbc.datasource.default: "jdbc/frank2example"
     credentialFactory.class: "nl.nn.credentialprovider.PropertyFileCredentialFactory"
     credentialFactory.map.properties: "/opt/frank/secrets/credentials.properties"
 
-  ## @param frankframework.generateSecret [array, nullable] Generate secrets from values
-  ## @param frankframework.generateSecret.name [string, nullable] Name of the secret
-  ## @param frankframework.generateSecret.type [string, nullable] Type of the secret (default Opaque)
-  ## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
-  ## @param frankframework.generateSecret.mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
-  ## @param frankframework.generateSecret.readOnly [boolean, nullable] ReadOnly of the secret
-  ## @param frankframework.generateSecret.data [string, nullable] Data of the secret
-  ## @param frankframework.generateSecret.stringData [string, nullable] StringData of the secret
+  ## @skip frankframework.generateSecret
   ##
   generateSecret:
     - name: frankframework-resources
@@ -63,37 +53,6 @@ frankframework:
             - name: frank2example
               type: org.h2.jdbcx.JdbcDataSource
               url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
-
-  ## @param frankframework.generateConfigMap [array, nullable] Generate configmaps from values
-  ## @param frankframework.generateConfigMap.name [string, nullable] Name of the configmap
-  ## @param frankframework.generateConfigMap.mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/secrets)
-  ## @param frankframework.generateConfigMap.readOnly [boolean, nullable] ReadOnly of the configmap
-  ## @param frankframework.generateConfigMap.data [string, nullable] Data of the configmap
-  ##
-  generateConfigMap:
-    - name: DeploymentSpecifics
-      mountPath: /opt/frank/resources/DeploymentSpecifics.properties
-      subPath: DeploymentSpecifics.properties
-      stringData:
-        DeploymentSpecifics.properties: |-
-          jdbc.migrator=true
-
-  ## @param frankframework.extraVolumes [object, nullable] Optionally specify extra list of additional volumes for WordPress pods
-  ## ref: https://kubernetes.io/docs/concepts/storage/volumes/
-  ##
-  extraVolumes:
-    - name: credentials
-      secret:
-        secretName: credentials
-
-  ## @param frankframework.extraVolumeMounts [object, nullable] Optionally specify extra list of additional volumeMounts for WordPress container(s)
-  ## ref: https://kubernetes.io/docs/concepts/storage/volumes/
-  ##
-  extraVolumeMounts:
-    - name: credentials
-      mountPath: /opt/frank/resources/credentials.properties
-      subPath: credentials.properties
-      readOnly: true
 
   ## @param frankframework.replicaCount Number of Frank!Framework replicas to deploy
   ##

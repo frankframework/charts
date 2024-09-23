@@ -36,21 +36,6 @@
                         }
                     }
                 },
-                "application": {
-                    "type": "object",
-                    "properties": {
-                        "dtap": {
-                            "type": "object",
-                            "properties": {
-                                "stage": {
-                                    "type": "string",
-                                    "description": "Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`",
-                                    "default": "TST"
-                                }
-                            }
-                        }
-                    }
-                },
                 "replicaCount": {
                     "type": "number",
                     "description": "Number of Frank!Framework replicas to deploy",
