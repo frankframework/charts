@@ -1,6 +1,6 @@
 dependencies:
 - name: frankframework
   repository: file://../frankframework
-  version: 0.4.0
-digest: sha256:a0434a96ffb73917dbf5bd45d8ea9ce75fa93f37e1951e2c3d453df9f32d50d0
-generated: "2024-09-19T16:33:03.5432098+02:00"
+  version: 0.4.1
+digest: sha256:2b2938ad3c1966882fc4a469be548159696044133e8b263b29dd899bddb89dc0
+generated: "2024-09-26T20:27:29.3484681+02:00"

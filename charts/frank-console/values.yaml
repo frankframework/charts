@@ -33,7 +33,7 @@ fullnameOverride: ""
 ##
 image:
   registry: nexus.frankframework.org
-  repository: Frank!Framework Console
+  repository: frank-console
   tag: ""
   ## @param image.pullPolicy Frank!Framework Console image pull policy
   ## @extra image.pullPolicy Specify a imagePullPolicy
@@ -77,6 +77,9 @@ environmentVariables:
 ##
 ## The Frank!Framework Console chart allows you to generate configmaps and secrets from values.
 ## This is useful if you want to add local users or other authentication to the Frank!Framework Console.
+##
+## Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
+## With one secret, the subPath and mountPath are not needed. And it would be possible to implement items
 ## @descriptionEnd
 ##
 
@@ -132,7 +135,7 @@ generateSecret: []
 ## @section Volumes
 ## @descriptionStart
 ## The Frank!Framework chart allows you to create and mount volumes to the Frank!Framework.
-## This is useful if you want to add local users or authentication to the Frank!Framework.
+## This is useful if you want to add existing local users or authentication to the Frank!Framework.
 ## @descriptionEnd
 ##
 

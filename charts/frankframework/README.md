@@ -85,23 +85,30 @@ The application parameters are used to configure the Frank!Framework and how it 
 For example, you can configure the DTAP stage and side of where the instance is running.
 You can also configure the name of the instance. And what configurations to load.
 
-| Name                               | Description                                                                                                                                    | Value |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `application.dtap.stage`           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                                    | `""`  |
-| `application.dtap.stage`           | The DTAP stage is used to enable and disable features in the Frank!Framework.                                                                  |       |
-| `application.dtap.stage`           | ref: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html                                                            |       |
-| `application.dtap.side`            | Set the `DTAP` side of where the instance is running, and for sideSpecific properties                                                          | `""`  |
-| `application.instance.name`        | Set the name of the Frank! instance (default is the `fullname`)                                                                                | `""`  |
-| `application.instance.name`        | Keep in mind that the name is used for the default datasource.                                                                                 |       |
-| `application.configurations.names` | Set the configurations to load. Leave empty to use the default                                                                                 | `[]`  |
-| `application.configurations.names` | Example is shown in the `values.yaml` file                                                                                                     |       |
-| `application.properties`           | Set Yaml properties for configuring the Frank!Framework or configurations                                                                      | `{}`  |
-| `application.properties`           | ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties                              |       |
-| `application.properties`           | implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java |       |
+| Name                               | Description                                                                                                                                                           | Value |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `application.dtap.stage`           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                                                           | `""`  |
+| `application.dtap.stage`           | The DTAP stage is used to enable and disable features in the Frank!Framework.                                                                                         |       |
+| `application.dtap.stage`           | ref: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html                                                                                   |       |
+| `application.dtap.side`            | Set the `DTAP` side of where the instance is running, and for sideSpecific properties                                                                                 | `""`  |
+| `application.instance.name`        | Set the name of the Frank! instance (default is the `fullname`)                                                                                                       | `""`  |
+| `application.instance.name`        | Keep in mind that the name is used for the default datasource.                                                                                                        |       |
+| `application.configurations.names` | Set the configurations to load. Leave empty to use the default                                                                                                        | `[]`  |
+| `application.configurations.names` | Example is shown in the `values.yaml` file                                                                                                                            |       |
+| `application.properties`           | Set Yaml properties for configuring the Frank!Framework or configurations                                                                                             | `{}`  |
+| `application.properties`           | Please read the section "Environment variables" for more information about the differance between `.Values.application.properties` and `.Values.environmentVariables` |       |
+| `application.properties`           | ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties                                                     |       |
+| `application.properties`           | implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java                        |       |
 
 ### Environment variables
 
 The environment variables are used to configure the Frank!Framework.
+
+The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the yaml file.
+Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the yaml file has been loaded.
+The yaml file will is loaded by the Frank!Framework after it has been started.
+This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the yaml file.
+For example, `jdbc.datasource.default` needs to be set in the container, because it is needed at startup.
 
 To configure credentials you need to add a volume (see section Volumes) and set these environment variables.
 
@@ -129,6 +136,22 @@ To deploy the Frank!Framework, it can be needed to add some files to the contain
 
 The Frank!Framework chart allows you to generate configmaps and secrets from values.
 This is useful if you want to add local users or resources to the Frank!Framework.
+
+Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
+With one secret, the subPath and mountPath are not needed. And it would be possible to implement items, like this:
+```yaml
+generateSecret:
+- name: frankframework-resources
+mountPath: "/opt/frank/resources/"
+items:
+- key: credentials.properties
+path: credentials.properties
+- key: resources.yml
+path: resources.yml
+stringData:
+credentials.properties: demo
+resources.yml: demo
+```
 
 The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
 

@@ -86,6 +86,7 @@ application:
   configurations:
     names: [ ]
   ## @param application.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
+  ## @extra application.properties Please read the section "Environment variables" for more information about the differance between `.Values.application.properties` and `.Values.environmentVariables`
   ## @extra application.properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
   ## @extra application.properties implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
   ##
@@ -94,6 +95,12 @@ application:
 ## @section Environment variables
 ## @descriptionStart
 ## The environment variables are used to configure the Frank!Framework.
+##
+## The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the yaml file.
+## Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the yaml file has been loaded.
+## The yaml file will is loaded by the Frank!Framework after it has been started.
+## This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the yaml file.
+## For example, `jdbc.datasource.default` needs to be set in the container, because it is needed at startup.
 ##
 ## To configure credentials you need to add a volume (see section Volumes) and set these environment variables.
 ##
@@ -126,6 +133,22 @@ environmentVariables:
 ##
 ## The Frank!Framework chart allows you to generate configmaps and secrets from values.
 ## This is useful if you want to add local users or resources to the Frank!Framework.
+##
+## Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
+## With one secret, the subPath and mountPath are not needed. And it would be possible to implement items, like this:
+## ```yaml
+## generateSecret:
+##   - name: frankframework-resources
+##     mountPath: "/opt/frank/resources/"
+##     items:
+##       - key: credentials.properties
+##         path: credentials.properties
+##       - key: resources.yml
+##         path: resources.yml
+##     stringData:
+##       credentials.properties: demo
+##       resources.yml: demo
+## ```
 ##
 ## The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
 ##

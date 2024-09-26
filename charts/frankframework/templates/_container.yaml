@@ -68,8 +68,8 @@ volumeMounts:
     readOnly: {{ .readOnly | default true }}
   {{- end }}
   {{- end }}
-  {{- if .Values.extraVolumes }}
-  {{- toYaml .Values.extraVolumeMounts | nindent 2 }}
+  {{- with .Values.extraVolumeMounts }}
+  {{- toYaml . | nindent 2 }}
   {{- end }}
 ports:
   - name: hazelcast

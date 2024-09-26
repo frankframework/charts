@@ -23,7 +23,7 @@
                 "repository": {
                     "type": "string",
                     "description": "Frank!Framework Console image repository",
-                    "default": "Frank!Framework Console"
+                    "default": "frank-console"
                 },
                 "tag": {
                     "type": "string",

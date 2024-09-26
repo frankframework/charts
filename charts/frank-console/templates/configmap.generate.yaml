@@ -1,4 +1,4 @@
-{{- range .Values.generateConfigMap }}
+{{- range .Values.generateConfigMap -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,4 +9,5 @@ metadata:
 data:
   {{- toYaml .data | nindent 2 }}
 {{- end }}
+---
 {{- end -}}

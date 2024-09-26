@@ -54,7 +54,7 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 | Name                | Description                                                                                | Value                      |
 | ------------------- | ------------------------------------------------------------------------------------------ | -------------------------- |
 | `image.registry`    | Frank!Framework Console image registry                                                     | `nexus.frankframework.org` |
-| `image.repository`  | Frank!Framework Console image repository                                                   | `Frank!Framework Console`  |
+| `image.repository`  | Frank!Framework Console image repository                                                   | `frank-console`            |
 | `image.tag`         | Frank!Framework Console image tag (immutable tags are recommended)                         | `""`                       |
 | `image.pullPolicy`  | Frank!Framework Console image pull policy                                                  | `IfNotPresent`             |
 | `image.pullPolicy`  | Specify a imagePullPolicy                                                                  |                            |
@@ -87,6 +87,9 @@ To deploy the Frank!Framework Console, it can be needed to add some files to the
 The Frank!Framework Console chart allows you to generate configmaps and secrets from values.
 This is useful if you want to add local users or other authentication to the Frank!Framework Console.
 
+Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
+With one secret, the subPath and mountPath are not needed. And it would be possible to implement items
+
 | Name                            | Description                                                           | Value       |
 | ------------------------------- | --------------------------------------------------------------------- | ----------- |
 | `generateConfigMap`             | Generate configmaps from values                                       | `{}`        |
@@ -118,7 +121,7 @@ This is useful if you want to add local users or other authentication to the Fra
 ### Volumes
 
 The Frank!Framework chart allows you to create and mount volumes to the Frank!Framework.
-This is useful if you want to add local users or authentication to the Frank!Framework.
+This is useful if you want to add existing local users or authentication to the Frank!Framework.
 
 | Name                | Description                                                                         | Value |
 | ------------------- | ----------------------------------------------------------------------------------- | ----- |

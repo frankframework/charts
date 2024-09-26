@@ -38,8 +38,6 @@ frankframework:
   ##
   environmentVariables:
     jdbc.datasource.default: "jdbc/frank2example"
-    credentialFactory.class: "nl.nn.credentialprovider.PropertyFileCredentialFactory"
-    credentialFactory.map.properties: "/opt/frank/secrets/credentials.properties"
 
   ## @skip frankframework.generateSecret
   ##
