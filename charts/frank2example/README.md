@@ -56,6 +56,8 @@ For more information about DTAP stages read: https://frank-manual.readthedocs.io
 
 ## Notable changes
 
+Notable changes to the Frank2Example chart are listed below. Otherwise, see the notable changes in the [Frank!Framework chart](https://github.com/frankframework/charts/tree/master/charts/frankframework).
+
 ### 0.4.0
 
 See the notable changes in the Frank!Framework chart.

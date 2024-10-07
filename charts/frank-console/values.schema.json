@@ -54,6 +54,14 @@
                 }
             }
         },
+        "envFrom": {
+            "type": "array",
+            "description": "Set environment variables from configmaps or secrets",
+            "default": "[]",
+            "items": {
+                "type": "string"
+            }
+        },
         "extraVolumes": {
             "type": "array",
             "description": "Optionally specify extra list of additional volumes for WordPress pods",
@@ -77,6 +85,21 @@
             "description": "Add additional init containers to the Frank!Framework pod",
             "default": [],
             "items": {}
+        },
+        "ladybugDatabase": {
+            "type": "object",
+            "properties": {
+                "auth": {
+                    "type": "object",
+                    "properties": {
+                        "existingSecret": {
+                            "type": "string",
+                            "description": "Name of the secret",
+                            "default": ""
+                        }
+                    }
+                }
+            }
         },
         "replicaCount": {
             "type": "number",

@@ -11,6 +11,18 @@ terminationMessagePolicy: FallbackToLogsOnError
 envFrom:
   - configMapRef:
       name: {{ template "frank-console.fullname" . }}-env
+  {{- with .Values.envFrom }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  {{- with .Values.ladybugDatabase.auth.existingSecret }}
+  - secretRef:
+      name: {{ . }}
+  {{- end }}
+{{- if .Values.ladybugDatabase.auth.existingSecret }}
+env:
+  - name: "spring_profiles_active"
+    value: "ladybug.database"
+{{- end }}
 volumeMounts:
   - name: {{ template "frank-console.fullname" . }}-hazelcast-network
     mountPath: /app/hazelcast-network.xml

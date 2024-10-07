@@ -108,7 +108,8 @@ The differance between `.Values.application.properties` and `.Values.environment
 Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the yaml file has been loaded.
 The yaml file will is loaded by the Frank!Framework after it has been started.
 This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the yaml file.
-For example, `jdbc.datasource.default` needs to be set in the container, because it is needed at startup.
+
+It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 
 To configure credentials you need to add a volume (see section Volumes) and set these environment variables.
 
@@ -128,7 +129,9 @@ Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for 
 | `environmentVariables`                                          | Set environment variables for the Frank!Framework                        | `{}`                        |
 | `environmentVariables.application.server.type.custom`           | Set the transaction manager, this is needed for transactionality support | `NARAYANA`                  |
 | `environmentVariables.JAVA_OPTS`                                | Set the JAVA_OPTS for the Frank!Framework                                | `-XX:MaxRAMPercentage=80.0` |
-| `environmentVariables.application.security.http.authentication` | Set the authentication for the Frank!Framework                           | `false`                     |
+| `environmentVariables.application.security.http.authentication` | Set the authentication for the Frank!Framework                           | `undefined`                 |
+| `envFrom`                                                       | Set environment variables from configmaps or secrets                     | `[]`                        |
+| `envFrom`                                                       | Example is shown in the `values.yaml` file                               |                             |
 
 ### Generate ConfigMaps and Secrets
 
@@ -230,9 +233,32 @@ The additional console is disabled by default, but can be enabled by setting `co
 Configuring the console is done by setting the `console` parameters. Which can be found in the frank-console chart.
 ref: https://frankframework.github.io/charts/frank-console
 
-| Name              | Description                        | Value   |
-| ----------------- | ---------------------------------- | ------- |
-| `console.enabled` | Enable the Frank!Framework console | `false` |
+| Name                                          | Description                        | Value                                  |
+| --------------------------------------------- | ---------------------------------- | -------------------------------------- |
+| `console.enabled`                             | Enable the Frank!Framework console | `false`                                |
+| `console.ladybugDatabase.auth.existingSecret` | Name of the secret                 | `frankframework-ladybug-database-auth` |
+
+### Ladybug Database
+
+The Ladybug Database is a PostgreSQL dependency that is used to store Ladybug reports and is not needed when the Ladybug is disabled.
+
+Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+
+The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+
+To configure the PostgreSQL Helm chart, please refer to the documentation and append to the Ladybug Database parameters:
+https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+
+Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
+
+| Name                                            | Description                                                                                     | Value                                  |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `ladybugDatabase.enabled`                       | Enable the Ladybug Database (PostgreSQL dependency)                                             | `true`                                 |
+| `ladybugDatabase.nameOverride`                  | Override the name of the Ladybug Database dependency                                            | `ladybug-database`                     |
+| `ladybugDatabase.primary.persistence.enabled`   | Enable persistence for the Ladybug Database dependency (default is false for easy installation) | `false`                                |
+| `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency                                  | `true`                                 |
+| `ladybugDatabase.auth.existingSecret`           | Name of the secret (also the name of the generated secret)                                      | `frankframework-ladybug-database-auth` |
+| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency (default is generated if not set)                        | `undefined`                            |
 
 ### Frank!Framework deployment parameters
 
@@ -341,6 +367,19 @@ The Frank!Framework will start with different settings enabled, depending on wha
 For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
 
 ## Notable changes
+
+### 0.4.2
+
+Added a Ladybug Database (PostgreSQL variant) to the Chart. The database is used for Ladybug reports and is not needed when Ladybug is disabled.
+This is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+
+The database is not intended to be used with the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+
+Also added `.Values.envFrom` to allow for the mounting of environment variables from configmaps or secrets.
+
+Removed `.Values.application.security.http.authentication: "false"`. This is a more secure default. 
+The `dtap.stage` will determine if authentication is enabled or not. It is possible to override this with environment variables.
+Read mote in the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/deploying/security.html).
 
 ### 0.4.0
 

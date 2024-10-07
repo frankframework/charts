@@ -70,15 +70,18 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 
 The environment variables are used to configure the Frank!Framework.
 
+It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
+
 To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 
 Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
 
-| Name                                                            | Description                                       | Value                       |
-| --------------------------------------------------------------- | ------------------------------------------------- | --------------------------- |
-| `environmentVariables`                                          | Set environment variables for the Frank!Framework | `{}`                        |
-| `environmentVariables.JAVA_OPTS`                                | Set the JAVA_OPTS for the Frank!Framework         | `-XX:MaxRAMPercentage=80.0` |
-| `environmentVariables.application.security.http.authentication` | Set the authentication for the Frank!Framework    | `false`                     |
+| Name                             | Description                                          | Value                       |
+| -------------------------------- | ---------------------------------------------------- | --------------------------- |
+| `environmentVariables`           | Set environment variables for the Frank!Framework    | `{}`                        |
+| `environmentVariables.JAVA_OPTS` | Set the JAVA_OPTS for the Frank!Framework            | `-XX:MaxRAMPercentage=80.0` |
+| `envFrom`                        | Set environment variables from configmaps or secrets | `[]`                        |
+| `envFrom`                        | Example is shown in the `values.yaml` file           |                             |
 
 ### Generate ConfigMaps and Secrets
 
@@ -140,6 +143,23 @@ This is useful if you want to add additional tools to the Frank!Framework.
 | `initContainers` | Add additional init containers to the Frank!Framework pod                | `[]`  |
 | `initContainers` | ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ |       |
 | `initContainers` | Example is shown in the `values.yaml` file                               |       |
+
+### Ladybug Database
+
+The Ladybug Database is a PostgreSQL dependency that is used to store Ladybug reports and is not needed when the Ladybug is disabled.
+
+Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+
+The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+
+To configure the PostgreSQL Helm chart, please refer to the documentation:
+https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+
+Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
+
+| Name                                  | Description        | Value |
+| ------------------------------------- | ------------------ | ----- |
+| `ladybugDatabase.auth.existingSecret` | Name of the secret | `""`  |
 
 ### Frank!Framework Console deployment parameters
 

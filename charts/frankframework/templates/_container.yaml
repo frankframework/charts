@@ -11,6 +11,13 @@ terminationMessagePolicy: FallbackToLogsOnError
 envFrom:
   - configMapRef:
       name: {{ template "frankframework.fullname" . }}-env
+  {{- with .Values.envFrom }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  {{- if .Values.ladybugDatabase.enabled }}
+  - secretRef:
+      name: {{ .Values.ladybugDatabase.auth.existingSecret }}
+  {{- end }}
 volumeMounts:
   {{- if .Values.securityContext.readOnlyRootFilesystem }}
   - mountPath: /usr/local/tomcat/logs

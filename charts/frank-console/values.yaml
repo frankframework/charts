@@ -56,6 +56,8 @@ image:
 ## @descriptionStart
 ## The environment variables are used to configure the Frank!Framework.
 ##
+## It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
+##
 ## To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 ##
 ## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
@@ -64,12 +66,21 @@ image:
 
 ## @param environmentVariables [object] Set environment variables for the Frank!Framework
 ## @param environmentVariables.JAVA_OPTS [string,nullable] Set the JAVA_OPTS for the Frank!Framework
-## @param environmentVariables.application.security.http.authentication [string,nullable] Set the authentication for the Frank!Framework
 ##
 environmentVariables:
   JAVA_OPTS: "-XX:MaxRAMPercentage=80.0"
-  application.security.http.authentication: "false"
+  spring_profiles_active: "ladybug.database"
 
+## @param envFrom [array] Set environment variables from configmaps or secrets
+## @extra envFrom Example is shown in the `values.yaml` file
+## e.g.
+## envFrom:
+##   - configMapRef:
+##       name: frankframework-custom-env
+##   - secretRef:
+##       name: frankframework-custom-env
+##
+envFrom: [ ]
 
 ## @section Generate ConfigMaps and Secrets
 ## @descriptionStart
@@ -181,6 +192,25 @@ sidecars: []
 ##
 initContainers: []
 
+## @section Ladybug Database
+## @descriptionStart
+## The Ladybug Database is a PostgreSQL dependency that is used to store Ladybug reports and is not needed when the Ladybug is disabled.
+##
+## Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+##
+## The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+##
+## To configure the PostgreSQL Helm chart, please refer to the documentation:
+## https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+##
+## Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
+## @descriptionEnd
+
+## @param ladybugDatabase.auth.existingSecret Name of the secret
+##
+ladybugDatabase:
+  auth:
+    existingSecret: ""
 
 ## @section Frank!Framework Console deployment parameters
 ## @descriptionStart
