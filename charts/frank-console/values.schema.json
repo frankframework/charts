@@ -54,6 +54,14 @@
                 }
             }
         },
+        "envFrom": {
+            "type": "array",
+            "description": "Set environment variables from configmaps or secrets",
+            "default": "[]",
+            "items": {
+                "type": "string"
+            }
+        },
         "extraVolumes": {
             "type": "array",
             "description": "Optionally specify extra list of additional volumes for WordPress pods",
@@ -78,6 +86,21 @@
             "default": [],
             "items": {}
         },
+        "ladybugDatabase": {
+            "type": "object",
+            "properties": {
+                "auth": {
+                    "type": "object",
+                    "properties": {
+                        "existingSecret": {
+                            "type": "string",
+                            "description": "Name of the secret",
+                            "default": ""
+                        }
+                    }
+                }
+            }
+        },
         "replicaCount": {
             "type": "number",
             "description": "Number of Frank!Framework Console replicas to deploy",
@@ -85,13 +108,93 @@
         },
         "startupProbe": {
             "type": "object",
-            "description": "Configure the startup probe",
-            "default": {}
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for startupProbe",
+                    "default": 10
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for startupProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for startupProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for startupProbe",
+                    "default": 42
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for startupProbe",
+                    "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for startupProbe",
+                            "default": "/"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for startupProbe",
+                            "default": 8080
+                        }
+                    }
+                }
+            }
         },
         "livenessProbe": {
             "type": "object",
-            "description": "Configure the liveness probe",
-            "default": {}
+            "properties": {
+                "initialDelaySeconds": {
+                    "type": "number",
+                    "description": "Initial delay seconds for livenessProbe",
+                    "default": 0
+                },
+                "periodSeconds": {
+                    "type": "number",
+                    "description": "Period seconds for livenessProbe",
+                    "default": 10
+                },
+                "timeoutSeconds": {
+                    "type": "number",
+                    "description": "Timeout seconds for livenessProbe",
+                    "default": 1
+                },
+                "failureThreshold": {
+                    "type": "number",
+                    "description": "Failure threshold for livenessProbe",
+                    "default": 12
+                },
+                "successThreshold": {
+                    "type": "number",
+                    "description": "Success threshold for livenessProbe",
+                    "default": 1
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for livenessProbe",
+                            "default": "/"
+                        },
+                        "port": {
+                            "type": "number",
+                            "description": "Port for livenessProbe",
+                            "default": 8080
+                        }
+                    }
+                }
+            }
         },
         "readinessProbe": {
             "type": "object",

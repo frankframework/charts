@@ -1,0 +1,20 @@
+{{/*
+This config map adds a resource file for the Ladybug database.
+*/}}
+{{- if .Values.ladybugDatabase.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "frankframework.fullname" . }}-ladybug-resources
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+data:
+  ladybug-resources.yml: |
+    jdbc:
+      - name: "ladybug"
+        type: "${ladybug.jdbc.driver}"
+        url: "${ladybug.jdbc.url}"
+        authalias: "${ladybug.jdbc.authalias}"
+        username: "${ladybug.jdbc.username}"
+        password: "${ladybug.jdbc.password}"
+{{- end -}}

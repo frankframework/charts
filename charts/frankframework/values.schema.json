@@ -97,6 +97,14 @@
                 }
             }
         },
+        "envFrom": {
+            "type": "array",
+            "description": "Set environment variables from configmaps or secrets",
+            "default": "[]",
+            "items": {
+                "type": "string"
+            }
+        },
         "extraVolumes": {
             "type": "array",
             "description": "Optionally specify extra list of additional volumes for WordPress pods",
@@ -128,6 +136,72 @@
                     "type": "boolean",
                     "description": "Enable the Frank!Framework console",
                     "default": false
+                },
+                "ladybugDatabase": {
+                    "type": "object",
+                    "properties": {
+                        "auth": {
+                            "type": "object",
+                            "properties": {
+                                "existingSecret": {
+                                    "type": "string",
+                                    "description": "Name of the secret",
+                                    "default": "frankframework-ladybug-database-auth"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "ladybugDatabase": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable the Ladybug Database (PostgreSQL dependency)",
+                    "default": true
+                },
+                "nameOverride": {
+                    "type": "string",
+                    "description": "Override the name of the Ladybug Database dependency",
+                    "default": "ladybug-database"
+                },
+                "primary": {
+                    "type": "object",
+                    "properties": {
+                        "persistence": {
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "description": "Enable persistence for the Ladybug Database dependency (default is false for easy installation)",
+                                    "default": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "auth": {
+                    "type": "object",
+                    "properties": {
+                        "generatePostgresqlSecret": {
+                            "type": "boolean",
+                            "description": "Enable the generation of secrets for the PostgreSQL dependency",
+                            "default": true
+                        },
+                        "existingSecret": {
+                            "type": "string",
+                            "description": "Name of the secret (also the name of the generated secret)",
+                            "default": "frankframework-ladybug-database-auth"
+                        },
+                        "postgresPassword": {
+                            "type": "string",
+                            "description": "Password for the PostgreSQL dependency",
+                            "default": "postgres",
+                            "nullable": true
+                        }
+                    }
                 }
             }
         },

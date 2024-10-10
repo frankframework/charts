@@ -100,7 +100,8 @@ application:
 ## Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the yaml file has been loaded.
 ## The yaml file will is loaded by the Frank!Framework after it has been started.
 ## This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the yaml file.
-## For example, `jdbc.datasource.default` needs to be set in the container, because it is needed at startup.
+##
+## It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 ##
 ## To configure credentials you need to add a volume (see section Volumes) and set these environment variables.
 ##
@@ -125,7 +126,17 @@ environmentVariables:
   # Enable Narayana transaction manager
   application.server.type.custom: "NARAYANA"
   JAVA_OPTS: "-XX:MaxRAMPercentage=80.0"
-  application.security.http.authentication: "false"
+
+## @param envFrom [array] Set environment variables from configmaps or secrets
+## @extra envFrom Example is shown in the `values.yaml` file
+## e.g.
+## envFrom:
+##   - configMapRef:
+##       name: frankframework-custom-env
+##   - secretRef:
+##       name: frankframework-custom-env
+##
+envFrom: []
 
 ## @section Generate ConfigMaps and Secrets
 ## @descriptionStart
@@ -279,9 +290,46 @@ initContainers: [ ]
 ##
 
 ## @param console.enabled Enable the Frank!Framework console
+## @param console.ladybugDatabase.auth.existingSecret Name of the secret
 ##
 console:
   enabled: false
+  ladybugDatabase:
+    auth:
+      existingSecret: frankframework-ladybug-database-auth
+
+## @section Ladybug Database
+## @descriptionStart
+## The Ladybug Database is a PostgreSQL dependency that is used to store Ladybug reports and is not needed when the Ladybug is disabled.
+##
+## Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+##
+## The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+##
+## To configure the PostgreSQL Helm chart, please refer to the documentation and append to the Ladybug Database parameters:
+## https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+##
+## Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
+## @descriptionEnd
+
+## @param ladybugDatabase.enabled Enable the Ladybug Database (PostgreSQL dependency)
+## @param ladybugDatabase.nameOverride Override the name of the Ladybug Database dependency
+## @param ladybugDatabase.primary.persistence.enabled Enable persistence for the Ladybug Database dependency (default is false for easy installation)
+## @param ladybugDatabase.auth.generatePostgresqlSecret Enable the generation of secrets for the PostgreSQL dependency
+## @param ladybugDatabase.auth.existingSecret Name of the secret (also the name of the generated secret)
+## @param ladybugDatabase.auth.postgresPassword [string, nullable] Password for the PostgreSQL dependency
+##
+##
+ladybugDatabase:
+  enabled: true
+  nameOverride: ladybug-database
+  primary:
+    persistence:
+      enabled: false
+  auth:
+    generatePostgresqlSecret: true
+    postgresPassword: postgres
+    existingSecret: frankframework-ladybug-database-auth
 
 ## @section Frank!Framework deployment parameters
 ## @descriptionStart

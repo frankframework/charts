@@ -1,6 +1,9 @@
 dependencies:
 - name: frank-console
   repository: file://../frank-console
-  version: 0.4.1
-digest: sha256:7da3645aa0b04383ebfa57ff7811edd291b2b83e740199cee10302a9108905eb
-generated: "2024-09-26T20:26:16.6411703+02:00"
+  version: 0.5.0
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.0.0
+digest: sha256:0f2675239e7268361427aed374d46796b0ea3caa40f35ad2f70acfff26845b94
+generated: "2024-10-09T13:28:43.5106639+02:00"

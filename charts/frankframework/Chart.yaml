@@ -1,7 +1,7 @@
 apiVersion: v2
 name: frankframework
 description: A Helm chart for running the Frank!Framework on Kubernetes
-version: 0.4.1
+version: 0.5.0
 appVersion: "8.3.0-SNAPSHOT"
 type: application
 home: https://frankframework.org
@@ -15,7 +15,12 @@ keywords:
 
 dependencies:
   - name: frank-console
-    version: 0.4.1
+    version: 0.5.0
     alias: console
     condition: console.enabled
     repository: file://../frank-console
+  - name: postgresql
+    version: 16.0.0
+    alias: ladybugDatabase
+    condition: ladybugDatabase.enabled
+    repository: https://charts.bitnami.com/bitnami

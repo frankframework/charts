@@ -70,15 +70,26 @@ https://hub.docker.com/r/frankframework/frankframework/tags
 
 The environment variables are used to configure the Frank!Framework.
 
+It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
+
+In the case you are testing this Chart, you'd probably want to disable the authentication for the console and the testtool (Ladybug).
+To do so, you can set the following environment variables:
+```yaml
+environmentVariables:
+application.security.console.authentication.type: NONE
+application.security.testtool.authentication.type: NONE
+```
+
 To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 
 Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
 
-| Name                                                            | Description                                       | Value                       |
-| --------------------------------------------------------------- | ------------------------------------------------- | --------------------------- |
-| `environmentVariables`                                          | Set environment variables for the Frank!Framework | `{}`                        |
-| `environmentVariables.JAVA_OPTS`                                | Set the JAVA_OPTS for the Frank!Framework         | `-XX:MaxRAMPercentage=80.0` |
-| `environmentVariables.application.security.http.authentication` | Set the authentication for the Frank!Framework    | `false`                     |
+| Name                             | Description                                          | Value                       |
+| -------------------------------- | ---------------------------------------------------- | --------------------------- |
+| `environmentVariables`           | Set environment variables for the Frank!Framework    | `{}`                        |
+| `environmentVariables.JAVA_OPTS` | Set the JAVA_OPTS for the Frank!Framework            | `-XX:MaxRAMPercentage=80.0` |
+| `envFrom`                        | Set environment variables from configmaps or secrets | `[]`                        |
+| `envFrom`                        | Example is shown in the `values.yaml` file           |                             |
 
 ### Generate ConfigMaps and Secrets
 
@@ -141,35 +152,66 @@ This is useful if you want to add additional tools to the Frank!Framework.
 | `initContainers` | ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ |       |
 | `initContainers` | Example is shown in the `values.yaml` file                               |       |
 
+### Ladybug Database
+
+The Ladybug Database is a PostgreSQL dependency that is used to store Ladybug reports and is not needed when the Ladybug is disabled.
+
+Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+
+The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+
+To configure the PostgreSQL Helm chart, please refer to the documentation:
+https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+
+Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
+
+| Name                                  | Description        | Value |
+| ------------------------------------- | ------------------ | ----- |
+| `ladybugDatabase.auth.existingSecret` | Name of the secret | `""`  |
+
 ### Frank!Framework Console deployment parameters
 
 The startup probe will enable blue-green deployment, which are great for uptime during upgrades and such.
 It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
 The readiness probe will check if all adapters are running using the server health endpoint
 
-| Name                            | Description                                                                                                                 | Value     |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `replicaCount`                  | Number of Frank!Framework Console replicas to deploy                                                                        | `1`       |
-| `replicaCount`                  | NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1                                                                 |           |
-| `startupProbe`                  | Configure the startup probe                                                                                                 | `{}`      |
-| `startupProbe`                  | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |           |
-| `livenessProbe`                 | Configure the liveness probe                                                                                                | `{}`      |
-| `livenessProbe`                 | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |           |
-| `readinessProbe`                | Configure the readiness probe                                                                                               | `{}`      |
-| `readinessProbe`                | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |           |
-| `resources`                     | Set the resources for the Frank!Framework Console containers                                                                | `{}`      |
-| `resources`                     | ref: https://kubernetes.io/docs/user-guide/compute-resources/                                                               |           |
-| `resources`                     | Example is shown in the `values.yaml` file                                                                                  |           |
-| `terminationGracePeriodSeconds` | Number of seconds after which pods are forcefully killed                                                                    | `60`      |
-| `terminationGracePeriodSeconds` | Note: Lower values may cause running adapters to fail                                                                       |           |
-| `nodeSelector`                  | Node labels for pod assignment                                                                                              | `{}`      |
-| `nodeSelector`                  | ref: https://kubernetes.io/docs/user-guide/node-selection/                                                                  |           |
-| `tolerations`                   | Set tolerations for pod assignment                                                                                          | `[]`      |
-| `tolerations`                   | ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/                                                |           |
-| `affinity`                      | Set affinity for pod assignment                                                                                             | `{}`      |
-| `affinity`                      | Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity                          |           |
-| `affinity`                      | NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set                        |           |
-| `timeZone`                      | used for database connection and log timestamps                                                                             | `Etc/UTC` |
+| Name                                | Description                                                                                                                 | Value     |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `replicaCount`                      | Number of Frank!Framework Console replicas to deploy                                                                        | `1`       |
+| `replicaCount`                      | NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1                                                                 |           |
+| `startupProbe`                      | Configure the startup probe                                                                                                 |           |
+| `startupProbe`                      | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |           |
+| `startupProbe.initialDelaySeconds`  | Initial delay seconds for startupProbe                                                                                      | `10`      |
+| `startupProbe.periodSeconds`        | Period seconds for startupProbe                                                                                             | `10`      |
+| `startupProbe.timeoutSeconds`       | Timeout seconds for startupProbe                                                                                            | `1`       |
+| `startupProbe.failureThreshold`     | Failure threshold for startupProbe                                                                                          | `42`      |
+| `startupProbe.successThreshold`     | Success threshold for startupProbe                                                                                          | `1`       |
+| `startupProbe.httpGet.path`         | Path for startupProbe                                                                                                       | `/`       |
+| `startupProbe.httpGet.port`         | Port for startupProbe                                                                                                       | `8080`    |
+| `livenessProbe`                     | Configure the liveness probe                                                                                                |           |
+| `livenessProbe`                     | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |           |
+| `livenessProbe.initialDelaySeconds` | Initial delay seconds for livenessProbe                                                                                     | `0`       |
+| `livenessProbe.periodSeconds`       | Period seconds for livenessProbe                                                                                            | `10`      |
+| `livenessProbe.timeoutSeconds`      | Timeout seconds for livenessProbe                                                                                           | `1`       |
+| `livenessProbe.failureThreshold`    | Failure threshold for livenessProbe                                                                                         | `12`      |
+| `livenessProbe.successThreshold`    | Success threshold for livenessProbe                                                                                         | `1`       |
+| `livenessProbe.httpGet.path`        | Path for livenessProbe                                                                                                      | `/`       |
+| `livenessProbe.httpGet.port`        | Port for livenessProbe                                                                                                      | `8080`    |
+| `readinessProbe`                    | Configure the readiness probe                                                                                               | `{}`      |
+| `readinessProbe`                    | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |           |
+| `resources`                         | Set the resources for the Frank!Framework Console containers                                                                | `{}`      |
+| `resources`                         | ref: https://kubernetes.io/docs/user-guide/compute-resources/                                                               |           |
+| `resources`                         | Example is shown in the `values.yaml` file                                                                                  |           |
+| `terminationGracePeriodSeconds`     | Number of seconds after which pods are forcefully killed                                                                    | `60`      |
+| `terminationGracePeriodSeconds`     | Note: Lower values may cause running adapters to fail                                                                       |           |
+| `nodeSelector`                      | Node labels for pod assignment                                                                                              | `{}`      |
+| `nodeSelector`                      | ref: https://kubernetes.io/docs/user-guide/node-selection/                                                                  |           |
+| `tolerations`                       | Set tolerations for pod assignment                                                                                          | `[]`      |
+| `tolerations`                       | ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/                                                |           |
+| `affinity`                          | Set affinity for pod assignment                                                                                             | `{}`      |
+| `affinity`                          | Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity                          |           |
+| `affinity`                          | NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set                        |           |
+| `timeZone`                          | used for database connection and log timestamps                                                                             | `Etc/UTC` |
 
 ### Traffic Exposure Parameters
 
