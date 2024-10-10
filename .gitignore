@@ -1,4 +1,5 @@
 .idea/
 /node_modules/
-**/charts/*.tgz
+**/charts/*.
+**/tmpcharts*
 /.npmrc
