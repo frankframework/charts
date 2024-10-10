@@ -317,7 +317,7 @@ console:
 ## @param ladybugDatabase.primary.persistence.enabled Enable persistence for the Ladybug Database dependency (default is false for easy installation)
 ## @param ladybugDatabase.auth.generatePostgresqlSecret Enable the generation of secrets for the PostgreSQL dependency
 ## @param ladybugDatabase.auth.existingSecret Name of the secret (also the name of the generated secret)
-## @param ladybugDatabase.auth.postgresPassword [string, nullable] Password for the PostgreSQL dependency (default is generated if not set)
+## @param ladybugDatabase.auth.postgresPassword [string, nullable] Password for the PostgreSQL dependency
 ##
 ##
 ladybugDatabase:
@@ -328,6 +328,7 @@ ladybugDatabase:
       enabled: false
   auth:
     generatePostgresqlSecret: true
+    postgresPassword: postgres
     existingSecret: frankframework-ladybug-database-auth
 
 ## @section Frank!Framework deployment parameters

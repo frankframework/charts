@@ -58,6 +58,14 @@ image:
 ##
 ## It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 ##
+## In the case you are testing this Chart, you'd probably want to disable the authentication for the console and the testtool (Ladybug).
+## To do so, you can set the following environment variables:
+## ```yaml
+## environmentVariables:
+##   application.security.console.authentication.type: NONE
+##   application.security.testtool.authentication.type: NONE
+## ```
+##
 ## To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 ##
 ## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
@@ -225,15 +233,45 @@ ladybugDatabase:
 ##
 replicaCount: 1
 
-## @param startupProbe Configure the startup probe
+## @extra startupProbe Configure the startup probe
 ## @extra startupProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## @param startupProbe.periodSeconds Period seconds for startupProbe
+## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## @param startupProbe.failureThreshold Failure threshold for startupProbe
+## @param startupProbe.successThreshold Success threshold for startupProbe
+## @param startupProbe.httpGet.path Path for startupProbe
+## @param startupProbe.httpGet.port Port for startupProbe
 ##
-startupProbe: {}
+startupProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 42
+  successThreshold: 1
+  httpGet:
+    path: /
+    port: 8080
 
-## @param livenessProbe Configure the liveness probe
+## @extra livenessProbe Configure the liveness probe
 ## @extra livenessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.successThreshold Success threshold for livenessProbe
+## @param livenessProbe.httpGet.path Path for livenessProbe
+## @param livenessProbe.httpGet.port Port for livenessProbe
 ##
-livenessProbe: {}
+livenessProbe:
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 12
+  successThreshold: 1
+  httpGet:
+    path: /
+    port: 8080
 
 ## @param readinessProbe Configure the readiness probe
 ## @extra readinessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes

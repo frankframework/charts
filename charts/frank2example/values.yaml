@@ -37,6 +37,8 @@ frankframework:
   ## @skip frankframework.environmentVariables
   ##
   environmentVariables:
+    application.security.console.authentication.type: NONE
+    application.security.testtool.authentication.type: NONE
     jdbc.datasource.default: "jdbc/frank2example"
 
   ## @skip frankframework.generateSecret

@@ -194,6 +194,12 @@
                             "type": "string",
                             "description": "Name of the secret (also the name of the generated secret)",
                             "default": "frankframework-ladybug-database-auth"
+                        },
+                        "postgresPassword": {
+                            "type": "string",
+                            "description": "Password for the PostgreSQL dependency",
+                            "default": "postgres",
+                            "nullable": true
                         }
                     }
                 }

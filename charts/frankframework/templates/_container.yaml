@@ -41,6 +41,12 @@ volumeMounts:
     subPath: hazelcast-network.xml
     readOnly: true
   {{- end }}
+  {{- if .Values.ladybugDatabase.enabled }}
+  - name: {{ template "frankframework.fullname" . }}-ladybug-resources
+    mountPath: /opt/frank/resources/ladybug-resources.yml
+    subPath: ladybug-resources.yml
+    readOnly: true
+  {{- end }}
   {{- range $configMap := .Values.generateConfigMap }}
   {{- if $configMap.items }}
   {{- range $item := $configMap.items }}

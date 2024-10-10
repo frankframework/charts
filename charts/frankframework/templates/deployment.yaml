@@ -77,6 +77,11 @@ spec:
           configMap:
             name: {{ .Release.Name }}-hazelcast-network
         {{- end }}
+        {{- if .Values.ladybugDatabase.enabled }}
+        - name: {{ template "frankframework.fullname" . }}-ladybug-resources
+          configMap:
+            name: {{ template "frankframework.fullname" . }}-ladybug-resources
+        {{- end }}
         {{- range .Values.generateConfigMap }}
         - name: {{ .name }}
           configMap:

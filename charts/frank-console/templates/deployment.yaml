@@ -37,10 +37,20 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.initContainers }}
       initContainers:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- if .Values.ladybugDatabase.auth.existingSecret }}
+        - name: {{ include "frank-console.fullname" . }}-wait-for-database
+          image: postgres:16.4
+          envFrom:
+            - secretRef:
+                name: {{ .Values.ladybugDatabase.auth.existingSecret }}
+          command: [ 'sh', '-c',
+            'until pg_isready -h "$LADYBUG_DATABASE_HOST" -p 5432;
+            do echo waiting for database; sleep 2; done;' ]
+        {{- end }}
+        {{- with .Values.initContainers }}
+        {{- toYaml .| nindent 8 }}
+        {{- end }}
       containers:
         -
           {{- include "frank-console.container" . | nindent 10 }}

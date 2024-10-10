@@ -9,6 +9,15 @@ Just replace the image with the `image.repository` and `image.tag` parameters or
 This chart can also be used as sub-chart for other charts, so other defaults can be provided and extra files can be added.
 Take a look at the Frank2Example chart for a simple example.
 
+## Table of Contents
+<!-- TOC -->
+* [Frank!Framework Chart](#frankframework-chart)
+  * [Usage](#usage)
+  * [Configuration and installation details](#configuration-and-installation-details)
+  * [Parameters](#parameters)
+  * [Notable changes](#notable-changes)
+<!-- TOC -->
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
@@ -36,6 +45,35 @@ To uninstall the chart:
 ```shell
 helm delete my-frankframework
 ```
+
+## Configuration and installation details
+
+### DTAP Stage
+
+The Frank!Framework will start with different settings enabled, depending on what DTAP stage is configured. Like if the Ladybug should be disabled, or if authentication should be enabled.
+
+For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
+
+### Authentication
+
+The usage of an authenticator is based on the `dtap.stage`.
+But it can be overridden with the `application.security.console.authentication.type` and `application.security.testtool.authentication.type` environment variables, if needed.
+
+If the separate console is enabled, the console will **not** use the same authentication as the Frank!Framework. 
+And always needs to be configured.
+
+Read more about configuring the authentication in the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/deploying/security.html).
+
+### Ladybug Database
+
+A database is added for the Ladybug to make it somewhat persistent and to make the data accessible for all replicas.
+
+The database is used for Ladybug reports and is not needed when Ladybug is disabled.
+This is enabled by default, but can be disabled if you want to use an external database for Ladybug.
+
+The database is not intended to be used with the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+
+You can read more about it in the parameters section.
 
 ## Parameters
 
@@ -258,7 +296,7 @@ Some of the parameters are pre-configured for an easy installation, but can be c
 | `ladybugDatabase.primary.persistence.enabled`   | Enable persistence for the Ladybug Database dependency (default is false for easy installation) | `false`                                |
 | `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency                                  | `true`                                 |
 | `ladybugDatabase.auth.existingSecret`           | Name of the secret (also the name of the generated secret)                                      | `frankframework-ladybug-database-auth` |
-| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency (default is generated if not set)                        | `undefined`                            |
+| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency                                                          | `postgres`                             |
 
 ### Frank!Framework deployment parameters
 
@@ -358,22 +396,11 @@ The readiness probe will check if all adapters are running using the server heal
 | `securityContext`            | ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container |        |
 | `securityContext`            | Example is shown in the `values.yaml` file                                                                               |        |
 
-## Configuration and installation details
-
-### DTAP Stage
-
-The Frank!Framework will start with different settings enabled, depending on what DTAP stage is configured. 
-
-For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
-
 ## Notable changes
 
-### 0.4.2
+### 0.5.0
 
-Added a Ladybug Database (PostgreSQL variant) to the Chart. The database is used for Ladybug reports and is not needed when Ladybug is disabled.
-This is enabled by default, but can be disabled if you want to use an external database for Ladybug.
-
-The database is not intended to be used with the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
+Added a Ladybug Database (PostgreSQL variant) to the Chart. 
 
 Also added `.Values.envFrom` to allow for the mounting of environment variables from configmaps or secrets.
 

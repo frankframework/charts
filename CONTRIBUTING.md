@@ -10,6 +10,6 @@ To get ready to work on the codebase, please make sure to have [NodeJS](https://
 npm install
 ```
 
-This will install Husky (for git commit hooks), which will update the README files per chart and make sure all chart dependencies are up to date pre-commit.  We are using the [Bitnami README generator for Helm](https://github.com/bitnami-labs/readme-generator-for-helm) to update our chart README files.
+This will install Husky (for git commit hooks), which will update the README files per chart and make sure all chart dependencies are up-to-date pre-commit.  We are using the [Bitnami README generator for Helm](https://github.com/bitnami-labs/readme-generator-for-helm) to update our chart README files.
 
 Sometimes you might still need to amend the generated README files manually to the commit.
