@@ -1,5 +1,5 @@
 .idea/
 /node_modules/
-**/charts/*.
+**/charts/*
 **/tmpcharts*
 /.npmrc

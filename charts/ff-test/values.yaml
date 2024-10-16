@@ -1,33 +1,19 @@
-## @section Common parameters
-##
+## @section Frank!Framework parameters
+## @descriptionStart
+## This chart is a wrapper for the Frank!Framework chart.
+## See the documentation for the Frank!Framework chart for more information.
+## @descriptionEnd
 
-## @param nameOverride String to partially override common.names.fullname template (will maintain the release name)
-##
-nameOverride: ""
-## @param fullnameOverride String to fully override common.names.fullname template
-##
-fullnameOverride: ""
-
-## @section Frank!Framework image parameters
-##
-
-## Frank!Framework image
-## ref: https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrankframework%2Ftags/
-## @param image.registry Frank!Framework image registry
-## @param image.repository Frank!Framework image repository
-## @param image.tag Frank!Framework image tag (immutable tags are recommended)
-##
-image:
-  registry: nexus.frankframework.org
-  repository: ff-test
-  tag: ""
-  ## @param image.pullPolicy Frank!Framework image pull policy
+frankframework:
+  ## @param frankframework.image.registry frank2example image registry
+  ## @param frankframework.image.repository frank2example image repository
+  ## @param frankframework.image.tag frank2example image tag (immutable tags are recommended)
+  ## @param frankframework.image.pullPolicy frank2example image pull policy
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
-  ## @param image.pullSecrets Frank!Framework image pull secrets
+  ## @param frankframework.image.pullSecrets frank2example image pull secrets
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -35,413 +21,84 @@ image:
   ## pullSecrets:
   ##   - name: myRegistryKeySecretName
   ##
-  pullSecrets: []
+  image:
+    registry: nexus.frankframework.org
+    repository: ff-test
+    tag: "9.0.0-SNAPSHOT-tomcat"
+    pullPolicy: Always
+    pullSecrets: []
 
-## @section Frank! Configuration parameters
-##
+  application:
+    ## @param frankframework.application.dtap.stage DTAP stage can't be changed for this application.
+    ##
+    dtap:
+      stage: LOC
+    ## @param frankframework.application.instance.name Instance name can't be changed for this application.
+    instance:
+      name: Ibis4Test
 
-## @skip frank [object]
-##
-frank:
-  ## @param frank.memory.percentage Set if the values for the memory are in percentages
-  ## @param frank.memory.minimum Sets the initial size of the heap that will be used by the Frank!Framework
-  ## @param frank.memory.maximum Sets the maximum size of the heap that will be used by the Frank!Framework
-  ## For Java 8 it is best suited to use the same amount of memory for both the minimum and maximum.
-  ## For Java 11 and above, it is possible to use percentages. E.g. minimum: 20.0, maximum: 80.0.
-  ## ref: https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI
+  ## @skip frankframework.environmentVariables
   ##
-  memory:
-    percentage: false
-    minimum: 4G
-    maximum: 4G
-  ## @skip frank.dtap [object]
-  ## @param frank.dtap.stage (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
-  ## @param frank.dtap.side Set the `DTAP` side of where the instance is running
-  ##
-  dtap:
-    stage: LOC # In LOC all default tests are enabled
-    side: ""
-  ## @skip frank.credentials [object]
-  ## @param frank.credentials.secret Set the secret name of the existing secret
-  ## @param frank.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
-  ##
-  credentials:
-    secret: ""
-    key: ""
-  ## @skip frank.instance [string]
-  ## @skip frank.configurations [object]
-  ## @param frank.configurations.names [array] Set the configurations to load. Leave empty to use the default
-  ## e.g.
-  ## configurations.names:
-  ##   - main
-  ##
-  configurations:
-    names: []
-  ## @skip frank.security [object]
-  ## @skip frank.security.http [object]
-  ##
-  security:
-    ## @param frank.security.certificateStores [array] Define certificate (key/trust) stores to mount in the resources folder of the Frank!
-    ## @param frank.security.certificateStores.secretName [string] Name of the secret where the certificate store is located in
-    ## @param frank.security.certificateStores.key [string] The key in the secret where the certificate store is located in
-    ## @param frank.security.certificateStores.resourceUrl [string, nullable] The path to the certificate store in the Resource folder, the key will be used as default value
-    ##
-    certificateStores: []
-    http:
-      ## @param frank.security.http.authentication Set http authentication for the Frank!
-      ##
-      authentication: false
-      ## @param frank.security.http.localUsers [array] Set localUsers who can log in on the Frank!
-      ## @param frank.security.http.localUsers.username [string] Set the username of the user
-      ## @param frank.security.http.localUsers.password [string] Set the password of the user
-      ## @param frank.security.http.localUsers.roles [array] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
-      ## e.g.
-      ## localUsers:
-      ##   - username: Tester
-      ##     password: ChangeMe!
-      ##     roles:
-      ##        - IbisTester
-      ##
-      localUsers: []
-      ## @skip frank.security.http.activeDirectory [object]
-      ## @param frank.security.http.activeDirectory.enabled Enable Active Directory for authentication
-      ## @param frank.security.http.activeDirectory.url Set url for Active Directory
-      ## @param frank.security.http.activeDirectory.baseDn Set baseDn for Active Directory users
-      ## @skip frank.security.http.activeDirectory.roleMapping [object]
-      ## @param frank.security.http.activeDirectory.roleMapping.tester Map the role for Tester
-      ## @param frank.security.http.activeDirectory.roleMapping.dataAdmin Map the role for DataAdmin
-      ## @param frank.security.http.activeDirectory.roleMapping.admin Map the role for Admin
-      ## @param frank.security.http.activeDirectory.roleMapping.webService Map the role for WebService
-      ## @param frank.security.http.activeDirectory.roleMapping.observer Map the role for Observer
-      ##
-      activeDirectory:
-        enabled: false
-        url: ""
-        baseDn: ""
-        roleMapping:
-          tester: ""
-          dataAdmin: ""
-          admin: ""
-          webService: ""
-          observer: ""
-  ## @skip frank.server [object]
-  ##
-  server:
-    ## @param frank.server.transactionManager [string] Set the transaction manager for Tomcat. Options: `NARAYANA`, `BTM`, ``
-    ##
-    transactionManager: ''
-  ## @param frank.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
-  ## properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
-  ## implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
-  ##
-  properties:
+  environmentVariables:
     jdbc.dbms.default: 'h2'
     jms.provider.default: ''
-  ## @param frank.environmentVariables [object] Set extra environment variables for the Frank!
-  ## @param frank.environmentVariables.jdbc.dbms.default [string] The default jdbc that will be used. This should match with one of the jdbc's in the context.xml e.g. `postgres-xe`
-  ## @param frank.environmentVariables.jms.provider.default [string] The default jms that will be used. This should match with one of the jms's in the context.xml e.g. `artemis`. `frank.server.transactionManager` needs to be set.
-  ## More properties can be set. ref: https://github.com/frankframework/iaf/blob/master/test/src/main/resources/DeploymentSpecifics.properties
+
+  ## @extra frankframework.startupProbe Configure the startup probe
+  ## @extra frankframework.startupProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+  ## @param frankframework.startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+  ## @param frankframework.startupProbe.periodSeconds Period seconds for startupProbe
+  ## @param frankframework.startupProbe.timeoutSeconds Timeout seconds for startupProbe
+  ## @param frankframework.startupProbe.failureThreshold Failure threshold for startupProbe
+  ## @param frankframework.startupProbe.successThreshold Success threshold for startupProbe
+  ## @param frankframework.startupProbe.httpGet.path Path for startupProbe
+  ## @param frankframework.startupProbe.httpGet.port Port for startupProbe
   ##
-  environmentVariables: {}
-  ## @param frank.javaOpts [string] Append custom options to the `JAVA_OPTS` environment variable for the Frank!
+  startupProbe:
+    initialDelaySeconds: 40
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 12
+    successThreshold: 1
+    httpGet:
+      path: /iaf-test/iaf/api/server/health
+      port: 8080
+
+  ## @extra frankframework.livenessProbe Configure the liveness probe
+  ## @extra frankframework.livenessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+  ## @param frankframework.livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+  ## @param frankframework.livenessProbe.periodSeconds Period seconds for livenessProbe
+  ## @param frankframework.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+  ## @param frankframework.livenessProbe.failureThreshold Failure threshold for livenessProbe
+  ## @param frankframework.livenessProbe.successThreshold Success threshold for livenessProbe
+  ## @param frankframework.livenessProbe.httpGet.path Path for livenessProbe
+  ## @param frankframework.livenessProbe.httpGet.port Port for livenessProbe
   ##
-  javaOpts: ""
+  livenessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 12
+    successThreshold: 1
+    httpGet:
+      path: /iaf-test/iaf/api/server/health
+      port: 8080
 
-## @section Frank!Framework Connection parameters
-##
-
-## @skip connections [object]
-##
-connections:
-  ## @param connections.create Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.
+  ## @extra frankframework.readinessProbe Configure the readiness probe
+  ## @extra frankframework.readinessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+  ## @param frankframework.readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+  ## @param frankframework.readinessProbe.periodSeconds Period seconds for readinessProbe
+  ## @param frankframework.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+  ## @param frankframework.readinessProbe.failureThreshold Failure threshold for readinessProbe
+  ## @param frankframework.readinessProbe.successThreshold Success threshold for readinessProbe
+  ## @param frankframework.readinessProbe.httpGet.path Path for readinessProbe
+  ## @param frankframework.readinessProbe.httpGet.port Port for readinessProbe
   ##
-  create: false
-  ## @param connections.preDefinedJdbc [object] Set one database connections. The connection should match one in the context.xml
-  ## @param connections.preDefinedJdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`). For H2 it can be `mem` or a file location
-  ## @param connections.preDefinedJdbc.port [nullable,string] Port for the database (leave empty for default)
-  ## @param connections.preDefinedJdbc.database [nullable,string] Name of the database to use (default is `.Release.name`)
-  ## @param connections.preDefinedJdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
-  ## @param connections.preDefinedJdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
-  ## @param connections.preDefinedJdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
-  ##
-  preDefinedJdbc:
-    host: ""
-    port: ""
-    database: ""
-    username: ""
-    password: ""
-    ssl: ""
-  ## @param connections.preDefinedJms [array] Set one message services. The connection should match one in the context.xml
-  ## @param connections.preDefinedJms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @param connections.preDefinedJms.port [nullable,string] Port for the MQ (leave empty for default)
-  ## @param connections.preDefinedJms.url [nullable,string] URL for Tibco
-  ##
-  preDefinedJms:
-    host: ""
-    port: ""
-    url: ""
-
-## @section Frank!Framework deployment parameters
-## @descriptionStart
-## The startup probe will enable blue-green deployment, which are great for uptime during upgrades and such.
-## It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
-## The readiness probe will check if all adapters are running using the server health endpoint
-## @descriptionEnd
-##
-
-## @param replicaCount Number of Frank!Framework replicas to deploy
-## NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1
-##
-replicaCount: 1
-
-## Configure extra options for Frank!Framework containers' startup probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.successThreshold Success threshold for startupProbe
-##
-startupProbe:
-  initialDelaySeconds: 40
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 12
-  successThreshold: 1
-
-## Configure extra options for Frank!Framework containers' liveness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.successThreshold Success threshold for livenessProbe
-##
-livenessProbe:
-  initialDelaySeconds: 0
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 12
-  successThreshold: 1
-
-## Configure extra options for Frank!Framework containers' readiness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.successThreshold Success threshold for readinessProbe
-##
-readinessProbe:
-  initialDelaySeconds: 0
-  periodSeconds: 5
-  timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
-
-## @param probesEnabled [object] Toggle probes. This should only be used if a Frank! needs to be kept while in a bad state (for debugging purposes)
-## @param probesEnabled.startupProbe [object] Toggle startupProbe
-## @param probesEnabled.livenessProbe [object] Toggle livenessProbe
-## @param probesEnabled.readinessProbe [object] Toggle readinessProbe
-probesEnabled:
-  startupProbe: true
-  livenessProbe: true
-  readinessProbe: true
-
-## Frank!Framework container's resource requests and limits
-## ref: https://kubernetes.io/docs/user-guide/compute-resources/
-## @param resources [object] Set the resources for the Frank!Framework containers
-## @param resources.limits [string] The resources limits for the Frank!Framework containers
-## @param resources.requests.memory [string] The requested memory for the Frank!Framework containers
-## @param resources.requests.cpu [string] The requested cpu for the Frank!Framework containers
-## e.g.:
-## resources
-##   limits:
-##     cpu: 2000m
-##     memory: 4200M
-##   requests:
-##     cpu: 2000m
-##     memory: 4200M
-##
-resources: {}
-
-## @skip autoscaling
-##
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 80
-
-## @param terminationGracePeriodSeconds Number of seconds after which pods are forcefully killed
-## @extra terminationGracePeriodSeconds Note: Lower values may cause running adapters to fail
-terminationGracePeriodSeconds: 60
-
-## @param nodeSelector Node labels for pod assignment
-## ref: https://kubernetes.io/docs/user-guide/node-selection/
-##
-nodeSelector: {}
-
-## @param tolerations Set tolerations for pod assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
-tolerations: []
-
-## @param affinity Set affinity for pod assignment
-## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-## NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
-##
-affinity: {}
-
-## @param timeZone used for database connection and log timestamps
-##
-timeZone: Etc/UTC
-
-## @section Traffic Exposure Parameters
-##
-
-## Frank!Framework service parameters
-##
-service:
-  ## @param service.type Frank!Framework service type
-  ##
-  type: ClusterIP
-  ## @param service.port Frank!Framework service port
-  port: 80
-
-## Configure the ingress resource that allows you to access the Frank!Framework installation
-## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
-##
-ingress:
-  ## @param ingress.enabled Enable ingress record generation for Frank!
-  ##
-  enabled: false
-  ## @param ingress.className IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)
-  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
-  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
-  ##
-  className: ""
-  ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
-  ## For a full list of possible ingress annotations, please see
-  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
-  ## Use this parameter to set the required annotations for cert-manager, see
-  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
-  ## e.g:
-  ## annotations:
-  ##   kubernetes.io/ingress.class: nginx
-  ##   kubernetes.io/tls-acme: 'true'
-  ##
-  annotations: {}
-  ## @param ingress.hosts [array] Set hosts for ingress
-  ## @param ingress.hosts.host [string] Set hostname
-  ## @param ingress.hosts.paths [array] Set multiple paths
-  ## @param ingress.hosts.paths.path [string] Set path (context url)
-  ## @param ingress.hosts.paths.pathType [string] Set type of path
-  ##
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  ## @param ingress.tls [array] Define tls secrets for hosts (implementation not done yet)
-  ## e.g.
-  ## tls:
-  ##   - secretName: chart-example-tls
-  ##     hosts:
-  ##       - chart-example.local
-  ##
-  tls: []
-
-## @section Other Parameters
-##
-
-## Frank!Framework Service Account
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
-##
-serviceAccount:
-  ## @param serviceAccount.create Enable creation of ServiceAccount for Frank!Framework pod
-  ##
-  create: true
-  ## @param serviceAccount.annotations Additional custom annotations for the ServiceAccount
-  ##
-  annotations: {}
-  ## @param serviceAccount.name The name of the ServiceAccount to use.
-  ## If not set and create is true, a name is generated using the ff-common.fullname template
-  ##
-  name: ""
-
-## @param podAnnotations Annotations for Frank!Framework pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-##
-podAnnotations: {}
-
-## @param podLabels Extra labels for Frank!Framework pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-##
-podLabels: {}
-
-## Configure Pods Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext [object] Set Frank!Framework pod's Security Context
-##
-podSecurityContext: {}
-
-## Configure Container Security Context (only main container)
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param securityContext [object] Set Frank!Framework container's Security Context
-## e.g.
-## securityContext: {}
-##  capabilities:
-##    drop:
-##      - ALL
-##  readOnlyRootFilesystem: true
-##  runAsNonRoot: true
-##  runAsUser: 1000
-##
-securityContext:
-  readOnlyRootFilesystem: false
-
-## @section Persistence
-## @descriptionStart
-## Persistence is used for keeping heap dumps. They can be found at `/heap-dumps` with persistence enabled.
-## Otherwise, they can be found at `/usr/local/tomcat/logs`
-## @descriptionEnd
-##
-persistence:
-  ## @param persistence.enabled Enable persistence using Persistent Volume Claims
-  ##
-  enabled: false
-  ## @param persistence.storageClass Persistent Volume storage class
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
-  ##
-  storageClass: ""
-  ## @param persistence.accessModes [array] Persistent Volume access modes
-  ##
-  accessModes:
-    - ReadWriteOnce
-  ## @param persistence.size Persistent Volume size
-  ##
-  size: 5Gi
-  ## @param persistence.dataSource Custom PVC data source
-  ##
-  dataSource: {}
-  ## @param persistence.existingClaim The name of an existing PVC to use for persistence
-  ##
-  existingClaim: ""
-  ## @param persistence.selector Selector to match an existing Persistent Volume for the Frank!Framework's data PVC
-  ## If set, the PVC can't have a PV dynamically provisioned for it
-  ## E.g.
-  ## selector:
-  ##   matchLabels:
-  ##     app: my-app
-  ##
-  selector: {}
-  ## @param persistence.annotations Persistent Volume Claim annotations
-  ## You might need to add an annotation for selected node:
-  ## E.g: volume.kubernetes.io/selected-node: nodeName
-  ## Ref: https://kubernetes.io/docs/reference/labels-annotations-taints/#volume-kubernetes-io-selected-node
-  ##
-  annotations: {}
+  readinessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 5
+    timeoutSeconds: 1
+    failureThreshold: 3
+    successThreshold: 1
+    httpGet:
+      path: /iaf-test/iaf/api/server/health
+      port: 8080
