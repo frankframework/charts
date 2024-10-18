@@ -25,6 +25,10 @@ data:
         <user username="{{ .username }}" password="{{ .password }}" roles="{{ join "," .roles | default "IbisTester" }}"/>
       {{- end }}
     </tomcat-users>
+
+  localUsers.yml: |-
+    users:
+    {{- toYaml .Values.frank.security.http.localUsers | nindent 4 }}
 {{- end -}}
 {{- end -}}
 {{- define "ff-common.configmap.tomcat-users" -}}

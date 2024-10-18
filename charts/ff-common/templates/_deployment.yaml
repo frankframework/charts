@@ -65,6 +65,9 @@ spec:
         - name: {{ template "ff-common.fullname" . }}-tomcat-users
           configMap:
             name: {{ template "ff-common.fullname" . }}-tomcat-users
+        - name: {{ template "ff-common.fullname" . }}-local-users
+          configMap:
+            name: {{ template "ff-common.fullname" . }}-tomcat-users
         {{- end }}
         {{- if .Values.connections.create }}
         - name: {{ template "ff-common.fullname" . }}-context
