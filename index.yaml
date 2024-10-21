@@ -3,6 +3,19 @@ entries:
   ff-common:
   - apiVersion: v2
     appVersion: "8.0"
+    created: "2024-10-21T13:21:14.961802335Z"
+    deprecated: true
+    description: ff-common chart building components and helpers for the Frank!Framework
+    digest: 1cac033145a941ae9e1e7052bc3c3b1e1a7add4ff2a8a35c110169e8ffd7cd8a
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-common/icon.svg
+    name: ff-common
+    type: library
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-common-0.1.24/ff-common-0.1.24.tgz
+    version: 0.1.24
+  - apiVersion: v2
+    appVersion: "8.0"
     created: "2024-02-13T09:20:21.774965544Z"
     deprecated: true
     description: ff-common chart building components and helpers for the Frank!Framework
@@ -1405,4 +1418,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2024-10-16T15:59:17.018556672Z"
+generated: "2024-10-21T13:21:14.962011477Z"
