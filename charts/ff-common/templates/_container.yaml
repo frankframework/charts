@@ -33,7 +33,7 @@ volumeMounts:
     mountPath: /usr/local/tomcat/conf/tomcat-users.xml
     subPath: tomcat-users.xml
     readOnly: true
-  - name: {{ template "ff-common.fullname" . }}-local-users
+  - name: {{ template "ff-common.fullname" . }}-tomcat-users
     mountPath: /opt/frank/resources/localUsers.yml
     subPath: localUsers.yml
     readOnly: true
