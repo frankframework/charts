@@ -18,6 +18,7 @@ data:
         <network>
             <port auto-increment="false">5701</port>
             <join>
+                <auto-detection enabled="false"/>
                 <multicast enabled="false" />
                 <kubernetes enabled="true" service-dns="{{ .Release.Name }}-hazelcast.{{ .Release.Namespace }}.svc.cluster.local" />
             </join>
