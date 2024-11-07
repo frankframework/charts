@@ -16,4 +16,5 @@ Selector labels
 {{- define "frank-console.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "frank-console.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+frankframework/hazelcast: {{ .Release.Name }}
 {{- end -}}

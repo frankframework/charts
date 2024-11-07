@@ -16,4 +16,5 @@ Selector labels
 {{- define "frankframework.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "frankframework.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+frankframework/hazelcast: {{ .Release.Name }}
 {{- end -}}

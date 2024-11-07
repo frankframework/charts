@@ -10,7 +10,8 @@ spec:
   type: ClusterIP
   clusterIP: None
   selector:
-    {{- include "frankframework.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    frankframework/hazelcast: {{ .Release.Name }}
   ports:
     - name: hazelcast
       port: 5701
