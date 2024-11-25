@@ -112,6 +112,8 @@ application:
 ##
 ## For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
 ##
+## To disable or configure authentication for the console, please read the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/advancedDevelopment/authorization/consoleAndLadybug.html).
+## 
 ## To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 ##
 ## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
@@ -120,7 +122,6 @@ application:
 ## @param environmentVariables [object] Set environment variables for the Frank!Framework
 ## @param environmentVariables.application.server.type.custom [string,nullable] Set the transaction manager, this is needed for transactionality support
 ## @param environmentVariables.JAVA_OPTS [string,nullable] Set the JAVA_OPTS for the Frank!Framework
-## @param environmentVariables.application.security.http.authentication [string,nullable] Set the authentication for the Frank!Framework
 ##
 environmentVariables:
   # Enable Narayana transaction manager
