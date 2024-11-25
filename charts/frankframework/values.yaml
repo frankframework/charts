@@ -161,19 +161,16 @@ envFrom: []
 ##       resources.yml: demo
 ## ```
 ##
-## The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
+## The following example will generate a credentials.properties file in the /opt/frank/secrets/ folder.
 ##
 ## ```yaml
 ## generateSecret:
-##  - name: frankframework-resources
-##    mountPath: /opt/frank/resources/resources.yml
-##    subPath: resources.yml
+##  - name: frankframework-credentials
+##    mountPath: /opt/frank/secrets/
 ##    stringData:
-##      resources.yml: |-
-##        jdbc:
-##          - name: frank2example
-##            type: org.h2.jdbcx.JdbcDataSource
-##            url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+##      credentials.properties: |-
+##        alias/uasername=C3PO
+##        alias/password=R2D2
 ## ```
 ## @descriptionEnd
 ##
