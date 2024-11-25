@@ -153,13 +153,14 @@ envFrom: []
 ##   - name: frankframework-resources
 ##     mountPath: "/opt/frank/resources/"
 ##     items:
-##       - key: credentials.properties
-##         path: credentials.properties
 ##       - key: resources.yml
 ##         path: resources.yml
 ##     stringData:
-##       credentials.properties: demo
-##       resources.yml: demo
+##       resources.yml: |-
+##         jdbc:
+##           - name: frank2example
+##             type: org.h2.jdbcx.JdbcDataSource
+##             url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
 ## ```
 ##
 ## The following example will generate a credentials.properties file in the /opt/frank/secrets/ folder.
@@ -215,7 +216,9 @@ generateConfigMap: [ ]
 ## e.g: generateSecret:
 ##  - name: frankframework-resources
 ##    mountPath: /opt/frank/resources/resources.yml
-##    subPath: resources.yml
+##    items:
+##      - key: resources.yml
+##        path: resources.yml
 ##    stringData:
 ##      resources.yml: |-
 ##        jdbc:
