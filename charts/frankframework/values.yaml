@@ -215,7 +215,7 @@ generateConfigMap: [ ]
 ## @param generateSecret.stringData [object, nullable] StringData of the secret
 ## e.g: generateSecret:
 ##  - name: frankframework-resources
-##    mountPath: /opt/frank/resources/resources.yml
+##    mountPath: /opt/frank/resources/
 ##    items:
 ##      - key: resources.yml
 ##        path: resources.yml
