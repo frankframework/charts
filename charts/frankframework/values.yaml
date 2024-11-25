@@ -183,10 +183,11 @@ envFrom: []
 ## @param generateConfigMap.optional [boolean, nullable] Mark the configmap as optional (default false)
 ## @param generateConfigMap.defaultMode [int, nullable] Default mode of the configmap (default 0644)
 ## @param generateConfigMap.items [array, nullable] Items of the configmap
-## @param generateConfigMap.items.key [string, nullable] Key of the configmap
-## @param generateConfigMap.items.path [string, nullable] Path of the configmap
-## @param generateConfigMap.items.mode [int, nullable] Mode of the configmap
-## @param generateConfigMap.mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/secrets)
+## @param generateConfigMap.items.key [string, nullable] Key of the item
+## @param generateConfigMap.items.path [string, nullable] Path of the item to mount (appends mountPath)
+## @param generateConfigMap.items.mode [int, nullable] Mode of the item
+## @param generateConfigMap.mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/resources)
+## @param generateConfigMap.subPath [string, nullable] Item in data to mount
 ## @param generateConfigMap.readOnly [boolean, nullable] ReadOnly of the configmap (default true)
 ## @param generateConfigMap.data [object, nullable] Data of the configmap
 ## e.g: generateConfigMap:
@@ -206,19 +207,18 @@ generateConfigMap: [ ]
 ## @param generateSecret.optional [boolean, nullable] Mark the secret as optional (default false)
 ## @ param generateSecret.defaultMode [int, nullable] Default mode of the secret (default 0644)
 ## @param generateSecret.items [array, nullable] Items of the secret
-## @param generateSecret.items.key [string, nullable] Key of the secret
-## @param generateSecret.items.path [string, nullable] Path of the secret
-## @param generateSecret.items.mode [int, nullable] Mode of the secret
+## @param generateSecret.items.key [string, nullable] Key of the item
+## @param generateSecret.items.path [string, nullable] Path of the item to mount (appends mountPath)
+## @param generateSecret.items.mode [int, nullable] Mode of the item
 ## @param generateSecret.mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
+## @param generateSecret.subPath [string, nullable] Key of the item to mount
 ## @param generateSecret.readOnly [boolean, nullable] ReadOnly of the secret (default true)
 ## @param generateSecret.data [object, nullable] Data of the secret
 ## @param generateSecret.stringData [object, nullable] StringData of the secret
 ## e.g: generateSecret:
 ##  - name: frankframework-resources
-##    mountPath: /opt/frank/resources/
-##    items:
-##      - key: resources.yml
-##        path: resources.yml
+##    mountPath: /opt/frank/resources/resources.yml
+##    subPath: resources.yml
 ##    stringData:
 ##      resources.yml: |-
 ##        jdbc:
