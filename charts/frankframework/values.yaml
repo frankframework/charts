@@ -128,7 +128,7 @@ environmentVariables:
   application.server.type.custom: "NARAYANA"
   JAVA_OPTS: "-XX:MaxRAMPercentage=80.0"
 
-## @param envFrom [array] Set environment variables from configmaps or secrets
+## @param envFrom Set environment variables from configmaps or secrets
 ## @extra envFrom Example is shown in the `values.yaml` file
 ## e.g.
 ## envFrom:
@@ -137,7 +137,7 @@ environmentVariables:
 ##   - secretRef:
 ##       name: frankframework-custom-env
 ##
-envFrom: []
+envFrom: [ ]
 
 ## @section Generate ConfigMaps and Secrets
 ## @descriptionStart

@@ -100,10 +100,8 @@
         "envFrom": {
             "type": "array",
             "description": "Set environment variables from configmaps or secrets",
-            "default": "[]",
-            "items": {
-                "type": "string"
-            }
+            "default": [],
+            "items": {}
         },
         "extraVolumes": {
             "type": "array",
