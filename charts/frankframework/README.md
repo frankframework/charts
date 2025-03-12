@@ -158,18 +158,19 @@ credentialFactory.map.properties: "path to credentials.properties"
 
 For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
 
+To disable or configure authentication for the console, please read the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/advancedDevelopment/authorization/consoleAndLadybug.html).
+
 To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 
 Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
 
-| Name                                                            | Description                                                              | Value                       |
-| --------------------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------- |
-| `environmentVariables`                                          | Set environment variables for the Frank!Framework                        | `{}`                        |
-| `environmentVariables.application.server.type.custom`           | Set the transaction manager, this is needed for transactionality support | `NARAYANA`                  |
-| `environmentVariables.JAVA_OPTS`                                | Set the JAVA_OPTS for the Frank!Framework                                | `-XX:MaxRAMPercentage=80.0` |
-| `environmentVariables.application.security.http.authentication` | Set the authentication for the Frank!Framework                           | `undefined`                 |
-| `envFrom`                                                       | Set environment variables from configmaps or secrets                     | `[]`                        |
-| `envFrom`                                                       | Example is shown in the `values.yaml` file                               |                             |
+| Name                                                  | Description                                                              | Value                       |
+| ----------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------- |
+| `environmentVariables`                                | Set environment variables for the Frank!Framework                        | `{}`                        |
+| `environmentVariables.application.server.type.custom` | Set the transaction manager, this is needed for transactionality support | `NARAYANA`                  |
+| `environmentVariables.JAVA_OPTS`                      | Set the JAVA_OPTS for the Frank!Framework                                | `-XX:MaxRAMPercentage=80.0` |
+| `envFrom`                                             | Set environment variables from configmaps or secrets                     | `[]`                        |
+| `envFrom`                                             | Example is shown in the `values.yaml` file                               |                             |
 
 ### Generate ConfigMaps and Secrets
 
@@ -185,22 +186,8 @@ generateSecret:
 - name: frankframework-resources
 mountPath: "/opt/frank/resources/"
 items:
-- key: credentials.properties
-path: credentials.properties
 - key: resources.yml
 path: resources.yml
-stringData:
-credentials.properties: demo
-resources.yml: demo
-```
-
-The following example will generate a resources.yaml file in the /opt/frank/secrets folder.
-
-```yaml
-generateSecret:
-- name: frankframework-resources
-mountPath: /opt/frank/resources/resources.yml
-subPath: resources.yml
 stringData:
 resources.yml: |-
 jdbc:
@@ -209,33 +196,47 @@ type: org.h2.jdbcx.JdbcDataSource
 url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
 ```
 
-| Name                            | Description                                                           | Value       |
-| ------------------------------- | --------------------------------------------------------------------- | ----------- |
-| `generateConfigMap`             | Generate configmaps from values                                       | `{}`        |
-| `generateConfigMap`             | Example is shown in the `values.yaml` file                            |             |
-| `generateConfigMap.name`        | Name of the configmap                                                 | `undefined` |
-| `generateConfigMap.optional`    | Mark the configmap as optional (default false)                        | `undefined` |
-| `generateConfigMap.defaultMode` | Default mode of the configmap (default 0644)                          | `undefined` |
-| `generateConfigMap.items`       | Items of the configmap                                                | `undefined` |
-| `generateConfigMap.items.key`   | Key of the configmap                                                  | `undefined` |
-| `generateConfigMap.items.path`  | Path of the configmap                                                 | `undefined` |
-| `generateConfigMap.items.mode`  | Mode of the configmap                                                 | `undefined` |
-| `generateConfigMap.mountPath`   | Path where the configmap will be mounted (default /opt/frank/secrets) | `undefined` |
-| `generateConfigMap.readOnly`    | ReadOnly of the configmap (default true)                              | `undefined` |
-| `generateConfigMap.data`        | Data of the configmap                                                 | `undefined` |
-| `generateSecret`                | Generate secrets from values                                          | `{}`        |
-| `generateSecret`                | Example is shown in the `values.yaml` file                            |             |
-| `generateSecret.name`           | Name of the secret                                                    | `undefined` |
-| `generateSecret.type`           | Type of the secret (default Opaque)                                   | `undefined` |
-| `generateSecret.optional`       | Mark the secret as optional (default false)                           | `undefined` |
-| `generateSecret.items`          | Items of the secret                                                   | `undefined` |
-| `generateSecret.items.key`      | Key of the secret                                                     | `undefined` |
-| `generateSecret.items.path`     | Path of the secret                                                    | `undefined` |
-| `generateSecret.items.mode`     | Mode of the secret                                                    | `undefined` |
-| `generateSecret.mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)    | `undefined` |
-| `generateSecret.readOnly`       | ReadOnly of the secret (default true)                                 | `undefined` |
-| `generateSecret.data`           | Data of the secret                                                    | `undefined` |
-| `generateSecret.stringData`     | StringData of the secret                                              | `undefined` |
+The following example will generate a credentials.properties file in the /opt/frank/secrets/ folder.
+
+```yaml
+generateSecret:
+- name: frankframework-credentials
+mountPath: /opt/frank/secrets/
+stringData:
+credentials.properties: |-
+alias/uasername=C3PO
+alias/password=R2D2
+```
+
+| Name                            | Description                                                             | Value       |
+| ------------------------------- | ----------------------------------------------------------------------- | ----------- |
+| `generateConfigMap`             | Generate configmaps from values                                         | `{}`        |
+| `generateConfigMap`             | Example is shown in the `values.yaml` file                              |             |
+| `generateConfigMap.name`        | Name of the configmap                                                   | `undefined` |
+| `generateConfigMap.optional`    | Mark the configmap as optional (default false)                          | `undefined` |
+| `generateConfigMap.defaultMode` | Default mode of the configmap (default 0644)                            | `undefined` |
+| `generateConfigMap.items`       | Items of the configmap                                                  | `undefined` |
+| `generateConfigMap.items.key`   | Key of the item                                                         | `undefined` |
+| `generateConfigMap.items.path`  | Path of the item to mount (appends mountPath)                           | `undefined` |
+| `generateConfigMap.items.mode`  | Mode of the item                                                        | `undefined` |
+| `generateConfigMap.mountPath`   | Path where the configmap will be mounted (default /opt/frank/resources) | `undefined` |
+| `generateConfigMap.subPath`     | Item in data to mount                                                   | `undefined` |
+| `generateConfigMap.readOnly`    | ReadOnly of the configmap (default true)                                | `undefined` |
+| `generateConfigMap.data`        | Data of the configmap                                                   | `undefined` |
+| `generateSecret`                | Generate secrets from values                                            | `{}`        |
+| `generateSecret`                | Example is shown in the `values.yaml` file                              |             |
+| `generateSecret.name`           | Name of the secret                                                      | `undefined` |
+| `generateSecret.type`           | Type of the secret (default Opaque)                                     | `undefined` |
+| `generateSecret.optional`       | Mark the secret as optional (default false)                             | `undefined` |
+| `generateSecret.items`          | Items of the secret                                                     | `undefined` |
+| `generateSecret.items.key`      | Key of the item                                                         | `undefined` |
+| `generateSecret.items.path`     | Path of the item to mount (appends mountPath)                           | `undefined` |
+| `generateSecret.items.mode`     | Mode of the item                                                        | `undefined` |
+| `generateSecret.mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)      | `undefined` |
+| `generateSecret.subPath`        | Key of the item to mount                                                | `undefined` |
+| `generateSecret.readOnly`       | ReadOnly of the secret (default true)                                   | `undefined` |
+| `generateSecret.data`           | Data of the secret                                                      | `undefined` |
+| `generateSecret.stringData`     | StringData of the secret                                                | `undefined` |
 
 ### Volumes
 
@@ -304,53 +305,50 @@ The startup probe will enable blue-green deployment, which are great for uptime 
 It (and the liveness probe) will check if the console is accessible, until a better health endpoint is available.
 The readiness probe will check if all adapters are running using the server health endpoint
 
-| Name                                 | Description                                                                                                                 | Value                    |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| `replicaCount`                       | Number of Frank!Framework replicas to deploy                                                                                | `1`                      |
-| `replicaCount`                       | NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1                                                                 |                          |
-| `startupProbe`                       | Configure the startup probe                                                                                                 |                          |
-| `startupProbe`                       | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |                          |
-| `startupProbe.initialDelaySeconds`   | Initial delay seconds for startupProbe                                                                                      | `40`                     |
-| `startupProbe.periodSeconds`         | Period seconds for startupProbe                                                                                             | `10`                     |
-| `startupProbe.timeoutSeconds`        | Timeout seconds for startupProbe                                                                                            | `1`                      |
-| `startupProbe.failureThreshold`      | Failure threshold for startupProbe                                                                                          | `12`                     |
-| `startupProbe.successThreshold`      | Success threshold for startupProbe                                                                                          | `1`                      |
-| `startupProbe.httpGet.path`          | Path for startupProbe                                                                                                       | `/iaf/api/server/health` |
-| `startupProbe.httpGet.port`          | Port for startupProbe                                                                                                       | `8080`                   |
-| `livenessProbe`                      | Configure the liveness probe                                                                                                |                          |
-| `livenessProbe`                      | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |                          |
-| `livenessProbe.initialDelaySeconds`  | Initial delay seconds for livenessProbe                                                                                     | `0`                      |
-| `livenessProbe.periodSeconds`        | Period seconds for livenessProbe                                                                                            | `10`                     |
-| `livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe                                                                                           | `1`                      |
-| `livenessProbe.failureThreshold`     | Failure threshold for livenessProbe                                                                                         | `12`                     |
-| `livenessProbe.successThreshold`     | Success threshold for livenessProbe                                                                                         | `1`                      |
-| `livenessProbe.httpGet.path`         | Path for livenessProbe                                                                                                      | `/iaf/api/server/health` |
-| `livenessProbe.httpGet.port`         | Port for livenessProbe                                                                                                      | `8080`                   |
-| `readinessProbe`                     | Configure the readiness probe                                                                                               |                          |
-| `readinessProbe`                     | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |                          |
-| `readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                                                                                    | `0`                      |
-| `readinessProbe.periodSeconds`       | Period seconds for readinessProbe                                                                                           | `5`                      |
-| `readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                                                                                          | `1`                      |
-| `readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                                                                                        | `3`                      |
-| `readinessProbe.successThreshold`    | Success threshold for readinessProbe                                                                                        | `1`                      |
-| `readinessProbe.httpGet.path`        | Path for readinessProbe                                                                                                     | `/iaf/api/server/health` |
-| `readinessProbe.httpGet.port`        | Port for readinessProbe                                                                                                     | `8080`                   |
-| `resources`                          | Set the resources for the Frank!Framework containers                                                                        | `{}`                     |
-| `resources`                          | ref: https://kubernetes.io/docs/user-guide/compute-resources/                                                               |                          |
-| `resources`                          | Example is shown in the `values.yaml` file                                                                                  |                          |
-| `resources.limits`                   | The resources limits for the Frank!Framework containers                                                                     | `undefined`              |
-| `resources.requests.memory`          | The requested memory for the Frank!Framework containers                                                                     | `undefined`              |
-| `resources.requests.cpu`             | The requested cpu for the Frank!Framework containers                                                                        | `undefined`              |
-| `terminationGracePeriodSeconds`      | Number of seconds after which pods are forcefully killed                                                                    | `60`                     |
-| `terminationGracePeriodSeconds`      | Note: Lower values may cause running adapters to fail                                                                       |                          |
-| `nodeSelector`                       | Node labels for pod assignment                                                                                              | `{}`                     |
-| `nodeSelector`                       | ref: https://kubernetes.io/docs/user-guide/node-selection/                                                                  |                          |
-| `tolerations`                        | Set tolerations for pod assignment                                                                                          | `[]`                     |
-| `tolerations`                        | ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/                                                |                          |
-| `affinity`                           | Set affinity for pod assignment                                                                                             | `{}`                     |
-| `affinity`                           | Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity                          |                          |
-| `affinity`                           | NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set                        |                          |
-| `timeZone`                           | used for database connection and log timestamps                                                                             | `Etc/UTC`                |
+| Name                                 | Description                                                                                                                 | Value                                                         |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `replicaCount`                       | Number of Frank!Framework replicas to deploy                                                                                | `1`                                                           |
+| `replicaCount`                       | NOTE: ReadWriteMany PVC(s) are required if replicaCount > 1                                                                 |                                                               |
+| `startupProbe`                       | Configure the startup probe                                                                                                 |                                                               |
+| `startupProbe`                       | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |                                                               |
+| `startupProbe.initialDelaySeconds`   | Initial delay seconds for startupProbe                                                                                      | `40`                                                          |
+| `startupProbe.periodSeconds`         | Period seconds for startupProbe                                                                                             | `10`                                                          |
+| `startupProbe.timeoutSeconds`        | Timeout seconds for startupProbe                                                                                            | `1`                                                           |
+| `startupProbe.failureThreshold`      | Failure threshold for startupProbe                                                                                          | `12`                                                          |
+| `startupProbe.successThreshold`      | Success threshold for startupProbe                                                                                          | `1`                                                           |
+| `startupProbe.exec.command`          | Command for startupProbe                                                                                                    | `["curl","-f","http://127.0.0.1:8080/iaf/api/server/health"]` |
+| `livenessProbe`                      | Configure the liveness probe                                                                                                |                                                               |
+| `livenessProbe`                      | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |                                                               |
+| `livenessProbe.initialDelaySeconds`  | Initial delay seconds for livenessProbe                                                                                     | `0`                                                           |
+| `livenessProbe.periodSeconds`        | Period seconds for livenessProbe                                                                                            | `10`                                                          |
+| `livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe                                                                                           | `1`                                                           |
+| `livenessProbe.failureThreshold`     | Failure threshold for livenessProbe                                                                                         | `12`                                                          |
+| `livenessProbe.successThreshold`     | Success threshold for livenessProbe                                                                                         | `1`                                                           |
+| `livenessProbe.exec.command`         | Command for livenessProbe                                                                                                   | `["curl","-f","http://127.0.0.1:8080/iaf/api/server/health"]` |
+| `readinessProbe`                     | Configure the readiness probe                                                                                               |                                                               |
+| `readinessProbe`                     | ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes |                                                               |
+| `readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                                                                                    | `0`                                                           |
+| `readinessProbe.periodSeconds`       | Period seconds for readinessProbe                                                                                           | `5`                                                           |
+| `readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                                                                                          | `1`                                                           |
+| `readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                                                                                        | `3`                                                           |
+| `readinessProbe.successThreshold`    | Success threshold for readinessProbe                                                                                        | `1`                                                           |
+| `readinessProbe.exec.command`        | Command for readinessProbe                                                                                                  | `["curl","-f","http://127.0.0.1:8080/iaf/api/server/health"]` |
+| `resources`                          | Set the resources for the Frank!Framework containers                                                                        | `{}`                                                          |
+| `resources`                          | ref: https://kubernetes.io/docs/user-guide/compute-resources/                                                               |                                                               |
+| `resources`                          | Example is shown in the `values.yaml` file                                                                                  |                                                               |
+| `resources.limits`                   | The resources limits for the Frank!Framework containers                                                                     | `undefined`                                                   |
+| `resources.requests.memory`          | The requested memory for the Frank!Framework containers                                                                     | `undefined`                                                   |
+| `resources.requests.cpu`             | The requested cpu for the Frank!Framework containers                                                                        | `undefined`                                                   |
+| `terminationGracePeriodSeconds`      | Number of seconds after which pods are forcefully killed                                                                    | `60`                                                          |
+| `terminationGracePeriodSeconds`      | Note: Lower values may cause running adapters to fail                                                                       |                                                               |
+| `nodeSelector`                       | Node labels for pod assignment                                                                                              | `{}`                                                          |
+| `nodeSelector`                       | ref: https://kubernetes.io/docs/user-guide/node-selection/                                                                  |                                                               |
+| `tolerations`                        | Set tolerations for pod assignment                                                                                          | `[]`                                                          |
+| `tolerations`                        | ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/                                                |                                                               |
+| `affinity`                           | Set affinity for pod assignment                                                                                             | `{}`                                                          |
+| `affinity`                           | Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity                          |                                                               |
+| `affinity`                           | NOTE: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set                        |                                                               |
+| `timeZone`                           | used for database connection and log timestamps                                                                             | `Etc/UTC`                                                     |
 
 ### Traffic Exposure Parameters
 

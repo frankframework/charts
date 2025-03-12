@@ -352,8 +352,7 @@ replicaCount: 1
 ## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
 ## @param startupProbe.failureThreshold Failure threshold for startupProbe
 ## @param startupProbe.successThreshold Success threshold for startupProbe
-## @param startupProbe.httpGet.path Path for startupProbe
-## @param startupProbe.httpGet.port Port for startupProbe
+## @param startupProbe.exec.command Command for startupProbe
 ##
 startupProbe:
   initialDelaySeconds: 40
@@ -361,9 +360,11 @@ startupProbe:
   timeoutSeconds: 1
   failureThreshold: 12
   successThreshold: 1
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+  exec:
+    command:
+      - curl
+      - -f
+      - http://127.0.0.1:8080/iaf/api/server/health
 
 ## @extra livenessProbe Configure the liveness probe
 ## @extra livenessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
@@ -372,8 +373,7 @@ startupProbe:
 ## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
 ## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
-## @param livenessProbe.httpGet.path Path for livenessProbe
-## @param livenessProbe.httpGet.port Port for livenessProbe
+## @param livenessProbe.exec.command Command for livenessProbe
 ##
 livenessProbe:
   initialDelaySeconds: 0
@@ -381,9 +381,11 @@ livenessProbe:
   timeoutSeconds: 1
   failureThreshold: 12
   successThreshold: 1
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+  exec:
+    command:
+      - curl
+      - -f
+      - http://127.0.0.1:8080/iaf/api/server/health
 
 ## @extra readinessProbe Configure the readiness probe
 ## @extra readinessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
@@ -392,8 +394,7 @@ livenessProbe:
 ## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
 ## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
 ## @param readinessProbe.successThreshold Success threshold for readinessProbe
-## @param readinessProbe.httpGet.path Path for readinessProbe
-## @param readinessProbe.httpGet.port Port for readinessProbe
+## @param readinessProbe.exec.command Command for readinessProbe
 ##
 readinessProbe:
   initialDelaySeconds: 0
@@ -401,9 +402,11 @@ readinessProbe:
   timeoutSeconds: 1
   failureThreshold: 3
   successThreshold: 1
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+  exec:
+    command:
+      - curl
+      - -f
+      - http://127.0.0.1:8080/iaf/api/server/health
 
 ## @param resources [object] Set the resources for the Frank!Framework containers
 ## @extra resources ref: https://kubernetes.io/docs/user-guide/compute-resources/
