@@ -727,6 +727,23 @@ entries:
     version: 0.1.0
   frank2example:
   - apiVersion: v2
+    created: "2025-03-13T14:34:35.635216781Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.5.5
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: fdf78c7993d46b2d8ff5e5fe6b11a0fd681582bab08685c978621bcf9345cd8d
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.5.4/frank2example-0.5.4.tgz
+    version: 0.5.4
+  - apiVersion: v2
     created: "2025-03-12T10:24:30.331661924Z"
     dependencies:
     - name: frankframework
@@ -1173,6 +1190,34 @@ entries:
   frankframework:
   - apiVersion: v2
     appVersion: 9.1.0-SNAPSHOT
+    created: "2025-03-13T14:34:35.76762588Z"
+    dependencies:
+    - alias: console
+      condition: console.enabled
+      name: frank-console
+      repository: file://../frank-console
+      version: 0.5.1
+    - alias: ladybugDatabase
+      condition: ladybugDatabase.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.0.0
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: 33ff0f7d23e77aa8789d6c445ad0e2dc30c58416c8fc22daf944ae1e832ad15a
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    keywords:
+    - frankframework
+    - integration
+    - testing
+    - automation
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.5.5/frankframework-0.5.5.tgz
+    version: 0.5.5
+  - apiVersion: v2
+    appVersion: 9.1.0-SNAPSHOT
     created: "2025-03-12T10:24:30.474548974Z"
     dependencies:
     - alias: console
@@ -1599,4 +1644,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2025-03-12T10:24:30.474844326Z"
+generated: "2025-03-13T14:34:35.767900743Z"
