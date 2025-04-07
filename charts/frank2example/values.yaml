@@ -38,7 +38,9 @@ frankframework:
   ##
   environmentVariables:
     application.security.console.authentication.type: NONE
-    application.security.testtool.authentication.type: NONE
+    application.security.http.authenticators: noAuth
+    application.security.http.authenticators.noAuth.type: NONE
+    servlet.LarvaServlet.authenticator: noAuth
     jdbc.datasource.default: "jdbc/frank2example"
 
   ## @skip frankframework.generateSecret
