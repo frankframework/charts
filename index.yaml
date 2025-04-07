@@ -727,6 +727,23 @@ entries:
     version: 0.1.0
   frank2example:
   - apiVersion: v2
+    created: "2025-04-07T13:14:36.210300376Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.5.5
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: aa819ba1417b39043cece59ac016f6133bbbf370e1ffa9450653e9694e6cd4e4
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.5.5/frank2example-0.5.5.tgz
+    version: 0.5.5
+  - apiVersion: v2
     created: "2025-03-13T14:34:35.635216781Z"
     dependencies:
     - name: frankframework
@@ -1644,4 +1661,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2025-03-13T14:34:35.767900743Z"
+generated: "2025-04-07T13:14:36.210594754Z"
