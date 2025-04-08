@@ -40,7 +40,6 @@ image:
 ## @section Frank! Configuration parameters
 ##
 
-## @skip frank [object]
 ##
 frank:
   ## @param frank.memory.percentage Set if the values for the memory are in percentages
@@ -54,26 +53,21 @@ frank:
     percentage: false
     minimum: 4G
     maximum: 4G
-  ## @skip frank.dtap [object]
   ## @param frank.dtap.stage (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
   ## @param frank.dtap.side Set the `DTAP` side of where the instance is running
   ##
   dtap:
     stage: ""
     side: ""
-  ## @skip frank.credentials [object]
   ## @param frank.credentials.secret Set the secret name of the existing secret
   ## @param frank.credentials.key Set the key inside the secret that contains the data (e.g. `credentials.properties`)
   ##
   credentials:
     secret: ""
     key: ""
-  ## @skip frank.instance [string]
   ## @param frank.instance.name Set the name of the Frank! instance (default is the `fullname`)
-  ##
   instance:
     name: ""
-  ## @skip frank.configurations [object]
   ## @param frank.configurations.names [array] Set the configurations to load. Leave empty to use the default
   ## e.g.
   ## configurations.names:
@@ -81,13 +75,11 @@ frank:
   ##
   configurations:
     names: []
-  ## @skip frank.security [object]
-  ## @skip frank.security.http [object]
-  ##
+
   security:
     ## @param frank.security.certificateStores [array] Define certificate (key/trust) stores to mount in the resources folder of the Frank!
-    ## @param frank.security.certificateStores.secretName [string] Name of the secret where the certificate store is located in
-    ## @param frank.security.certificateStores.key [string] The key in the secret where the certificate store is located in
+    ## @param frank.security.certificateStores.secretName [string, nullable] Name of the secret where the certificate store is located in
+    ## @param frank.security.certificateStores.key [string,nullable] The key in the secret where the certificate store is located in
     ## @param frank.security.certificateStores.resourceUrl [string, nullable] The path to the certificate store in the Resource folder, the key will be used as default value
     ##
     certificateStores: []
@@ -96,9 +88,9 @@ frank:
       ##
       authentication: false
       ## @param frank.security.http.localUsers [array] Set localUsers who can log in on the Frank!
-      ## @param frank.security.http.localUsers.username [string] Set the username of the user
-      ## @param frank.security.http.localUsers.password [string] Set the password of the user
-      ## @param frank.security.http.localUsers.roles [array] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
+      ## @param frank.security.http.localUsers.username [string,nullable] Set the username of the user
+      ## @param frank.security.http.localUsers.password [string,nullable] Set the password of the user
+      ## @param frank.security.http.localUsers.roles [array, nullable] Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver`
       ## e.g.
       ## localUsers:
       ##   - username: Tester
@@ -107,11 +99,9 @@ frank:
       ##        - IbisTester
       ##
       localUsers: []
-      ## @skip frank.security.http.activeDirectory [object]
       ## @param frank.security.http.activeDirectory.enabled Enable Active Directory for authentication
       ## @param frank.security.http.activeDirectory.url Set url for Active Directory
       ## @param frank.security.http.activeDirectory.baseDn Set baseDn for Active Directory users
-      ## @skip frank.security.http.activeDirectory.roleMapping [object]
       ## @param frank.security.http.activeDirectory.roleMapping.tester Map the role for Tester
       ## @param frank.security.http.activeDirectory.roleMapping.dataAdmin Map the role for DataAdmin
       ## @param frank.security.http.activeDirectory.roleMapping.admin Map the role for Admin
@@ -149,28 +139,27 @@ frank:
 ## @section Frank!Framework Connection parameters
 ##
 
-## @skip connections [object]
 ##
 connections:
   ## @param connections.create Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.
   ##
   create: true
   ## @param connections.jdbc [array] Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)
-  ## @param connections.jdbc.name [nullable,string] Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)
-  ## @param connections.jdbc.type [string] DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`
-  ## @param connections.jdbc.host [string] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @param connections.jdbc.post [nullable,string] Port for the database (leave empty for default)
-  ## @param connections.jdbc.database [nullable,string] Name of the database to use (default is `.Values.instance.name`)
-  ## @param connections.jdbc.username [string] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
-  ## @param connections.jdbc.password [string] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
-  ## @param connections.jdbc.ssl [nullable,string] Set to `true` is the connection uses SSL, default is `false`
+  ## @extra connections.jdbc.name Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)
+  ## @extra connections.jdbc.type DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`
+  ## @extra connections.jdbc.host Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @extra connections.jdbc.post Port for the database (leave empty for default)
+  ## @extra connections.jdbc.database Name of the database to use (default is `.Values.instance.name`)
+  ## @extra connections.jdbc.username Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
+  ## @extra connections.jdbc.password Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
+  ## @extra connections.jdbc.ssl Set to `true` is the connection uses SSL, default is `false`
   ##
   jdbc: []
   ## @param connections.jms [array] Set multiple message services
-  ## @param connections.jms.name [nullable,string] Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
-  ## @param connections.jms.type [string] MQ type. Options: `artemis`, `activemq`
-  ## @param connections.jms.host [string] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @param connections.jms.post [nullable,string] Port for the MQ (leave empty for default)
+  ## @extra connections.jms.name Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
+  ## @extra connections.jms.type MQ type. Options: `artemis`, `activemq`
+  ## @extra connections.jms.host Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @extra connections.jms.post Port for the MQ (leave empty for default)
   ##
   jms: []
 
@@ -326,11 +315,9 @@ ingress:
   ##   kubernetes.io/tls-acme: 'true'
   ##
   annotations: {}
-  ## @param ingress.hosts [array] Set hosts for ingress
-  ## @param ingress.hosts.host [string] Set hostname
-  ## @param ingress.hosts.paths [array] Set multiple paths
-  ## @param ingress.hosts.paths.path [string] Set path (context url)
-  ## @param ingress.hosts.paths.pathType [string] Set type of path
+  ## @param ingress.hosts[0].host Set hostname
+  ## @param ingress.hosts[0].paths[0].path Set path (context url)
+  ## @param ingress.hosts[0].paths[0].pathType Set type of path
   ##
   hosts:
     - host: chart-example.local
