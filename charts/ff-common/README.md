@@ -50,14 +50,14 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `frank.instance.name`                                        | Set the name of the Frank! instance (default is the `fullname`)                                                  | `""`        |
 | `frank.configurations.names`                                 | Set the configurations to load. Leave empty to use the default                                                   | `[]`        |
 | `frank.security.certificateStores`                           | Define certificate (key/trust) stores to mount in the resources folder of the Frank!                             | `[]`        |
-| `frank.security.certificateStores.secretName`                | Name of the secret where the certificate store is located in                                                     | `""`        |
-| `frank.security.certificateStores.key`                       | The key in the secret where the certificate store is located in                                                  | `""`        |
+| `frank.security.certificateStores.secretName`                | Name of the secret where the certificate store is located in                                                     | `undefined` |
+| `frank.security.certificateStores.key`                       | The key in the secret where the certificate store is located in                                                  | `undefined` |
 | `frank.security.certificateStores.resourceUrl`               | The path to the certificate store in the Resource folder, the key will be used as default value                  | `undefined` |
 | `frank.security.http.authentication`                         | Set http authentication for the Frank!                                                                           | `false`     |
 | `frank.security.http.localUsers`                             | Set localUsers who can log in on the Frank!                                                                      | `[]`        |
-| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `""`        |
-| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `""`        |
-| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `[]`        |
+| `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `undefined` |
+| `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `undefined` |
+| `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `undefined` |
 | `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false`     |
 | `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`        |
 | `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`        |
@@ -77,19 +77,19 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | `connections.create`        | Create a `context.xml` and possibly overwrite the existing one, to configure the connections/resources.                                              | `true` |
 | `connections.jdbc`          | Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set) | `[]`   |
-| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    | `""`   |
-| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            | `""`   |
-| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  | `""`   |
-| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      | `""`   |
-| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     | `""`   |
-| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    | `""`   |
-| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    | `""`   |
-| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         | `""`   |
+| `connections.jdbc.name`     | Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)                                                    |        |
+| `connections.jdbc.type`     | DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`                                                            |        |
+| `connections.jdbc.host`     | Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                  |        |
+| `connections.jdbc.post`     | Port for the database (leave empty for default)                                                                                                      |        |
+| `connections.jdbc.database` | Name of the database to use (default is `.Values.instance.name`)                                                                                     |        |
+| `connections.jdbc.username` | Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)                                    |        |
+| `connections.jdbc.password` | Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)                                    |        |
+| `connections.jdbc.ssl`      | Set to `true` is the connection uses SSL, default is `false`                                                                                         |        |
 | `connections.jms`           | Set multiple message services                                                                                                                        | `[]`   |
-| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     | `""`   |
-| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              | `""`   |
-| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        | `""`   |
-| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            | `""`   |
+| `connections.jms.name`      | Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)                                                     |        |
+| `connections.jms.type`      | MQ type. Options: `artemis`, `activemq`                                                                                                              |        |
+| `connections.jms.host`      | Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)                                        |        |
+| `connections.jms.post`      | Port for the MQ (leave empty for default)                                                                                                            |        |
 
 ### Frank!Framework deployment parameters
 
@@ -132,19 +132,17 @@ The readiness probe will check if all adapters are running using the server heal
 
 ### Traffic Exposure Parameters
 
-| Name                           | Description                                                                                                                      | Value       |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `service.type`                 | Frank!Framework service type                                                                                                     | `ClusterIP` |
-| `service.port`                 | Frank!Framework service port                                                                                                     | `80`        |
-| `ingress.enabled`              | Enable ingress record generation for Frank!                                                                                      | `false`     |
-| `ingress.className`            | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`        |
-| `ingress.annotations`          | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`        |
-| `ingress.hosts`                | Set hosts for ingress                                                                                                            | `[]`        |
-| `ingress.hosts.host`           | Set hostname                                                                                                                     | `""`        |
-| `ingress.hosts.paths`          | Set multiple paths                                                                                                               | `[]`        |
-| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                           | `""`        |
-| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                 | `""`        |
-| `ingress.tls`                  | Define tls secrets for hosts (implementation not done yet)                                                                       | `[]`        |
+| Name                                 | Description                                                                                                                      | Value                    |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `service.type`                       | Frank!Framework service type                                                                                                     | `ClusterIP`              |
+| `service.port`                       | Frank!Framework service port                                                                                                     | `80`                     |
+| `ingress.enabled`                    | Enable ingress record generation for Frank!                                                                                      | `false`                  |
+| `ingress.className`                  | IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)                                                       | `""`                     |
+| `ingress.annotations`                | Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations. | `{}`                     |
+| `ingress.hosts[0].host`              | Set hostname                                                                                                                     | `chart-example.local`    |
+| `ingress.hosts[0].paths[0].path`     | Set path (context url)                                                                                                           | `/`                      |
+| `ingress.hosts[0].paths[0].pathType` | Set type of path                                                                                                                 | `ImplementationSpecific` |
+| `ingress.tls`                        | Define tls secrets for hosts (implementation not done yet)                                                                       | `[]`                     |
 
 ### Other Parameters
 
