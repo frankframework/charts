@@ -74,23 +74,29 @@ ports:
 {{- if .Values.probesEnabled.startupProbe }}
 startupProbe:
   {{- toYaml .Values.startupProbe | nindent 2 }}
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+  exec:
+    command:
+      - curl
+      - -f
+      - http://127.0.0.1:8080/iaf/api/server/health
 {{- end }}
 {{- if .Values.probesEnabled.livenessProbe }}
 livenessProbe:
   {{- toYaml .Values.livenessProbe | nindent 2 }}
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+  exec:
+    command:
+      - curl
+      - -f
+      - http://127.0.0.1:8080/iaf/api/server/health
 {{- end }}
 {{- if .Values.probesEnabled.readinessProbe }}
 readinessProbe:
   {{- toYaml .Values.readinessProbe | nindent 2 }}
-  httpGet:
-    path: /iaf/api/server/health
-    port: 8080
+  exec:
+    command:
+      - curl
+      - -f
+      - http://127.0.0.1:8080/iaf/api/server/health
 {{- end }}
 {{- with .Values.resources }}
 resources:
