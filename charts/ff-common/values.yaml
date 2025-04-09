@@ -145,21 +145,21 @@ connections:
   ##
   create: true
   ## @param connections.jdbc [array] Set multiple database connections. One connection should have an empty name, so it'll get picked up by default (unless `jdbc.required=false` is set)
-  ## @extra connections.jdbc.name Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)
-  ## @extra connections.jdbc.type DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`
-  ## @extra connections.jdbc.host Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @extra connections.jdbc.post Port for the database (leave empty for default)
-  ## @extra connections.jdbc.database Name of the database to use (default is `.Values.instance.name`)
-  ## @extra connections.jdbc.username Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
-  ## @extra connections.jdbc.password Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
-  ## @extra connections.jdbc.ssl Set to `true` is the connection uses SSL, default is `false`
+  ## @param connections.jdbc.name [string, nullable] Name of the connection (leave empty to use default: `jdbc/${.Values.instance.name}` in lowercase)
+  ## @param connections.jdbc.type [string, nullable] DBMS type. Options: `oracle`, `mssql`, `mysql`, `mariadb`, `postgresql`, `db2`, `mongodb`
+  ## @param connections.jdbc.host [string, nullable] Host of where the database can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.jdbc.post [string, nullable] Port for the database (leave empty for default)
+  ## @param connections.jdbc.database [string, nullable] Name of the database to use (default is `.Values.instance.name`)
+  ## @param connections.jdbc.username [string, nullable] Username to connect to the database (or use string template for use with credentials e.g. `${database/username}`)
+  ## @param connections.jdbc.password [string, nullable] Password to connect to the database (or use string template for use with credentials e.g. `${database/password}`)
+  ## @param connections.jdbc.ssl [string, nullable] Set to `true` is the connection uses SSL, default is `false`
   ##
   jdbc: []
   ## @param connections.jms [array] Set multiple message services
-  ## @extra connections.jms.name Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
-  ## @extra connections.jms.type MQ type. Options: `artemis`, `activemq`
-  ## @extra connections.jms.host Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
-  ## @extra connections.jms.post Port for the MQ (leave empty for default)
+  ## @param connections.jms.name [string, nullable] Name of the connection (leave empty to use default: `jms/${.Values.instance.name}` in lowercase)
+  ## @param connections.jms.type [string, nullable] MQ type. Options: `artemis`, `activemq`
+  ## @param connections.jms.host [string, nullable] Host of where the MQ can be reached (like in the same cluster e.g. `<service>.<namespace>.svc.cluster.local`)
+  ## @param connections.jms.post [string, nullable] Port for the MQ (leave empty for default)
   ##
   jms: []
 
