@@ -2,7 +2,7 @@
 ConfigMap for generating a tomcat-users.xml including all users and roles
 */}}
 {{- define "ff-common.configmap.tomcat-users.tpl" -}}
-{{- if .Values.frank.security.http.localUsers -}}
+{{- if and .Values.frank.security.http.localUsers (not .Values.frank.security.http.localUsersExistingSecret) -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
