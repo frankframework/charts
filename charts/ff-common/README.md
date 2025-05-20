@@ -58,6 +58,7 @@ Whereas the sub-chart can only be used "as is", the library can be modified in y
 | `frank.security.http.localUsers.username`                    | Set the username of the user                                                                                     | `undefined` |
 | `frank.security.http.localUsers.password`                    | Set the password of the user                                                                                     | `undefined` |
 | `frank.security.http.localUsers.roles`                       | Set the roles of the user. Options: `IbisTester`, `IbisDataAdmin`, `IbisAdmin`, `IbisWebService`, `IbisObserver` | `undefined` |
+| `frank.security.http.localUsersExistingSecret`               | The name of the existing secret, containing the 'tomcat-users.xml' and 'localUsers.yml' files.                   | `""`        |
 | `frank.security.http.activeDirectory.enabled`                | Enable Active Directory for authentication                                                                       | `false`     |
 | `frank.security.http.activeDirectory.url`                    | Set url for Active Directory                                                                                     | `""`        |
 | `frank.security.http.activeDirectory.baseDn`                 | Set baseDn for Active Directory users                                                                            | `""`        |
