@@ -21,7 +21,7 @@ envFrom:
 {{- if .Values.ladybugDatabase.auth.existingSecret }}
 env:
   - name: "spring_profiles_active"
-    value: "ladybug.database"
+    value: "ladybug-database"
 {{- end }}
 volumeMounts:
   - name: {{ template "frank-console.fullname" . }}-hazelcast-network
