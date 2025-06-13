@@ -96,6 +96,12 @@
             "description": "The arguments to pass to the command",
             "default": ""
         },
+        "ports": {
+            "type": "array",
+            "description": "The ports to expose in the container",
+            "default": [],
+            "items": {}
+        },
         "environmentVariables": {
             "type": "object",
             "properties": {

@@ -105,6 +105,9 @@ ports:
   - name: multicast
     containerPort: 54327
     protocol: TCP
+  {{- with .Values.ports }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
 {{- with .Values.startupProbe }}
 startupProbe:
   {{- toYaml . | nindent 2 }}

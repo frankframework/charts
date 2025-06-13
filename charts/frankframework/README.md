@@ -146,6 +146,7 @@ This section contains some parameters that are used to configure the deployment 
 | --------- | ------------------------------------ | ----- |
 | `command` | The command to run in the container  | `""`  |
 | `args`    | The arguments to pass to the command | `""`  |
+| `ports`   | The ports to expose in the container | `[]`  |
 
 ### Environment variables
 
