@@ -1268,6 +1268,34 @@ entries:
   frankframework:
   - apiVersion: v2
     appVersion: 9.2.0-SNAPSHOT
+    created: "2025-06-13T11:02:07.294207204Z"
+    dependencies:
+    - alias: console
+      condition: console.enabled
+      name: frank-console
+      repository: file://../frank-console
+      version: 0.5.2
+    - alias: ladybugDatabase
+      condition: ladybugDatabase.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.0.0
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: 94b5291c611513d7facf6ed42c9362e9fb5ea9a90f6ca24c5c0113792f2afe4e
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    keywords:
+    - frankframework
+    - integration
+    - testing
+    - automation
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.5.7/frankframework-0.5.7.tgz
+    version: 0.5.7
+  - apiVersion: v2
+    appVersion: 9.2.0-SNAPSHOT
     created: "2025-06-10T13:33:01.55039283Z"
     dependencies:
     - alias: console
@@ -1750,4 +1778,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2025-06-10T13:33:01.550747898Z"
+generated: "2025-06-13T11:02:07.294500262Z"
