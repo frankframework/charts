@@ -8,6 +8,14 @@ securityContext:
 image: "{{ .Values.image.registry }}{{ if .Values.image.registry }}/{{ end }}{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
 imagePullPolicy: {{ .Values.image.pullPolicy }}
 terminationMessagePolicy: FallbackToLogsOnError
+{{- with .Values.command }}
+command:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- with .Values.args }}
+args:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
 envFrom:
   - configMapRef:
       name: {{ template "frankframework.fullname" . }}-env

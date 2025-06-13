@@ -138,6 +138,15 @@ You can also configure the name of the instance. And what configurations to load
 | `application.properties`           | ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties                                                     |       |
 | `application.properties`           | implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java                        |       |
 
+### Container
+
+This section contains some parameters that are used to configure the deployment container of the Frank!Framework.
+
+| Name      | Description                          | Value |
+| --------- | ------------------------------------ | ----- |
+| `command` | The command to run in the container  | `""`  |
+| `args`    | The arguments to pass to the command | `""`  |
+
 ### Environment variables
 
 The environment variables are used to configure the Frank!Framework.

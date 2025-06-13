@@ -86,6 +86,16 @@
                 }
             }
         },
+        "command": {
+            "type": "string",
+            "description": "The command to run in the container",
+            "default": ""
+        },
+        "args": {
+            "type": "string",
+            "description": "The arguments to pass to the command",
+            "default": ""
+        },
         "environmentVariables": {
             "type": "object",
             "properties": {

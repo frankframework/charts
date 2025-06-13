@@ -92,6 +92,16 @@ application:
   ##
   properties: { }
 
+## @section Container
+## @descriptionStart
+## This section contains some parameters that are used to configure the deployment container of the Frank!Framework.
+## @descriptionEnd
+
+## @param command The command to run in the container
+command: ""
+## @param args The arguments to pass to the command
+args: ""
+
 ## @section Environment variables
 ## @descriptionStart
 ## The environment variables are used to configure the Frank!Framework.
