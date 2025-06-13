@@ -98,9 +98,9 @@ application:
 ## @descriptionEnd
 
 ## @param command The command to run in the container
-command: ""
+command: []
 ## @param args The arguments to pass to the command
-args: ""
+args: []
 ## @param ports The ports to expose in the container
 ports: []
 

@@ -87,14 +87,16 @@
             }
         },
         "command": {
-            "type": "string",
+            "type": "array",
             "description": "The command to run in the container",
-            "default": ""
+            "default": [],
+            "items": {}
         },
         "args": {
-            "type": "string",
+            "type": "array",
             "description": "The arguments to pass to the command",
-            "default": ""
+            "default": [],
+            "items": {}
         },
         "ports": {
             "type": "array",
