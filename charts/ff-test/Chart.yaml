@@ -1,7 +1,7 @@
 apiVersion: v2
 name: ff-test
 description: A Helm chart for testing the Frank!Framework on Kubernetes
-version: 0.5.0
+version: 0.5.1
 appVersion: "9.0.0-SNAPSHOT-tomcat"
 type: application
 home: https://frankframework.org
@@ -12,5 +12,5 @@ keywords:
 
 dependencies:
   - name: frankframework
-    version: 0.5.0
+    version: 0.5.10
     repository: file://../frankframework

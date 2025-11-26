@@ -303,6 +303,7 @@ Some of the parameters are pre-configured for an easy installation, but can be c
 | Name                                            | Description                                                                                     | Value                                  |
 | ----------------------------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------- |
 | `ladybugDatabase.enabled`                       | Enable the Ladybug Database (PostgreSQL dependency)                                             | `true`                                 |
+| `ladybugDatabase.image.repository`              | Override the image repository of the Ladybug Database dependency                                | `bitnamilegacy/postgresql`             |
 | `ladybugDatabase.nameOverride`                  | Override the name of the Ladybug Database dependency                                            | `ladybug-database`                     |
 | `ladybugDatabase.primary.persistence.enabled`   | Enable persistence for the Ladybug Database dependency (default is false for easy installation) | `false`                                |
 | `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency                                  | `true`                                 |

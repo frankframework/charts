@@ -178,6 +178,16 @@
                     "description": "Enable the Ladybug Database (PostgreSQL dependency)",
                     "default": true
                 },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string",
+                            "description": "Override the image repository of the Ladybug Database dependency",
+                            "default": "bitnamilegacy/postgresql"
+                        }
+                    }
+                },
                 "nameOverride": {
                     "type": "string",
                     "description": "Override the name of the Ladybug Database dependency",

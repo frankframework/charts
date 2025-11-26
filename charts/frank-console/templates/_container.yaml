@@ -31,6 +31,8 @@ volumeMounts:
   {{- if .Values.securityContext.readOnlyRootFilesystem }}
   - mountPath: /heap-dumps
     name: tmpfs
+  - mountPath: /tmp
+    name: tmpfs
   {{- end }}
   {{- range $configMap := .Values.generateConfigMap }}
   {{- if $configMap.items }}

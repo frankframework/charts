@@ -326,6 +326,7 @@ console:
 ## @descriptionEnd
 
 ## @param ladybugDatabase.enabled Enable the Ladybug Database (PostgreSQL dependency)
+## @param ladybugDatabase.image.repository Override the image repository of the Ladybug Database dependency
 ## @param ladybugDatabase.nameOverride Override the name of the Ladybug Database dependency
 ## @param ladybugDatabase.primary.persistence.enabled Enable persistence for the Ladybug Database dependency (default is false for easy installation)
 ## @param ladybugDatabase.auth.generatePostgresqlSecret Enable the generation of secrets for the PostgreSQL dependency
@@ -335,6 +336,8 @@ console:
 ##
 ladybugDatabase:
   enabled: true
+  image:
+    repository: bitnamilegacy/postgresql
   nameOverride: ladybug-database
   primary:
     persistence:
