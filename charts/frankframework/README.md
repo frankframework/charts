@@ -416,6 +416,10 @@ The readiness probe will check if all adapters are running using the server heal
 
 ## Notable changes
 
+### 0.6.0
+
+Updated the Frank!Framework version to `9.4.0-SNAPSHOT`.
+
 ### 0.5.0
 
 Added a Ladybug Database (PostgreSQL variant) to the Chart. 
