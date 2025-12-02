@@ -7,7 +7,7 @@
 frankframework:
   ## @param frankframework.image.registry frank2example image registry
   ## @param frankframework.image.repository frank2example image repository
-  ## @param frankframework.image.tag frank2example image tag (immutable tags are recommended)
+  ## @param frankframework.image.tag frank2example image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version
   ## @param frankframework.image.pullPolicy frank2example image pull policy
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -24,7 +24,7 @@ frankframework:
   image:
     registry: nexus.frankframework.org
     repository: ff-test
-    tag: "9.0.0-SNAPSHOT-tomcat"
+    tag: ""
     pullPolicy: Always
     pullSecrets: []
 

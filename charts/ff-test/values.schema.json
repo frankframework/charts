@@ -20,8 +20,8 @@
                         },
                         "tag": {
                             "type": "string",
-                            "description": "frank2example image tag (immutable tags are recommended)",
-                            "default": "9.0.0-SNAPSHOT-tomcat"
+                            "description": "frank2example image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version",
+                            "default": ""
                         },
                         "pullPolicy": {
                             "type": "string",

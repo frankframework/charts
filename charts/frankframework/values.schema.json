@@ -27,7 +27,7 @@
                 },
                 "tag": {
                     "type": "string",
-                    "description": "Frank!Framework image tag (immutable tags are recommended)",
+                    "description": "Frank!Framework image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version",
                     "default": ""
                 },
                 "pullPolicy": {

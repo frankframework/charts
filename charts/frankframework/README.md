@@ -54,6 +54,15 @@ The Frank!Framework will start with different settings enabled, depending on wha
 
 For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
 
+### Version tag
+
+This chart defines the minimum required version of the Frank!Framework image.
+To update to a newer version, you can set the `image.tag` parameter to the desired version. Immutable tags are recommended.
+
+See available versions here: https://hub.docker.com/r/frankframework/frankframework/tags
+
+This is also applicable for the Frank!Framework console, if enabled. The same tag can be used.
+
 ### Authentication
 
 The usage of an authenticator is based on the `dtap.stage`.
@@ -102,20 +111,20 @@ https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrank
 If you want to use a specific nightly, you can use the images on docker.io:
 https://hub.docker.com/r/frankframework/frankframework/tags
 
-| Name                | Description                                                                                | Value                      |
-| ------------------- | ------------------------------------------------------------------------------------------ | -------------------------- |
-| `image.registry`    | Frank!Framework image registry                                                             | `nexus.frankframework.org` |
-| `image.repository`  | Frank!Framework image repository                                                           | `frankframework`           |
-| `image.tag`         | Frank!Framework image tag (immutable tags are recommended)                                 | `""`                       |
-| `image.pullPolicy`  | Frank!Framework image pull policy                                                          | `IfNotPresent`             |
-| `image.pullPolicy`  | Specify a imagePullPolicy                                                                  |                            |
-| `image.pullPolicy`  | Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'                  |                            |
-| `image.pullPolicy`  | ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images                      |                            |
-| `image.pullSecrets` | Frank!Framework image pull secrets                                                         | `[]`                       |
-| `image.pullSecrets` | Optionally specify an array of imagePullSecrets.                                           |                            |
-| `image.pullSecrets` | Secrets must be manually created in the namespace.                                         |                            |
-| `image.pullSecrets` | ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/ |                            |
-| `image.pullSecrets` | Example is shown in the `values.yaml` file                                                 |                            |
+| Name                | Description                                                                                                                | Value                      |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `image.registry`    | Frank!Framework image registry                                                                                             | `nexus.frankframework.org` |
+| `image.repository`  | Frank!Framework image repository                                                                                           | `frankframework`           |
+| `image.tag`         | Frank!Framework image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version | `""`                       |
+| `image.pullPolicy`  | Frank!Framework image pull policy                                                                                          | `IfNotPresent`             |
+| `image.pullPolicy`  | Specify a imagePullPolicy                                                                                                  |                            |
+| `image.pullPolicy`  | Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'                                                  |                            |
+| `image.pullPolicy`  | ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images                                                      |                            |
+| `image.pullSecrets` | Frank!Framework image pull secrets                                                                                         | `[]`                       |
+| `image.pullSecrets` | Optionally specify an array of imagePullSecrets.                                                                           |                            |
+| `image.pullSecrets` | Secrets must be manually created in the namespace.                                                                         |                            |
+| `image.pullSecrets` | ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/                                 |                            |
+| `image.pullSecrets` | Example is shown in the `values.yaml` file                                                                                 |                            |
 
 ### Frank!Framework application parameters
 

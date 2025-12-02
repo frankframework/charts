@@ -27,7 +27,7 @@
                 },
                 "tag": {
                     "type": "string",
-                    "description": "Frank!Framework Console image tag (immutable tags are recommended)",
+                    "description": "Frank!Framework Console image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version",
                     "default": ""
                 },
                 "pullPolicy": {
@@ -50,6 +50,12 @@
                     "type": "string",
                     "description": "Set the JAVA_OPTS for the Frank!Framework",
                     "default": "-XX:MaxRAMPercentage=80.0",
+                    "nullable": true
+                },
+                "spring_profiles_active": {
+                    "type": "string",
+                    "description": "Set the active Spring profiles for the Frank!Framework (default enables the ladybug-database profile)",
+                    "default": "ladybug-database",
                     "nullable": true
                 }
             }

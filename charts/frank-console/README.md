@@ -51,20 +51,20 @@ https://nexus.frankframework.org/#browse/browse:frankframework-docker:v2%2Ffrank
 If you want to use a specific nightly, you can use the images on docker.io:
 https://hub.docker.com/r/frankframework/frankframework/tags
 
-| Name                | Description                                                                                | Value                      |
-| ------------------- | ------------------------------------------------------------------------------------------ | -------------------------- |
-| `image.registry`    | Frank!Framework Console image registry                                                     | `nexus.frankframework.org` |
-| `image.repository`  | Frank!Framework Console image repository                                                   | `frank-console`            |
-| `image.tag`         | Frank!Framework Console image tag (immutable tags are recommended)                         | `""`                       |
-| `image.pullPolicy`  | Frank!Framework Console image pull policy                                                  | `IfNotPresent`             |
-| `image.pullPolicy`  | Specify a imagePullPolicy                                                                  |                            |
-| `image.pullPolicy`  | Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'                  |                            |
-| `image.pullPolicy`  | ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images                      |                            |
-| `image.pullSecrets` | Frank!Framework Console image pull secrets                                                 | `[]`                       |
-| `image.pullSecrets` | Optionally specify an array of imagePullSecrets.                                           |                            |
-| `image.pullSecrets` | Secrets must be manually created in the namespace.                                         |                            |
-| `image.pullSecrets` | ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/ |                            |
-| `image.pullSecrets` | Example is shown in the `values.yaml` file                                                 |                            |
+| Name                | Description                                                                                                                        | Value                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `image.registry`    | Frank!Framework Console image registry                                                                                             | `nexus.frankframework.org` |
+| `image.repository`  | Frank!Framework Console image repository                                                                                           | `frank-console`            |
+| `image.tag`         | Frank!Framework Console image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version | `""`                       |
+| `image.pullPolicy`  | Frank!Framework Console image pull policy                                                                                          | `IfNotPresent`             |
+| `image.pullPolicy`  | Specify a imagePullPolicy                                                                                                          |                            |
+| `image.pullPolicy`  | Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'                                                          |                            |
+| `image.pullPolicy`  | ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images                                                              |                            |
+| `image.pullSecrets` | Frank!Framework Console image pull secrets                                                                                         | `[]`                       |
+| `image.pullSecrets` | Optionally specify an array of imagePullSecrets.                                                                                   |                            |
+| `image.pullSecrets` | Secrets must be manually created in the namespace.                                                                                 |                            |
+| `image.pullSecrets` | ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/                                         |                            |
+| `image.pullSecrets` | Example is shown in the `values.yaml` file                                                                                         |                            |
 
 ### Environment variables
 
@@ -84,12 +84,13 @@ To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/
 
 Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
 
-| Name                             | Description                                          | Value                       |
-| -------------------------------- | ---------------------------------------------------- | --------------------------- |
-| `environmentVariables`           | Set environment variables for the Frank!Framework    | `{}`                        |
-| `environmentVariables.JAVA_OPTS` | Set the JAVA_OPTS for the Frank!Framework            | `-XX:MaxRAMPercentage=80.0` |
-| `envFrom`                        | Set environment variables from configmaps or secrets | `[]`                        |
-| `envFrom`                        | Example is shown in the `values.yaml` file           |                             |
+| Name                                          | Description                                                                                           | Value                       |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------- |
+| `environmentVariables`                        | Set environment variables for the Frank!Framework                                                     | `{}`                        |
+| `environmentVariables.JAVA_OPTS`              | Set the JAVA_OPTS for the Frank!Framework                                                             | `-XX:MaxRAMPercentage=80.0` |
+| `environmentVariables.spring_profiles_active` | Set the active Spring profiles for the Frank!Framework (default enables the ladybug-database profile) | `ladybug-database`          |
+| `envFrom`                                     | Set environment variables from configmaps or secrets                                                  | `[]`                        |
+| `envFrom`                                     | Example is shown in the `values.yaml` file                                                            |                             |
 
 ### Generate ConfigMaps and Secrets
 

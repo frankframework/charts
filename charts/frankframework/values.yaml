@@ -32,7 +32,7 @@ fullnameOverride: ""
 ## Frank!Framework image
 ## @param image.registry Frank!Framework image registry
 ## @param image.repository Frank!Framework image repository
-## @param image.tag Frank!Framework image tag (immutable tags are recommended)
+## @param image.tag Frank!Framework image tag (immutable tags are recommended) update this tag manually to upgrade the Frank!Framework version
 ##
 image:
   registry: nexus.frankframework.org
