@@ -227,36 +227,35 @@ generateSecret:
        alias/password=R2D2
 ```
 
-| Name                | Description                                                                                     | Value |
-| ------------------- | ----------------------------------------------------------------------------------------------- | ----- |
-| `generateConfigMap` | Generate configmaps from values                                                                 | `[]`  |
-| `generateConfigMap` | Example is shown in the `values.yaml` file                                                      |       |
-| `generateConfigMap` | name - Name of the configmap                                                                    |       |
-| `generateConfigMap` | optional - Mark the configmap as optional (default false)                                       |       |
-| `generateConfigMap` | defaultMode - Default mode of the configmap (default 0644)                                      |       |
-| `generateConfigMap` | items - Items of the configmap                                                                  |       |
-| `generateConfigMap` | items.key - Key of the item                                                                     |       |
-| `generateConfigMap` | items.path - Path of the item to mount (appends mountPath)                                      |       |
-| `generateConfigMap` | items.mode - Mode of the item                                                                   |       |
-| `generateConfigMap` | mountPath - Path where the configmap will be mounted (default /opt/frank/resources)             |       |
-| `generateConfigMap` | subPath - Item in data to mount                                                                 |       |
-| `generateConfigMap` | readOnly - ReadOnly of the configmap (default true)                                             |       |
-| `generateConfigMap` | data - Data of the configmap                                                                    |       |
-| `generateSecret`    | Generate secrets from values                                                                    | `[]`  |
-| `generateSecret`    | Example is shown in the `values.yaml` file                                                      |       |
-| `generateSecret`    | name - Name of the secret                                                                       |       |
-| `generateSecret`    | type - Type of the secret (default Opaque). Options: `Opaque`, `kubernetes.io/dockerconfigjson` |       |
-| `generateSecret`    | optional - Mark the secret as optional (default false)                                          |       |
-| `generateSecret`    | defaultMode - Default mode of the secret (default 0644)                                         |       |
-| `generateSecret`    | items - Items of the secret                                                                     |       |
-| `generateSecret`    | items.key - Key of the item                                                                     |       |
-| `generateSecret`    | items.path - Path of the item to mount (appends mountPath)                                      |       |
-| `generateSecret`    | items.mode - Mode of the item                                                                   |       |
-| `generateSecret`    | mountPath - Path where the secret will be mounted (default /opt/frank/secrets)                  |       |
-| `generateSecret`    | subPath - Key of the item to mount                                                              |       |
-| `generateSecret`    | readOnly - ReadOnly of the secret (default true)                                                |       |
-| `generateSecret`    | data - Data of the secret                                                                       |       |
-| `generateSecret`    | stringData - StringData of the secret                                                           |       |
+| Name                            | Description                                                             | Value |
+| ------------------------------- | ----------------------------------------------------------------------- | ----- |
+| `generateConfigMap`             | Generate configmaps from values                                         | `[]`  |
+| `generateConfigMap`             | Example is shown in the `values.yaml` file                              |       |
+| `generateConfigMap/name`        | Name of the configmap                                                   | `nil` |
+| `generateConfigMap/optional`    | Mark the configmap as optional (default false)                          | `nil` |
+| `generateConfigMap/defaultMode` | Default mode of the configmap (default 0644)                            | `nil` |
+| `generateConfigMap/items`       | Items of the configmap                                                  | `nil` |
+| `generateConfigMap/items/key`   | Key of the item                                                         | `nil` |
+| `generateConfigMap/items/path`  | Path of the item to mount (appends mountPath)                           | `nil` |
+| `generateConfigMap/items/mode`  | Mode of the item                                                        | `nil` |
+| `generateConfigMap/mountPath`   | Path where the configmap will be mounted (default /opt/frank/resources) | `nil` |
+| `generateConfigMap/subPath`     | Item in data to mount                                                   | `nil` |
+| `generateConfigMap/readOnly`    | ReadOnly of the configmap (default true)                                | `nil` |
+| `generateConfigMap/data`        | Data of the configmap                                                   | `nil` |
+| `generateSecret`                | Generate secrets from values                                            | `[]`  |
+| `generateSecret`                | Example is shown in the `values.yaml` file                              |       |
+| `generateSecret/name`           | Name of the secret                                                      | `nil` |
+| `generateSecret/type`           | Type of the secret (default Opaque)                                     | `nil` |
+| `generateSecret/optional`       | Mark the secret as optional (default false)                             | `nil` |
+| `generateSecret/items`          | Items of the secret                                                     | `nil` |
+| `generateSecret/items/key`      | Key of the item                                                         | `nil` |
+| `generateSecret/items/path`     | Path of the item to mount (appends mountPath)                           | `nil` |
+| `generateSecret/items/mode`     | Mode of the item                                                        | `nil` |
+| `generateSecret/mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)      | `nil` |
+| `generateSecret/subPath`        | Key of the item to mount                                                | `nil` |
+| `generateSecret/readOnly`       | ReadOnly of the secret (default true)                                   | `nil` |
+| `generateSecret/data`           | Data of the secret                                                      | `nil` |
+| `generateSecret/stringData`     | StringData of the secret                                                | `nil` |
 
 ### Volumes
 
@@ -385,12 +384,12 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.annotations`          | Use this parameter to set the required annotations for cert-manager, see                                                           |             |
 | `ingress.annotations`          | ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations                                                             |             |
 | `ingress.annotations`          | Example is shown in the `values.yaml` file                                                                                         |             |
-| `ingress.hosts`                | Set hosts for ingress                                                                                                              | `{}`        |
-| `ingress.hosts/host`           | Set hostname                                                                                                                       | `nil`       |
+| `ingress.hosts`                | Set hosts for ingress                                                                                                              | `[]`        |
+| `ingress.hosts/0/host`         | Set hostname                                                                                                                       | `nil`       |
 | `ingress.hosts/paths`          | Set multiple paths                                                                                                                 | `nil`       |
-| `ingress.hosts/paths.path`     | Set path (context url)                                                                                                             | `nil`       |
-| `ingress.hosts/paths.pathType` | Set type of path                                                                                                                   | `nil`       |
-| `ingress.tls`                  | Define tls secrets for hosts                                                                                                       | `{}`        |
+| `ingress.hosts/paths/path`     | Set path (context url)                                                                                                             | `nil`       |
+| `ingress.hosts/paths/pathType` | Set type of path                                                                                                                   | `nil`       |
+| `ingress.tls`                  | Define tls secrets for hosts                                                                                                       | `[]`        |
 | `ingress.tls`                  | Example is shown in the `values.yaml` file                                                                                         |             |
 
 ### Other Parameters

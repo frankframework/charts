@@ -191,17 +191,17 @@ envFrom: [ ]
 
 ## @param generateConfigMap [array] Generate configmaps from values
 ## @extra generateConfigMap Example is shown in the `values.yaml` file
-## @extra generateConfigMap name - Name of the configmap
-## @extra generateConfigMap optional - Mark the configmap as optional (default false)
-## @extra generateConfigMap defaultMode - Default mode of the configmap (default 0644)
-## @extra generateConfigMap items - Items of the configmap
-## @extra generateConfigMap items.key - Key of the item
-## @extra generateConfigMap items.path - Path of the item to mount (appends mountPath)
-## @extra generateConfigMap items.mode - Mode of the item
-## @extra generateConfigMap mountPath - Path where the configmap will be mounted (default /opt/frank/resources)
-## @extra generateConfigMap subPath - Item in data to mount
-## @extra generateConfigMap readOnly - ReadOnly of the configmap (default true)
-## @extra generateConfigMap data - Data of the configmap
+## @param generateConfigMap/name [string, nullable] Name of the configmap
+## @param generateConfigMap/optional [string, nullable] Mark the configmap as optional (default false)
+## @param generateConfigMap/defaultMode [string, nullable] Default mode of the configmap (default 0644)
+## @param generateConfigMap/items [array, nullable] Items of the configmap
+## @param generateConfigMap/items/key [string, nullable] Key of the item
+## @param generateConfigMap/items/path [string, nullable] Path of the item to mount (appends mountPath)
+## @param generateConfigMap/items/mode [string, nullable] Mode of the item
+## @param generateConfigMap/mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/resources)
+## @param generateConfigMap/subPath [string, nullable] Item in data to mount
+## @param generateConfigMap/readOnly [string, nullable] ReadOnly of the configmap (default true)
+## @param generateConfigMap/data [object, nullable] Data of the configmap
 ## e.g: generateConfigMap:
 ##  - name: DeploymentSpecifics
 ##    mountPath: /opt/frank/resources/DeploymentSpecifics.properties
@@ -213,19 +213,20 @@ generateConfigMap: [ ]
 
 ## @param generateSecret [array] Generate secrets from values
 ## @extra generateSecret Example is shown in the `values.yaml` file
-## @extra generateSecret name - Name of the secret
-## @extra generateSecret type - Type of the secret (default Opaque). Options: `Opaque`, `kubernetes.io/dockerconfigjson`
-## @extra generateSecret optional - Mark the secret as optional (default false)
-## @extra generateSecret defaultMode - Default mode of the secret (default 0644)
-## @extra generateSecret items - Items of the secret
-## @extra generateSecret items.key - Key of the item
-## @extra generateSecret items.path - Path of the item to mount (appends mountPath)
-## @extra generateSecret items.mode - Mode of the item
-## @extra generateSecret mountPath - Path where the secret will be mounted (default /opt/frank/secrets)
-## @extra generateSecret subPath - Key of the item to mount
-## @extra generateSecret readOnly - ReadOnly of the secret (default true)
-## @extra generateSecret data - Data of the secret
-## @extra generateSecret stringData - StringData of the secret
+## @param generateSecret/name [string, nullable] Name of the secret
+## @param generateSecret/type [string, nullable] Type of the secret (default Opaque)
+## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
+## @param generateSecret/optional [string, nullable] Mark the secret as optional (default false)
+## @ param generateSecret/defaultMode [string, nullable] Default mode of the secret (default 0644)
+## @param generateSecret/items [array, nullable] Items of the secret
+## @param generateSecret/items/key [string, nullable] Key of the item
+## @param generateSecret/items/path [string, nullable] Path of the item to mount (appends mountPath)
+## @param generateSecret/items/mode [string, nullable] Mode of the item
+## @param generateSecret/mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
+## @param generateSecret/subPath [string, nullable] Key of the item to mount
+## @param generateSecret/readOnly [string, nullable] ReadOnly of the secret (default true)
+## @param generateSecret/data [object, nullable] Data of the secret
+## @param generateSecret/stringData [object, nullable] StringData of the secret
 ## e.g: generateSecret:
 ##  - name: frankframework-resources
 ##    mountPath: /opt/frank/resources/resources.yml

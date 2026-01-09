@@ -129,6 +129,67 @@
                 "type": "string"
             }
         },
+        "generateConfigMap/name": {
+            "type": "string",
+            "description": "Name of the configmap",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/optional": {
+            "type": "string",
+            "description": "Mark the configmap as optional (default false)",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/defaultMode": {
+            "type": "string",
+            "description": "Default mode of the configmap (default 0644)",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/items": {
+            "type": "array",
+            "description": "Items of the configmap",
+            "default": null,
+            "nullable": true,
+            "items": {}
+        },
+        "generateConfigMap/items/key": {
+            "type": "string",
+            "description": "Key of the item",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/items/path": {
+            "type": "string",
+            "description": "Path of the item to mount (appends mountPath)",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/items/mode": {
+            "type": "string",
+            "description": "Mode of the item",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/mountPath": {
+            "type": "string",
+            "description": "Path where the configmap will be mounted (default /opt/frank/resources)",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/subPath": {
+            "type": "string",
+            "description": "Item in data to mount",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/readOnly": {
+            "type": "string",
+            "description": "ReadOnly of the configmap (default true)",
+            "default": null,
+            "nullable": true
+        },
         "generateSecret": {
             "type": "array",
             "description": "Generate secrets from values",
@@ -136,6 +197,67 @@
             "items": {
                 "type": "string"
             }
+        },
+        "generateSecret/name": {
+            "type": "string",
+            "description": "Name of the secret",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/type": {
+            "type": "string",
+            "description": "Type of the secret (default Opaque)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/optional": {
+            "type": "string",
+            "description": "Mark the secret as optional (default false)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/items": {
+            "type": "array",
+            "description": "Items of the secret",
+            "default": null,
+            "nullable": true,
+            "items": {}
+        },
+        "generateSecret/items/key": {
+            "type": "string",
+            "description": "Key of the item",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/items/path": {
+            "type": "string",
+            "description": "Path of the item to mount (appends mountPath)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/items/mode": {
+            "type": "string",
+            "description": "Mode of the item",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/mountPath": {
+            "type": "string",
+            "description": "Path where the secret will be mounted (default /opt/frank/secrets)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/subPath": {
+            "type": "string",
+            "description": "Key of the item to mount",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/readOnly": {
+            "type": "string",
+            "description": "ReadOnly of the secret (default true)",
+            "default": null,
+            "nullable": true
         },
         "extraVolumes": {
             "type": "array",
@@ -473,6 +595,39 @@
                 "hosts": {
                     "type": "array",
                     "description": "Set hosts for ingress",
+                    "default": "[]",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "hosts/0/host": {
+                    "type": "string",
+                    "description": "Set hostname",
+                    "default": null,
+                    "nullable": true
+                },
+                "hosts/paths": {
+                    "type": "array",
+                    "description": "Set multiple paths",
+                    "default": null,
+                    "nullable": true,
+                    "items": {}
+                },
+                "hosts/paths/path": {
+                    "type": "string",
+                    "description": "Set path (context url)",
+                    "default": null,
+                    "nullable": true
+                },
+                "hosts/paths/pathType": {
+                    "type": "string",
+                    "description": "Set type of path",
+                    "default": null,
+                    "nullable": true
+                },
+                "tls": {
+                    "type": "array",
+                    "description": "Define tls secrets for hosts",
                     "default": "[]",
                     "items": {
                         "type": "string"
