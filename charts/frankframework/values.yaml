@@ -217,7 +217,7 @@ generateConfigMap: [ ]
 ## @param generateSecret/type [string, nullable] Type of the secret (default Opaque)
 ## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
 ## @param generateSecret/optional [string, nullable] Mark the secret as optional (default false)
-## @ param generateSecret/defaultMode [string, nullable] Default mode of the secret (default 0644)
+## @param generateSecret/defaultMode [string, nullable] Default mode of the secret (default 0644)
 ## @param generateSecret/items [array, nullable] Items of the secret
 ## @param generateSecret/items/key [string, nullable] Key of the item
 ## @param generateSecret/items/path [string, nullable] Path of the item to mount (appends mountPath)
