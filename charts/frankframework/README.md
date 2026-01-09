@@ -223,7 +223,7 @@ generateSecret:
    mountPath: /opt/frank/secrets/
    stringData:
      credentials.properties: |-
-       alias/uasername=C3PO
+       alias/username=C3PO
        alias/password=R2D2
 ```
 
