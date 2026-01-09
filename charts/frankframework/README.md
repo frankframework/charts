@@ -202,60 +202,60 @@ Be sure to set a subPath and a mountPath if you want to avoid conflicts and use 
 With one secret, the subPath and mountPath are not needed. And it would be possible to implement items, like this:
 ```yaml
 generateSecret:
-- name: frankframework-resources
-mountPath: "/opt/frank/resources/"
-items:
-- key: resources.yml
-path: resources.yml
-stringData:
-resources.yml: |-
-jdbc:
-- name: frank2example
-type: org.h2.jdbcx.JdbcDataSource
-url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
+  - name: frankframework-resources
+    mountPath: "/opt/frank/resources/"
+    items:
+      - key: resources.yml
+        path: resources.yml
+    stringData:
+      resources.yml: |-
+        jdbc:
+          - name: frank2example
+            type: org.h2.jdbcx.JdbcDataSource
+            url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
 ```
 
 The following example will generate a credentials.properties file in the /opt/frank/secrets/ folder.
 
 ```yaml
 generateSecret:
-- name: frankframework-credentials
-mountPath: /opt/frank/secrets/
-stringData:
-credentials.properties: |-
-alias/uasername=C3PO
-alias/password=R2D2
+ - name: frankframework-credentials
+   mountPath: /opt/frank/secrets/
+   stringData:
+     credentials.properties: |-
+       alias/username=C3PO
+       alias/password=R2D2
 ```
 
-| Name                            | Description                                                             | Value       |
-| ------------------------------- | ----------------------------------------------------------------------- | ----------- |
-| `generateConfigMap`             | Generate configmaps from values                                         | `{}`        |
-| `generateConfigMap`             | Example is shown in the `values.yaml` file                              |             |
-| `generateConfigMap.name`        | Name of the configmap                                                   | `undefined` |
-| `generateConfigMap.optional`    | Mark the configmap as optional (default false)                          | `undefined` |
-| `generateConfigMap.defaultMode` | Default mode of the configmap (default 0644)                            | `undefined` |
-| `generateConfigMap.items`       | Items of the configmap                                                  | `undefined` |
-| `generateConfigMap.items.key`   | Key of the item                                                         | `undefined` |
-| `generateConfigMap.items.path`  | Path of the item to mount (appends mountPath)                           | `undefined` |
-| `generateConfigMap.items.mode`  | Mode of the item                                                        | `undefined` |
-| `generateConfigMap.mountPath`   | Path where the configmap will be mounted (default /opt/frank/resources) | `undefined` |
-| `generateConfigMap.subPath`     | Item in data to mount                                                   | `undefined` |
-| `generateConfigMap.readOnly`    | ReadOnly of the configmap (default true)                                | `undefined` |
-| `generateConfigMap.data`        | Data of the configmap                                                   | `undefined` |
-| `generateSecret`                | Generate secrets from values                                            | `{}`        |
-| `generateSecret`                | Example is shown in the `values.yaml` file                              |             |
-| `generateSecret.name`           | Name of the secret                                                      | `undefined` |
-| `generateSecret.type`           | Type of the secret (default Opaque)                                     | `undefined` |
-| `generateSecret.optional`       | Mark the secret as optional (default false)                             | `undefined` |
-| `generateSecret.items`          | Items of the secret                                                     | `undefined` |
-| `generateSecret.items.key`      | Key of the item                                                         | `undefined` |
-| `generateSecret.items.path`     | Path of the item to mount (appends mountPath)                           | `undefined` |
-| `generateSecret.items.mode`     | Mode of the item                                                        | `undefined` |
-| `generateSecret.mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)      | `undefined` |
-| `generateSecret.subPath`        | Key of the item to mount                                                | `undefined` |
-| `generateSecret.readOnly`       | ReadOnly of the secret (default true)                                   | `undefined` |
-| `generateSecret.data`           | Data of the secret                                                      | `undefined` |
-| `generateSecret.stringData`     | StringData of the secret                                                | `undefined` |
+| Name                            | Description                                                             | Value |
+| ------------------------------- | ----------------------------------------------------------------------- | ----- |
+| `generateConfigMap`             | Generate configmaps from values                                         | `{}`  |
+| `generateConfigMap`             | Example is shown in the `values.yaml` file                              |       |
+| `generateConfigMap/name`        | Name of the configmap                                                   | `nil` |
+| `generateConfigMap/optional`    | Mark the configmap as optional (default false)                          | `nil` |
+| `generateConfigMap/defaultMode` | Default mode of the configmap (default 0644)                            | `nil` |
+| `generateConfigMap/items`       | Items of the configmap                                                  | `nil` |
+| `generateConfigMap/items/key`   | Key of the item                                                         | `nil` |
+| `generateConfigMap/items/path`  | Path of the item to mount (appends mountPath)                           | `nil` |
+| `generateConfigMap/items/mode`  | Mode of the item                                                        | `nil` |
+| `generateConfigMap/mountPath`   | Path where the configmap will be mounted (default /opt/frank/resources) | `nil` |
+| `generateConfigMap/subPath`     | Item in data to mount                                                   | `nil` |
+| `generateConfigMap/readOnly`    | ReadOnly of the configmap (default true)                                | `nil` |
+| `generateConfigMap/data`        | Data of the configmap                                                   | `nil` |
+| `generateSecret`                | Generate secrets from values                                            | `{}`  |
+| `generateSecret`                | Example is shown in the `values.yaml` file                              |       |
+| `generateSecret/name`           | Name of the secret                                                      | `nil` |
+| `generateSecret/type`           | Type of the secret (default Opaque)                                     | `nil` |
+| `generateSecret/optional`       | Mark the secret as optional (default false)                             | `nil` |
+| `generateSecret/items`          | Items of the secret                                                     | `nil` |
+| `generateSecret/items/key`      | Key of the item                                                         | `nil` |
+| `generateSecret/items/path`     | Path of the item to mount (appends mountPath)                           | `nil` |
+| `generateSecret/items/mode`     | Mode of the item                                                        | `nil` |
+| `generateSecret/mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)      | `nil` |
+| `generateSecret/subPath`        | Key of the item to mount                                                | `nil` |
+| `generateSecret/readOnly`       | ReadOnly of the secret (default true)                                   | `nil` |
+| `generateSecret/data`           | Data of the secret                                                      | `nil` |
+| `generateSecret/stringData`     | StringData of the secret                                                | `nil` |
 
 ### Volumes
 
@@ -302,22 +302,18 @@ The Ladybug Database is a PostgreSQL dependency that is used to store Ladybug re
 
 Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
 
-The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
-
-To configure the PostgreSQL Helm chart, please refer to the documentation and append to the Ladybug Database parameters:
-https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+The dependency is enabled by default, but can be disabled if you want to use an external or persistent database for Ladybug.
 
 Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
 
-| Name                                            | Description                                                                                     | Value                                  |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------- |
-| `ladybugDatabase.enabled`                       | Enable the Ladybug Database (PostgreSQL dependency)                                             | `true`                                 |
-| `ladybugDatabase.image.repository`              | Override the image repository of the Ladybug Database dependency                                | `bitnamilegacy/postgresql`             |
-| `ladybugDatabase.nameOverride`                  | Override the name of the Ladybug Database dependency                                            | `ladybug-database`                     |
-| `ladybugDatabase.primary.persistence.enabled`   | Enable persistence for the Ladybug Database dependency (default is false for easy installation) | `false`                                |
-| `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency                                  | `true`                                 |
-| `ladybugDatabase.auth.existingSecret`           | Name of the secret (also the name of the generated secret)                                      | `frankframework-ladybug-database-auth` |
-| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency                                                          | `postgres`                             |
+| Name                                            | Description                                                           | Value                                  |
+| ----------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------- |
+| `ladybugDatabase.enabled`                       | Enable the Ladybug Database (PostgreSQL dependency)                   | `true`                                 |
+| `ladybugDatabase.image.repository`              | Override the image repository of the Ladybug Database dependency      | `postgres`                             |
+| `ladybugDatabase.image.tag`                     | Override the image tag of the Ladybug Database dependency             | `17-bookworm`                          |
+| `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency        | `true`                                 |
+| `ladybugDatabase.auth.secretName`               | Name of the secret (both for the generated secret or existing secret) | `frankframework-ladybug-database-auth` |
+| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency                                | `postgres`                             |
 
 ### Frank!Framework deployment parameters
 
@@ -356,9 +352,12 @@ The readiness probe will check if all adapters are running using the server heal
 | `resources`                          | Set the resources for the Frank!Framework containers                                                                        | `{}`                                                          |
 | `resources`                          | ref: https://kubernetes.io/docs/user-guide/compute-resources/                                                               |                                                               |
 | `resources`                          | Example is shown in the `values.yaml` file                                                                                  |                                                               |
-| `resources.limits`                   | The resources limits for the Frank!Framework containers                                                                     | `undefined`                                                   |
-| `resources.requests.memory`          | The requested memory for the Frank!Framework containers                                                                     | `undefined`                                                   |
-| `resources.requests.cpu`             | The requested cpu for the Frank!Framework containers                                                                        | `undefined`                                                   |
+| `resources.limits`                   | The resources limits for the Frank!Framework containers                                                                     | `nil`                                                         |
+| `resources.limits.memory`            | The memory limit for the Frank!Framework containers                                                                         | `nil`                                                         |
+| `resources.limits.cpu`               | The cpu limit for the Frank!Framework containers                                                                            | `nil`                                                         |
+| `resources.requests`                 | The requested resources for the Frank!Framework containers                                                                  | `nil`                                                         |
+| `resources.requests.memory`          | The requested memory for the Frank!Framework containers                                                                     | `nil`                                                         |
+| `resources.requests.cpu`             | The requested cpu for the Frank!Framework containers                                                                        | `nil`                                                         |
 | `terminationGracePeriodSeconds`      | Number of seconds after which pods are forcefully killed                                                                    | `60`                                                          |
 | `terminationGracePeriodSeconds`      | Note: Lower values may cause running adapters to fail                                                                       |                                                               |
 | `nodeSelector`                       | Node labels for pod assignment                                                                                              | `{}`                                                          |
@@ -389,10 +388,10 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.annotations`          | ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations                                                             |             |
 | `ingress.annotations`          | Example is shown in the `values.yaml` file                                                                                         |             |
 | `ingress.hosts`                | Set hosts for ingress                                                                                                              | `{}`        |
-| `ingress.hosts.host`           | Set hostname                                                                                                                       | `undefined` |
-| `ingress.hosts.paths`          | Set multiple paths                                                                                                                 | `undefined` |
-| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                             | `undefined` |
-| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                   | `undefined` |
+| `ingress.hosts/host`           | Set hostname                                                                                                                       | `nil`       |
+| `ingress.hosts/paths`          | Set multiple paths                                                                                                                 | `nil`       |
+| `ingress.hosts/paths/path`     | Set path (context url)                                                                                                             | `nil`       |
+| `ingress.hosts/paths/pathType` | Set type of path                                                                                                                   | `nil`       |
 | `ingress.tls`                  | Define tls secrets for hosts                                                                                                       | `{}`        |
 | `ingress.tls`                  | Example is shown in the `values.yaml` file                                                                                         |             |
 

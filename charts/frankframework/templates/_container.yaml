@@ -24,7 +24,7 @@ envFrom:
   {{- end }}
   {{- if .Values.ladybugDatabase.enabled }}
   - secretRef:
-      name: {{ .Values.ladybugDatabase.auth.existingSecret }}
+      name: {{ .Values.ladybugDatabase.auth.secretName }}
   {{- end }}
 volumeMounts:
   {{- if .Values.securityContext.readOnlyRootFilesystem }}
