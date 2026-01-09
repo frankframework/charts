@@ -1,7 +1,7 @@
 apiVersion: v2
 name: frank2example
 description: A Helm chart for running Frank2Example on Kubernetes
-version: 0.6.0
+version: 0.7.0
 type: application
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
@@ -11,5 +11,5 @@ keywords:
 
 dependencies:
   - name: frankframework
-    version: 0.6.0
+    version: 0.7.0
     repository: file://../frankframework
