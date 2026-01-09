@@ -189,7 +189,7 @@ envFrom: [ ]
 ## @descriptionEnd
 ##
 
-## @param generateConfigMap [array] Generate configmaps from values
+## @param generateConfigMap [object] Generate configmaps from values
 ## @extra generateConfigMap Example is shown in the `values.yaml` file
 ## @param generateConfigMap/name [string, nullable] Name of the configmap
 ## @param generateConfigMap/optional [string, nullable] Mark the configmap as optional (default false)
@@ -211,7 +211,7 @@ envFrom: [ ]
 ##        jdbc.migrator=true
 generateConfigMap: [ ]
 
-## @param generateSecret [array] Generate secrets from values
+## @param generateSecret [object] Generate secrets from values
 ## @extra generateSecret Example is shown in the `values.yaml` file
 ## @param generateSecret/name [string, nullable] Name of the secret
 ## @param generateSecret/type [string, nullable] Type of the secret (default Opaque)
@@ -419,7 +419,10 @@ readinessProbe:
 ## @param resources [object] Set the resources for the Frank!Framework containers
 ## @extra resources ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @extra resources Example is shown in the `values.yaml` file
-## @param resources.limits [string, nullable] The resources limits for the Frank!Framework containers
+## @param resources.limits [object, nullable] The resources limits for the Frank!Framework containers
+## @param resources.limits.memory [string, nullable] The memory limit for the Frank!Framework containers
+## @param resources.limits.cpu [string, nullable] The cpu limit for the Frank!Framework containers
+## @param resources.requests [object, nullable] The requested resources for the Frank!Framework containers
 ## @param resources.requests.memory [string, nullable] The requested memory for the Frank!Framework containers
 ## @param resources.requests.cpu [string, nullable] The requested cpu for the Frank!Framework containers
 ## e.g.:

@@ -229,7 +229,7 @@ generateSecret:
 
 | Name                            | Description                                                             | Value |
 | ------------------------------- | ----------------------------------------------------------------------- | ----- |
-| `generateConfigMap`             | Generate configmaps from values                                         | `[]`  |
+| `generateConfigMap`             | Generate configmaps from values                                         | `{}`  |
 | `generateConfigMap`             | Example is shown in the `values.yaml` file                              |       |
 | `generateConfigMap/name`        | Name of the configmap                                                   | `nil` |
 | `generateConfigMap/optional`    | Mark the configmap as optional (default false)                          | `nil` |
@@ -242,7 +242,7 @@ generateSecret:
 | `generateConfigMap/subPath`     | Item in data to mount                                                   | `nil` |
 | `generateConfigMap/readOnly`    | ReadOnly of the configmap (default true)                                | `nil` |
 | `generateConfigMap/data`        | Data of the configmap                                                   | `nil` |
-| `generateSecret`                | Generate secrets from values                                            | `[]`  |
+| `generateSecret`                | Generate secrets from values                                            | `{}`  |
 | `generateSecret`                | Example is shown in the `values.yaml` file                              |       |
 | `generateSecret/name`           | Name of the secret                                                      | `nil` |
 | `generateSecret/type`           | Type of the secret (default Opaque)                                     | `nil` |
@@ -384,12 +384,12 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.annotations`          | Use this parameter to set the required annotations for cert-manager, see                                                           |             |
 | `ingress.annotations`          | ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations                                                             |             |
 | `ingress.annotations`          | Example is shown in the `values.yaml` file                                                                                         |             |
-| `ingress.hosts`                | Set hosts for ingress                                                                                                              | `[]`        |
-| `ingress.hosts/0/host`         | Set hostname                                                                                                                       | `nil`       |
+| `ingress.hosts`                | Set hosts for ingress                                                                                                              | `{}`        |
+| `ingress.hosts/host`           | Set hostname                                                                                                                       | `nil`       |
 | `ingress.hosts/paths`          | Set multiple paths                                                                                                                 | `nil`       |
 | `ingress.hosts/paths/path`     | Set path (context url)                                                                                                             | `nil`       |
 | `ingress.hosts/paths/pathType` | Set type of path                                                                                                                   | `nil`       |
-| `ingress.tls`                  | Define tls secrets for hosts                                                                                                       | `[]`        |
+| `ingress.tls`                  | Define tls secrets for hosts                                                                                                       | `{}`        |
 | `ingress.tls`                  | Example is shown in the `values.yaml` file                                                                                         |             |
 
 ### Other Parameters
