@@ -488,10 +488,21 @@
             "type": "object",
             "properties": {
                 "limits": {
-                    "type": "string",
-                    "description": "The resources limits for the Frank!Framework containers",
-                    "default": null,
-                    "nullable": true
+                    "type": "object",
+                    "properties": {
+                        "memory": {
+                            "type": "string",
+                            "description": "The memory limit for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        },
+                        "cpu": {
+                            "type": "string",
+                            "description": "The cpu limit for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        }
+                    }
                 },
                 "requests": {
                     "type": "object",
