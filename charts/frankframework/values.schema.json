@@ -121,6 +121,22 @@
             "default": [],
             "items": {}
         },
+        "generateConfigMap": {
+            "type": "array",
+            "description": "Generate configmaps from values",
+            "default": "[]",
+            "items": {
+                "type": "string"
+            }
+        },
+        "generateSecret": {
+            "type": "array",
+            "description": "Generate secrets from values",
+            "default": "[]",
+            "items": {
+                "type": "string"
+            }
+        },
         "extraVolumes": {
             "type": "array",
             "description": "Optionally specify extra list of additional volumes for WordPress pods",
@@ -184,27 +200,12 @@
                         "repository": {
                             "type": "string",
                             "description": "Override the image repository of the Ladybug Database dependency",
-                            "default": "bitnamilegacy/postgresql"
-                        }
-                    }
-                },
-                "nameOverride": {
-                    "type": "string",
-                    "description": "Override the name of the Ladybug Database dependency",
-                    "default": "ladybug-database"
-                },
-                "primary": {
-                    "type": "object",
-                    "properties": {
-                        "persistence": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean",
-                                    "description": "Enable persistence for the Ladybug Database dependency (default is false for easy installation)",
-                                    "default": false
-                                }
-                            }
+                            "default": "postgres"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "description": "Override the image tag of the Ladybug Database dependency",
+                            "default": "17-bookworm"
                         }
                     }
                 },
@@ -216,9 +217,9 @@
                             "description": "Enable the generation of secrets for the PostgreSQL dependency",
                             "default": true
                         },
-                        "existingSecret": {
+                        "secretName": {
                             "type": "string",
-                            "description": "Name of the secret (also the name of the generated secret)",
+                            "description": "Name of the secret (both for the generated secret or existing secret)",
                             "default": "frankframework-ladybug-database-auth"
                         },
                         "postgresPassword": {
@@ -377,6 +378,34 @@
                 }
             }
         },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "string",
+                    "description": "The resources limits for the Frank!Framework containers",
+                    "default": null,
+                    "nullable": true
+                },
+                "requests": {
+                    "type": "object",
+                    "properties": {
+                        "memory": {
+                            "type": "string",
+                            "description": "The requested memory for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        },
+                        "cpu": {
+                            "type": "string",
+                            "description": "The requested cpu for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        },
         "terminationGracePeriodSeconds": {
             "type": "number",
             "description": "Number of seconds after which pods are forcefully killed",
@@ -440,6 +469,14 @@
                     "type": "object",
                     "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
                     "default": {}
+                },
+                "hosts": {
+                    "type": "array",
+                    "description": "Set hosts for ingress",
+                    "default": "[]",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         },

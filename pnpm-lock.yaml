@@ -12,11 +12,11 @@ importers:
         specifier: ^2.6.1
         version: 2.7.2
       fs-extra:
-        specifier: ^11.1.1
+        specifier: ^11.3.3
         version: 11.3.3
       husky:
-        specifier: ^8.0.3
-        version: 8.0.3
+        specifier: ^9.1.7
+        version: 9.1.7
 
 packages:
 
@@ -59,9 +59,9 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  husky@8.0.3:
-    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
-    engines: {node: '>=14'}
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
     hasBin: true
 
   inflight@1.0.6:
@@ -153,7 +153,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  husky@8.0.3: {}
+  husky@9.1.7: {}
 
   inflight@1.0.6:
     dependencies:

@@ -189,19 +189,19 @@ envFrom: [ ]
 ## @descriptionEnd
 ##
 
-## @param generateConfigMap [object] Generate configmaps from values
+## @param generateConfigMap [array] Generate configmaps from values
 ## @extra generateConfigMap Example is shown in the `values.yaml` file
-## @param generateConfigMap.name [string, nullable] Name of the configmap
-## @param generateConfigMap.optional [boolean, nullable] Mark the configmap as optional (default false)
-## @param generateConfigMap.defaultMode [int, nullable] Default mode of the configmap (default 0644)
-## @param generateConfigMap.items [array, nullable] Items of the configmap
-## @param generateConfigMap.items.key [string, nullable] Key of the item
-## @param generateConfigMap.items.path [string, nullable] Path of the item to mount (appends mountPath)
-## @param generateConfigMap.items.mode [int, nullable] Mode of the item
-## @param generateConfigMap.mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/resources)
-## @param generateConfigMap.subPath [string, nullable] Item in data to mount
-## @param generateConfigMap.readOnly [boolean, nullable] ReadOnly of the configmap (default true)
-## @param generateConfigMap.data [object, nullable] Data of the configmap
+## @extra generateConfigMap name - Name of the configmap
+## @extra generateConfigMap optional - Mark the configmap as optional (default false)
+## @extra generateConfigMap defaultMode - Default mode of the configmap (default 0644)
+## @extra generateConfigMap items - Items of the configmap
+## @extra generateConfigMap items.key - Key of the item
+## @extra generateConfigMap items.path - Path of the item to mount (appends mountPath)
+## @extra generateConfigMap items.mode - Mode of the item
+## @extra generateConfigMap mountPath - Path where the configmap will be mounted (default /opt/frank/resources)
+## @extra generateConfigMap subPath - Item in data to mount
+## @extra generateConfigMap readOnly - ReadOnly of the configmap (default true)
+## @extra generateConfigMap data - Data of the configmap
 ## e.g: generateConfigMap:
 ##  - name: DeploymentSpecifics
 ##    mountPath: /opt/frank/resources/DeploymentSpecifics.properties
@@ -211,22 +211,21 @@ envFrom: [ ]
 ##        jdbc.migrator=true
 generateConfigMap: [ ]
 
-## @param generateSecret [object] Generate secrets from values
+## @param generateSecret [array] Generate secrets from values
 ## @extra generateSecret Example is shown in the `values.yaml` file
-## @param generateSecret.name [string, nullable] Name of the secret
-## @param generateSecret.type [string, nullable] Type of the secret (default Opaque)
-## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
-## @param generateSecret.optional [boolean, nullable] Mark the secret as optional (default false)
-## @ param generateSecret.defaultMode [int, nullable] Default mode of the secret (default 0644)
-## @param generateSecret.items [array, nullable] Items of the secret
-## @param generateSecret.items.key [string, nullable] Key of the item
-## @param generateSecret.items.path [string, nullable] Path of the item to mount (appends mountPath)
-## @param generateSecret.items.mode [int, nullable] Mode of the item
-## @param generateSecret.mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
-## @param generateSecret.subPath [string, nullable] Key of the item to mount
-## @param generateSecret.readOnly [boolean, nullable] ReadOnly of the secret (default true)
-## @param generateSecret.data [object, nullable] Data of the secret
-## @param generateSecret.stringData [object, nullable] StringData of the secret
+## @extra generateSecret name - Name of the secret
+## @extra generateSecret type - Type of the secret (default Opaque). Options: `Opaque`, `kubernetes.io/dockerconfigjson`
+## @extra generateSecret optional - Mark the secret as optional (default false)
+## @extra generateSecret defaultMode - Default mode of the secret (default 0644)
+## @extra generateSecret items - Items of the secret
+## @extra generateSecret items.key - Key of the item
+## @extra generateSecret items.path - Path of the item to mount (appends mountPath)
+## @extra generateSecret items.mode - Mode of the item
+## @extra generateSecret mountPath - Path where the secret will be mounted (default /opt/frank/secrets)
+## @extra generateSecret subPath - Key of the item to mount
+## @extra generateSecret readOnly - ReadOnly of the secret (default true)
+## @extra generateSecret data - Data of the secret
+## @extra generateSecret stringData - StringData of the secret
 ## e.g: generateSecret:
 ##  - name: frankframework-resources
 ##    mountPath: /opt/frank/resources/resources.yml
@@ -317,35 +316,28 @@ console:
 ##
 ## Note that this dependency is not used for the Frank!Framework itself, that datasource should be configured with the `resources.yaml` file.
 ##
-## The dependency is enabled by default, but can be disabled if you want to use an external database for Ladybug.
-##
-## To configure the PostgreSQL Helm chart, please refer to the documentation and append to the Ladybug Database parameters:
-## https://github.com/bitnami/charts/tree/main/bitnami/postgresql
+## The dependency is enabled by default, but can be disabled if you want to use an external or persistent database for Ladybug.
 ##
 ## Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
 ## @descriptionEnd
 
 ## @param ladybugDatabase.enabled Enable the Ladybug Database (PostgreSQL dependency)
 ## @param ladybugDatabase.image.repository Override the image repository of the Ladybug Database dependency
-## @param ladybugDatabase.nameOverride Override the name of the Ladybug Database dependency
-## @param ladybugDatabase.primary.persistence.enabled Enable persistence for the Ladybug Database dependency (default is false for easy installation)
+## @param ladybugDatabase.image.tag Override the image tag of the Ladybug Database dependency
 ## @param ladybugDatabase.auth.generatePostgresqlSecret Enable the generation of secrets for the PostgreSQL dependency
-## @param ladybugDatabase.auth.existingSecret Name of the secret (also the name of the generated secret)
+## @param ladybugDatabase.auth.secretName Name of the secret (both for the generated secret or existing secret)
 ## @param ladybugDatabase.auth.postgresPassword [string, nullable] Password for the PostgreSQL dependency
 ##
 ##
 ladybugDatabase:
   enabled: true
   image:
-    repository: bitnamilegacy/postgresql
-  nameOverride: ladybug-database
-  primary:
-    persistence:
-      enabled: false
+    repository: postgres
+    tag: 17-bookworm
   auth:
     generatePostgresqlSecret: true
+    secretName: frankframework-ladybug-database-auth
     postgresPassword: postgres
-    existingSecret: frankframework-ladybug-database-auth
 
 ## @section Frank!Framework deployment parameters
 ## @descriptionStart
@@ -513,10 +505,10 @@ ingress:
   ##
   annotations: { }
   ## @param ingress.hosts [object] Set hosts for ingress
-  ## @param ingress.hosts.host [string, nullable] Set hostname
-  ## @param ingress.hosts.paths [array, nullable] Set multiple paths
-  ## @param ingress.hosts.paths.path [string, nullable] Set path (context url)
-  ## @param ingress.hosts.paths.pathType [string, nullable] Set type of path
+  ## @param ingress.hosts/host [string, nullable] Set hostname
+  ## @param ingress.hosts/paths [array, nullable] Set multiple paths
+  ## @param ingress.hosts/paths/path [string, nullable] Set path (context url)
+  ## @param ingress.hosts/paths/pathType [string, nullable] Set type of path
   ##
   hosts:
     - host: chart-example.local

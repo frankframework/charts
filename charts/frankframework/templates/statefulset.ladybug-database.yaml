@@ -11,7 +11,6 @@ spec:
   replicas: 1
   serviceName: {{ template "frankframework.fullname" . }}-ladybug-database
   updateStrategy:
-    rollingUpdate: { }
     type: RollingUpdate
   selector:
     matchLabels:
@@ -21,7 +20,7 @@ spec:
     metadata:
       name: {{ template "frankframework.fullname" . }}-ladybug-database
       labels:
-        {{- include "frankframework.labels" . | nindent 4 }}
+        {{- include "frankframework.labels" . | nindent 8 }}
         app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
         app.kubernetes.io/component: primary
     spec:
@@ -38,13 +37,11 @@ spec:
       securityContext:
         fsGroup: 999
         fsGroupChangePolicy: Always
-        supplementalGroups: [ ]
-        sysctls: [ ]
       hostNetwork: false
       hostIPC: false
       containers:
         - name: postgresql
-          image: postgres:17-bookworm
+          image: {{ .Values.ladybugDatabase.image.repository }}:{{ .Values.ladybugDatabase.image.tag }}
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
@@ -56,14 +53,13 @@ spec:
             runAsGroup: 999
             runAsNonRoot: true
             runAsUser: 999
-            seLinuxOptions: { }
             seccompProfile:
               type: RuntimeDefault
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.ladybugDatabase.auth.existingSecret }}
+                  name: {{ .Values.ladybugDatabase.auth.secretName }}
                   key: postgres-password
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
