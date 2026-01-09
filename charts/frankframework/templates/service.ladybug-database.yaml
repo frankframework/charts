@@ -1,0 +1,20 @@
+{{- if .Values.ladybugDatabase.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "frankframework.fullname" . }}-ladybug-database
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
+    app.kubernetes.io/component: primary
+spec:
+  type: ClusterIP
+  sessionAffinity: None
+  ports:
+    - name: tcp-postgresql
+      port: 5432
+      targetPort: tcp-postgresql
+  selector:
+    app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
+    app.kubernetes.io/component: primary
+{{- end -}}

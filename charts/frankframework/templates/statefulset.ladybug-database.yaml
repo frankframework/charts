@@ -1,0 +1,122 @@
+{{- if .Values.ladybugDatabase.enabled -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "frankframework.fullname" . }}-ladybug-database
+  labels:
+    {{- include "frankframework.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
+    app.kubernetes.io/component: primary
+spec:
+  replicas: 1
+  serviceName: {{ template "frankframework.fullname" . }}-ladybug-database
+  updateStrategy:
+    rollingUpdate: { }
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
+      app.kubernetes.io/component: primary
+  template:
+    metadata:
+      name: {{ template "frankframework.fullname" . }}-ladybug-database
+      labels:
+        {{- include "frankframework.labels" . | nindent 4 }}
+        app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
+        app.kubernetes.io/component: primary
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
+                    app.kubernetes.io/component: primary
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      securityContext:
+        fsGroup: 999
+        fsGroupChangePolicy: Always
+        supplementalGroups: [ ]
+        sysctls: [ ]
+      hostNetwork: false
+      hostIPC: false
+      containers:
+        - name: postgresql
+          image: postgres:17-bookworm
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 999
+            runAsNonRoot: true
+            runAsUser: 999
+            seLinuxOptions: { }
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.ladybugDatabase.auth.existingSecret }}
+                  key: postgres-password
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+          ports:
+            - name: tcp-postgresql
+              containerPort: 5432
+          livenessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+          readinessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+          resources:
+            limits:
+              cpu: 150m
+              ephemeral-storage: 2Gi
+              memory: 192Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 50Mi
+              memory: 128Mi
+          volumeMounts:
+            - name: empty-dir
+              mountPath: /tmp
+            - name: empty-dir
+              mountPath: /var/run/postgresql
+              subPath: run
+            - name: dshm
+              mountPath: /dev/shm
+            - name: data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: empty-dir
+          emptyDir: { }
+        - name: dshm
+          emptyDir:
+            medium: Memory
+        - name: data
+          emptyDir: { }
+{{- end -}}
