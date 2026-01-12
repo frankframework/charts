@@ -265,6 +265,24 @@ entries:
     version: 0.1.5
   ff-test:
   - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT-tomcat
+    created: "2026-01-12T09:36:10.484795641Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.0
+    description: A Helm chart for testing the Frank!Framework on Kubernetes
+    digest: 4af9737c9fb39c3c3baae1ac4b35ad72fe128cea1295252738eb9e374aec2023
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-test/icon.svg
+    keywords:
+    - e2e
+    name: ff-test
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-test-0.7.0/ff-test-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
     appVersion: 9.4.0-SNAPSHOT-tomcat
     created: "2025-12-02T10:22:06.213699672Z"
     dependencies:
@@ -644,6 +662,24 @@ entries:
     version: 0.2.15
   frank-console:
   - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT
+    created: "2026-01-12T09:36:10.621747257Z"
+    description: The Frank!Framework console is a web application that allows you
+      to manage multiple instances of Frank!Framework from a single console.
+    digest: 46a49c3cf219d53b5e09ee9f888cba4cb2c845d353fe97a6736ac7c31c3c4105
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-console/icon.svg
+    keywords:
+    - frankframework
+    - testing
+    - console
+    - dashboard
+    name: frank-console
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank-console-0.7.0/frank-console-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
     appVersion: 9.4.0-SNAPSHOT
     created: "2025-12-02T10:22:06.371365222Z"
     description: The Frank!Framework console is a web application that allows you
@@ -842,6 +878,23 @@ entries:
     - https://github.com/frankframework/charts/releases/download/frank-console-0.1.0/frank-console-0.1.0.tgz
     version: 0.1.0
   frank2example:
+  - apiVersion: v2
+    created: "2026-01-12T09:36:10.766926033Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.0
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: 0145d79e3777761c3481518ddf25e34f5f9cc1fa67dc80901b66afda87cf3003
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.7.0/frank2example-0.7.0.tgz
+    version: 0.7.0
   - apiVersion: v2
     created: "2025-12-02T10:22:06.550669112Z"
     dependencies:
@@ -1372,6 +1425,29 @@ entries:
     - https://github.com/ibissource/charts/releases/download/frank2example-0.2.0/frank2example-0.2.0.tgz
     version: 0.2.0
   frankframework:
+  - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT
+    created: "2026-01-12T09:36:10.987097796Z"
+    dependencies:
+    - alias: console
+      condition: console.enabled
+      name: frank-console
+      repository: file://../frank-console
+      version: 0.7.0
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: 55cb5ad0aead1fcf023c04110f34ee94aeea4c5b5d35cd24cb7bf5bc38ca9df5
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    keywords:
+    - frankframework
+    - integration
+    - testing
+    - automation
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.7.0/frankframework-0.7.0.tgz
+    version: 0.7.0
   - apiVersion: v2
     appVersion: 9.4.0-SNAPSHOT
     created: "2025-12-02T10:22:06.763011144Z"
@@ -1996,4 +2072,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2025-12-02T10:22:06.763480054Z"
+generated: "2026-01-12T09:36:10.98759968Z"
