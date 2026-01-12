@@ -414,6 +414,17 @@ The readiness probe will check if all adapters are running using the server heal
 
 Changed the default database for Ladybug to PostgreSQL. This changes the auth a bit. Make sure it is configured correctly.
 
+**Breaking changes for `ladybugDatabase` configuration (from 0.6.0 to 0.7.0):**
+
+- `ladybugDatabase.auth.existingSecret` has been renamed to `ladybugDatabase.auth.secretName`.
+- `ladybugDatabase.nameOverride` has been removed.
+- `ladybugDatabase.primary.persistence.enabled` is no longer available.
+
+If you are upgrading from chart version `0.6.0`:
+
+- Replace any usage of `ladybugDatabase.auth.existingSecret` in your `values.yaml` or `--set` overrides with `ladybugDatabase.auth.secretName`.
+- Remove `ladybugDatabase.nameOverride` from your configuration; the release name is now used as-is.
+- Remove `ladybugDatabase.primary.persistence.enabled` from your configuration and review the current `values.yaml` to configure persistence according to the new defaults.
 Updated the Frank!Framework version to `10.0.0-SNAPSHOT`.
 
 ### 0.6.0
