@@ -223,7 +223,7 @@ generateSecret:
    mountPath: /opt/frank/secrets/
    stringData:
      credentials.properties: |-
-       alias/username=C3PO
+       alias/uasername=C3PO
        alias/password=R2D2
 ```
 
@@ -409,6 +409,12 @@ The readiness probe will check if all adapters are running using the server heal
 | `securityContext`            | Example is shown in the `values.yaml` file                                                                               |        |
 
 ## Notable changes
+
+### 0.7.0
+
+Changed the default database for Ladybug to PostgreSQL. This changes the auth a bit. Make sure it is configured correctly.
+
+Updated the Frank!Framework version to `10.0.0-SNAPSHOT`.
 
 ### 0.6.0
 

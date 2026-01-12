@@ -127,13 +127,6 @@
             "default": null,
             "nullable": true
         },
-        "generateConfigMap/items": {
-            "type": "array",
-            "description": "Items of the configmap",
-            "default": null,
-            "nullable": true,
-            "items": {}
-        },
         "generateConfigMap/items/key": {
             "type": "string",
             "description": "Key of the item",
@@ -169,13 +162,6 @@
             "description": "Type of the secret (default Opaque)",
             "default": null,
             "nullable": true
-        },
-        "generateSecret/items": {
-            "type": "array",
-            "description": "Items of the secret",
-            "default": null,
-            "nullable": true,
-            "items": {}
         },
         "generateSecret/items/key": {
             "type": "string",
