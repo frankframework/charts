@@ -1,8 +1,8 @@
 apiVersion: v2
 name: frank-console
 description: The Frank!Framework console is a web application that allows you to manage multiple instances of Frank!Framework from a single console.
-version: 0.6.0
-appVersion: "9.4.0-SNAPSHOT"
+version: 0.7.0
+appVersion: "10.0.0-SNAPSHOT"
 type: application
 home: https://frankframework.org
 icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-console/icon.svg

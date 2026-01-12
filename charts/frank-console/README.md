@@ -76,8 +76,8 @@ In the case you are testing this Chart, you'd probably want to disable the authe
 To do so, you can set the following environment variables:
 ```yaml
 environmentVariables:
-application.security.console.authentication.type: NONE
-application.security.testtool.authentication.type: NONE
+  application.security.console.authentication.type: NONE
+  application.security.testtool.authentication.type: NONE
 ```
 
 To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
@@ -102,33 +102,26 @@ This is useful if you want to add local users or other authentication to the Fra
 Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
 With one secret, the subPath and mountPath are not needed. And it would be possible to implement items
 
-| Name                            | Description                                                           | Value       |
-| ------------------------------- | --------------------------------------------------------------------- | ----------- |
-| `generateConfigMap`             | Generate configmaps from values                                       | `{}`        |
-| `generateConfigMap`             | Example is shown in the `values.yaml` file                            |             |
-| `generateConfigMap.name`        | Name of the configmap                                                 | `undefined` |
-| `generateConfigMap.optional`    | Mark the configmap as optional (default false)                        | `undefined` |
-| `generateConfigMap.defaultMode` | Default mode of the configmap (default 0644)                          | `undefined` |
-| `generateConfigMap.items`       | Items of the configmap                                                | `undefined` |
-| `generateConfigMap.items.key`   | Key of the configmap                                                  | `undefined` |
-| `generateConfigMap.items.path`  | Path of the configmap                                                 | `undefined` |
-| `generateConfigMap.items.mode`  | Mode of the configmap                                                 | `undefined` |
-| `generateConfigMap.mountPath`   | Path where the configmap will be mounted (default /opt/frank/secrets) | `undefined` |
-| `generateConfigMap.readOnly`    | ReadOnly of the configmap (default true)                              | `undefined` |
-| `generateConfigMap.data`        | Data of the configmap                                                 | `undefined` |
-| `generateSecret`                | Generate secrets from values                                          | `{}`        |
-| `generateSecret`                | Example is shown in the `values.yaml` file                            |             |
-| `generateSecret.name`           | Name of the secret                                                    | `undefined` |
-| `generateSecret.type`           | Type of the secret (default Opaque)                                   | `undefined` |
-| `generateSecret.optional`       | Mark the secret as optional (default false)                           | `undefined` |
-| `generateSecret.items`          | Items of the secret                                                   | `undefined` |
-| `generateSecret.items.key`      | Key of the secret                                                     | `undefined` |
-| `generateSecret.items.path`     | Path of the secret                                                    | `undefined` |
-| `generateSecret.items.mode`     | Mode of the secret                                                    | `undefined` |
-| `generateSecret.mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)    | `undefined` |
-| `generateSecret.readOnly`       | ReadOnly of the secret (default true)                                 | `undefined` |
-| `generateSecret.data`           | Data of the secret                                                    | `undefined` |
-| `generateSecret.stringData`     | StringData of the secret                                              | `undefined` |
+| Name                           | Description                                                           | Value |
+| ------------------------------ | --------------------------------------------------------------------- | ----- |
+| `generateConfigMap`            | Generate configmaps from values                                       | `{}`  |
+| `generateConfigMap`            | Example is shown in the `values.yaml` file                            |       |
+| `generateConfigMap/name`       | Name of the configmap                                                 | `nil` |
+| `generateConfigMap/items`      | Items of the configmap                                                | `nil` |
+| `generateConfigMap/items/key`  | Key of the configmap                                                  | `nil` |
+| `generateConfigMap/items/path` | Path of the configmap                                                 | `nil` |
+| `generateConfigMap/mountPath`  | Path where the configmap will be mounted (default /opt/frank/secrets) | `nil` |
+| `generateConfigMap/data`       | Data of the configmap                                                 | `nil` |
+| `generateSecret`               | Generate secrets from values                                          | `{}`  |
+| `generateSecret`               | Example is shown in the `values.yaml` file                            |       |
+| `generateSecret/name`          | Name of the secret                                                    | `nil` |
+| `generateSecret/type`          | Type of the secret (default Opaque)                                   | `nil` |
+| `generateSecret/items`         | Items of the secret                                                   | `nil` |
+| `generateSecret/items/key`     | Key of the secret                                                     | `nil` |
+| `generateSecret/items/path`    | Path of the secret                                                    | `nil` |
+| `generateSecret/mountPath`     | Path where the secret will be mounted (default /opt/frank/secrets)    | `nil` |
+| `generateSecret/data`          | Data of the secret                                                    | `nil` |
+| `generateSecret/stringData`    | StringData of the secret                                              | `nil` |
 
 ### Volumes
 
@@ -233,10 +226,10 @@ The readiness probe will check if all adapters are running using the server heal
 | `ingress.annotations`          | ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations                                                             |             |
 | `ingress.annotations`          | Example is shown in the `values.yaml` file                                                                                         |             |
 | `ingress.hosts`                | Set hosts for ingress                                                                                                              | `{}`        |
-| `ingress.hosts.host`           | Set hostname                                                                                                                       | `undefined` |
-| `ingress.hosts.paths`          | Set multiple paths                                                                                                                 | `undefined` |
-| `ingress.hosts.paths.path`     | Set path (context url)                                                                                                             | `undefined` |
-| `ingress.hosts.paths.pathType` | Set type of path                                                                                                                   | `undefined` |
+| `ingress.hosts/host`           | Set hostname                                                                                                                       | `nil`       |
+| `ingress.hosts/paths`          | Set multiple paths                                                                                                                 | `nil`       |
+| `ingress.hosts/paths/path`     | Set path (context url)                                                                                                             | `nil`       |
+| `ingress.hosts/paths/pathType` | Set type of path                                                                                                                   | `nil`       |
 | `ingress.tls`                  | Define tls secrets for hosts                                                                                                       | `{}`        |
 | `ingress.tls`                  | Example is shown in the `values.yaml` file                                                                                         |             |
 
@@ -262,3 +255,11 @@ The readiness probe will check if all adapters are running using the server heal
 
 For now, the Frank!Framework Console is not configurable. It only works if used as a sub-chart in the Frank!Framework chart.
 It is planned to make it configurable in the future. And you could create and mount your worn hazelcast-network-config.xml file.
+
+## Notable changes
+
+### 0.7.0
+
+Changed the default database for Ladybug to PostgreSQL. This changes the auth a bit. Make sure it is configured correctly.
+
+Updated the Frank!Framework version to `10.0.0-SNAPSHOT`.

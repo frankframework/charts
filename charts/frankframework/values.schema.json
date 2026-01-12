@@ -121,6 +121,72 @@
             "default": [],
             "items": {}
         },
+        "generateConfigMap/name": {
+            "type": "string",
+            "description": "Name of the configmap",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/items/key": {
+            "type": "string",
+            "description": "Key of the item",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/items/path": {
+            "type": "string",
+            "description": "Path of the item to mount (appends mountPath)",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/mountPath": {
+            "type": "string",
+            "description": "Path where the configmap will be mounted (default /opt/frank/resources)",
+            "default": null,
+            "nullable": true
+        },
+        "generateConfigMap/subPath": {
+            "type": "string",
+            "description": "Item in data to mount",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/name": {
+            "type": "string",
+            "description": "Name of the secret",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/type": {
+            "type": "string",
+            "description": "Type of the secret (default Opaque)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/items/key": {
+            "type": "string",
+            "description": "Key of the item",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/items/path": {
+            "type": "string",
+            "description": "Path of the item to mount (appends mountPath)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/mountPath": {
+            "type": "string",
+            "description": "Path where the secret will be mounted (default /opt/frank/secrets)",
+            "default": null,
+            "nullable": true
+        },
+        "generateSecret/subPath": {
+            "type": "string",
+            "description": "Key of the item to mount",
+            "default": null,
+            "nullable": true
+        },
         "extraVolumes": {
             "type": "array",
             "description": "Optionally specify extra list of additional volumes for WordPress pods",
@@ -184,27 +250,12 @@
                         "repository": {
                             "type": "string",
                             "description": "Override the image repository of the Ladybug Database dependency",
-                            "default": "bitnamilegacy/postgresql"
-                        }
-                    }
-                },
-                "nameOverride": {
-                    "type": "string",
-                    "description": "Override the name of the Ladybug Database dependency",
-                    "default": "ladybug-database"
-                },
-                "primary": {
-                    "type": "object",
-                    "properties": {
-                        "persistence": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean",
-                                    "description": "Enable persistence for the Ladybug Database dependency (default is false for easy installation)",
-                                    "default": false
-                                }
-                            }
+                            "default": "postgres"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "description": "Override the image tag of the Ladybug Database dependency",
+                            "default": "17-bookworm"
                         }
                     }
                 },
@@ -216,14 +267,14 @@
                             "description": "Enable the generation of secrets for the PostgreSQL dependency",
                             "default": true
                         },
-                        "existingSecret": {
+                        "secretName": {
                             "type": "string",
-                            "description": "Name of the secret (also the name of the generated secret)",
+                            "description": "Name of the secret (both for the generated secret or existing secret)",
                             "default": "frankframework-ladybug-database-auth"
                         },
                         "postgresPassword": {
                             "type": "string",
-                            "description": "Password for the PostgreSQL dependency",
+                            "description": "Password for the PostgreSQL dependency *(no default; must be set securely)*",
                             "default": "postgres",
                             "nullable": true
                         }
@@ -377,6 +428,45 @@
                 }
             }
         },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object",
+                    "properties": {
+                        "memory": {
+                            "type": "string",
+                            "description": "The memory limit for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        },
+                        "cpu": {
+                            "type": "string",
+                            "description": "The cpu limit for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        }
+                    }
+                },
+                "requests": {
+                    "type": "object",
+                    "properties": {
+                        "memory": {
+                            "type": "string",
+                            "description": "The requested memory for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        },
+                        "cpu": {
+                            "type": "string",
+                            "description": "The requested cpu for the Frank!Framework containers",
+                            "default": null,
+                            "nullable": true
+                        }
+                    }
+                }
+            }
+        },
         "terminationGracePeriodSeconds": {
             "type": "number",
             "description": "Number of seconds after which pods are forcefully killed",
@@ -440,6 +530,31 @@
                     "type": "object",
                     "description": "Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.",
                     "default": {}
+                },
+                "hosts/host": {
+                    "type": "string",
+                    "description": "Set hostname",
+                    "default": null,
+                    "nullable": true
+                },
+                "hosts/paths": {
+                    "type": "array",
+                    "description": "Set multiple paths",
+                    "default": null,
+                    "nullable": true,
+                    "items": {}
+                },
+                "hosts/paths/path": {
+                    "type": "string",
+                    "description": "Set path (context url)",
+                    "default": null,
+                    "nullable": true
+                },
+                "hosts/paths/pathType": {
+                    "type": "string",
+                    "description": "Set type of path",
+                    "default": null,
+                    "nullable": true
                 }
             }
         },
