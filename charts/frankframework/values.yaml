@@ -85,7 +85,7 @@ application:
   ##
   configurations:
     names: [ ]
-  ## @param application.properties [object] Set Yaml properties for configuring the Frank!Framework or configurations
+  ## @param application.properties [object] Set YAML properties for configuring the Frank!Framework or configurations
   ## @extra application.properties Please read the section "Environment variables" for more information about the differance between `.Values.application.properties` and `.Values.environmentVariables`
   ## @extra application.properties ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties
   ## @extra application.properties implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java
@@ -108,10 +108,10 @@ ports: []
 ## @descriptionStart
 ## The environment variables are used to configure the Frank!Framework.
 ##
-## The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the yaml file.
-## Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the yaml file has been loaded.
-## The yaml file will is loaded by the Frank!Framework after it has been started.
-## This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the yaml file.
+## The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the YAML file.
+## Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the YAML file has been loaded.
+## The YAML file will is loaded by the Frank!Framework after it has been started.
+## This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the YAML file.
 ##
 ## It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 ##
@@ -186,21 +186,23 @@ envFrom: [ ]
 ##        alias/uasername=C3PO
 ##        alias/password=R2D2
 ## ```
+##
+## There are some more examples in the `values.yaml` file.
 ## @descriptionEnd
 ##
 
 ## @param generateConfigMap [object] Generate configmaps from values
 ## @extra generateConfigMap Example is shown in the `values.yaml` file
 ## @param generateConfigMap/name [string, nullable] Name of the configmap
-## @param generateConfigMap/optional [string, nullable] Mark the configmap as optional (default false)
-## @param generateConfigMap/defaultMode [string, nullable] Default mode of the configmap (default 0644)
+## @skip generateConfigMap/optional [boolean, nullable] Mark the configmap as optional (default false)
+## @skip generateConfigMap/defaultMode [number, nullable] Default mode of the configmap (default 0644)
 ## @param generateConfigMap/items [array, nullable] Items of the configmap
 ## @param generateConfigMap/items/key [string, nullable] Key of the item
 ## @param generateConfigMap/items/path [string, nullable] Path of the item to mount (appends mountPath)
-## @param generateConfigMap/items/mode [string, nullable] Mode of the item
+## @skip generateConfigMap/items/mode [number, nullable] Mode of the item
 ## @param generateConfigMap/mountPath [string, nullable] Path where the configmap will be mounted (default /opt/frank/resources)
 ## @param generateConfigMap/subPath [string, nullable] Item in data to mount
-## @param generateConfigMap/readOnly [string, nullable] ReadOnly of the configmap (default true)
+## @skip generateConfigMap/readOnly [number, nullable] ReadOnly of the configmap (default true)
 ## @param generateConfigMap/data [object, nullable] Data of the configmap
 ## e.g: generateConfigMap:
 ##  - name: DeploymentSpecifics
@@ -216,15 +218,15 @@ generateConfigMap: [ ]
 ## @param generateSecret/name [string, nullable] Name of the secret
 ## @param generateSecret/type [string, nullable] Type of the secret (default Opaque)
 ## Options: `Opaque`, `kubernetes.io/dockerconfigjson`
-## @param generateSecret/optional [string, nullable] Mark the secret as optional (default false)
-## @param generateSecret/defaultMode [string, nullable] Default mode of the secret (default 0644)
+## @skip generateSecret/optional [boolean, nullable] Mark the secret as optional (default false)
+## @skip generateSecret/defaultMode [number, nullable] Default mode of the secret (default 0644)
 ## @param generateSecret/items [array, nullable] Items of the secret
 ## @param generateSecret/items/key [string, nullable] Key of the item
 ## @param generateSecret/items/path [string, nullable] Path of the item to mount (appends mountPath)
-## @param generateSecret/items/mode [string, nullable] Mode of the item
+## @skip generateSecret/items/mode [number, nullable] Mode of the item
 ## @param generateSecret/mountPath [string, nullable] Path where the secret will be mounted (default /opt/frank/secrets)
 ## @param generateSecret/subPath [string, nullable] Key of the item to mount
-## @param generateSecret/readOnly [string, nullable] ReadOnly of the secret (default true)
+## @skip generateSecret/readOnly [boolean, nullable] ReadOnly of the secret (default true)
 ## @param generateSecret/data [object, nullable] Data of the secret
 ## @param generateSecret/stringData [object, nullable] StringData of the secret
 ## e.g: generateSecret:
@@ -327,7 +329,7 @@ console:
 ## @param ladybugDatabase.image.tag Override the image tag of the Ladybug Database dependency
 ## @param ladybugDatabase.auth.generatePostgresqlSecret Enable the generation of secrets for the PostgreSQL dependency
 ## @param ladybugDatabase.auth.secretName Name of the secret (both for the generated secret or existing secret)
-## @param ladybugDatabase.auth.postgresPassword [string, nullable] Password for the PostgreSQL dependency
+## @param ladybugDatabase.auth.postgresPassword [string, nullable] Password for the PostgreSQL dependency *(no default; must be set securely)*
 ##
 ##
 ladybugDatabase:

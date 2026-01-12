@@ -142,7 +142,7 @@ You can also configure the name of the instance. And what configurations to load
 | `application.instance.name`        | Keep in mind that the name is used for the default datasource.                                                                                                        |       |
 | `application.configurations.names` | Set the configurations to load. Leave empty to use the default                                                                                                        | `[]`  |
 | `application.configurations.names` | Example is shown in the `values.yaml` file                                                                                                                            |       |
-| `application.properties`           | Set Yaml properties for configuring the Frank!Framework or configurations                                                                                             | `{}`  |
+| `application.properties`           | Set YAML properties for configuring the Frank!Framework or configurations                                                                                             | `{}`  |
 | `application.properties`           | Please read the section "Environment variables" for more information about the differance between `.Values.application.properties` and `.Values.environmentVariables` |       |
 | `application.properties`           | ref: https://github.com/frankframework/frankframework/blob/master/core/src/main/resources/AppConstants.properties                                                     |       |
 | `application.properties`           | implementation ref: https://github.com/frankframework/frankframework/blob/master/commons/src/main/java/org/frankframework/util/YamlParser.java                        |       |
@@ -161,10 +161,10 @@ This section contains some parameters that are used to configure the deployment 
 
 The environment variables are used to configure the Frank!Framework.
 
-The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the yaml file.
-Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the yaml file has been loaded.
-The yaml file will is loaded by the Frank!Framework after it has been started.
-This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the yaml file.
+The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the YAML file.
+Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the YAML file has been loaded.
+The YAML file will is loaded by the Frank!Framework after it has been started.
+This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the YAML file.
 
 It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 
@@ -227,35 +227,30 @@ generateSecret:
        alias/password=R2D2
 ```
 
-| Name                            | Description                                                             | Value |
-| ------------------------------- | ----------------------------------------------------------------------- | ----- |
-| `generateConfigMap`             | Generate configmaps from values                                         | `{}`  |
-| `generateConfigMap`             | Example is shown in the `values.yaml` file                              |       |
-| `generateConfigMap/name`        | Name of the configmap                                                   | `nil` |
-| `generateConfigMap/optional`    | Mark the configmap as optional (default false)                          | `nil` |
-| `generateConfigMap/defaultMode` | Default mode of the configmap (default 0644)                            | `nil` |
-| `generateConfigMap/items`       | Items of the configmap                                                  | `nil` |
-| `generateConfigMap/items/key`   | Key of the item                                                         | `nil` |
-| `generateConfigMap/items/path`  | Path of the item to mount (appends mountPath)                           | `nil` |
-| `generateConfigMap/items/mode`  | Mode of the item                                                        | `nil` |
-| `generateConfigMap/mountPath`   | Path where the configmap will be mounted (default /opt/frank/resources) | `nil` |
-| `generateConfigMap/subPath`     | Item in data to mount                                                   | `nil` |
-| `generateConfigMap/readOnly`    | ReadOnly of the configmap (default true)                                | `nil` |
-| `generateConfigMap/data`        | Data of the configmap                                                   | `nil` |
-| `generateSecret`                | Generate secrets from values                                            | `{}`  |
-| `generateSecret`                | Example is shown in the `values.yaml` file                              |       |
-| `generateSecret/name`           | Name of the secret                                                      | `nil` |
-| `generateSecret/type`           | Type of the secret (default Opaque)                                     | `nil` |
-| `generateSecret/optional`       | Mark the secret as optional (default false)                             | `nil` |
-| `generateSecret/items`          | Items of the secret                                                     | `nil` |
-| `generateSecret/items/key`      | Key of the item                                                         | `nil` |
-| `generateSecret/items/path`     | Path of the item to mount (appends mountPath)                           | `nil` |
-| `generateSecret/items/mode`     | Mode of the item                                                        | `nil` |
-| `generateSecret/mountPath`      | Path where the secret will be mounted (default /opt/frank/secrets)      | `nil` |
-| `generateSecret/subPath`        | Key of the item to mount                                                | `nil` |
-| `generateSecret/readOnly`       | ReadOnly of the secret (default true)                                   | `nil` |
-| `generateSecret/data`           | Data of the secret                                                      | `nil` |
-| `generateSecret/stringData`     | StringData of the secret                                                | `nil` |
+There are some more examples in the `values.yaml` file.
+
+| Name                           | Description                                                             | Value |
+| ------------------------------ | ----------------------------------------------------------------------- | ----- |
+| `generateConfigMap`            | Generate configmaps from values                                         | `{}`  |
+| `generateConfigMap`            | Example is shown in the `values.yaml` file                              |       |
+| `generateConfigMap/name`       | Name of the configmap                                                   | `nil` |
+| `generateConfigMap/items`      | Items of the configmap                                                  | `nil` |
+| `generateConfigMap/items/key`  | Key of the item                                                         | `nil` |
+| `generateConfigMap/items/path` | Path of the item to mount (appends mountPath)                           | `nil` |
+| `generateConfigMap/mountPath`  | Path where the configmap will be mounted (default /opt/frank/resources) | `nil` |
+| `generateConfigMap/subPath`    | Item in data to mount                                                   | `nil` |
+| `generateConfigMap/data`       | Data of the configmap                                                   | `nil` |
+| `generateSecret`               | Generate secrets from values                                            | `{}`  |
+| `generateSecret`               | Example is shown in the `values.yaml` file                              |       |
+| `generateSecret/name`          | Name of the secret                                                      | `nil` |
+| `generateSecret/type`          | Type of the secret (default Opaque)                                     | `nil` |
+| `generateSecret/items`         | Items of the secret                                                     | `nil` |
+| `generateSecret/items/key`     | Key of the item                                                         | `nil` |
+| `generateSecret/items/path`    | Path of the item to mount (appends mountPath)                           | `nil` |
+| `generateSecret/mountPath`     | Path where the secret will be mounted (default /opt/frank/secrets)      | `nil` |
+| `generateSecret/subPath`       | Key of the item to mount                                                | `nil` |
+| `generateSecret/data`          | Data of the secret                                                      | `nil` |
+| `generateSecret/stringData`    | StringData of the secret                                                | `nil` |
 
 ### Volumes
 
@@ -306,14 +301,14 @@ The dependency is enabled by default, but can be disabled if you want to use an 
 
 Some of the parameters are pre-configured for an easy installation, but can be changed if needed.
 
-| Name                                            | Description                                                           | Value                                  |
-| ----------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------- |
-| `ladybugDatabase.enabled`                       | Enable the Ladybug Database (PostgreSQL dependency)                   | `true`                                 |
-| `ladybugDatabase.image.repository`              | Override the image repository of the Ladybug Database dependency      | `postgres`                             |
-| `ladybugDatabase.image.tag`                     | Override the image tag of the Ladybug Database dependency             | `17-bookworm`                          |
-| `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency        | `true`                                 |
-| `ladybugDatabase.auth.secretName`               | Name of the secret (both for the generated secret or existing secret) | `frankframework-ladybug-database-auth` |
-| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency                                | `postgres`                             |
+| Name                                            | Description                                                                 | Value                                  |
+| ----------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------- |
+| `ladybugDatabase.enabled`                       | Enable the Ladybug Database (PostgreSQL dependency)                         | `true`                                 |
+| `ladybugDatabase.image.repository`              | Override the image repository of the Ladybug Database dependency            | `postgres`                             |
+| `ladybugDatabase.image.tag`                     | Override the image tag of the Ladybug Database dependency                   | `17-bookworm`                          |
+| `ladybugDatabase.auth.generatePostgresqlSecret` | Enable the generation of secrets for the PostgreSQL dependency              | `true`                                 |
+| `ladybugDatabase.auth.secretName`               | Name of the secret (both for the generated secret or existing secret)       | `frankframework-ladybug-database-auth` |
+| `ladybugDatabase.auth.postgresPassword`         | Password for the PostgreSQL dependency *(no default; must be set securely)* | `postgres`                             |
 
 ### Frank!Framework deployment parameters
 

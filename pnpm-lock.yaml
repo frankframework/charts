@@ -12,7 +12,7 @@ importers:
         specifier: ^2.6.1
         version: 2.7.2
       fs-extra:
-        specifier: ^11.3.3
+        specifier: 11.3.3
         version: 11.3.3
       husky:
         specifier: ^9.1.7
