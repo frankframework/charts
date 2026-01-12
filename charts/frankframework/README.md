@@ -161,10 +161,10 @@ This section contains some parameters that are used to configure the deployment 
 
 The environment variables are used to configure the Frank!Framework.
 
-The differance between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the YAML file.
+The difference between `.Values.application.properties` and `.Values.environmentVariables` is that the environment variables are set in the container and not in the YAML file.
 Environment variables are immediately available in the container and can be used to configure the Frank!Framework, even before the YAML file has been loaded.
 The YAML file will is loaded by the Frank!Framework after it has been started.
-This is an important differance because it means that some variables to configure the Frank!Framework can not be set in the YAML file.
+This is an important difference because it means that some variables to configure the Frank!Framework can not be set in the YAML file.
 
 It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 
