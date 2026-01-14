@@ -50,8 +50,7 @@ frankframework:
   ## @param frankframework.startupProbe.timeoutSeconds Timeout seconds for startupProbe
   ## @param frankframework.startupProbe.failureThreshold Failure threshold for startupProbe
   ## @param frankframework.startupProbe.successThreshold Success threshold for startupProbe
-  ## @param frankframework.startupProbe.httpGet.path Path for startupProbe
-  ## @param frankframework.startupProbe.httpGet.port Port for startupProbe
+  ## @param frankframework.startupProbe.exec.command Command for livenessProbe
   ##
   startupProbe:
     initialDelaySeconds: 40
@@ -59,9 +58,11 @@ frankframework:
     timeoutSeconds: 1
     failureThreshold: 12
     successThreshold: 1
-    httpGet:
-      path: /iaf-test/iaf/api/server/health
-      port: 8080
+    exec:
+      command:
+        - curl
+        - -f
+        - http://127.0.0.1:8080/iaf-test/iaf/api/server/health
 
   ## @extra frankframework.livenessProbe Configure the liveness probe
   ## @extra frankframework.livenessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
@@ -70,8 +71,7 @@ frankframework:
   ## @param frankframework.livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
   ## @param frankframework.livenessProbe.failureThreshold Failure threshold for livenessProbe
   ## @param frankframework.livenessProbe.successThreshold Success threshold for livenessProbe
-  ## @param frankframework.livenessProbe.httpGet.path Path for livenessProbe
-  ## @param frankframework.livenessProbe.httpGet.port Port for livenessProbe
+  ## @param frankframework.livenessProbe.exec.command Command for livenessProbe
   ##
   livenessProbe:
     initialDelaySeconds: 0
@@ -79,9 +79,11 @@ frankframework:
     timeoutSeconds: 1
     failureThreshold: 12
     successThreshold: 1
-    httpGet:
-      path: /iaf-test/iaf/api/server/health
-      port: 8080
+    exec:
+      command:
+        - curl
+        - -f
+        - http://127.0.0.1:8080/iaf-test/iaf/api/server/health
 
   ## @extra frankframework.readinessProbe Configure the readiness probe
   ## @extra frankframework.readinessProbe ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
@@ -90,8 +92,7 @@ frankframework:
   ## @param frankframework.readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
   ## @param frankframework.readinessProbe.failureThreshold Failure threshold for readinessProbe
   ## @param frankframework.readinessProbe.successThreshold Success threshold for readinessProbe
-  ## @param frankframework.readinessProbe.httpGet.path Path for readinessProbe
-  ## @param frankframework.readinessProbe.httpGet.port Port for readinessProbe
+  ## @param frankframework.readinessProbe.exec.command Command for livenessProbe
   ##
   readinessProbe:
     initialDelaySeconds: 0
@@ -99,6 +100,8 @@ frankframework:
     timeoutSeconds: 1
     failureThreshold: 3
     successThreshold: 1
-    httpGet:
-      path: /iaf-test/iaf/api/server/health
-      port: 8080
+    exec:
+      command:
+        - curl
+        - -f
+        - http://127.0.0.1:8080/iaf-test/iaf/api/server/health

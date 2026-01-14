@@ -89,18 +89,20 @@
                             "description": "Success threshold for startupProbe",
                             "default": 1
                         },
-                        "httpGet": {
+                        "exec": {
                             "type": "object",
                             "properties": {
-                                "path": {
-                                    "type": "string",
-                                    "description": "Path for startupProbe",
-                                    "default": "/iaf-test/iaf/api/server/health"
-                                },
-                                "port": {
-                                    "type": "number",
-                                    "description": "Port for startupProbe",
-                                    "default": 8080
+                                "command": {
+                                    "type": "array",
+                                    "description": "Command for livenessProbe",
+                                    "default": [
+                                        "curl",
+                                        "-f",
+                                        "http://127.0.0.1:8080/iaf-test/iaf/api/server/health"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -134,18 +136,20 @@
                             "description": "Success threshold for livenessProbe",
                             "default": 1
                         },
-                        "httpGet": {
+                        "exec": {
                             "type": "object",
                             "properties": {
-                                "path": {
-                                    "type": "string",
-                                    "description": "Path for livenessProbe",
-                                    "default": "/iaf-test/iaf/api/server/health"
-                                },
-                                "port": {
-                                    "type": "number",
-                                    "description": "Port for livenessProbe",
-                                    "default": 8080
+                                "command": {
+                                    "type": "array",
+                                    "description": "Command for livenessProbe",
+                                    "default": [
+                                        "curl",
+                                        "-f",
+                                        "http://127.0.0.1:8080/iaf-test/iaf/api/server/health"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -179,18 +183,20 @@
                             "description": "Success threshold for readinessProbe",
                             "default": 1
                         },
-                        "httpGet": {
+                        "exec": {
                             "type": "object",
                             "properties": {
-                                "path": {
-                                    "type": "string",
-                                    "description": "Path for readinessProbe",
-                                    "default": "/iaf-test/iaf/api/server/health"
-                                },
-                                "port": {
-                                    "type": "number",
-                                    "description": "Port for readinessProbe",
-                                    "default": 8080
+                                "command": {
+                                    "type": "array",
+                                    "description": "Command for livenessProbe",
+                                    "default": [
+                                        "curl",
+                                        "-f",
+                                        "http://127.0.0.1:8080/iaf-test/iaf/api/server/health"
+                                    ],
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
