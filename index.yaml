@@ -265,6 +265,23 @@ entries:
     version: 0.1.5
   ff-test:
   - apiVersion: v2
+    created: "2026-01-14T14:08:54.803452313Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.0
+    description: A Helm chart for testing the Frank!Framework on Kubernetes
+    digest: e9891ee575c3e17a4b7de9cc9b6c7a3ddbf7f7bfbf75076e7f8bb7096184a4dd
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-test/icon.svg
+    keywords:
+    - e2e
+    name: ff-test
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-test-0.7.2/ff-test-0.7.2.tgz
+    version: 0.7.2
+  - apiVersion: v2
     appVersion: 10.0.0-SNAPSHOT-tomcat
     created: "2026-01-14T13:51:27.948571215Z"
     dependencies:
@@ -2090,4 +2107,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2026-01-14T13:51:27.948921728Z"
+generated: "2026-01-14T14:08:54.803782671Z"
