@@ -265,6 +265,23 @@ entries:
     version: 0.1.5
   ff-test:
   - apiVersion: v2
+    created: "2026-01-15T13:36:56.318931714Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.2
+    description: A Helm chart for testing the Frank!Framework on Kubernetes
+    digest: a72302fd95e9d261889ab4abc0163c5ce8d5d4e1f92922155e6b305f022ebd98
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-test/icon.svg
+    keywords:
+    - e2e
+    name: ff-test
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-test-0.7.4/ff-test-0.7.4.tgz
+    version: 0.7.4
+  - apiVersion: v2
     created: "2026-01-15T13:31:35.910541293Z"
     dependencies:
     - name: frankframework
@@ -931,6 +948,23 @@ entries:
     version: 0.1.0
   frank2example:
   - apiVersion: v2
+    created: "2026-01-15T13:36:56.554587773Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.2
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: bd4d8f76e755a516fea38572dcf97403bfb1572c83936caee21272877893a309
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.7.2/frank2example-0.7.2.tgz
+    version: 0.7.2
+  - apiVersion: v2
     created: "2026-01-15T13:31:36.061663722Z"
     dependencies:
     - name: frankframework
@@ -1494,6 +1528,29 @@ entries:
     - https://github.com/ibissource/charts/releases/download/frank2example-0.2.0/frank2example-0.2.0.tgz
     version: 0.2.0
   frankframework:
+  - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT
+    created: "2026-01-15T13:36:56.8075439Z"
+    dependencies:
+    - alias: console
+      condition: console.enabled
+      name: frank-console
+      repository: file://../frank-console
+      version: 0.7.0
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: 40d608c0615665033a62da702c0e00d073064a84951d342140937e116c7bea78
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    keywords:
+    - frankframework
+    - integration
+    - testing
+    - automation
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.7.2/frankframework-0.7.2.tgz
+    version: 0.7.2
   - apiVersion: v2
     appVersion: 10.0.0-SNAPSHOT
     created: "2026-01-15T13:31:36.267493148Z"
@@ -2164,4 +2221,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2026-01-15T13:31:36.268086074Z"
+generated: "2026-01-15T13:36:56.808119615Z"
