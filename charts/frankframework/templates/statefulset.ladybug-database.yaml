@@ -4,9 +4,7 @@ kind: StatefulSet
 metadata:
   name: {{ template "frankframework.fullname" . }}-ladybug-database
   labels:
-    {{- include "frankframework.labels" . | nindent 4 }}
-    app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
-    app.kubernetes.io/component: primary
+    {{- include "frankframework.ladybugLabels" . | nindent 4 }}
 spec:
   replicas: 1
   serviceName: {{ template "frankframework.fullname" . }}-ladybug-database
@@ -14,15 +12,12 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
-      app.kubernetes.io/component: primary
+      {{- include "frankframework.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       name: {{ template "frankframework.fullname" . }}-ladybug-database
       labels:
-        {{- include "frankframework.labels" . | nindent 8 }}
-        app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
-        app.kubernetes.io/component: primary
+        {{- include "frankframework.selectorLabels" . | nindent 8 }}
     spec:
       affinity:
         podAntiAffinity:
@@ -30,8 +25,7 @@ spec:
             - podAffinityTerm:
                 labelSelector:
                   matchLabels:
-                    app.kubernetes.io/name: {{ template "frankframework.fullname" . }}-ladybug-database
-                    app.kubernetes.io/component: primary
+                    {{- include "frankframework.selectorLabels" . | nindent 20 }}
                 topologyKey: kubernetes.io/hostname
               weight: 1
       securityContext:
