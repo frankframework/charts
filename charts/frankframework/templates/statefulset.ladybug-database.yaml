@@ -12,12 +12,12 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      {{- include "frankframework.selectorLabels" . | nindent 6 }}
+      {{- include "frankframework.ladybugSelectorLabels" . | nindent 6 }}
   template:
     metadata:
       name: {{ template "frankframework.fullname" . }}-ladybug-database
       labels:
-        {{- include "frankframework.selectorLabels" . | nindent 8 }}
+        {{- include "frankframework.ladybugSelectorLabels" . | nindent 8 }}
     spec:
       affinity:
         podAntiAffinity:
@@ -25,7 +25,7 @@ spec:
             - podAffinityTerm:
                 labelSelector:
                   matchLabels:
-                    {{- include "frankframework.selectorLabels" . | nindent 20 }}
+                    {{- include "frankframework.ladybugSelectorLabels" . | nindent 20 }}
                 topologyKey: kubernetes.io/hostname
               weight: 1
       securityContext:
