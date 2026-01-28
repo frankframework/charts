@@ -12,10 +12,36 @@ Take a look at the Frank2Example chart for a simple example.
 ## Table of Contents
 <!-- TOC -->
 * [Frank!Framework Chart](#frankframework-chart)
+  * [Table of Contents](#table-of-contents)
   * [Usage](#usage)
   * [Configuration and installation details](#configuration-and-installation-details)
+    * [DTAP Stage](#dtap-stage)
+    * [Version tag](#version-tag)
+    * [Authentication](#authentication)
+    * [Ladybug Database](#ladybug-database)
   * [Parameters](#parameters)
+    * [Common parameters](#common-parameters)
+    * [Frank!Framework image parameters](#frankframework-image-parameters)
+    * [Frank!Framework application parameters](#frankframework-application-parameters)
+    * [Container](#container)
+    * [Environment variables](#environment-variables)
+    * [Generate ConfigMaps and Secrets](#generate-configmaps-and-secrets)
+    * [Volumes](#volumes)
+    * [Sidecars](#sidecars)
+    * [Frank!Framework console parameters](#frankframework-console-parameters)
+    * [Ladybug Database](#ladybug-database-1)
+    * [Frank!Framework deployment parameters](#frankframework-deployment-parameters)
+    * [Traffic Exposure Parameters](#traffic-exposure-parameters)
+    * [Other Parameters](#other-parameters)
   * [Notable changes](#notable-changes)
+    * [0.7.0](#070)
+    * [0.6.0](#060)
+    * [0.5.0](#050)
+    * [0.4.0](#040)
+    * [0.3.0](#030)
+    * [0.2.10](#0210)
+    * [0.2.8](#028)
+    * [0.2.7](#027)
 <!-- TOC -->
 
 ## Usage
@@ -72,6 +98,14 @@ If the separate console is enabled, the console will **not** use the same authen
 And always needs to be configured.
 
 Read more about configuring the authentication in the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/deploying/security.html).
+
+### Credentials and AuthAlias
+
+To configure credentials or "AuthAliases" for the Frank!Framework, it is recommended to use Kubernetes Secrets.
+The Frank!Framework will automatically pick up the secrets and make them available as AuthAliases.
+
+Read more about the Kubernetes Credential Provider [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
+For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
 
 ### Ladybug Database
 
@@ -168,13 +202,10 @@ This is an important differance because it means that some variables to configur
 
 It is possible to add environment variables with the `.Values.environmentVariables` parameter and to add environment variables from a configmap or secret with the `.Values.envFrom` parameter.
 
-To configure credentials you need to add a volume (see section Volumes) and set these environment variables.
+To configure credentials or "AuthAliases" for the Frank!Framework, it is recommended to use Kubernetes Secrets.
+The Frank!Framework will automatically pick up the secrets and make them available as AuthAliases.
 
-```yaml
-credentialFactory.class: "nl.nn.credentialprovider.PropertyFileCredentialFactory"
-credentialFactory.map.properties: "path to credentials.properties"
-```
-
+Read more about it [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
 For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
 
 To disable or configure authentication for the console, please read the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/advancedDevelopment/authorization/consoleAndLadybug.html).
@@ -198,6 +229,9 @@ To deploy the Frank!Framework, it can be needed to add some files to the contain
 The Frank!Framework chart allows you to generate configmaps and secrets from values.
 This is useful if you want to add local users or resources to the Frank!Framework.
 
+⚠️ **While it can be useful to generate secrets from the `values.yaml`, this is not considered safe and only intended for testing purposes. Production environments should use the `extraVolumes` to mount secrets.**
+ℹ️ **Credentials and AuthAliases that are needed by the Frank!Framework are picked up automatically from Kubernetes Secrets. Read more about it [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory)**
+
 Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
 With one secret, the subPath and mountPath are not needed. And it would be possible to implement items, like this:
 ```yaml
@@ -213,18 +247,6 @@ generateSecret:
           - name: frank2example
             type: org.h2.jdbcx.JdbcDataSource
             url: jdbc:h2:mem:frank2example;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=0;
-```
-
-The following example will generate a credentials.properties file in the /opt/frank/secrets/ folder.
-
-```yaml
-generateSecret:
- - name: frankframework-credentials
-   mountPath: /opt/frank/secrets/
-   stringData:
-     credentials.properties: |-
-       alias/uasername=C3PO
-       alias/password=R2D2
 ```
 
 There are some more examples in the `values.yaml` file.
