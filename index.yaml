@@ -1564,6 +1564,29 @@ entries:
   frankframework:
   - apiVersion: v2
     appVersion: 10.0.0-SNAPSHOT
+    created: "2026-01-28T14:54:53.619320619Z"
+    dependencies:
+    - alias: console
+      condition: console.enabled
+      name: frank-console
+      repository: file://../frank-console
+      version: 0.7.0
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: 75b9f7925d715f978ba676fef04848bc5b2d94eb654932d1183fc6b820cdb4d1
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    keywords:
+    - frankframework
+    - integration
+    - testing
+    - automation
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.7.4/frankframework-0.7.4.tgz
+    version: 0.7.4
+  - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT
     created: "2026-01-15T13:54:44.479622897Z"
     dependencies:
     - alias: console
@@ -2278,4 +2301,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2026-01-15T13:54:44.480216113Z"
+generated: "2026-01-28T14:54:53.619687554Z"
