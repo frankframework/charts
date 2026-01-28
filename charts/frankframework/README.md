@@ -18,6 +18,7 @@ Take a look at the Frank2Example chart for a simple example.
     * [DTAP Stage](#dtap-stage)
     * [Version tag](#version-tag)
     * [Authentication](#authentication)
+    * [Credentials and AuthAlias](#credentials-and-authalias)
     * [Ladybug Database](#ladybug-database)
   * [Parameters](#parameters)
     * [Common parameters](#common-parameters)
