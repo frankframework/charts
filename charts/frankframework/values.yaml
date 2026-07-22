@@ -66,7 +66,7 @@ image:
 application:
   ## @param application.dtap.stage (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`
   ## @extra application.dtap.stage The DTAP stage is used to enable and disable features in the Frank!Framework.
-  ## @extra application.dtap.stage ref: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
+  ## @extra application.dtap.stage ref: https://docs.frankframework.org/docs/manual/deployment/dtap/
   ## @param application.dtap.side Set the `DTAP` side of where the instance is running, and for sideSpecific properties
   ##
   dtap:
@@ -118,14 +118,14 @@ ports: []
 ## To configure credentials or "AuthAliases" for the Frank!Framework, it is recommended to use Kubernetes Secrets.
 ## The Frank!Framework will automatically pick up the secrets and make them available as AuthAliases.
 ##
-## Read more about it [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
-## For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
+## Read more about it [in the FF! Reference](https://reference.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
+## For more information about credentials, see the [documentation](https://docs.frankframework.org/docs/manual/deployment/credentials/).
 ##
-## To disable or configure authentication for the console, please read the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/advancedDevelopment/authorization/consoleAndLadybug.html).
+## To disable or configure authentication for the console, please read the [Frank!Framework Docs](https://docs.frankframework.org/docs/manual/deployment/authorization/).
 ## 
 ## To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 ##
-## Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
+## Refer to the [Frank!Framework Docs](https://docs.frankframework.org/) for more information.
 ## @descriptionEnd
 
 ## @param environmentVariables [object] Set environment variables for the Frank!Framework
@@ -156,7 +156,7 @@ envFrom: [ ]
 ## This is useful if you want to add local users or resources to the Frank!Framework.
 ##
 ## ⚠️ **While it can be useful to generate secrets from the `values.yaml`, this is not considered safe and only intended for testing purposes. Production environments should use the `extraVolumes` to mount secrets.**
-## ℹ️ **Credentials and AuthAliases that are needed by the Frank!Framework are picked up automatically from Kubernetes Secrets. Read more about it [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory)**
+## ℹ️ **Credentials and AuthAliases that are needed by the Frank!Framework are picked up automatically from Kubernetes Secrets. Read more about it [in the FF! Reference](https://reference.frankframework.org/#/credential-providers/KubernetesCredentialFactory)**
 ##
 ## Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
 ## With one secret, the subPath and mountPath are not needed. And it would be possible to implement items, like this:

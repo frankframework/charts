@@ -179,7 +179,7 @@ Otherwise, they can be found at `/usr/local/tomcat/logs`
 
 The Frank!Framework will start with different settings enabled, depending on what DTAP stage is configured. 
 
-For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
+For more information about DTAP stages read: https://docs.frankframework.org/docs/manual/deployment/dtap/
 
 ## Notable changes
 

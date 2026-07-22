@@ -79,7 +79,7 @@ helm delete my-frankframework
 
 The Frank!Framework will start with different settings enabled, depending on what DTAP stage is configured. Like if the Ladybug should be disabled, or if authentication should be enabled.
 
-For more information about DTAP stages read: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html
+For more information about DTAP stages read: https://docs.frankframework.org/docs/manual/deployment/dtap/
 
 ### Version tag
 
@@ -98,15 +98,15 @@ But it can be overridden with the `application.security.console.authentication.t
 If the separate console is enabled, the console will **not** use the same authentication as the Frank!Framework. 
 And always needs to be configured.
 
-Read more about configuring the authentication in the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/deploying/security.html).
+Read more about configuring the authentication in the [Frank!Framework Docs](https://docs.frankframework.org/docs/manual/deployment/authorization/#security-overview).
 
 ### Credentials and AuthAlias
 
 To configure credentials or "AuthAliases" for the Frank!Framework, it is recommended to use Kubernetes Secrets.
 The Frank!Framework will automatically pick up the secrets and make them available as AuthAliases.
 
-Read more about the Kubernetes Credential Provider [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
-For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
+Read more about the Kubernetes Credential Provider [in the FF! Reference](https://reference.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
+For more information about credentials, see the [documentation](https://docs.frankframework.org/docs/manual/deployment/credentials/).
 
 ### Ladybug Database
 
@@ -171,7 +171,7 @@ You can also configure the name of the instance. And what configurations to load
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
 | `application.dtap.stage`           | (Required) Set the `DTAP` stage. Options: `LOC`, `DEV`, `TST`, `ACC`, `PRD`                                                                                           | `""`  |
 | `application.dtap.stage`           | The DTAP stage is used to enable and disable features in the Frank!Framework.                                                                                         |       |
-| `application.dtap.stage`           | ref: https://frank-manual.readthedocs.io/en/latest/deploying/dtapAndProperties.html                                                                                   |       |
+| `application.dtap.stage`           | ref: https://docs.frankframework.org/docs/manual/deployment/dtap/                                                                                   |       |
 | `application.dtap.side`            | Set the `DTAP` side of where the instance is running, and for sideSpecific properties                                                                                 | `""`  |
 | `application.instance.name`        | Set the name of the Frank! instance (default is the `fullname`)                                                                                                       | `""`  |
 | `application.instance.name`        | Keep in mind that the name is used for the default datasource.                                                                                                        |       |
@@ -206,14 +206,14 @@ It is possible to add environment variables with the `.Values.environmentVariabl
 To configure credentials or "AuthAliases" for the Frank!Framework, it is recommended to use Kubernetes Secrets.
 The Frank!Framework will automatically pick up the secrets and make them available as AuthAliases.
 
-Read more about it [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
-For more information about credentials, see the [documentation](https://frank-manual.readthedocs.io/en/latest/deploying/credentials.html).
+Read more about it [in the FF! Reference](https://reference.frankframework.org/#/credential-providers/KubernetesCredentialFactory).
+For more information about credentials, see the [documentation](https://docs.frankframework.org/docs/manual/deployment/credentials/).
 
-To disable or configure authentication for the console, please read the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/advancedDevelopment/authorization/consoleAndLadybug.html).
+To disable or configure authentication for the console, please read the [Frank!Framework Docs](https://docs.frankframework.org/docs/manual/deployment/authorization/).
 
 To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 
-Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
+Refer to the [Frank!Framework Docs](https://docs.frankframework.org/) for more information.
 
 | Name                                                  | Description                                                              | Value                       |
 | ----------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------- |
@@ -231,7 +231,7 @@ The Frank!Framework chart allows you to generate configmaps and secrets from val
 This is useful if you want to add local users or resources to the Frank!Framework.
 
 ⚠️ **While it can be useful to generate secrets from the `values.yaml`, this is not considered safe and only intended for testing purposes. Production environments should use the `extraVolumes` to mount secrets.**
-ℹ️ **Credentials and AuthAliases that are needed by the Frank!Framework are picked up automatically from Kubernetes Secrets. Read more about it [in the FF! Doc](https://frankdoc.frankframework.org/#/credential-providers/KubernetesCredentialFactory)**
+ℹ️ **Credentials and AuthAliases that are needed by the Frank!Framework are picked up automatically from Kubernetes Secrets. Read more about it [in the FF! Reference](https://reference.frankframework.org/#/credential-providers/KubernetesCredentialFactory)**
 
 Be sure to set a subPath and a mountPath if you want to avoid conflicts and use multiple secrets.
 With one secret, the subPath and mountPath are not needed. And it would be possible to implement items, like this:
@@ -462,7 +462,7 @@ Also added `.Values.envFrom` to allow for the mounting of environment variables 
 
 Removed `.Values.application.security.http.authentication: "false"`. This is a more secure default. 
 The `dtap.stage` will determine if authentication is enabled or not. It is possible to override this with environment variables.
-Read mote in the [Frank!Framework Manual](https://frank-manual.readthedocs.io/en/latest/deploying/security.html).
+Read mote in the [Frank!Framework Docs](https://docs.frankframework.org/docs/manual/deployment/authorization/#security-overview).
 
 ### 0.4.0
 

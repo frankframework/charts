@@ -82,7 +82,7 @@ environmentVariables:
 
 To fine tune memory refer to the [Oracle documentation](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#BABDJJFI).
 
-Refer to the [Frank!Framework Manual](https://frank-manual.readthedocs.io/) for more information.
+Refer to the [Frank!Framework Docs](https://docs.frankframework.org/) for more information.
 
 | Name                                          | Description                                                                                           | Value                       |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------- |
