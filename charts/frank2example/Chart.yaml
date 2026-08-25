@@ -11,5 +11,5 @@ keywords:
 
 dependencies:
   - name: frankframework
-    version: 0.7.3
+    version: 0.7.5
     repository: file://../frankframework

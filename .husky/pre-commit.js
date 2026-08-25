@@ -2,11 +2,14 @@
 
 const {execSync} = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
+const CHART_FILENAME = "Chart.yaml";
+const LOCAL_REPO_PREFIX = "file://";
 const CHART_VALUES_FILENAME = "values.yaml";
 const CHART_README_FILENAME = "README.md";
 const CHART_VALUES_SCHEMA_FILENAME = "values.schema.json";
-const README_GENERATOR_CMD = "npx readme-generator";
+const README_GENERATOR_CMD = "pnpm exec readme-generator";
 
 function getChangedFiles() {
     return execSync("git diff --cached --name-only --diff-filter=ACMR", {encoding: "utf-8"})
@@ -50,6 +53,121 @@ function updateChartDependencies(folder) {
     runCommand(cmd, args, errorMessage);
 }
 
+function readChartField(chartDir, field) {
+    const chartYamlPath = `${chartDir}/${CHART_FILENAME}`;
+    if (!fs.existsSync(chartYamlPath)) {
+        return null;
+    }
+    const content = fs.readFileSync(chartYamlPath, "utf-8");
+    const match = content.match(new RegExp(`^${field}:\\s*["']?([^"'\\s]+)["']?\\s*$`, "m"));
+    return match ? match[1] : null;
+}
+
+function parseChartDependencies(chartDir) {
+    const chartYamlPath = `${chartDir}/${CHART_FILENAME}`;
+    if (!fs.existsSync(chartYamlPath)) {
+        return [];
+    }
+    const lines = fs.readFileSync(chartYamlPath, "utf-8").split("\n");
+    const deps = [];
+    let inDeps = false;
+    let current = null;
+    for (const raw of lines) {
+        const line = raw.replace(/\s+$/, "");
+        if (/^dependencies:\s*$/.test(line)) {
+            inDeps = true;
+            continue;
+        }
+        if (!inDeps) {
+            continue;
+        }
+        // A non-indented, non-empty line ends the dependencies block
+        if (line !== "" && /^\S/.test(line)) {
+            break;
+        }
+        const nameMatch = line.match(/^\s*-\s*name:\s*(\S+)/);
+        if (nameMatch) {
+            if (current) deps.push(current);
+            current = {name: nameMatch[1]};
+            continue;
+        }
+        if (!current) {
+            continue;
+        }
+        const versionMatch = line.match(/^\s*version:\s*["']?([^"'\s]+)["']?/);
+        if (versionMatch) {
+            current.version = versionMatch[1];
+            continue;
+        }
+        const repositoryMatch = line.match(/^\s*repository:\s*(\S+)/);
+        if (repositoryMatch) {
+            current.repository = repositoryMatch[1];
+        }
+    }
+    if (current) deps.push(current);
+    return deps;
+}
+
+function localDependencies(chartDir) {
+    return parseChartDependencies(chartDir).filter(
+        (dep) => dep.repository && dep.repository.startsWith(LOCAL_REPO_PREFIX)
+    );
+}
+
+function resolveLocalDependencyDir(parentFolder, dependency) {
+    const relativePath = dependency.repository.slice(LOCAL_REPO_PREFIX.length);
+    return path.resolve(parentFolder, relativePath);
+}
+
+function syncLocalDependencyVersion(parentFolder, dependency, dependencyDir) {
+    const actualVersion = readChartField(dependencyDir, "version");
+    if (!actualVersion || actualVersion === dependency.version) {
+        return;
+    }
+    const chartYamlPath = `${parentFolder}/${CHART_FILENAME}`;
+    const lines = fs.readFileSync(chartYamlPath, "utf-8").split("\n");
+    let inTarget = false;
+    let changed = false;
+    for (let i = 0; i < lines.length; i++) {
+        const nameMatch = lines[i].match(/^(\s*-\s*name:\s*)(\S+)/);
+        if (nameMatch) {
+            inTarget = nameMatch[2] === dependency.name;
+            continue;
+        }
+        if (inTarget) {
+            const versionMatch = lines[i].match(/^(\s*version:\s*)["']?[^"'\s]+["']?\s*$/);
+            if (versionMatch) {
+                lines[i] = `${versionMatch[1]}${actualVersion}`;
+                inTarget = false;
+                changed = true;
+            }
+        }
+    }
+    if (changed) {
+        fs.writeFileSync(chartYamlPath, lines.join("\n"));
+        console.log(
+            `   ↳ Synced ${dependency.name} version ${dependency.version} → ${actualVersion} in ${chartYamlPath}`
+        );
+        // Chart files live under a broadly-ignored path (**/charts/*), so force-add
+        runCommand("git", `add -f ${chartYamlPath}`, `Error staging ${chartYamlPath}`);
+    }
+}
+
+function buildLocalDependencies(folder) {
+    for (const dependency of localDependencies(folder)) {
+        const dependencyDir = resolveLocalDependencyDir(folder, dependency);
+        // Build nested local dependencies bottom-up first
+        buildLocalDependencies(dependencyDir);
+        // Keep the version constraint in sync with the local chart's actual version
+        syncLocalDependencyVersion(folder, dependency, dependencyDir);
+        // Package the dependency's own local sub-charts so it is complete for this parent
+        if (localDependencies(dependencyDir).length > 0) {
+            console.log(`🏗️  Chart ${dependencyDir}: Building local dependency`);
+            updateChartDependencies(dependencyDir);
+        }
+    }
+}
+
 function generateChartReadmeAndSchema(folder) {
     console.log(`📝 Chart ${folder}: Generating readme and schema`);
     const cmd = README_GENERATOR_CMD;
@@ -72,6 +190,7 @@ function main() {
     const changedFolders = getChangedFolders(changedFiles);
     for (const folder of changedFolders) {
         if (isChartFolder(folder)) {
+            buildLocalDependencies(folder);
             updateChartDependencies(folder);
             generateChartReadmeAndSchema(folder);
             lintChartFolder(folder);
