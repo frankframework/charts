@@ -7,6 +7,7 @@ metadata:
   labels:
     {{- include "frankframework.labels" . | nindent 4 }}
 spec:
+  publishNotReadyAddresses: true
   type: ClusterIP
   clusterIP: None
   selector:
