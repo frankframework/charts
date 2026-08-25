@@ -749,6 +749,24 @@ entries:
   frank-console:
   - apiVersion: v2
     appVersion: 10.0.0-SNAPSHOT
+    created: "2026-08-25T12:05:51.988279971Z"
+    description: The Frank!Framework console is a web application that allows you
+      to manage multiple instances of Frank!Framework from a single console.
+    digest: 90f56446bfb4459807a524fcc1a82f83299553bbfa42da79fd3b7b7bd8064d8f
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank-console/icon.svg
+    keywords:
+    - frankframework
+    - testing
+    - console
+    - dashboard
+    name: frank-console
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank-console-0.7.1/frank-console-0.7.1.tgz
+    version: 0.7.1
+  - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT
     created: "2026-01-12T09:36:10.621747257Z"
     description: The Frank!Framework console is a web application that allows you
       to manage multiple instances of Frank!Framework from a single console.
@@ -1564,6 +1582,29 @@ entries:
   frankframework:
   - apiVersion: v2
     appVersion: 10.0.0-SNAPSHOT
+    created: "2026-08-25T12:05:52.315327869Z"
+    dependencies:
+    - alias: console
+      condition: console.enabled
+      name: frank-console
+      repository: file://../frank-console
+      version: 0.7.1
+    description: A Helm chart for running the Frank!Framework on Kubernetes
+    digest: a99177fca13ee04fad6b87c514bb4063c4bf64843d95515c3f6b0671d9220ebc
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frankframework/icon.svg
+    keywords:
+    - frankframework
+    - integration
+    - testing
+    - automation
+    name: frankframework
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frankframework-0.7.5/frankframework-0.7.5.tgz
+    version: 0.7.5
+  - apiVersion: v2
+    appVersion: 10.0.0-SNAPSHOT
     created: "2026-01-28T14:54:53.619320619Z"
     dependencies:
     - alias: console
@@ -2301,4 +2342,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2026-01-28T14:54:53.619687554Z"
+generated: "2026-08-25T12:05:52.315701583Z"
