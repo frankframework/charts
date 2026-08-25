@@ -265,6 +265,23 @@ entries:
     version: 0.1.5
   ff-test:
   - apiVersion: v2
+    created: "2026-08-25T12:17:06.566152148Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.5
+    description: A Helm chart for testing the Frank!Framework on Kubernetes
+    digest: e2e5b70f2005b919f7a27de0413141da7f7be1a41b6596166aeafbe38b33f7d2
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/ff-test/icon.svg
+    keywords:
+    - e2e
+    name: ff-test
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/ff-test-0.7.6/ff-test-0.7.6.tgz
+    version: 0.7.6
+  - apiVersion: v2
     created: "2026-01-15T13:54:44.124949617Z"
     dependencies:
     - name: frankframework
@@ -982,6 +999,23 @@ entries:
     - https://github.com/frankframework/charts/releases/download/frank-console-0.1.0/frank-console-0.1.0.tgz
     version: 0.1.0
   frank2example:
+  - apiVersion: v2
+    created: "2026-08-25T12:17:06.838726708Z"
+    dependencies:
+    - name: frankframework
+      repository: file://../frankframework
+      version: 0.7.5
+    description: A Helm chart for running Frank2Example on Kubernetes
+    digest: dd10bead70c765654cfa66ec742cdc6f9c2f783b34f78e9ec81a32b7091d84e5
+    home: https://frankframework.org
+    icon: https://raw.githubusercontent.com/frankframework/charts/master/charts/frank2example/icon.svg
+    keywords:
+    - demo
+    name: frank2example
+    type: application
+    urls:
+    - https://github.com/frankframework/charts/releases/download/frank2example-0.7.4/frank2example-0.7.4.tgz
+    version: 0.7.4
   - apiVersion: v2
     created: "2026-01-15T13:54:44.30084309Z"
     dependencies:
@@ -2342,4 +2376,4 @@ entries:
     urls:
     - https://github.com/frankframework/charts/releases/download/frankframework-0.2.10/frankframework-0.2.10.tgz
     version: 0.2.10
-generated: "2026-08-25T12:05:52.315701583Z"
+generated: "2026-08-25T12:17:06.839115924Z"
